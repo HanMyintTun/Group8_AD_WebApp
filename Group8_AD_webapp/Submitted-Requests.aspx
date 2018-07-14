@@ -77,9 +77,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
+                      
                     <div class="panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size:32px;"><strong>&times;</strong></span>
+                        </button>
                         <h3 class="detail-subtitle">Submitted Request Details</h3>
-
+                      
                     </div>
                     <div class="panel-body">
                         <div class="detail-info">
