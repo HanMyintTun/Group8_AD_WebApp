@@ -13,5 +13,14 @@ namespace Group8_AD_webapp.DepartmentHead
         {
 
         }
+
+        protected void RemoveDelegate(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "removewarning();", true);
+        }
+        protected void AddDelegate(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successalert();", true);
+        }
     }
 }
