@@ -1,0 +1,186 @@
+﻿html, body {
+    overflow-x: hidden;
+}
+
+
+
+@media only screen and (max-width: 576px) {
+    #main{
+        max-width: 411px;
+    }
+
+    .form-group{
+        margin: 0 20px !important;
+    }
+    .btnright {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .toast-bottom-center {
+        bottom: 65px !important;
+        left: 25%;
+    }
+}
+
+#main {
+    padding-top: 65px;
+}
+
+@media only screen and (max-width : 768px) {
+    .headtext, .row, .dpager {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+    #main {
+        padding-left: 300px;
+    }
+}
+
+.toast-bottom-center {
+    bottom: 65px !important;
+    left: 40%;
+}
+
+#toast-container > .toast-success {
+    background-color: var(--color-text) !important;
+    border-radius: 30px !important;
+}
+
+#btnSearch {
+    background-color: var(--color-btn-success);
+}
+
+    #btnSearch:hover {
+        background-color: var(--color-btn-success-hover);
+    }
+
+.button {
+    font-weight: 700;
+    font-size: 1.6rem !important;
+    font-family: var(--font-btn);
+    border-radius: 15px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.listbutton {
+    border: 1px #eee solid;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 2rem;
+    color: var(--color-text);
+    margin: 0px;
+}
+
+.listbutton:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+.listbutton a {
+    text-decoration: none;
+}
+
+.listbutton.active {
+    color: var(--color-primary);
+}
+
+.formstyle {
+    /*text-align: center;*/
+}
+
+.form-control {
+    height: calc(3.2rem + 2px) !important;
+    font-size: 1.6rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-family: var(--font-text);
+}
+
+.titletext {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 3.2rem;
+}
+
+table.borderless td, table.borderless th {
+    border: none !important;
+}
+
+.product-image {
+    /*background-color: var(--color-accent);*/
+    width: 100%;
+    min-width: 100px;
+    min-height: 100px;
+    background-image: url(../images/pencils.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.product-order {
+    height: 100%;
+}
+
+.product-desc {
+    font-weight: 700;
+}
+
+.product-wrapper {
+    max-width: 400px;
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    font-size: 1.6rem;
+    margin: 10px;
+}
+
+.product-stock {
+    font-size: 1.4rem;
+}
+
+.product-price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: right;
+    font-family: var(--font-headline);
+    color: var(--color-primary);
+}
+
+.product-uom {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+.td-add {
+    min-width: 80px;
+    text-align: right;
+}
+
+.btn-add {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+.btn-add:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--color-btn-primary-hover)
+}
+
+.dpager{
+    margin-bottom: 10px;
+}
