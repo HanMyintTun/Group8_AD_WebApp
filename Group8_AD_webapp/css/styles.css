@@ -507,7 +507,7 @@ a.label:hover, a.label:focus {
 }
 
 .panel-primary > .panel-heading {
-    background-color: #30a5ff;
+    background-color: #1970B2;
     color: #fff;
     border: none;
 }
@@ -1435,7 +1435,23 @@ p.back-link {
 .align-bottom-left {
     display: inline;
 }
-
+.box-2nd-child{
+    margin-top:20px;
+}
+.combo-a {
+    height: 46px;
+}
+.btn-remove{
+    height: 45px;
+    width: 48px;
+}
+.delegate-name {
+    float: right;
+    padding-top: 10px;
+}
+.panel {
+    box-shadow: 1px 1px 1px rgba(0,0,0,.05);
+}
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -1451,5 +1467,8 @@ p.back-link {
 
     .txt-area {
         width: 100%;
+    }
+    .delegate-name {
+        float: none;
     }
 }
