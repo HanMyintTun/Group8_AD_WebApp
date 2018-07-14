@@ -77,7 +77,7 @@
 
                         </li>
                         <li class="dropdown profile-dropdown"><a runat="server" class="dropdown-toggle profile-wrap count-info" data-toggle="dropdown" href="#">
-                            <img class="img-avatar desktop" src="../img/profile.png">
+                            <img class="img-avatar desktop" src="./img/profile.png">
                         </a>
                             <ul class="dropdown-menu dropdown-alerts" style="width: 50%; margin-top: 20px">
                                 <li><a runat="server" class="dropdown-item" href="#">
