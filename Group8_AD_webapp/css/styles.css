@@ -1422,6 +1422,7 @@ p.back-link {
 
 .action-btn {
     float: right;
+    margin-top:10%;
 }
 
     .action-btn .btn {
@@ -1452,6 +1453,12 @@ p.back-link {
 .panel {
     box-shadow: 1px 1px 1px rgba(0,0,0,.05);
 }
+.btn-msize {
+    width: 100px;
+}
+.page-header {
+    border-bottom: 0px;
+}
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -1470,5 +1477,8 @@ p.back-link {
     }
     .delegate-name {
         float: none;
+    }
+    .action-btn {
+        margin-top: 0px;
     }
 }

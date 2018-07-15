@@ -15,7 +15,7 @@
 
                         <asp:ListView runat="server" ID="list">
                             <LayoutTemplate>
-                                <table id="table_id" class="display">
+                                <table id="table_id" class="display nowrap dataTable collapsed dtr-inline" style="width: 100%;" role="grid" aria-describedby="example_info">
 
                                     <thead>
                                         <tr id="Tr1" runat="server">

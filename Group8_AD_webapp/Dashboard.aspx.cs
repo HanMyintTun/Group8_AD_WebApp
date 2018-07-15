@@ -22,5 +22,9 @@ namespace Group8_AD_webapp.DepartmentHead
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successalert();", true);
         }
+        protected void AddRep(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successalertrep();", true);
+        }
     }
 }

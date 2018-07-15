@@ -14,7 +14,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dashboard</h1>
+                <h3 class="page-header">Dashboard</h3>
             </div>
         </div>
         <!--/.row-->
@@ -97,21 +97,23 @@
                                             <asp:Label ID="Label1" runat="server" class="delegate-name" Text="Current Delegate :"></asp:Label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
 
-                                        <div class="form-group" style="display: inline">
+                                        <div class="form-group">
                                             <div style="display: inline-block">
                                                 <asp:TextBox CssClass="form-control" ID="txtCurrentDelegate" runat="server" Text="" ReadOnly="true"> Han Myint Tun</asp:TextBox>
                                             </div>
-
-                                            <div style="display: inline-block">
-                                                <button runat="server" id="btnRemoveDelegate" class="btn btn-danger btn-remove" onserverclick="RemoveDelegate">
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-3">
 
+                                        <div class="form-group">
+                                            <button runat="server" id="btnRemoveDelegate" class="btn btn-danger btn-remove" onserverclick="RemoveDelegate">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
 
                                 </div>
                                 <div class="box-2nd-child row">
@@ -197,7 +199,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <button runat="server" id="Button1" class="btn btn-success btn-remove" onserverclick="AddDelegate">
+                                    <button runat="server" id="btnAddRep" class="btn btn-success btn-remove" onserverclick="AddRep">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -206,8 +208,9 @@
                     </div>
                 </div>
 
-
+                </div>
             </div>
+        </div>
             <!-- /.row -->
             <script>
                 window.onload = function () {
@@ -223,17 +226,17 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     var dp1 = $('#<%=txtEndDate.ClientID%>');
-                dp1.datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    format: "dd/mm/yyyy",
-                    language: "tr"
-                }).on('changeDate', function (ev) {
-                    $(this).blur();
-                    $(this).blur();
-                    $(this).datepicker('hide');
-                });
-                var dp = $('#<%=txtStartDate.ClientID%>');
+                    dp1.datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        format: "dd/mm/yyyy",
+                        language: "tr"
+                    }).on('changeDate', function (ev) {
+                        $(this).blur();
+                        $(this).blur();
+                        $(this).datepicker('hide');
+                    });
+                    var dp = $('#<%=txtStartDate.ClientID%>');
 
                     dp.datepicker({
                         changeMonth: true,
@@ -271,6 +274,9 @@
 
                 function successalert() {
                     swal("Delegate Added!", "Employee 2 is added", "success");
+                }
+                function successalertrep() {
+                    swal("Representative Added!", "Employee 2 is added", "success");
                 }
             </script>
 </asp:Content>
