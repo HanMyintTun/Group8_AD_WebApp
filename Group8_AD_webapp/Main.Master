@@ -43,6 +43,10 @@
                     </button>
                     <a class="navbar-brand desktop" runat="server" href="#"><span>Logic</span>University</a>
                     <a class="navbar-brand mobile" runat="server" href="#"><span>L</span>U</a>
+                     <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                                <span>Toggle Sidebar</span>
+                            </button>
                     <ul class="nav navbar-top-links navbar-right">
 
                         <li class="dropdown"><a runat="server" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -98,10 +102,11 @@
         </nav>
         <!--/.sidebar-->
         <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-
+            
             <div class="divider"></div>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
+                    <nav class="sidebar">
                     <ul class="nav menu">
                         <li class=""><a runat="server" href="Dashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
 
@@ -158,6 +163,7 @@
                         </li>
 
                     </ul>
+                        </nav>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
@@ -187,6 +193,13 @@
 
         });
     </script>
+    <script>$(document).ready(function() {
+  $("#sidebarCollapse").on("click", function() {
+    $(".sidebar").toggleClass("active");
+    $(this).toggleClass("active");
+  });
+});
+</script>
 
 </body>
 </html>
