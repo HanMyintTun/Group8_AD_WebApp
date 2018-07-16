@@ -30,5 +30,10 @@ namespace Group8_AD_webapp
             Price = price;
             Uom = uom;
         }
+
+        public Item()
+        {
+
+        }
     }
 }

@@ -36,6 +36,8 @@
         padding-left: 30px;
         padding-right: 30px;
     }
+
+
 }
 
 @media only screen and (min-width : 768px) {
@@ -44,10 +46,11 @@
     }
 }
 
-.toast-bottom-right {
-    bottom: 65px !important;
-    left: 40%;
-}
+    @media only screen and (min-width : 1200px) {
+        .viewbmkarea {
+            display: none;
+        }
+    }
 
 #toast-container > .toast-success {
     background-color: var(--color-text) !important;
@@ -61,6 +64,27 @@
     #btnSearch:hover {
         background-color: var(--color-btn-success-hover);
     }
+
+.btn-warning {
+    background-color: var(--color-btn-warning) !important;
+}
+
+.btn-warning:hover {
+    background-color: var(--color-btn-warning-hover) !important;
+}
+
+.btn-back{
+    background-color: #fff;
+    font-family: var(--font-btn);
+    border: 1px solid var(--color-btn-primary);
+    color: var(--color-btn-primary);
+    font-size: 1.6rem;
+}
+
+.btn-back:hover{
+    color: #fff;
+    background-color: var(--color-btn-primary);
+}
 
 .button {
     font-weight: 700;
@@ -132,9 +156,9 @@ table.borderless td, table.borderless th {
 .product-image {
     /*background-color: var(--color-accent);*/
     width: 100%;
-    min-width: 100px;
+    width: 120px;
     min-height: 100px;
-    background-image: url(../images/pencils.png);
+    /*background-image: url(../images/pencils.png);*/
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -148,7 +172,7 @@ table.borderless td, table.borderless th {
 }
 
 .product-wrapper {
-    max-width: 400px;
+    width: 400px;
     border: 1px solid var(--color-primary);
     border-radius: 15px;
     font-size: 1.6rem;
@@ -228,19 +252,20 @@ table.borderless td, table.borderless th {
 .btn-bookmark {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-btn-primary);
-    background-color: #fff;
-    border: 1px solid var(--color-btn-primary);
+    color: #fff;
+    background-color: var(--color-btn-warning);
+    border: 1px solid var(--color-btn-warning);
+    margin-right: 5px;
 }
 
 .btn-bookmark:hover {
     text-decoration: none;
     color: #fff;
-    background-color: var(--color-btn-primary);
+    background-color: var(--color-btn-warning-hover);
 }
 
 .btn-cancel {
-    margin-right: 30px;
+    margin-right: 10px;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-text);
@@ -279,4 +304,8 @@ table.borderless td, table.borderless th {
     padding-left: 10px;
 }
 
+.bookmarkarea{
+    position:absolute;
+    margin-left: 15px;
+}
 

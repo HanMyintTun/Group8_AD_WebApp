@@ -40,6 +40,15 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
+        /// udpCatalogue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpCatalogue;
+        
+        /// <summary>
         /// lblCatTitle control.
         /// </summary>
         /// <remarks>
@@ -65,15 +74,6 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnList;
-        
-        /// <summary>
-        /// udpCatalogue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpCatalogue;
         
         /// <summary>
         /// showlist control.

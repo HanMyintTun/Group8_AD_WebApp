@@ -12,7 +12,7 @@ namespace Group8_AD_webapp
         List<Item> cartList = new List<Item>();
         List<Item> bookmarkList = new List<Item>();
         int reqid;
-        string status;
+        string status ="";
         public bool IsEditable = false;
         public bool IsNotSubmitted = false;
         public bool IsApproved = false;
@@ -71,12 +71,12 @@ namespace Group8_AD_webapp
                 }
                 if (!IsEditable)
                 {
-                    lstCart.FindControl("thdBookmark").Visible = false;
                     lstCart.FindControl("thdRemove").Visible = false;
                 }
                 if (!IsApproved)
                 {
                     lstCart.FindControl("thdFulfQty").Visible = false;
+                    lstCart.FindControl("thdBalQty").Visible = false;
                     lstCart.FindControl("thdFulf").Visible = false;
                 }
             }

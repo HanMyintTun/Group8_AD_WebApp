@@ -1,33 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Catalogue.aspx.cs" Inherits="Group8_AD_webapp.Catalogue" %>
 <asp:Content ID="cphHead" ContentPlaceHolderID="cphHead" runat="server">
     <link href="../css/employee-style.css" rel="stylesheet" />
+     <script>
+         $(document).on('keyup', '.txtSearch', function () {
+            $(".txtSearch").blur();
+            $(".txtSearch").focus();
+        });
+    </script>
 </asp:Content>
 
 
 
 <asp:Content ID="cphBody" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
-
-
-    <div class="form-group form-inline formstyle m-2 text-center col-12">
-        <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True">
+     <div class="form-group form-inline formstyle m-2 text-center col-12">
+        <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="Select All" value="0" />
         </asp:DropDownList>
-        <asp:TextBox ID="txtSearch" CssClass="form-control mx-2" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
 
-        <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
     </div>
-
-        <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
-        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
-        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
-
+        
         <asp:UpdatePanel ID="udpCatalogue" runat="server">
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="txtSearch" />
+        </Triggers>
         <ContentTemplate>
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
           <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />--%>
+
+        <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
+        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
+        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
+
+
     <div id="showlist" class="showlist" runat="server">
     <div class="dpager col-12"><br />
     <asp:DataPager ID="dpgGrdCatalogue" runat="server" PageSize="8" PagedControlID="grdCatalogue" OnPreRender="ListPager_PreRender">
@@ -44,7 +53,11 @@
                <div class="product-wrapper col-sm-11 col-md-6"> 
                    <table class="table borderless">
                     <tr>
-                      <td rowspan="2"><div class="product-image col-4"></div></td> 
+                      <td rowspan="2">
+                          <!--<div class="bookmarkarea btn btn-primary"><i class="fa fa-bookmark"></i> </div> -->
+                          <div class="product-image col-4"><img src="../images/pencils.png" class="img-responsive">
+                          </div><asp:LinkButton ID="btnBookmark" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton>
+                      </td> 
                       <td rowspan="2"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>' Visible="False" />
                         <span class="product-desc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></span><br />
                         <span class="product-stock"><asp:Label ID="lblBalance" runat="server" Text='<%# Eval("Balance") %>' /> in stock</span></td>
