@@ -57,15 +57,14 @@ namespace Group8_AD_webapp
 
         protected void DoSearch()
         {
+            items = new List<Item>();
             if (Request.QueryString["s"] == "1")
             {
                 lblCatTitle.Text = "Frequently Ordered Items";
                 // Insert method for finding frequent items
-                items = new List<Item>();
                 items.Add(new Item("A001", "Pen", "Kittens", 50, 1.02, "pack of 12"));
                 items.Add(new Item("B053", "Exercise", "Puppies", 100, 1.23, "each"));
                 BindGrids();
-                Session["searchstatus"] = null;
             }
             else if (Request.QueryString["s"] == "2")
             {
@@ -75,7 +74,6 @@ namespace Group8_AD_webapp
                 //items.Add(new Item("A001", "Pen", "Kittens", 50, 1.02, "pack of 12"));
                 //items.Add(new Item("B053", "Exercise", "Puppies", 100, 1.23, "each"));
                 BindGrids();
-                Session["searchstatus"] = null;
             }
             else 
             {
@@ -83,7 +81,6 @@ namespace Group8_AD_webapp
                 // Display all
                 AddItems();
                 BindGrids();
-                Session["searchstatus"] = null;
             }
         }
 
@@ -127,6 +124,18 @@ namespace Group8_AD_webapp
             grdCatalogue.DataBind();
         }
 
+        protected void btnBookmark_Click(object sender, EventArgs e)
+        {
+            var btn = (LinkButton)sender;
+            var item = (ListViewItem)btn.NamingContainer;
+            Label lblItemCode = (Label)item.FindControl("lblItemCode");
+            Label lblDescription = (Label)item.FindControl("lblDescription");
+            string description = lblDescription.Text;
+
+            Main master = (Main)this.Master;
+            master.ShowToastr(this, String.Format("{0} Added to Bookmarks", description), "Item Added Successfully", "success");
+        }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -144,7 +153,7 @@ namespace Group8_AD_webapp
         protected void Button1_Click(object sender, EventArgs e)
         {
             Main master = (Main)this.Master;
-            master.ShowToastr(this, "", "Cylons Rule Humans Drool", "success");
+            master.ShowToastr(this, "", "Test Message", "success");
         }
         protected void btnGrid_Click(object sender, EventArgs e)
         {
@@ -163,9 +172,28 @@ namespace Group8_AD_webapp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            GetSearchQuery();
+            DoSearch();
+        }
+
+        protected void GetSearchQuery()
+        {
             Session["cataloguequery"] = txtSearch.Text;
             Session["querycategory"] = ddlCategory.Text;
-            Session["searchstatus"] = "search";
+        }
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetSearchQuery();
+            DoSearch();
+        }
+
+        protected void txtSearch_Changed(object sender, EventArgs e)
+        {
+            Main master = (Main)this.Master;
+            master.ShowToastr(this, "", "Cat: " + ddlCategory.Text + " Query: " + txtSearch.Text, "success");
+
+            GetSearchQuery();
             DoSearch();
         }
     }

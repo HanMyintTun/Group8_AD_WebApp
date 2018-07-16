@@ -14,13 +14,16 @@ namespace Group8_AD_webapp.Employee
         {
             if (!IsPostBack)
             {
-                requests.Add(new Employee.Request(1, "2018-07-12", "Unsubmitted"));
-                requests.Add(new Employee.Request(2, "2018-07-13", "Submitted"));
-                requests.Add(new Employee.Request(3, "2018-07-14", "Approved"));
-                requests.Add(new Employee.Request(4, "2018-07-15", "Fulfilled"));
+                requests.Add(new Request(0, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Bookmarked"));
+                requests.Add(new Request(1, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Unsubmitted"));
+                requests.Add(new Request(2, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Submitted"));
+                requests.Add(new Request(3, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Approved"));
+                requests.Add(new Request(4, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Fulfilled"));
+                requests.Add(new Request(5, 3, 1, "", new DateTime(2018, 07, 12), new DateTime(2018, 07, 15), "Cancelled"));
                 lstRequests.DataSource = requests;
                 lstRequests.DataBind();
             }
+
         }
     }
 }
