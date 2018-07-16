@@ -147,10 +147,13 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\datepicker.css" />
     <Content Include="css\datepicker3.css" />
+    <Content Include="css\employee-style.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="Dashboard.aspx" />
+    <Content Include="Employee\Catalogue.aspx" />
+    <Content Include="Employee\RequestHistory.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -175,6 +178,7 @@
     <Content Include="css\bootstrap-theme.min.css.map" />
     <Content Include="css\bootstrap.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="Employee\RequestList.aspx" />
     <Content Include="sass\.sass-cache\deff34d1f5b7167181b556002c25068d6adc024d\styles.scssc" />
     <Content Include="sass\styles.scss" />
     <Content Include="Main.Master" />
@@ -263,6 +267,23 @@
     <Compile Include="Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Employee\CartItem.cs" />
+    <Compile Include="Employee\Catalogue.aspx.cs">
+      <DependentUpon>Catalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\Catalogue.aspx.designer.cs">
+      <DependentUpon>Catalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\Item.cs" />
+    <Compile Include="Employee\Request.cs" />
+    <Compile Include="Employee\RequestHistory.aspx.cs">
+      <DependentUpon>RequestHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\RequestHistory.aspx.designer.cs">
+      <DependentUpon>RequestHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -280,7 +301,15 @@
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
+    <Compile Include="model\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Employee\RequestList.aspx.cs">
+      <DependentUpon>RequestList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\RequestList.aspx.designer.cs">
+      <DependentUpon>RequestList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -17,7 +17,7 @@ namespace Group8_AD_webapp
         public void ShowToastr(object sender, string message, string title, string type)
         {
             ScriptManager.RegisterStartupScript((Page)sender, sender.GetType(), "toastr_message",
-            String.Format("toastr.{0}('{1}', '{2}', {{positionClass: 'toast-bottom-center'}});", type.ToLower(), message, title), true);
+            String.Format("toastr.{0}('{1}', '{2}', {{positionClass: 'toast-bottom-right'}});", type.ToLower(), message, title), true);
         }
     }
 }

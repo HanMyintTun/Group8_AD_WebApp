@@ -28,6 +28,7 @@
 
 #main {
     padding-top: 65px;
+    padding-right: 20px;
 }
 
 @media only screen and (max-width : 768px) {
@@ -43,7 +44,7 @@
     }
 }
 
-.toast-bottom-center {
+.toast-bottom-right {
     bottom: 65px !important;
     left: 40%;
 }
@@ -95,6 +96,7 @@
 
 .formstyle {
     /*text-align: center;*/
+    margin-top: 30px;
 }
 
 .form-control {
@@ -112,6 +114,15 @@
     font-family: var(--font-headline);
     font-weight: 700;
     font-size: 3.2rem;
+    padding-bottom: 20px;
+}
+
+.subtitletext {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-top: 50px;
+    padding-bottom: 20px;
 }
 
 table.borderless td, table.borderless th {
@@ -181,6 +192,91 @@ table.borderless td, table.borderless th {
     background-color: var(--color-btn-primary-hover)
 }
 
+.btn-update {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-btn-success);
+    background-color: #fff;
+    border: 1px solid var(--color-btn-success);
+    margin-top:-2px;
+    margin-bottom: 3px;
+}
+
+.btn-update:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--color-btn-success);
+}
+
+.btn-remove {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-btn-danger);
+}
+
+.btn-fulfilled {
+    font-size: 1.6rem !important;
+    font-weight: 700;
+    color: var(--color-btn-success);
+}
+
+.btn-remove:hover {
+    text-decoration: none;
+    color: var(--color-btn-danger-hover);
+}
+
+.btn-bookmark {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-btn-primary);
+    background-color: #fff;
+    border: 1px solid var(--color-btn-primary);
+}
+
+.btn-bookmark:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--color-btn-primary);
+}
+
+.btn-cancel {
+    margin-right: 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text);
+    background-color: var(--color-btn-warning);
+}
+
+.btn-cancel:hover {
+    text-decoration: none;
+    color: var(--color-text);
+    background-color: var(--color-btn-warning-hover);
+}
+
 .dpager{
     margin-bottom: 10px;
 }
+
+.noresult{
+    font-size: 1.6rem;
+    color: red;
+}
+
+.listview{
+    margin-top: 30px;
+}
+
+.backarea{
+    text-align: left;
+}
+
+.buttonarea{
+    text-align: right;
+    padding-right: 100px;
+}
+
+.spnstyle{
+    padding-left: 10px;
+}
+
+

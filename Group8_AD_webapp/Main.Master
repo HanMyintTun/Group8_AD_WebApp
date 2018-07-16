@@ -125,10 +125,10 @@
                         </a></li>
                     </ul>
                 </li>
-                <li><a runat="server" href="charts.html"><em class="fa fa-cube">&nbsp;</em> Disbursement</a></li>
-                <li class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-2">
-                    <span class="fa fa-pencil">&nbsp;</span>Catalogue <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                </a>
+                <li ><a runat="server" href="charts.html"><em class="fa fa-cube">&nbsp;</em> Disbursement</a></li>
+                <li class="parent "> <a runat="server" data-toggle="collapse" href="#sub-item-2">
+                    <span class="fa fa-pencil">&nbsp;</span>Catalogue<span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                     </a>
                     <ul class="children collapse" id="sub-item-2">
                         <li><a runat="server" class="" href="#">
                             <span class="">&nbsp;&nbsp;</span> Clip
