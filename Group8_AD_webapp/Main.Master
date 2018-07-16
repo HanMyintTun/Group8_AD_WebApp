@@ -107,14 +107,14 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <nav id="sidebar">
-                        <ul class="nav menu">
-                            <li class=""><a runat="server" href="Dashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+                        <ul id="navs" class="nav menu">
+                            <li class=" "><a runat="server" href="Dashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
 
                             <li class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-1">
                                 <span class="fa fa-list-alt">&nbsp;</span> Stationery Request <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
                             </a>
                                 <ul class="children collapse" id="sub-item-1">
-                                    <li><a runat="server" class="" href="Submitted-Requests.aspx">
+                                    <li class=""><a runat="server" class="" href="Submitted-Requests.aspx">
                                         <span class="">&nbsp;&nbsp;</span> Submitted
                                     </a></li>
                                     <li><a runat="server" class="" href="Approved-Requests.aspx">
@@ -190,6 +190,7 @@
             $('#table_id').dataTable({
                 "autoWidth": false
             });
+            
 
         });
     </script>
@@ -200,6 +201,20 @@
             });
         });
     </script>
+    <script>
 
+        var str = location.href.toLowerCase();
+        $("#navs li a").each(function () {
+        if (str.indexOf(this.href.toLowerCase()) > -1) {
+
+            $("li.active").removeClass("active");
+
+            $("#navs li").addClass("active");
+
+        }
+
+    });
+
+    </script>
 </body>
 </html>

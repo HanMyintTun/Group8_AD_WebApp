@@ -18,7 +18,10 @@
     --font-btn: Arial, Helvetica, sans-serif;
     --font-secondary: 'Roboto', sans-serif;
 }
-
+#navs > li.current-menu-item > a,
+#navs > li.current_page_item > a {
+    color: #fe8300;
+}
 html {
     font-size: 62.5%;
 }
