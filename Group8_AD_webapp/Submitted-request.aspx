@@ -15,7 +15,7 @@
 
                         <asp:ListView runat="server" ID="list">
                             <LayoutTemplate>
-                                <table id="table_id" class="display nowrap dataTable collapsed dtr-inline" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                <table id="table_id" class="display nowrap dataTable collapsed dtr-inline" role="grid" aria-describedby="example_info">
 
                                     <thead>
                                         <tr id="Tr1" runat="server">
@@ -28,7 +28,7 @@
                                     </thead>
 
                                     <tbody>
-                                        <asp:PlaceHolder id="itemPlaceholder" runat="server"></asp:PlaceHolder>
+                                        <asp:PlaceHolder ID="itemPlaceholder" runat="server"></asp:PlaceHolder>
                                     </tbody>
 
 
@@ -49,7 +49,7 @@
                                     </td>
                                     <td>
 
-                                       <asp:Button ID="btnOrderDetail" class="btn btn-primary" runat="server" Text="Order Detail" />
+                                        <asp:Button ID="btnOrderDetail" class="btn btn-primary" runat="server" Text="Order Detail" />
                                     </td>
                                 </tr>
 
@@ -66,6 +66,6 @@
 
         </div>
     </div>
-    
+
 
 </asp:Content>
