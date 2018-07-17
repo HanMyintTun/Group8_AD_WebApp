@@ -1,0 +1,179 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="CatalogueDash.aspx.cs" Inherits="Group8_AD_webapp.CatalogueDash" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+     <link href="../css/employee-style.css" rel="stylesheet" />
+    <link href="../css/employee-style2.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+         <div class="form-group form-inline formstyle m-2 text-center">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+            <asp:listitem text="All" value="0" />
+        </asp:DropDownList>
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
+
+        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+        </div>
+        <div id="main">
+
+        <div id="centermain">
+        <asp:UpdatePanel ID="udpCatalogue" runat="server">
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="txtSearch" />
+        </Triggers>
+        <ContentTemplate>
+            <script type="text/javascript">
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
+            </script>
+          <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />--%>
+
+        <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
+        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
+        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
+    <div class="row">
+    <div class="col-xs-12 col-md-8">
+    <div id="showgrid" class="showgrid" runat="server">
+    <div class="dpager col-12"><br />
+    <asp:DataPager ID="dpgGrdCatalogue" runat="server" PageSize="8" PagedControlID="grdCatalogue" OnPreRender="ListPager_PreRender">
+         <Fields>
+            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+            <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+      </Fields>
+    </asp:DataPager></div>
+
+     <!-- Listview -->
+       <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <ItemTemplate>
+
+          <div class="col-xs-12 col-sm-6 col-lg-4 p-3">
+         <table class="product-wrapper2" >
+            <tr><td class="p-3"><div class="imagewrapper">
+                <asp:LinkButton ID="btnBookmark" CssClass="btn-bookmark btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton>
+                <img src="../images/pencils.png" class="img-responsive"></div>
+                </td></tr>                
+            <tr><td class="item-description smalldesc">
+                <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>' Visible="False" />
+                <div class="" ><asp:Label ID="lblDescription" runat="server" CssClass="blank" Text='<%#Eval("Description") %>'></asp:Label></div></td></tr>
+            <tr><td class="form-inline lblQty movedown">
+               <span class=""> Qty: 
+                   <asp:TextBox ID="TextBox1" type="number" Cssclass="form-control" runat="server" min="0"  Value="1" Width="80px" /></span><br />
+                 </td></tr>
+            <tr><td class="p-1 m-auto">
+                <asp:Button ID="btnAdd" CssClass="btn-add btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/>
+                </td></tr></table>
+            </div>
+        </ItemTemplate>
+        <EmptyDataTemplate>
+            <span class="noresult">Sorry! There are no items matching your search.</span>
+            <!-- Add Back Button here -->
+        </EmptyDataTemplate>
+        </asp:ListView>
+
+
+        <div class="dpager col-xs-12"><br />
+        <asp:DataPager ID="dpgGrdCatalogue2" runat="server" PageSize="8" PagedControlID="grdCatalogue">
+             <Fields>
+                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+          </Fields>
+        </asp:DataPager></div>
+    </div>
+
+        <div id="showlist" class="showlist" runat="server">
+        <div class="dpager col-xs-12"><br />
+        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="15" PagedControlID="lstCatalogue" OnPreRender="ListPager_PreRender">
+             <Fields>
+                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+          </Fields>
+        </asp:DataPager></div>
+
+       <div class=" col-xs-12"> 
+        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <LayoutTemplate>
+            <table runat="server" class="table list-table">
+                <thead><tr id="grdHeader" runat="server">
+                        <th scope="col" style="display:none;">Item Code</th>
+                        <th scope="col">Product Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col"></th>
+                </tr></thead>
+                <tbody>
+                    <tr id="itemPlaceholder" runat="server"></tr>
+                </tbody>
+            </table>
+        </LayoutTemplate>
+        <ItemTemplate>
+            <tr>
+                <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
+                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
+                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign" runat="server" min="0"  Value="1" Width="60px" /></td>
+                <td><asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
+            </tr>
+        </ItemTemplate>
+        <EmptyDataTemplate>
+            <span class="noresult">Sorry! There are no items matching your search.</span>
+        </EmptyDataTemplate>
+        </asp:ListView>
+           </div>
+
+        <div class="dpager col-xs-12"><br />
+        <asp:DataPager ID="dpgLstCatalogue2" runat="server" PageSize="15" PagedControlID="lstCatalogue">
+             <Fields>
+                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+          </Fields>
+        </asp:DataPager></div>
+
+        </div>
+    </div>
+    <div class="sidepanelarea col-md-4">
+        <div class="bookmark-panel-top">
+            <ul class="nav nav-tabss">
+              <li class="active"><a data-toggle="tab" href="#home">Bookmarks</a></li>
+              <li><a data-toggle="tab" href="#menu1">Popular</a></li>
+            </ul>
+            </div>
+            <div class="bookmark-panel">
+            <div class="tab-content panelcontent">
+               <asp:ListView ID="ListView1" runat="server" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+                <ItemTemplate>
+                <div class="bmkwrapper">
+                <table>
+                <tr>
+                    <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
+                    <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
+                </tr>
+                 <tr>
+                    <td  class="bmkright"> <asp:TextBox ID="TextBox2" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
+                </tr>
+                </table>
+                </div>
+                </ItemTemplate>
+                <EmptyDataTemplate>
+                    <span class="noresult">Sorry! There are no items matching your search.</span>
+                    <!-- Add Back Button here -->
+                </EmptyDataTemplate>
+                </asp:ListView>
+            </div>
+        </div>
+    </div>
+
+        </div>
+        </ContentTemplate>
+        </asp:UpdatePanel>
+    </div></div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script>
+         $(document).on('keyup', '.txtSearch', function () {
+            $(".txtSearch").blur();
+            $(".txtSearch").focus();
+        });
+    </script>
+</asp:Content>

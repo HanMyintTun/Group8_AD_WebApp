@@ -15,12 +15,12 @@ namespace Group8_AD_webapp
         List<Item> items = new List<Item>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             if (!IsPostBack)
             {
                 List<String> productList = new List<String> { "Pen", "Exercise", "Folder" };
-                //ddlCategory.DataSource = productList;
-                //ddlCategory.DataBind();
+                ddlCategory.DataSource = productList;
+                ddlCategory.DataBind();
 
                 AddItems();
                 BindGrid();
@@ -147,6 +147,19 @@ namespace Group8_AD_webapp
             {
                 return list.OrderByDescending(e => property.GetValue(e, null)).ToList<Item>();
             }
+        }
+
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        protected void txtSearch_Changed(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
         }
     }
 }

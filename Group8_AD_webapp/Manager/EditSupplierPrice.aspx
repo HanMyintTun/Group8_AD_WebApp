@@ -5,13 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
 
-<%--    <div class="form-group form-inline formstyle m-2 text-center col-12">
+    <div class="form-group form-inline formstyle m-2 text-center col-12">
         <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="Select All" value="0" />
         </asp:DropDownList>
         <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
-    </div>--%>
+    </div>
 
         <div class="subtitletext">Edit Supplier/Price</div>
     <asp:GridView ID="grdSupplier" runat="server" CssClass="table" PagerStyle-CssClass="pager" 
