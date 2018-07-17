@@ -27,7 +27,7 @@
                             </LayoutTemplate>
                             <ItemTemplate>
                                 <tr>
-                                    <td><asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqDate") %>' /></td>
+                                    <td><asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' /></td>
                                     <td><asp:Label runat="server" ID="lblStatus" Text='<%# Eval("Status") %>' /></td>
                                     <td><asp:LinkButton ID="btnReqDetail" CssClass="btn btn-primary" href='<%# "RequestList.aspx?reqid="+Eval("ReqId") %>' runat="server">DETAILS</asp:LinkButton> </td>
                                 </tr>
