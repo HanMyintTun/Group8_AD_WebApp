@@ -1481,8 +1481,12 @@ p.back-link {
     width: 80px;
     padding-right: 70px;
 }
-.restok-table td {
-    border: 1px solid #e6e6e6;
+.item-info {
+    text-align:left;
+}
+.table-bordered td {
+    
+    text-align: center;
 }
 #table_id td,th {
     background-color: #fff !important;
@@ -1520,6 +1524,18 @@ p.back-link {
 .btn-remove-sm:hover {
     text-decoration: none;
     color: var(--color-btn-danger-hover);
+}
+.report-btns {
+    float: right;
+}
+.report-btn {
+    display:inline-block;
+}
+.lbl-inherit {
+    display: inherit;
+}
+.restock-content {
+    text-align: center;
 }
 @media (max-width: 768px) {
     .desktop {

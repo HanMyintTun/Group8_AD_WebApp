@@ -90,7 +90,7 @@
                         <td>
                             <div class="product-info col-md-2">
                                 <div class="stock-lvl">
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Balance") %>' />
+                                    <asp:Label ID="lblRecomLevel" runat="server" Text='<%# Eval("Balance") %>' />
                                 </div>
                                 <div class="stock-lvl">
                                     <asp:Label ID="lblReLevel" runat="server" Text='<%# Eval("Balance") %>' />

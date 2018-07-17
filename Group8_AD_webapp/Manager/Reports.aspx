@@ -8,9 +8,10 @@
     <script src="../js/easypiechart-data.js"></script>
     <script src="../js/bootstrap-datepicker.js"></script>
     <script src="../js/custom.js"></script>
- 
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <div class="row">
             <ol class="breadcrumb">
@@ -32,113 +33,118 @@
         </div>
         <!--/.row-->
         <!--/.row-->
-        <asp:UpdatePanel>
+
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Radar Chart
+					
+                    </div>
+                    <div class="panel-body">
+                        <div class="canvas-wrapper">
+                            <canvas class="chart" id="radar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Radar Chart
+					
+                    </div>
+                    <div class="panel-body tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">By Department</a></li>
+                            <li><a href="#tab2" data-toggle="tab">By Supplier</a></li>
+
+                        </ul>
+                        <div class="tab-content tab-box">
+                            <div class="tab-pane fade in active" id="tab1">
+                                <div>
+
+
+                                    <div style="padding-left: 15px;">
+                                        <div class="form-group">
+                                            <asp:Label ID="Label1" runat="server" class="" Text="Department"></asp:Label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control">
+                                            <asp:ListItem Value="0">Select Department</asp:ListItem>
+                                            <asp:ListItem Value="01">finance</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div style="clear: both; padding-top: 20px;">
+                                    <div style="padding-left: 15px;">
+                                        <div class="form-group">
+                                            <asp:Label ID="Label3" runat="server" class="" Text="Department"></asp:Label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control">
+                                            <asp:ListItem Value="0">Select Department</asp:ListItem>
+                                            <asp:ListItem Value="01">finance</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="tab-pane fade" id="tab2">
+
+                                <div>
+
+                                    <div style="padding-left: 15px;">
+                                        <div class="form-group">
+                                            <asp:Label ID="Label2" runat="server" class="" Text="Supplier"></asp:Label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <asp:DropDownList ID="ddlSupplier" runat="server" CssClass="form-control">
+                                            <asp:ListItem Value="0">Select Supplier</asp:ListItem>
+                                            <asp:ListItem Value="01">finance</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div style="clear: both; padding-top: 20px;">
+                                    <div style="padding-left: 15px;">
+                                        <div class="form-group">
+                                            <asp:Label ID="Label4" runat="server" class="" Text="Supplier"></asp:Label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control">
+                                            <asp:ListItem Value="0">Select Supplier</asp:ListItem>
+                                            <asp:ListItem Value="01">1</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.panel-->
+            </div>
+            <!--/.col-->
+
+        </div>
+        <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Radar Chart
-					
-                            </div>
-                            <div class="panel-body">
-                                <div class="canvas-wrapper">
-                                    <canvas class="chart" id="radar-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Radar Chart
-					
-                            </div>
-                            <div class="panel-body tabs">
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#tab1" data-toggle="tab">By Department</a></li>
-                                    <li><a href="#tab2" data-toggle="tab">By Supplier</a></li>
+                <div class="col-md-12">
 
-                                </ul>
-                                <div class="tab-content tab-box">
-                                    <div class="tab-pane fade in active" id="tab1">
-                                        <div>
-
-
-                                            <div style="padding-left: 15px;">
-                                                <div class="form-group">
-                                                    <asp:Label ID="Label1" runat="server" class="" Text="Department"></asp:Label>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control">
-                                                    <asp:ListItem Value="0">Select Department</asp:ListItem>
-                                                    <asp:ListItem Value="01">finance</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                        <div style="clear: both; padding-top: 20px;">
-                                            <div style="padding-left: 15px;">
-                                                <div class="form-group">
-                                                    <asp:Label ID="Label3" runat="server" class="" Text="Department"></asp:Label>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control">
-                                                    <asp:ListItem Value="0">Select Department</asp:ListItem>
-                                                    <asp:ListItem Value="01">finance</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="tab-pane fade" id="tab2">
-
-                                        <div>
-
-                                            <div style="padding-left: 15px;">
-                                                <div class="form-group">
-                                                    <asp:Label ID="Label2" runat="server" class="" Text="Supplier"></asp:Label>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <asp:DropDownList ID="ddlSupplier" runat="server" CssClass="form-control">
-                                                    <asp:ListItem Value="0">Select Supplier</asp:ListItem>
-                                                    <asp:ListItem Value="01">finance</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                        <div style="clear: both; padding-top: 20px;">
-                                            <div style="padding-left: 15px;">
-                                                <div class="form-group">
-                                                    <asp:Label ID="Label4" runat="server" class="" Text="Supplier"></asp:Label>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control">
-                                                    <asp:ListItem Value="0">Select Supplier</asp:ListItem>
-                                                    <asp:ListItem Value="01">1</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/.panel-->
-                    </div>
-                    <!--/.col-->
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="float: right;">
                         <div class="panel panel-default">
 
                             <div class="panel-body">
@@ -195,6 +201,7 @@
                                             CellPadding="3"
                                             AutoGenerateColumns="False"
                                             runat="server"
+                                            OnRowDeleting="OnRowDeleting"
                                             CssClass="table tbl-date">
 
                                             <HeaderStyle BackColor="#f2f3f2"></HeaderStyle>
@@ -207,7 +214,7 @@
 
                                                     <ItemTemplate>
 
-                                                        <asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove-sm"><i class="fa fa-times-circle"></i></asp:LinkButton>
+                                                        <asp:LinkButton runat="server" CommandName="delete" ID="btnRemove" CssClass="btn-remove-sm"><i class="fa fa-times-circle"></i></asp:LinkButton>
 
                                                     </ItemTemplate>
 
@@ -216,11 +223,21 @@
 
                                         </asp:DataGrid>
                                     </asp:Panel>
+
                                 </div>
+                            </div>
+                        </div>
+                        <div class="report-btns">
+                            <div class="report-btn">
+                                <asp:Button ID="btnRange" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
+                            </div>
+                            <div class="report-btn">
+                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" runat="server" Text="Generate By Month" />
                             </div>
                         </div>
                     </div>
                 </div>
+
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>

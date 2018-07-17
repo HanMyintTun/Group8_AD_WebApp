@@ -38,11 +38,21 @@ namespace Group8_AD_webapp.Manager
 
             ItemsGrid.DataSource = dtToGrid;
             ItemsGrid.DataBind();
-
+          
 
 
         }
+        protected void ItemGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            DataTable dt1 = (DataTable)Session["Remove"];
+            // DataTable dt = new DataTable();
+            if (dt1.Rows.Count > 0)
+            {
+                dt1.Rows[e.RowIndex].Delete();
+                ItemsGrid.DataSource = dt1;
+                ItemsGrid.DataBind();
+            }
+        }
 
-       
     }
 }
