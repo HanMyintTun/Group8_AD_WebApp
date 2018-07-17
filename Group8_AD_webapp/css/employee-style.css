@@ -60,6 +60,33 @@
         border-radius: 30px !important;
     }
 
+.pager span {
+    border: 1px #eee solid;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.pager a {
+    border: 1px #eee solid;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.currentpg {
+    border: 1px white solid;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.pager a:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
     #btnSearch {
         background-color: var(--color-btn-success);
     }
