@@ -388,9 +388,11 @@
 
 
     .formstyle {
+        text-align: left;
+        padding-left: 320px;
         position: fixed;
         top: 60px;
-        padding-top: 5px;
+        padding-top: 8px;
         width: 100%;
         height: 55px;
         z-index: 99;
@@ -439,6 +441,7 @@
 
     .ddlSearch, .txtSearch {
         border: 1px solid green !important;
+        vertical-align:unset;
     }
 
     .bookmark-panel-top {
@@ -462,6 +465,7 @@
 
     .panelcontent {
     }
+
 
     .nav-tabss li a {
         float: left;
@@ -522,4 +526,8 @@
     .movedownside {
         margin-top: 10px;
         margin-left: 10px;
+    }
+
+    .lblPage{
+        margin-left: 30px;
     }

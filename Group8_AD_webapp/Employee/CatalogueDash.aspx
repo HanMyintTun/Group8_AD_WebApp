@@ -9,7 +9,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
          <div class="form-group form-inline formstyle m-2 text-center">
+        <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
+        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
+        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
+
         <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="0" />
         </asp:DropDownList>
@@ -41,7 +46,7 @@
                 </a></li>
             </ItemTemplate>
             <EmptyDataTemplate>
-                <span class="noresult showsearch">Nothing in cart. Feed me!</span>
+                <span class="noresult showsearch">No suggestions available!</span>
                 <!-- Add Back Button here -->
             </EmptyDataTemplate>
         </asp:ListView>
@@ -54,7 +59,7 @@
 
 
 
-        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />
         </div>
 
 
@@ -64,16 +69,17 @@
         <asp:UpdatePanel ID="udpCatalogue" runat="server">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="txtSearch" />
+            <asp:AsyncPostBackTrigger ControlID="btnGrid" />
+            <asp:AsyncPostBackTrigger ControlID="btnList" />
         </Triggers>
         <ContentTemplate>
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
           <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />--%>
+            Items Per Page: <asp:DropDownList ID="ddlPageCount" runat="server" OnSelectedIndexChanged="ddlPageCount_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+            <asp:Label ID="lblPageCount" CssClass="lblPage" runat="server" Text="Label"></asp:Label>
 
-        <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
-        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
-        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
     <div class="row">
     <div class="col-xs-12 col-md-8">
     <div id="showgrid" class="showgrid" runat="server">
@@ -87,7 +93,7 @@
     </asp:DataPager></div>
 
      <!-- Listview -->
-       <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+       <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <ItemTemplate>
 
           <div class="col-xs-12 col-sm-6 col-lg-4 p-3">

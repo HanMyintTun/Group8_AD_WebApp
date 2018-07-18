@@ -29,6 +29,10 @@ namespace Group8_AD_webapp
                 lstSearch.DataSource = items;
                 lstSearch.DataBind();
 
+                List<int> pagecounts = new List<int> { 6, 9, 12, 18 };
+                ddlPageCount.DataSource = pagecounts;
+                ddlPageCount.SelectedIndex = 1;
+                ddlPageCount.DataBind();
             }
 
             ddlsearchcontent.Visible = false;
@@ -101,6 +105,8 @@ namespace Group8_AD_webapp
 
             lstBookmarks.DataSource = items;
             lstBookmarks.DataBind();
+
+            lblPageCount.Text = "Showing 1 to " + dpgGrdCatalogue.PageSize + " of " + items.Count();
         }
 
         protected void ListPager_PreRender(object sender, EventArgs e)
@@ -112,7 +118,7 @@ namespace Group8_AD_webapp
             //grdCatalogue.DataBind();
         }
 
-        protected void list_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        protected void lstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
 
@@ -123,6 +129,8 @@ namespace Group8_AD_webapp
 
             //grdCatalogue.DataSource = items;
             //grdCatalogue.DataBind();
+
+            lblPageCount.Text = "Showing "+e.StartRowIndex +" to "+(e.StartRowIndex+e.MaximumRows)+" of "+items.Count();
         }
 
         protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
@@ -132,6 +140,8 @@ namespace Group8_AD_webapp
 
             grdCatalogue.DataSource = items;
             grdCatalogue.DataBind();
+
+            
         }
 
         protected void btnBookmark_Click(object sender, EventArgs e)
@@ -242,6 +252,13 @@ namespace Group8_AD_webapp
         {
             lstBookmarks.DataSource = items;
             lstBookmarks.DataBind();
+        }
+
+        protected void ddlPageCount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblPageCount.Text = "hello";
+            dpgGrdCatalogue.PageSize = Convert.ToInt32(ddlPageCount.SelectedValue);
+            BindGrids();
         }
     }
 }

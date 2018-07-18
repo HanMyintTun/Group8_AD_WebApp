@@ -90,8 +90,13 @@
     text-decoration: none;
 }
 
+.ddlSearch{
+    margin-left: 50px;
+}
+
 .ddlSearch, .btnSearch, .txtSearch{
-    margin-bottom: 0px;
+    vertical-align: unset !important;
+    margin-left: 5px;
 }
 
 .btn-removeitem {

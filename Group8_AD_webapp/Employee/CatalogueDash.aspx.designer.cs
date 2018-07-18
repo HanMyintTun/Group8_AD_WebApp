@@ -13,6 +13,33 @@ namespace Group8_AD_webapp {
     public partial class CatalogueDash {
         
         /// <summary>
+        /// lblCatTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatTitle;
+        
+        /// <summary>
+        /// btnGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnGrid;
+        
+        /// <summary>
+        /// btnList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnList;
+        
+        /// <summary>
         /// ddlCategory control.
         /// </summary>
         /// <remarks>
@@ -76,31 +103,22 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.UpdatePanel udpCatalogue;
         
         /// <summary>
-        /// lblCatTitle control.
+        /// ddlPageCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCatTitle;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPageCount;
         
         /// <summary>
-        /// btnGrid control.
+        /// lblPageCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnGrid;
-        
-        /// <summary>
-        /// btnList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnList;
+        protected global::System.Web.UI.WebControls.Label lblPageCount;
         
         /// <summary>
         /// showgrid control.
