@@ -1,0 +1,120 @@
+﻿.dropdown:hover>ul{
+    display:block;
+}
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 280px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding-left: 0px;
+    z-index: 1;
+    right: 0;
+    list-style: none;
+    border-radius: 5px;
+}
+.dropdown-content li {
+    width: 280px;
+    border: 1px solid #ddd;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+
+.dropdown-content > li > a {
+    color: var(--color-text);
+}
+
+.dropdown-content > li > a:hover {
+    text-decoration: none;
+}
+
+.dropdown2:hover{
+}
+
+.dropdown2:hover>ul{
+    display: block;
+}
+
+.ddlcartitem{
+    width: 200px;
+}
+
+.ddlcartitem2 {
+    width: 50px;
+}
+
+
+.dd-search {
+    position: relative;
+    display: inline-block;
+}
+
+.dd-searchcontent {
+    position: absolute;
+    list-style: none;
+    background-color: #f9f9f9;
+    min-width: 280px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding-left: 0px;
+    z-index: 1;
+    right: 0;
+    list-style: none;
+    border-radius: 5px;
+}
+
+.dd-searchcontent li {
+    width: 280px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #ddd;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+
+.dd-searchcontent > li > a {
+    color: var(--color-text);
+}
+
+.dd-searchcontent > li > a:hover {
+    text-decoration: none;
+}
+
+.ddlSearch, .btnSearch, .txtSearch{
+    margin-bottom: 0px;
+}
+
+.btn-removeitem {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-btn-danger);
+}
+
+.btn-removeitem:hover {
+    text-decoration: none;
+    color: var(--color-btn-danger-hover);
+}
+
+.btn-add {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+    .btn-add:hover {
+        text-decoration: none;
+        color: #fff;
+        background-color: var(--color-btn-primary-hover)
+    }
+
+.dropdown-content > li > a.btn-add{
+    color: #fff;
+}
