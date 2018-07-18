@@ -9,9 +9,19 @@ namespace Group8_AD_webapp.DepartmentHead
 {
     public partial class Dashboard : System.Web.UI.Page
     {
+        static string access_token;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                access_token = Session["Token"].ToString();
+                ddlRep.DataSource = Controllers.EmployeeCtrl.getEmployeeList(access_token);
+                ddlRep.DataBind();
 
+                ddlDelegate.DataSource = Controllers.EmployeeCtrl.getEmployeeList(access_token);
+                ddlDelegate.DataBind();
+            }
+            
         }
 
         protected void RemoveDelegate(object sender, EventArgs e)
