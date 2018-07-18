@@ -70,10 +70,9 @@
 
 .dd-searchcontent li {
     width: 280px;
-    height: 40px;
-    white-space: nowrap;
+    /*white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
     border: 1px solid #ddd;
     padding: 15px 10px;
     border-radius: 5px;
@@ -82,6 +81,10 @@
 .dd-searchcontent > li > a {
     color: var(--color-text);
 }
+
+    .dd-searchcontent > li > a.btn-add {
+        color: #fff;
+    }
 
 .dd-searchcontent > li > a:hover {
     text-decoration: none;
@@ -109,11 +112,11 @@
     background-color: var(--color-primary);
 }
 
-    .btn-add:hover {
-        text-decoration: none;
-        color: #fff;
-        background-color: var(--color-btn-primary-hover)
-    }
+.btn-add:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--color-btn-primary-hover)
+}
 
 .dropdown-content > li > a.btn-add{
     color: #fff;

@@ -24,8 +24,16 @@ namespace Group8_AD_webapp
 
                 showgrid.Visible = true;
                 showlist.Visible = false;
+
+                AddItems();
+                lstSearch.DataSource = items;
+                lstSearch.DataBind();
+
             }
+
+            ddlsearchcontent.Visible = false;
         }
+
         protected void AddItems()
         {
             items.Add(new Item("A001", "Pen", "Pencil 2B Pencil 2B, With Eraser End Pencil 2B, With Eraser End Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
@@ -91,8 +99,8 @@ namespace Group8_AD_webapp
             grdCatalogue.DataSource = items;
             grdCatalogue.DataBind();
 
-            ListView1.DataSource = items;
-            ListView1.DataBind();
+            lstBookmarks.DataSource = items;
+            lstBookmarks.DataBind();
         }
 
         protected void ListPager_PreRender(object sender, EventArgs e)
@@ -192,12 +200,48 @@ namespace Group8_AD_webapp
 
         protected void txtSearch_Changed(object sender, EventArgs e)
         {
-            Main master = (Main)this.Master;
-            master.ShowToastr(this, "", "Cat: " + ddlCategory.Text + " Query: " + txtSearch.Text, "success");
+            //Main master = (Main)this.Master;
+            //master.ShowToastr(this, "", "Cat: " + ddlCategory.Text + " Query: " + txtSearch.Text, "success");
 
-            GetSearchQuery();
-            DoSearch();
+            string searchquery = txtSearch.Text;
+            List<Item> searchitems = items.Where(x => x.Description.ToLower().Contains(searchquery)).Take(5).ToList();
+            lstSearch.DataSource = searchitems;
+            lstSearch.DataBind();
+            ddlsearchcontent.Visible = true;
+            //GetSearchQuery();
+            //DoSearch();
+        }
+
+        protected void lstSearch_PagePropertiesChanged(object sender, EventArgs e)
+        {
+            items = new List<Item>();
+            AddItems();
+            string searchquery = txtSearch.Text;
+            List<Item> searchitems = items.Where(x => x.Description.ToLower().Contains(searchquery)).Take(5).ToList();
+            lstSearch.DataSource = searchitems;
+            lstSearch.DataBind();
+            ddlsearchcontent.Visible = true;
+        }
+
+
+        protected void lstSearchbtnAdd_Click(object sender, EventArgs e)
+        {
+            //var btn = (Button)sender;
+            //var item = (ListViewItem)btn.NamingContainer;
+            //TextBox txtQty = (TextBox)item.FindControl("lstSearchspnQty");
+            //Label lblItemCode = (Label)item.FindControl("lstSearchlblItemCode");
+            //Label lblDescription = (Label)item.FindControl("lstSearchlblDescription");
+            //int quantity = Convert.ToInt32(txtQty.Text);
+            //string description = lblDescription.Text;
+
+            Main master = (Main)this.Master;
+            master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", "A","B"), "Item Added Successfully", "success");
+        }
+
+        protected void lstBookmarks_PagePropertiesChanged(object sender, EventArgs e)
+        {
+            lstBookmarks.DataSource = items;
+            lstBookmarks.DataBind();
         }
     }
-
 }
