@@ -22,30 +22,30 @@
             <asp:AsyncPostBackTrigger ControlID="txtSearch" />
         </Triggers>
         <ContentTemplate>
-                    <div ID="ddlsearchcontent" class="ddlsearchcontent" runat="server">
-                 <ul class="dd-searchcontent dropdown-alerts" runat="server">
+            <div ID="ddlsearchcontent" class="ddlsearchcontent showsearch" runat="server">
+                 <ul class="dd-searchcontent dropdown-alerts showsearch" runat="server">
             <asp:ListView ID="lstSearch" runat="server" OnPagePropertiesChanged="lstSearch_PagePropertiesChanged">
             <ItemTemplate>
-                <li><a runat="server" href="#">
+                <li class="showsearch"><a runat="server" href="#">
                 <table>
                 <tr>
                     <td style="display:none;"><asp:Label ID="lstSearchlblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                    <td style="width:50px;"><img src="../images/pencils.png" width="50" class=""></td>
-                    <td class="sidedesc searchdesc"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
+                    <td style="width:50px;" class="showsearch"><img src="../images/pencils.png" width="50"></td>
+                    <td class="sidedesc searchdesc showsearch"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
                 </tr>
                  <tr>
-                    <td colspan="3" class="bmkright"> <asp:TextBox ID="lstSearchspnQty" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
-                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
+                    <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="lstSearchspnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn showsearch" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
                 </a></li>
             </ItemTemplate>
             <EmptyDataTemplate>
-                <span class="noresult">Nothing in cart. Feed me!</span>
+                <span class="noresult showsearch">Nothing in cart. Feed me!</span>
                 <!-- Add Back Button here -->
             </EmptyDataTemplate>
         </asp:ListView>
-            <li style="text-align:right;">
+            <li class="showsearch" style="text-align:right;">
                 <a href="RequestList.aspx" class="btn btn-add" OnClick="lstSearchbtnAdd_Click" runat="server">GO TO CART</a>
             </li>
                  </ul></div>
@@ -221,8 +221,15 @@
              $(".txtSearch").focus();
          });
 
-            $(".txtSearch").focusout(function() {
-                    $('.ddlsearchcontent').hide();
-                });
+         //$(".ddlsearchcontent").focusout(function () {
+         //        $('.ddlsearchcontent').hide();
+         //});
+
+             $(document).on("click" , function(event){
+                if( !($(event.target).hasClass('showsearch')))
+                {
+                $('.ddlsearchcontent').hide();
+                }
+            });
     </script>
 </asp:Content>
