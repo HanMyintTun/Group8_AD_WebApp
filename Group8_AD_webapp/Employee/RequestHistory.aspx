@@ -6,13 +6,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-             <div class="form-group form-inline formstyle text-center">
+         <div class="form-group form-inline formstyle text-center">
         <div class="col-lg-3">
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Request History"></asp:Label></span>
         </div>
-        <div class="col-lg-2">
+        <div class="col-xs-12 col-lg-2">
         <asp:DropDownList ID="ddlStatus" CssClass="ddlStatus form-control" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="True">
-            <asp:listitem text="All" value="0" />
+            <asp:listitem text="All" value="All" />
         </asp:DropDownList>
          </div>
         <div class="col-xs-12 col-lg-3">
@@ -37,9 +37,10 @@
 
 
     <div id="main"> <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
+        
         <div id="centermain">
             <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:ListView runat="server" ID="lstRequests">
@@ -61,9 +62,13 @@
                                 <tr>
                                     <td><asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' /></td>
                                     <td><asp:Label runat="server" ID="lblStatus" Text='<%# Eval("Status") %>' /></td>
-                                    <td><asp:LinkButton ID="btnReqDetail" CssClass="btn btn-primary" href='<%# "RequestList.aspx?reqid="+Eval("ReqId") %>' runat="server">DETAILS</asp:LinkButton> </td>
+                                    <td><asp:LinkButton ID="btnReqDetail" CssClass="btn btn-primary" href='<%# "RequestList.aspx?reqid="+Eval("ReqId") %>' runat="server">Details</asp:LinkButton> </td>
                                 </tr>
                             </ItemTemplate>
+                            <EmptyDataTemplate>
+                                <span class="noresult showsearch">Sorry! No requests found within those search paramters!</span>
+                                <!-- Add Back Button here -->
+                            </EmptyDataTemplate>
                             </asp:ListView>
                         </div>
                         </div>

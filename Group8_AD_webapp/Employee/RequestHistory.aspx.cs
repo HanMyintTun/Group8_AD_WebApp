@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
+using RestSharp;
 
 namespace Group8_AD_webapp
 {
@@ -12,6 +14,8 @@ namespace Group8_AD_webapp
     {
         static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
+        string status = "";
+        int empId = 31;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,18 +27,8 @@ namespace Group8_AD_webapp
 
 
                 access_token = Session["Token"].ToString();
-                string status = "";
-                int empId = 31; //hard-coded for now
-                if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
-                {
-                    status = "Submitted";
-                }
-                else
-                {
-                    status = Request.QueryString["status"];
-                }
-                
-                 requests = Controllers.RequestCtrl.GetReq(empId, status, access_token);
+
+                requests = Controllers.RequestCtrl.GetReq(empId, "All", access_token);
                 BindGrid();
             }
 
@@ -42,18 +36,42 @@ namespace Group8_AD_webapp
 
         protected void BindGrid()
         {
+            requests = requests.OrderByDescending(x => x.ReqDateTime).ToList();
             lstRequests.DataSource = requests;
             lstRequests.DataBind();
         }
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (txtStartDate.Text != "" && txtEndDate.Text != "")
+            {
+                DoSearch();
+            }
+            else
+            {
+                status = ddlStatus.Text;
+                requests = Controllers.RequestCtrl.GetReq(empId, status, access_token);
+                BindGrid();
+            }
 
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            DoSearch();
+        }
 
+        protected void DoSearch()
+        {
+            status = ddlStatus.Text.ToString();
+            if (txtStartDate.Text != "" && txtEndDate.Text != "")
+            {
+                DateTime startDate = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                requests = Controllers.RequestCtrl.GetRequestByDateRange(31, status, startDate, endDate, "");
+
+                BindGrid();
+            }
         }
     }
 }

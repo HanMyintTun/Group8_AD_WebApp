@@ -35,5 +35,32 @@ namespace Group8_AD_webapp.Controllers
             }
 
         }
+
+        public static List<RequestVM> GetRequestByDateRange(int empId, string status, DateTime fromDate, DateTime toDate, string access_token)
+        {
+            RestClient restClient = new RestClient(API_Url);
+            string from = fromDate.ToString("yyyy-MM-ddTHH:mm:ss");
+            string to = toDate.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            string payload = "?empId=" + empId + "&status=" + status + "&fromDate=" + from
+                + "&toDate=" + to;
+            var request = new RestRequest("/Request/getRequests"+payload, Method.POST);
+
+            var response = restClient.Execute<List<RequestVM>>(request);
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+            else if (response.Content != null)
+            {
+                return response.Data.ToList<RequestVM>();
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
     }
 }

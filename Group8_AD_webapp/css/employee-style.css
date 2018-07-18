@@ -4,39 +4,14 @@
 
 
 
-@media only screen and (max-width: 576px) {
-    #main{
-        max-width: 411px;
-    }
 
-    .form-group{
-        margin: 0 20px !important;
-    }
-    .btnright {
-        position: relative;
-        width: 100%;
-        min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-
-    #centermain {
-        margin-top: 150px !important;
-    }
-}
 
 #main {
     padding-top: 60px;
     padding-right: 20px;
 }
 
-@media only screen and (max-width : 768px) {
-    .headtext, .row, .dpager {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
 
-}
 @media only screen and (max-width : 992px) {
     .sidepanelarea {
         display: none;
@@ -49,11 +24,9 @@
     }
 }
 
-    @media only screen and (min-width : 1200px) {
-        .viewbmkarea {
-            display: none;
-        }
-    }
+
+
+
 
     #toast-container > .toast-success {
         background-color: var(--color-text) !important;
@@ -399,6 +372,8 @@
         background-color: #fff;
     }
 
+
+
     #centermain {
         margin-top: 100px;
     }
@@ -531,3 +506,54 @@
     .lblPage{
         margin-left: 30px;
     }
+
+
+@media only screen and (max-width : 1200px) {
+    .formstyle {
+        height: 230px;
+    }
+
+    #centermain {
+        margin-top: 250px;
+    }
+
+    .btnSearch {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (min-width : 1200px) {
+#txtEndDate, #txtStartDate{
+    width:150px;
+}
+        /*.viewbmkarea {
+            display: none;
+        }*/
+}
+
+@media only screen and (max-width : 768px) {
+    #main {
+        /*max-width: 411px;*/
+    }
+
+    .btnSearch {
+        margin-top: 10px;
+    }
+
+    .btnright {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .formstyle {
+        padding-left: 20px;
+    }
+
+    .headtext, .row, .dpager {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
