@@ -200,12 +200,12 @@
 
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<%=ResolveClientUrl("~/js/bootstrap.min.js")%>"></script>
     <script src="js/chart.min.js"></script>
     <script src="js/chart-data.js"></script>
     <script src="js/easypiechart.js"></script>
     <script src="js/easypiechart-data.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="<%=ResolveClientUrl("~/js/bootstrap-datepicker.js")%>"></script>
     <script src="js/custom.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

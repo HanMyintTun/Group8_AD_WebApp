@@ -118,9 +118,9 @@
 
     .button {
         font-weight: 700;
-        font-size: 1.6rem !important;
+        font-size: 1.4rem !important;
         font-family: var(--font-btn);
-        border-radius: 15px;
+        /*border-radius: 15px;*/
         padding-left: 2rem;
         padding-right: 2rem;
     }
@@ -149,14 +149,14 @@
         }
 
     .form-control {
-        height: calc(3.2rem + 2px) !important;
         font-size: 1.6rem;
-        border-radius: 15px;
-        margin-top: 1rem;
         margin-bottom: 1rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1rem;
         font-family: var(--font-text);
+    }
+
+    .controlheight {
+        height: calc(3.3rem + 2px) !important;
     }
 
     .titletext {
@@ -394,7 +394,7 @@
         top: 60px;
         padding-top: 8px;
         width: 100%;
-        height: 55px;
+        height: 60px;
         z-index: 99;
         background-color: #fff;
     }
