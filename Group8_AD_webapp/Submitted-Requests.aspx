@@ -20,7 +20,7 @@
 
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                      
+
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstOrder">
                                 <LayoutTemplate>
@@ -28,7 +28,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Submitted Date</th>
                                                 <th scope="col"></th>
@@ -46,15 +46,13 @@
 
 
                                     <tr>
-                                       
+
                                         <td>
-                                            <asp:Label runat="server" ID="Label3" Text='<%# Eval("OrderID") %>' />
-                                        </td>
+                                            <asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
-                                            <asp:Label runat="server" ID="Label4" Text='<%# Eval("Name") %>' />
-                                        </td>
+                                            <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
                                         <td>
-                                            <asp:Label runat="server" ID="Label5" Text='<%# Eval("SubmittedDate") %>' />
+                                            <asp:Label runat="server" ID="Label5" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' />
                                         </td>
                                         <td>
 
@@ -93,7 +91,11 @@
                         <h3 class="detail-subtitle">Submitted Request Details</h3>
 
                     </div>
+                   
+                          
                     <div class="panel-body">
+                          <asp:ListView runat="server" ID="lstReqDetail">
+                                <LayoutTemplate>
                         <div class="detail-info">
                             <div class="detail-info-left">
                                 <table class="detail-info-col">
@@ -138,7 +140,7 @@
                             <table class="table table-detail">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="display:none">Item Code</th>
+                                        <th scope="col" style="display: none">Item Code</th>
                                         <th scope="col">Item Name</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col"></th>
@@ -146,25 +148,25 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="display:none">001</td>
+                                        <td style="display: none">001</td>
                                         <td>2B pen</td>
                                         <td>12</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td style="display:none">001</td>
+                                        <td style="display: none">001</td>
                                         <td>2B pen</td>
                                         <td>12</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td style="display:none">001</td>
+                                        <td style="display: none">001</td>
                                         <td>2B pen</td>
                                         <td>12</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td style="display:none">001</td>
+                                        <td style="display: none">001</td>
                                         <td>2B pen</td>
                                         <td>12</td>
                                         <td></td>
@@ -179,7 +181,8 @@
 
                                 <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" class="txt-area" />
                             </div>
-
+                                   </LayoutTemplate>
+                         </asp:ListView>
                             <div class="action-btn">
 
                                 <asp:Button ID="btnReject" class="btn btn-danger btn-msize" runat="server" Text="Reject" />
@@ -187,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-
+                
                 </div>
             </div>
         </div>

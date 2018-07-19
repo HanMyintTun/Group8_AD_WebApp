@@ -119,7 +119,7 @@
                                 <div class="box-2nd-child row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <asp:DropDownList ID="ddlDelegate" runat="server"  AppendDataBoundItems="True"  DataTextField="EmpName" DataValueField="EmpId" CssClass="form-control combo-a">
+                                            <asp:DropDownList ID="ddlDelegate" runat="server" AppendDataBoundItems="True"  CssClass="form-control combo-a">
                                                 <asp:ListItem Value="0">Select Employee</asp:ListItem>
                                                 
                                             </asp:DropDownList>
@@ -191,7 +191,7 @@
                         <div class="box-2nd-child row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <asp:DropDownList ID="ddlRep" runat="server" DataTextField="EmpName" DataValueField="EmpId" AppendDataBoundItems="True" CssClass="form-control combo-a" >
+                                    <asp:DropDownList ID="ddlRep" runat="server"  AppendDataBoundItems="True" CssClass="form-control combo-a" >
                                         <asp:ListItem Text="Select Employee" Value="0" />
                                     </asp:DropDownList>
                                 </div>
