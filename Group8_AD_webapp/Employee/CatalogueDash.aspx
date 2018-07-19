@@ -12,8 +12,9 @@
 
          <div class="form-group form-inline formstyle m-2 text-center">
         <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
-        <asp:LinkButton ID="btnGrid" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
-        <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
+
+        <asp:LinkButton ID="btnGrid" Cssclass="listbutton btnGrid active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
+        <asp:LinkButton ID="btnList" Cssclass="listbutton btnList" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
         <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="0" />
@@ -35,23 +36,24 @@
                 <table>
                 <tr>
                     <td style="display:none;"><asp:Label ID="lstSearchlblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                    <td style="width:50px;" class="showsearch"><img src="../images/pencils.png" width="50"></td>
+                    <td style="width:80px;" rowspan="2" class="showsearch"><img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" width="80px" class="img-responsive"></td>
                     <td class="sidedesc searchdesc showsearch"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
                     <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="lstSearchspnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
-                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn showsearch" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
                 </a></li>
             </ItemTemplate>
             <EmptyDataTemplate>
-                <span class="noresult showsearch">No suggestions available!</span>
+                <li><span class="noresult showsearch">No suggestions available!</span></li>
                 <!-- Add Back Button here -->
             </EmptyDataTemplate>
         </asp:ListView>
             <li class="showsearch" style="text-align:right;">
-                <a href="RequestList.aspx" class="btn btn-add" OnClick="lstSearchbtnAdd_Click" runat="server">GO TO CART</a>
+                <a href="RequestList.aspx" class="btn btn-gotocart" OnClick="lstSearchbtnAdd_Click" runat="server">GO TO CART</a>
+                <asp:button ID="btnSearch2" CssClass="btn btn-add" OnClick="btnSearch_Click" runat="server" Text="SEE MORE" AutoPostBack="true"></asp:button>
             </li>
                  </ul></div>
         </ContentTemplate></asp:UpdatePanel></div>
@@ -70,6 +72,8 @@
             <asp:AsyncPostBackTrigger ControlID="txtSearch" />
             <asp:AsyncPostBackTrigger ControlID="btnGrid" />
             <asp:AsyncPostBackTrigger ControlID="btnList" />
+             <asp:AsyncPostBackTrigger ControlID="btnSearch" />
+            <asp:AsyncPostBackTrigger ControlID="btnSearch2" />
         </Triggers>
         <ContentTemplate>
             <script type="text/javascript">
@@ -183,11 +187,19 @@
     <div class="sidepanelarea col-md-4">
         <div class="bookmark-panel-top">
             <ul class="nav nav-tabss">
-              <li class="active"><a data-toggle="tab" href="#bookmk">Bookmarks</a></li>
-              <li><a data-toggle="tab" href="#recc">Recommended</a></li>
+              <li><asp:LinkButton ID="btnShowBmk" CssClass="active" OnClick="btnShowBmk_Click" AutoPostBack="true" runat="server">Bookmarks</asp:LinkButton></li>
+              <li><asp:LinkButton ID="btnShowRecc" OnClick="btnShowRecc_Click" runat="server" AutoPostBack="true">Recommended</asp:LinkButton></li>
+              <li> <asp:LinkButton ID="btnOpenBmk" CssClass="openbmk" OnClick="btnOpenBmk_Click" runat="server"><i class="fa fa-angle-double-down"></i></asp:LinkButton></li>
             </ul>
             </div>
-            <div class="bookmark-panel">
+
+          <asp:UpdatePanel ID="udpBookmarks" runat="server">
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnShowBmk" />
+            <asp:AsyncPostBackTrigger ControlID="btnShowRecc" />
+        </Triggers>
+        <ContentTemplate>
+                        <div id="bookmarkPanel" class="bookmark-panel" runat="server">
             <div class="tab-content panelcontent">
                <asp:ListView ID="lstBookmarks" runat="server" OnPagePropertiesChanged="lstBookmarks_PagePropertiesChanged">
                 <ItemTemplate>
@@ -210,8 +222,11 @@
                     <!-- Add Back Button here -->
                 </EmptyDataTemplate>
                 </asp:ListView>
-            </div>
+                            </div>
         </div>
+              </ContentTemplate>
+            </asp:UpdatePanel>
+
     </div>
 
         </div>
@@ -235,6 +250,17 @@
                 {
                 $('.ddlsearchcontent').hide();
                 }
+         });
+
+         $(function() {                       
+              $(".btnList").click(function() { 
+                  $(this).addClass("active");     
+                  $(".btnGrid").removeClass("active");   
+             });
+             $(".btnGrid").click(function() { 
+                  $(this).addClass("active");     
+                  $(".btnList").removeClass("active");   
+              });
             });
     </script>
 </asp:Content>

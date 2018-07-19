@@ -10,7 +10,7 @@
 
 @media only screen and (max-width : 1400px) {
     .sidepanelarea {
-        display: none;
+        /*display: none;*/
     }
 
 }
@@ -419,44 +419,60 @@
 
     .bookmark-panel-top {
         position: fixed;
-        top: 120px;
+        top: 140px;
         width: 300px;
-        height: 50px;
+        height: 45px;
         margin-right: 50px;
     }
 
-    .bookmark-panel {
-        position: fixed;
-        top: 170px;
-        background-color: #f2f3f2;
-        width: 300px;
-        margin-right: 50px;
-        height: 70vh;
-        box-shadow: 3px 3px 8px 3px #ddd;
-        overflow: scroll;
+.bookmark-panel {
+    position: fixed;
+    top: 185px;
+    /*background-color: #f2f3f2;
+    box-shadow: 3px 3px 8px 3px #ddd;*/
+    width: 300px;
+    margin-right: 50px;
+    height: 70vh;
+    overflow-x: hidden;
+}
+
+    .tab-content{
+        padding: 0 15px;
     }
 
-    .panelcontent {
-    }
 
+.nav-tabss li a {
+    font-size: 1.6rem;
+    float: left;
+    color: var(--color-text);
+}
 
-    .nav-tabss li a {
-        float: left;
-        height: 50px;
-        color: var(--color-text);
-    }
+.nav-tabss li:hover a {
+    background-color: #f3f2f3;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
 
-    .nav-tabss .active a {
-        color: var(--color-primary);
-        font-weight: 700;
-        border: 1px solid #eee;
-        border-bottom-style: hidden;
-    }
+.nav-tabss li a {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    /*border-bottom-style: hidden;*/
+}
 
-    .bmkwrapper {
-        border: 1px solid #fefafc;
-        padding: 20px 0;
-    }
+.nav-tabss li .active {
+    color: var(--color-primary);
+    font-weight: 700;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    /*border-bottom-style: hidden;*/
+}
+
+.bmkwrapper {
+    border: 1px solid #fefafc;
+    padding: 20px 0;
+    box-shadow: 3px 3px 8px 3px #ddd;
+    margin: 20px 0px;
+}
 
     .bmkright {
         width: 300px;
@@ -473,7 +489,7 @@
     overflow: hidden;
     transition: all .3s ease;
     z-index: 22;
-    background-color: #f2f3f2;
+    /*background-color: #f2f3f2;*/
     font-weight: 700;
     padding-left: 10px;
     padding-right: 20px;
@@ -500,6 +516,7 @@
     .movedownside {
         margin-top: 10px;
         margin-left: 10px;
+        padding: 4px;
     }
 
     .lblPage{
@@ -513,6 +530,12 @@
     .txtconstraint{
         width: 60px;
     }
+
+.openbmk{
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 5px 5px;
+}
 
 @media only screen and (max-width : 1200px) {
     .formstyle2 {

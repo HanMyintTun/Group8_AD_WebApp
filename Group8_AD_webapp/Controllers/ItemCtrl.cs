@@ -43,8 +43,7 @@ namespace Group8_AD_webapp.Controllers
             var request = new RestRequest("/Item/GetCategory", Method.GET);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
-
-
+            
             var response = restClient.Execute<List<string>>(request);
             if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -58,7 +57,29 @@ namespace Group8_AD_webapp.Controllers
             {
                 return null;
             }
+        }
 
+        public static List<ItemVM> GetFrequentList(int empId, string access_token)
+        {
+            RestClient restClient = new RestClient(API_Url);
+
+            var request = new RestRequest("/Item/GetFrequentList/"+empId, Method.GET);
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.RequestFormat = DataFormat.Json;
+            
+            var response = restClient.Execute<List<ItemVM>>(request);
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+            else if (response.Content != null)
+            {
+                return response.Data.ToList<ItemVM>();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
