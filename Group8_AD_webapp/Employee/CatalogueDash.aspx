@@ -97,7 +97,7 @@
          <table class="product-wrapper2" >
             <tr><td class="p-3"><div class="imagewrapper">
                 <asp:LinkButton ID="btnBookmark" CssClass="btn-bookmark btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton>
-                <img src="../images/pencils.png" class="img-responsive"></div>
+                <img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" class="img-responsive"></div>
                 </td></tr>                
             <tr><td class="item-description smalldesc">
                 <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>' Visible="False" />
@@ -119,7 +119,7 @@
 
 
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgGrdCatalogue2" runat="server" PageSize="9" PagedControlID="grdCatalogue">
+        <asp:DataPager ID="dpgGrdCatalogue2" runat="server" PageSize="9" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" PagedControlID="grdCatalogue">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -130,7 +130,7 @@
 
         <div id="showlist" class="showlist" runat="server">
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="9" PagedControlID="lstCatalogue" OnPreRender="ListPager_PreRender">
+        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="9" PagedControlID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPreRender="ListPager_PreRender">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -139,7 +139,7 @@
         </asp:DataPager></div>
 
        <div class=" col-xs-12"> 
-        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <LayoutTemplate>
             <table runat="server" class="table list-table">
                 <thead><tr id="grdHeader" runat="server">
@@ -168,7 +168,7 @@
            </div>
 
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgLstCatalogue2" runat="server" PageSize="9" PagedControlID="lstCatalogue">
+        <asp:DataPager ID="dpgLstCatalogue2" runat="server" PageSize="9" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" PagedControlID="lstCatalogue">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />

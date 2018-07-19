@@ -89,7 +89,7 @@ namespace Group8_AD_webapp
             grdCatalogue.DataSource = items;
             grdCatalogue.DataBind();
 
-            lblPageCount.Text = "Showing 1 to " + dpgGrdCatalogue.PageSize + " of " + items.Count();
+            lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + (dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows) + " of " + items.Count();
         }
 
         protected void BindSidePanel() { 
@@ -109,28 +109,39 @@ namespace Group8_AD_webapp
 
         protected void lstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
-            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgGrdCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgLstCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgGrdCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgLstCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            BindGrids();
 
-            //lstCatalogue.DataSource = items;
-            //lstCatalogue.DataBind();
+            //int pageNumber = Convert.ToInt32(Request["pageNumber"]);
 
-            //(grdCatalogue.FindControl("dpgCatalogue") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
 
             //grdCatalogue.DataSource = items;
             //grdCatalogue.DataBind();
 
-            //lblPageCount.Text = "Showing "+e.StartRowIndex +" to "+(e.StartRowIndex+e.MaximumRows)+" of "+items.Count();
+            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
+
+            //lstCatalogue.DataSource = items;
+            //lstCatalogue.DataBind();
+
+            lblPageCount.Text = "Showing "+ (e.StartRowIndex+1) +" to "+(e.StartRowIndex+ e.MaximumRows) +" of "+items.Count();
+            // e.MaximumRows
         }
 
         protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
         {
-            lstCatalogue.DataSource = items;
-            lstCatalogue.DataBind();
+            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
 
-            grdCatalogue.DataSource = items;
-            grdCatalogue.DataBind();
+            //lstCatalogue.DataSource = items;
+            //lstCatalogue.DataBind();
 
-            
+            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
+
+            //grdCatalogue.DataSource = items;
+            //grdCatalogue.DataBind();
         }
 
         protected void btnBookmark_Click(object sender, EventArgs e)
@@ -255,6 +266,10 @@ namespace Group8_AD_webapp
                 dpgLstCatalogue.PageSize = Convert.ToInt32(ddlPageCount.SelectedValue);
             }
 
+            dpgGrdCatalogue.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgLstCatalogue.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgGrdCatalogue2.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgLstCatalogue2.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
             BindGrids();
         }
     }
