@@ -21,87 +21,100 @@ namespace Group8_AD_webapp
         public bool IsEditable = false;
         public bool IsNotSubmitted = false;
         public bool IsApproved = false;
+        public bool IsEmpty = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            empId = 31;
+
             if (!IsPostBack)
             {
-                empId = 31;
-
+                // If a request ID is present
                 if (Request.QueryString["reqid"] != null)
                 {
-                    Label1.Text = "NOT EMPTY";
                     reqid = Convert.ToInt32(Request.QueryString["reqid"]);
-                    //RequestVM myRequest = Controllers.RequestCtrl.GetRequestByReqId(reqid, access_token);
-                    AddItems();
-                    BindGrids();
-                    if (reqid == 1)
+                    RequestVM request = Controllers.RequestCtrl.GetRequestByReqId(reqid, access_token);
+                    if (request != null)
                     {
-                        status = "unsubmitted";
-                        IsEditable = true;
-                        IsNotSubmitted = true;
+                        reqid = request.ReqId;
+                        status = request.Status;
+                        PopulateList(reqid);
+                        BindGrids();
                     }
-                    if (reqid == 2)
+                    else
                     {
-                        status = "submitted";
-                        IsEditable = true;
-                    }
-                    if (reqid == 3)
-                    {
-                        status = "approved";
-                        IsApproved = true;
-                    }
-                    if (reqid == 4)
-                    {
-                        status = "fulfilled";
-                        IsApproved = true;
+                        BindGrids();
+                        // Custom Error Message
                     }
                 }
+
+                // Default: Show Unsubmitted List and Bookmarks
                 else
                 {
                     IsEditable = true;
                     IsNotSubmitted = true;
-                    // Default: Show Cart
+
                     RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted", access_token).FirstOrDefault();
                     RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
                     if (unsubRequest != null)
                     {
                         reqid = unsubRequest.ReqId;
-                        List<RequestDetailVM> unsubReqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
-                        showList = unsubReqDetails;
                         status = unsubRequest.Status;
+                        PopulateList(reqid);
+                        //lstShow.FindControl("thdBookmark").Visible = true;
+
+                        BindGrids();
+
                     }
                     else
                     {
+                        showList = new List<RequestDetailVM>();
+                        bookmarkList = new List<RequestDetailVM>();
+                        IsEmpty = true;
                         // TO DO: custom empty cart message - currently: EmptyDataTemplate
                     }
                     if(bookmarks != null)
                     {
                         reqid = bookmarks.ReqId;
                         List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
-                        Label1.Text = bookmarkDetails.ToString();
-                        bookmarkList = bookmarkDetails;
+                        bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
+                        bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
+                        RequestDetailVM req = bookmarkDetails[0];
                     }
                     BindGrids();
                 }
+
                 lblStatus.Text = status.ToUpper();
-                lstShow.FindControl("thdBookmark").Visible = false;
-                if (IsNotSubmitted)
+
+                if (status == "Submitted" || status == "Approved" || status == "Fulfilled" || status == "Cancelled")
+                {
+                    IsApproved = true;
+                    lstShow.FindControl("thdBookmark").Visible = false;
+                    btnSubmit.Visible = false;
+                    btnUpdate.Visible = false;
+                    if (status == "Submitted")
+                    {
+                        IsEditable = true;
+                    }
+                }
+
+                if (!IsEmpty && IsNotSubmitted)
                 {
                     btnSubmit.Visible = true;
                     btnUpdate.Visible = false;
-                    lstShow.FindControl("thdBookmark").Visible = true;
+                    lstShow.FindControl("thdFulfQty").Visible = false;
+                    lstShow.FindControl("thdBalQty").Visible = false;
+                    lstShow.FindControl("thdFulf").Visible = false;
                 }
-                else
+                if (!IsEmpty && !IsNotSubmitted && !IsApproved)
                 {
-                    btnSubmit.Visible = false;
                     btnUpdate.Visible = true;
                 }
-                if (!IsEditable)
+                if (!IsEmpty && !IsEditable)
                 {
                     lstShow.FindControl("thdRemove").Visible = false;
                 }
-                if (!IsApproved)
+                if (!IsEmpty && !IsApproved)
                 {
                     lstShow.FindControl("thdFulfQty").Visible = false;
                     lstShow.FindControl("thdBalQty").Visible = false;
@@ -110,9 +123,11 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void AddItems()
+        protected void PopulateList(int reqid)
         {
-
+            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+            reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
+            showList = reqDetails;
         }
 
         protected void BindGrids()

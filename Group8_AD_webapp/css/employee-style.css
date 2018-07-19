@@ -298,10 +298,11 @@
         text-align: left;
     }
 
-    .buttonarea {
-        text-align: right;
-        padding-right: 100px;
-    }
+.buttonarea {
+    text-align: right;
+    padding-right: 100px;
+    margin-bottom: 30px;
+}
 
     .spnstyle {
         padding-left: 10px;
@@ -508,6 +509,9 @@
         margin-left: 30px;
     }
 
+    .pad-left10{
+        padding-left:10px;
+    }
 
 @media only screen and (max-width : 1200px) {
     .formstyle {

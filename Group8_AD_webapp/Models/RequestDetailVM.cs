@@ -13,6 +13,7 @@ namespace Group8_AD_webapp.Models
         int reqQty;
         int awaitQty;
         int fulfilledQty;
+        string desc;
 
         public int ReqId { get => reqId; set => reqId = value; }
         public int ReqLineNo { get => reqLineNo; set => reqLineNo = value; }
@@ -20,16 +21,7 @@ namespace Group8_AD_webapp.Models
         public int ReqQty { get => reqQty; set => reqQty = value; }
         public int AwaitQty { get => awaitQty; set => awaitQty = value; }
         public int FulfilledQty { get => fulfilledQty; set => fulfilledQty = value; }
-
-        public RequestDetailVM(int reqId, int reqLineNo, string itemCode, int reqQty, int awaitQty, int fulfilledQty)
-        {
-            ReqId = reqId;
-            ReqLineNo = reqLineNo;
-            ItemCode = itemCode;
-            ReqQty = reqQty;
-            AwaitQty = awaitQty;
-            FulfilledQty = fulfilledQty;
-        }
+        public string Desc { get => desc; set => desc = value; }
 
         public RequestDetailVM()
         {
