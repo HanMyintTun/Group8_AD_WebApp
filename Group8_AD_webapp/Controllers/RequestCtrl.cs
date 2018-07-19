@@ -14,8 +14,8 @@ namespace Group8_AD_webapp.Controllers
         public static List<RequestVM> GetReq(int empId, string status, string access_token)
         {
             RestClient restClient = new RestClient(API_Url);
-          
-            var request = new RestRequest("/Request/get/?empId=" + empId +"&status="+status, Method.POST);
+            
+            var request = new RestRequest("/Request/get/?empId=" + empId + "&status=" + status, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
             
@@ -44,7 +44,7 @@ namespace Group8_AD_webapp.Controllers
 
             string payload = "?empId=" + empId + "&status=" + status + "&fromDate=" + from
                 + "&toDate=" + to;
-            var request = new RestRequest("/Request/getRequests"+payload, Method.POST);
+            var request = new RestRequest("/Request/get"+payload, Method.POST);
 
             var response = restClient.Execute<List<RequestVM>>(request);
             if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
@@ -62,5 +62,27 @@ namespace Group8_AD_webapp.Controllers
 
         }
 
+        public static RequestVM GetRequestByReqId(int reqId, string access_token)
+        {
+            RestClient restClient = new RestClient(API_Url);
+
+            var request = new RestRequest("/Request/get?reqId=" + reqId, Method.POST);
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = restClient.Execute<RequestVM>(request);
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+            else if (response.Content != null)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

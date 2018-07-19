@@ -4,84 +4,54 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Group8_AD_webapp.Models;
+using RestSharp;
 
 namespace Group8_AD_webapp
 {
     public partial class CatalogueDash : System.Web.UI.Page
     {
-        static List<Item> items = new List<Item>();
+        static List<ItemVM> items = new List<ItemVM>();
+        static string access_token;
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack)
             {
-                List<String> productList = new List<String> { "Clip", "Envelope", "Eraser", "Exercise", "Pen" };
-                ddlCategory.DataSource = productList;
-                ddlCategory.DataBind();
-
+                PopulateDropDowns();
                 DoSearch();
+
+
+
 
                 showgrid.Visible = true;
                 showlist.Visible = false;
-
-                AddItems();
+                
                 lstSearch.DataSource = items;
                 lstSearch.DataBind();
 
-                List<int> pagecounts = new List<int> { 6, 9, 12, 18 };
-                ddlPageCount.DataSource = pagecounts;
-                ddlPageCount.SelectedIndex = 1;
-                ddlPageCount.DataBind();
+
             }
 
             ddlsearchcontent.Visible = false;
         }
 
-        protected void AddItems()
-        {
-            items.Add(new Item("A001", "Pen", "Pencil 2B Pencil 2B, With Eraser End Pencil 2B, With Eraser End Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B053", "File", "File, Yellow Americano, plunger pot sweet, shop viennese Yellow Americano, plunger pot sweet, shop viennese, redeye plunger pot aged ", 100, 1.23, "each"));
-            items.Add(new Item("C007", "Stapler", "Stapler 1in", 150, 1.50, "box"));
-            items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            items.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
-            items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B053", "File", "File, Yellow", 100, 1.23, "each"));
-            items.Add(new Item("C007", "Stapler", "Stapler 1in", 150, 1.50, "box"));
-            items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            items.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
-            items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B053", "File", "File, Yellow", 100, 1.23, "each"));
-            items.Add(new Item("C007", "Stapler", "Stapler 1in", 150, 1.50, "box"));
-            items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            items.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
-            items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B053", "File", "File, Yellow", 100, 1.23, "each"));
-            items.Add(new Item("C007", "Stapler", "Stapler 1in", 150, 1.50, "box"));
-            items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            items.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            items.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
-        }
 
         protected void DoSearch()
         {
-            items = new List<Item>();
+            items = new List<ItemVM>();
             if (Request.QueryString["s"] == "1")
             {
                 lblCatTitle.Text = "Frequently Ordered Items";
                 // Insert method for finding frequent items
-                items.Add(new Item("A001", "Pen", "Kittens", 50, 1.02, "pack of 12"));
-                items.Add(new Item("B053", "Exercise", "Puppies", 100, 1.23, "each"));
                 BindGrids();
             }
             else if (Request.QueryString["s"] == "2")
             {
                 lblCatTitle.Text = "Search Results";
                 // use Session["cataloguequery"] and Session["querycategory"] to search
-                items = new List<Item>();
+                items = new List<ItemVM>();
                 //items.Add(new Item("A001", "Pen", "Kittens", 50, 1.02, "pack of 12"));
                 //items.Add(new Item("B053", "Exercise", "Puppies", 100, 1.23, "each"));
                 BindGrids();
@@ -90,9 +60,25 @@ namespace Group8_AD_webapp
             {
                 lblCatTitle.Text = "Catalogue";
                 // Display all
-                AddItems();
+                items = Controllers.ItemCtrl.GetAllItems(access_token);
                 BindGrids();
             }
+        }
+
+        protected void PopulateDropDowns()
+        {
+            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory(access_token);
+            ddlCategory.DataBind();
+
+            List<string> pagecounts = new List<string> { "6", "9", "12", "All" };
+            //ListItemCollection pagecounts = new ListItemCollection();
+            //pagecounts.Add(new ListItem("6", "6"));
+            //pagecounts.Add(new ListItem("9", "9"));
+            //pagecounts.Add(new ListItem("12", "12"));
+            //pagecounts.Add(new ListItem("All", "0"));
+            ddlPageCount.DataSource = pagecounts;
+            ddlPageCount.SelectedIndex = 1;
+            ddlPageCount.DataBind();
         }
 
         protected void BindGrids()
@@ -103,10 +89,13 @@ namespace Group8_AD_webapp
             grdCatalogue.DataSource = items;
             grdCatalogue.DataBind();
 
+            lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + (dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows) + " of " + items.Count();
+        }
+
+        protected void BindSidePanel() { 
             lstBookmarks.DataSource = items;
             lstBookmarks.DataBind();
 
-            lblPageCount.Text = "Showing 1 to " + dpgGrdCatalogue.PageSize + " of " + items.Count();
         }
 
         protected void ListPager_PreRender(object sender, EventArgs e)
@@ -120,28 +109,39 @@ namespace Group8_AD_webapp
 
         protected void lstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
-            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgGrdCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgLstCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgGrdCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            dpgLstCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            BindGrids();
 
-            //lstCatalogue.DataSource = items;
-            //lstCatalogue.DataBind();
+            //int pageNumber = Convert.ToInt32(Request["pageNumber"]);
 
-            //(grdCatalogue.FindControl("dpgCatalogue") as DataPager).SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
 
             //grdCatalogue.DataSource = items;
             //grdCatalogue.DataBind();
 
-            lblPageCount.Text = "Showing "+e.StartRowIndex +" to "+(e.StartRowIndex+e.MaximumRows)+" of "+items.Count();
+            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
+
+            //lstCatalogue.DataSource = items;
+            //lstCatalogue.DataBind();
+
+            lblPageCount.Text = "Showing "+ (e.StartRowIndex+1) +" to "+(e.StartRowIndex+ e.MaximumRows) +" of "+items.Count();
+            // e.MaximumRows
         }
 
         protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
         {
-            lstCatalogue.DataSource = items;
-            lstCatalogue.DataBind();
+            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
 
-            grdCatalogue.DataSource = items;
-            grdCatalogue.DataBind();
+            //lstCatalogue.DataSource = items;
+            //lstCatalogue.DataBind();
 
-            
+            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
+
+            //grdCatalogue.DataSource = items;
+            //grdCatalogue.DataBind();
         }
 
         protected void btnBookmark_Click(object sender, EventArgs e)
@@ -214,7 +214,7 @@ namespace Group8_AD_webapp
             //master.ShowToastr(this, "", "Cat: " + ddlCategory.Text + " Query: " + txtSearch.Text, "success");
 
             string searchquery = txtSearch.Text;
-            List<Item> searchitems = items.Where(x => x.Description.ToLower().Contains(searchquery)).Take(5).ToList();
+            List<ItemVM> searchitems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList();
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
@@ -224,10 +224,9 @@ namespace Group8_AD_webapp
 
         protected void lstSearch_PagePropertiesChanged(object sender, EventArgs e)
         {
-            items = new List<Item>();
-            AddItems();
+            items = new List<ItemVM>();
             string searchquery = txtSearch.Text;
-            List<Item> searchitems = items.Where(x => x.Description.ToLower().Contains(searchquery)).Take(5).ToList();
+            List<ItemVM> searchitems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList();
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
@@ -256,8 +255,21 @@ namespace Group8_AD_webapp
 
         protected void ddlPageCount_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblPageCount.Text = "hello";
-            dpgGrdCatalogue.PageSize = Convert.ToInt32(ddlPageCount.SelectedValue);
+            if(ddlPageCount.SelectedValue == "All"){
+                dpgGrdCatalogue.PageSize = Convert.ToInt32(items.Count());
+                dpgLstCatalogue.PageSize = Convert.ToInt32(items.Count());
+                lblPageCount.Text = ddlPageCount.SelectedValue;
+            }
+            else
+            {
+                dpgGrdCatalogue.PageSize = Convert.ToInt32(ddlPageCount.SelectedValue);
+                dpgLstCatalogue.PageSize = Convert.ToInt32(ddlPageCount.SelectedValue);
+            }
+
+            dpgGrdCatalogue.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgLstCatalogue.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgGrdCatalogue2.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
+            dpgLstCatalogue2.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
             BindGrids();
         }
     }

@@ -66,7 +66,7 @@
                                 </tr>
                             </ItemTemplate>
                             <EmptyDataTemplate>
-                                <span class="noresult showsearch">Sorry! No requests found within those search paramters!</span>
+                                <span class="noresult showsearch">Sorry! No requests found within those search parameters!</span>
                                 <!-- Add Back Button here -->
                             </EmptyDataTemplate>
                             </asp:ListView>

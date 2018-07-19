@@ -19,7 +19,7 @@
             <asp:listitem text="All" value="0" />
         </asp:DropDownList>
              <div class="dd-search">
-        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
 
          <asp:UpdatePanel ID="UpdatePanel1" runat="server">
 
@@ -36,7 +36,7 @@
                 <tr>
                     <td style="display:none;"><asp:Label ID="lstSearchlblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                     <td style="width:50px;" class="showsearch"><img src="../images/pencils.png" width="50"></td>
-                    <td class="sidedesc searchdesc showsearch"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
+                    <td class="sidedesc searchdesc showsearch"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
                     <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="lstSearchspnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
@@ -56,9 +56,6 @@
                  </ul></div>
         </ContentTemplate></asp:UpdatePanel></div>
             
-
-
-
         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />
         </div>
 
@@ -100,14 +97,14 @@
          <table class="product-wrapper2" >
             <tr><td class="p-3"><div class="imagewrapper">
                 <asp:LinkButton ID="btnBookmark" CssClass="btn-bookmark btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton>
-                <img src="../images/pencils.png" class="img-responsive"></div>
+                <img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" class="img-responsive"></div>
                 </td></tr>                
             <tr><td class="item-description smalldesc">
                 <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>' Visible="False" />
-                <div class="" ><asp:Label ID="lblDescription" runat="server" CssClass="blank" Text='<%#Eval("Description") %>'></asp:Label></div></td></tr>
+                <div class="" ><asp:Label ID="lblDescription" runat="server" CssClass="blank" Text='<%#Eval("Desc") %>'></asp:Label></div></td></tr>
             <tr><td class="form-inline lblQty movedown">
                <span class=""> Qty: 
-                   <asp:TextBox ID="TextBox1" type="number" Cssclass="form-control" runat="server" min="0"  Value="1" Width="80px" /></span><br />
+                   <asp:TextBox ID="spnQty" type="number" Cssclass="form-control controlheight" runat="server" min="0"  Value="1" Width="80px" /></span><br />
                  </td></tr>
             <tr><td class="p-1 m-auto">
                 <asp:Button ID="btnAdd" CssClass="btn-add btn-add2  btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/>
@@ -122,7 +119,7 @@
 
 
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgGrdCatalogue2" runat="server" PageSize="9" PagedControlID="grdCatalogue">
+        <asp:DataPager ID="dpgGrdCatalogue2" runat="server" PageSize="9" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" PagedControlID="grdCatalogue">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -133,7 +130,7 @@
 
         <div id="showlist" class="showlist" runat="server">
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="15" PagedControlID="lstCatalogue" OnPreRender="ListPager_PreRender">
+        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="9" PagedControlID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPreRender="ListPager_PreRender">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -142,7 +139,7 @@
         </asp:DataPager></div>
 
        <div class=" col-xs-12"> 
-        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <LayoutTemplate>
             <table runat="server" class="table list-table">
                 <thead><tr id="grdHeader" runat="server">
@@ -159,8 +156,8 @@
         <ItemTemplate>
             <tr>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
-                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign" runat="server" min="0"  Value="1" Width="60px" /></td>
+                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
+                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign controlheight" runat="server" min="0"  Value="1" Width="60px" /></td>
                 <td><asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
             </tr>
         </ItemTemplate>
@@ -171,7 +168,7 @@
            </div>
 
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgLstCatalogue2" runat="server" PageSize="15" PagedControlID="lstCatalogue">
+        <asp:DataPager ID="dpgLstCatalogue2" runat="server" PageSize="9" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" PagedControlID="lstCatalogue">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -197,7 +194,7 @@
                 <tr>
                     <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                     <td style="width:50px;"><img src="../images/pencils.png" width="50" class=""></td>
-                    <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
+                    <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
                     <td colspan="3" class="bmkright"> <asp:TextBox ID="TextBox2" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
