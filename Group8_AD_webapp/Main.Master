@@ -49,27 +49,27 @@
                     </button>
                     <ul class="nav navbar-top-links navbar-right">
 
-                        <li class="dropdown dropdown2"><a runat="server" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <em class="fa fa-shopping-cart"></em><span class="label label-info">5</span>
+                        <li class="dropdown dropdown2"><a runat="server" class="dropdown-toggle count-info" href="Employee/RequestList.aspx">
+                            <em class="fa fa-shopping-cart"></em>
+                            <asp:Label ID="lblCartCount" CssClass="label label-info" runat="server" Text="0"></asp:Label>
                         </a>
                             <ul class="dropdown-content dropdown-alerts">
                                 <asp:ListView ID="lstCart" runat="server" OnPagePropertiesChanged="lstCart_PagePropertiesChanged">
                                 <ItemTemplate>
                                   <li><a runat="server" href="#">
                                       <table><tr><td class="ddlcartitem">
-                                         <asp:Label ID="Label1" runat="server" CssClass="" Text='<%#Eval("Description") %>'/></td>
-                                         <td class="ddlcartitem2"><asp:Label ID="Label2" runat="server" CssClass="blank" Text='<%#Eval("Balance") %>'/></td>
+                                         <asp:Label ID="Label1" runat="server" CssClass="" Text='<%#Eval("Desc") %>'/></td>
+                                         <td class="ddlcartitem2"><asp:Label ID="Label2" runat="server" CssClass="blank" Text='<%#Eval("ReqQty") %>'/></td>
                                          <!-- <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-removeitem" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton> </td> -->
                                         </tr></table>
                                           </a></li>
                                 </ItemTemplate>
                                 <EmptyDataTemplate>
-                                    <span class="noresult">Nothing in cart. Feed me!</span>
-                                    <!-- Add Back Button here -->
+                                    <li><span class="noresult">Nothing in cart. Feed me!</span></li>
                                 </EmptyDataTemplate>
                                 </asp:ListView>
                                 <li style="text-align:right;">
-                                    <a href="RequestList.aspx" class="btn btn-add">GO TO CART</a>
+                                    <a href="Employee/RequestList.aspx" class="btn btn-add">GO TO CART</a>
                                 </li>
                             </ul>
                         </li>

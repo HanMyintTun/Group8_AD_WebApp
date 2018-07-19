@@ -126,3 +126,14 @@
 .dropdown-content > li > a.btn-add{
     color: #fff;
 }
+
+.dropdown-content .noresult {
+    font-weight:700; 
+    color:red;
+}
+
+@media only screen and (max-width: 750px) {
+    .dropdown-content {
+        left: 0;
+    }
+}
