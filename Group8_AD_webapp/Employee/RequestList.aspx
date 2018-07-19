@@ -13,25 +13,24 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
-        
-
-
-        <asp:UpdatePanel ID="udpCart" runat="server">
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <asp:UpdatePanel ID="udpUnsub" runat="server">
         <ContentTemplate>
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
         <div class="row">
         <div class="col-xs-12 col-lg-6">
-       <div class="subtitletext">Request List <a href="#bookmarks" class="viewbmkarea btn btn-bookmark" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'>VIEW <i class="fa fa-bookmark"></i></a> </div> 
+       <div class="subtitletext">Request List <a href="#bookmarks" class="viewbmkarea btn btn-warning" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'>VIEW <i class="fa fa-bookmark"></i></a> </div> 
         STATUS: <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
         <!-- Cart List -->
        <div class="listview"> 
-        <asp:ListView runat="server" ID="lstCart" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstShow" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <LayoutTemplate>
             <table runat="server" class="table">
                 <thead><tr id="grdHeader" runat="server">
                         <th scope="col" style="display:none;">Item Code</th>
+                        <th runat="server" id="thdBookmark" ></th>
                         <th scope="col">Product Description</th>
                         <th scope="col">Request Qty</th>
                         <th runat="server" id="thdRemove">Remove</th>
@@ -46,19 +45,22 @@
         </LayoutTemplate>
         <ItemTemplate>
             <tr>
+                <td style="display:none;"><asp:Label ID="lblReqLineNo" runat="server" Text='<%# Eval("ReqLineNo") %>'/></td>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td><div class="btn btn-bookmark" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><i class="fa fa-bookmark"></i></div>
-                    <asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
-                <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("Balance") %>'></asp:Label></td>
-                <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="p-2" runat="server" min="0"  Value='<%# Eval("Balance") %>' Width="60px" /></td>
+                <td><div class="btn btn-warning" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><i class="fa fa-bookmark"></i></div></td>
+                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("ItemCode"))%>' /></td>
+                <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("ReqQty") %>'></asp:Label></td>
+                <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="p-2" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
                 <td style = '<%=IsEditable ? "" : "display: none;" %>'><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
-                <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("Balance") %>'></asp:Label></td>
-                <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblBalanceQty" runat="server" Text='<%# Eval("Balance") %>'></asp:Label></td>
-                <td style = '<%=IsApproved ? "" : "display: none;" %> <%#(Convert.ToInt32(Eval("Balance")) == 50) ? "border:none" : "display: none;" %>'><div class="btn-fulfilled"><i class="fa fa-check-circle"></i></div></td>
+                <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("FulfilledQty") %>'></asp:Label></td>
+                <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblBalanceQty" runat="server" Text='<%# Convert.ToInt32(Eval("ReqQty")) - Convert.ToInt32(Eval("FulfilledQty"))%>'></asp:Label></td>
+                <td style = '<%=IsApproved ? "" : "display: none;" %> <%#(Convert.ToInt32(Eval("ReqQty")) == Convert.ToInt32(Eval("FulfilledQty"))) ? "border:none" : "display: none;" %>'><div class="btn-fulfilled"><i class="fa fa-check-circle"></i></div></td>
             </tr>
         </ItemTemplate>
         <EmptyDataTemplate>
-            <span class="noresult">Sorry! There are no items in your cart!.</span>
+            <span class="noresult">Sorry! There are no items in your cart!.<br />
+                Go back to <a href ="CatalogueDash.aspx">Catalogue</a>.
+            </span>
         </EmptyDataTemplate>
         </asp:ListView>
            </div>
@@ -98,9 +100,9 @@
         <ItemTemplate>
             <tr>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td><asp:Button ID="btnBookmark" CssClass="btn-bookmark mt-2 btn" runat="server" Text="ADD" OnClick="btnBookmark_Click"/></td>
-                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Description"))%>' /></td>
-                <!-- <td> <asp:TextBox ID="spnQty" type="number" Cssclass="p-2" runat="server" min="0"  Value='<%# Eval("Balance") %>' Width="60px" /></td> -->
+                <td><asp:Button ID="btnBookmark" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="btnBookmark_Click"/></td>
+                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("ItemCode"))%>' /></td>
+                <!-- <td> <asp:TextBox ID="spnQty" type="number" Cssclass="p-2" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td> -->
                <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
             </tr>
         </ItemTemplate>

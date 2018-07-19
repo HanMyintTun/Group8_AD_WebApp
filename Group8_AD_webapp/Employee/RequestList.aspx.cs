@@ -4,13 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Group8_AD_webapp.Models;
 
 namespace Group8_AD_webapp
 {
     public partial class RequestList : System.Web.UI.Page
     {
-        List<Item> cartList = new List<Item>();
-        List<Item> bookmarkList = new List<Item>();
+        static string access_token;
+        List<RequestVM> requests = new List<RequestVM>();
+        List<RequestDetailVM> showList = new List<RequestDetailVM>();
+        List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
+
+        int empId;
         int reqid;
         string status ="";
         public bool IsEditable = false;
@@ -21,12 +26,15 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
-                if (Request.QueryString["reqid"] != "" || Request.QueryString["reqid"] != null)
+                empId = 31;
+
+                if (Request.QueryString["reqid"] != null)
                 {
+                    Label1.Text = "NOT EMPTY";
                     reqid = Convert.ToInt32(Request.QueryString["reqid"]);
-                    // Retrieve Request from database by reqid
+                    //RequestVM myRequest = Controllers.RequestCtrl.GetRequestByReqId(reqid, access_token);
                     AddItems();
-                    BindGrid();
+                    BindGrids();
                     if (reqid == 1)
                     {
                         status = "unsubmitted";
@@ -51,18 +59,38 @@ namespace Group8_AD_webapp
                 }
                 else
                 {
-                    // Create new order
-                    reqid = 100;
-                    status = "unsubmitted";
                     IsEditable = true;
-                    AddItems();
-                    BindGrid();
+                    IsNotSubmitted = true;
+                    // Default: Show Cart
+                    RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted", access_token).FirstOrDefault();
+                    RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
+                    if (unsubRequest != null)
+                    {
+                        reqid = unsubRequest.ReqId;
+                        List<RequestDetailVM> unsubReqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+                        showList = unsubReqDetails;
+                        status = unsubRequest.Status;
+                    }
+                    else
+                    {
+                        // TO DO: custom empty cart message - currently: EmptyDataTemplate
+                    }
+                    if(bookmarks != null)
+                    {
+                        reqid = bookmarks.ReqId;
+                        List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+                        Label1.Text = bookmarkDetails.ToString();
+                        bookmarkList = bookmarkDetails;
+                    }
+                    BindGrids();
                 }
                 lblStatus.Text = status.ToUpper();
+                lstShow.FindControl("thdBookmark").Visible = false;
                 if (IsNotSubmitted)
                 {
                     btnSubmit.Visible = true;
                     btnUpdate.Visible = false;
+                    lstShow.FindControl("thdBookmark").Visible = true;
                 }
                 else
                 {
@@ -71,35 +99,26 @@ namespace Group8_AD_webapp
                 }
                 if (!IsEditable)
                 {
-                    lstCart.FindControl("thdRemove").Visible = false;
+                    lstShow.FindControl("thdRemove").Visible = false;
                 }
                 if (!IsApproved)
                 {
-                    lstCart.FindControl("thdFulfQty").Visible = false;
-                    lstCart.FindControl("thdBalQty").Visible = false;
-                    lstCart.FindControl("thdFulf").Visible = false;
+                    lstShow.FindControl("thdFulfQty").Visible = false;
+                    lstShow.FindControl("thdBalQty").Visible = false;
+                    lstShow.FindControl("thdFulf").Visible = false;
                 }
             }
         }
 
         protected void AddItems()
         {
-            cartList.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
-            cartList.Add(new Item("B053", "File", "File, Yellow", 100, 1.23, "each"));
-            cartList.Add(new Item("C007", "Stapler", "Stapler 1in", 150, 1.50, "box"));
-            cartList.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            cartList.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            cartList.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
 
-            bookmarkList.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-            bookmarkList.Add(new Item("B054", "File", "File, Blue", 100, 1.23, "each"));
-            bookmarkList.Add(new Item("C008", "Stapler", "Stapler 2in", 150, 1.50, "box"));
         }
 
-        protected void BindGrid()
+        protected void BindGrids()
         {
-            lstCart.DataSource = cartList;
-            lstCart.DataBind();
+            lstShow.DataSource = showList;
+            lstShow.DataBind();
 
             lstBookmark.DataSource = bookmarkList;
             lstBookmark.DataBind();
@@ -107,7 +126,7 @@ namespace Group8_AD_webapp
 
         protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
         {
-            BindGrid();
+            BindGrids();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)

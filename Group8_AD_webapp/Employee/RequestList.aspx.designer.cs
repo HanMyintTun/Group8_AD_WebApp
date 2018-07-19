@@ -13,13 +13,22 @@ namespace Group8_AD_webapp {
     public partial class RequestList {
         
         /// <summary>
-        /// udpCart control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpCart;
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// udpUnsub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpUnsub;
         
         /// <summary>
         /// lblStatus control.
@@ -31,13 +40,13 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// lstCart control.
+        /// lstShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lstCart;
+        protected global::System.Web.UI.WebControls.ListView lstShow;
         
         /// <summary>
         /// btnReqList control.

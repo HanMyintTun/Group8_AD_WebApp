@@ -524,12 +524,12 @@
 }
 
 @media only screen and (min-width : 1200px) {
-#txtEndDate, #txtStartDate{
-    width:150px;
-}
-        /*.viewbmkarea {
-            display: none;
-        }*/
+    #txtEndDate, #txtStartDate{
+        width:150px;
+    }
+    .viewbmkarea {
+        display: none;
+    }
 }
 
 @media only screen and (max-width : 768px) {
