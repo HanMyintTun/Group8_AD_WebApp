@@ -14,8 +14,8 @@ namespace Group8_AD_webapp.Controllers
         public static List<RequestVM> GetReq(int empId, string status, string access_token)
         {
             RestClient restClient = new RestClient(API_Url);
-
-            var request = new RestRequest("/Request/getEmployeeRequests/" + empId +"/"+status, Method.GET);
+          
+            var request = new RestRequest("/Request/get/?empId=" + empId +"&status="+status, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
             

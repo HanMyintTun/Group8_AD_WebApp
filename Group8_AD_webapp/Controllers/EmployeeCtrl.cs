@@ -35,5 +35,31 @@ namespace Group8_AD_webapp.Controllers
             }
 
         }
+
+        public static EmployeeVM getEmployeebyId(int id, string access_token)
+        {
+
+            RestClient restClient = new RestClient(API_Url);
+
+            var request = new RestRequest("/Employee/" + id, Method.GET);
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = restClient.Execute<EmployeeVM>(request);
+
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
+            else if (response.Content != null)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }

@@ -15,10 +15,15 @@ namespace Group8_AD_webapp.DepartmentHead
             if (!IsPostBack)
             {
                 access_token = Session["Token"].ToString();
+               
                 ddlRep.DataSource = Controllers.EmployeeCtrl.getEmployeeList(access_token);
+                ddlRep.DataTextField = "empName";
+                ddlRep.DataValueField = "empId";
                 ddlRep.DataBind();
 
                 ddlDelegate.DataSource = Controllers.EmployeeCtrl.getEmployeeList(access_token);
+                ddlDelegate.DataTextField = "empName";
+                ddlDelegate.DataValueField = "empId";
                 ddlDelegate.DataBind();
             }
             

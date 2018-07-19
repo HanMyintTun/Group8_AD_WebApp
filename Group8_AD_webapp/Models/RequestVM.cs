@@ -26,7 +26,7 @@ namespace Group8_AD_webapp.Models
         public DateTime CancelledDateTime { get => cancelledDateTime; set => cancelledDateTime = value; }
         public DateTime FulfilledDateTime { get => fulfilledDateTime; set => fulfilledDateTime = value; }
         public string Status { get => status; set => status = value; }
-
+       
         public RequestVM(int reqId, int empId, int approverId, string approverComment, DateTime reqDateTime, DateTime approvedDateTime, DateTime cancelledDateTime, DateTime fulfilledDateTime, string status)
         {
             ReqId = reqId;
@@ -38,11 +38,9 @@ namespace Group8_AD_webapp.Models
             CancelledDateTime = cancelledDateTime;
             FulfilledDateTime = fulfilledDateTime;
             Status = status;
+            
         }
+        public RequestVM() { }
 
-        public RequestVM()
-        {
-
-        }
     }
 }
