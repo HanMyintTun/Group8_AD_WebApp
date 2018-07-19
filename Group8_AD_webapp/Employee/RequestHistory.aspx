@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-         <div class="form-group form-inline formstyle text-center">
+         <div class="form-group form-inline formstyle2 text-center">
         <div class="col-lg-3">
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Request History"></asp:Label></span>
         </div>
@@ -38,7 +38,7 @@
 
     <div id="main"> <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
         
-        <div id="centermain">
+        <div id="centermain2">
             <div class="row">
             <div class="col-xs-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">

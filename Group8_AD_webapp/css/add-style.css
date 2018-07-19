@@ -92,6 +92,7 @@
 
 .ddlSearch{
     margin-left: 50px;
+    max-width: 200px;
 }
 
 .ddlSearch, .btnSearch, .txtSearch{

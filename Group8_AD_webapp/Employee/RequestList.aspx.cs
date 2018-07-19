@@ -79,7 +79,6 @@ namespace Group8_AD_webapp
                         List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
                         bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
                         bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
-                        RequestDetailVM req = bookmarkDetails[0];
                     }
                     BindGrids();
                 }

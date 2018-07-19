@@ -12,6 +12,7 @@ namespace Group8_AD_webapp
     public partial class CatalogueDash : System.Web.UI.Page
     {
         static List<ItemVM> items = new List<ItemVM>();
+        static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         static string access_token;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,17 +22,14 @@ namespace Group8_AD_webapp
             {
                 PopulateDropDowns();
                 DoSearch();
-
-
-
+                BindSidePanel();
 
                 showgrid.Visible = true;
                 showlist.Visible = false;
                 
                 lstSearch.DataSource = items;
                 lstSearch.DataBind();
-
-
+                
             }
 
             ddlsearchcontent.Visible = false;
@@ -71,11 +69,6 @@ namespace Group8_AD_webapp
             ddlCategory.DataBind();
 
             List<string> pagecounts = new List<string> { "6", "9", "12", "All" };
-            //ListItemCollection pagecounts = new ListItemCollection();
-            //pagecounts.Add(new ListItem("6", "6"));
-            //pagecounts.Add(new ListItem("9", "9"));
-            //pagecounts.Add(new ListItem("12", "12"));
-            //pagecounts.Add(new ListItem("All", "0"));
             ddlPageCount.DataSource = pagecounts;
             ddlPageCount.SelectedIndex = 1;
             ddlPageCount.DataBind();
@@ -92,10 +85,18 @@ namespace Group8_AD_webapp
             lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + (dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows) + " of " + items.Count();
         }
 
-        protected void BindSidePanel() { 
-            lstBookmarks.DataSource = items;
+        protected void BindSidePanel() {
+            int empId = 31;
+            RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
+            if (bookmarkReq != null)
+            {
+                int bmkid = bookmarkReq.ReqId;
+                List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(bmkid, access_token);
+                bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
+                bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
+            }
+            lstBookmarks.DataSource = bookmarkList;
             lstBookmarks.DataBind();
-
         }
 
         protected void ListPager_PreRender(object sender, EventArgs e)

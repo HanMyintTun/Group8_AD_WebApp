@@ -12,7 +12,7 @@
 
          <div class="form-group form-inline formstyle m-2 text-center">
         <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
-        <asp:LinkButton ID="btnGrid" Cssclass="listbutton active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
+        <asp:LinkButton ID="btnGrid" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
         <asp:LinkButton ID="btnList" Cssclass="listbutton" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
         <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
@@ -63,6 +63,8 @@
         <div id="main">
 
         <div id="centermain">
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+
         <asp:UpdatePanel ID="udpCatalogue" runat="server">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="txtSearch" />
@@ -74,7 +76,7 @@
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
           <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />--%>
-            Items Per Page: <asp:DropDownList ID="ddlPageCount" runat="server" OnSelectedIndexChanged="ddlPageCount_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+            <span class="pad-left10">Items Per Page: </span><asp:DropDownList ID="ddlPageCount" runat="server" OnSelectedIndexChanged="ddlPageCount_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
             <asp:Label ID="lblPageCount" CssClass="lblPage" runat="server" Text="Label"></asp:Label>
 
     <div class="row">
@@ -104,7 +106,7 @@
                 <div class="" ><asp:Label ID="lblDescription" runat="server" CssClass="blank" Text='<%#Eval("Desc") %>'></asp:Label></div></td></tr>
             <tr><td class="form-inline lblQty movedown">
                <span class=""> Qty: 
-                   <asp:TextBox ID="spnQty" type="number" Cssclass="form-control controlheight" runat="server" min="0"  Value="1" Width="80px" /></span><br />
+                   <asp:TextBox ID="spnQty" type="number" Cssclass="form-control controlheight txtboxmove" width="80px" runat="server" min="0"  Value="1" /></span><br />
                  </td></tr>
             <tr><td class="p-1 m-auto">
                 <asp:Button ID="btnAdd" CssClass="btn-add btn-add2  btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/>
@@ -157,7 +159,7 @@
             <tr>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
-                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign controlheight" runat="server" min="0"  Value="1" Width="60px" /></td>
+                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign controlheight txtconstraint" runat="server" min="0"  Value="1"/></td>
                 <td><asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
             </tr>
         </ItemTemplate>
@@ -181,8 +183,8 @@
     <div class="sidepanelarea col-md-4">
         <div class="bookmark-panel-top">
             <ul class="nav nav-tabss">
-              <li class="active"><a data-toggle="tab" href="#home">Bookmarks</a></li>
-              <li><a data-toggle="tab" href="#menu1">Popular</a></li>
+              <li class="active"><a data-toggle="tab" href="#bookmk">Bookmarks</a></li>
+              <li><a data-toggle="tab" href="#recc">Recommended</a></li>
             </ul>
             </div>
             <div class="bookmark-panel">
@@ -193,12 +195,12 @@
                 <table>
                 <tr>
                     <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                    <td style="width:50px;"><img src="../images/pencils.png" width="50" class=""></td>
+                    <td rowspan="2" style="width:90px;"><img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" width="92" class=""></td>
                     <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
                     <td colspan="3" class="bmkright"> <asp:TextBox ID="TextBox2" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
-                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
                 </div>

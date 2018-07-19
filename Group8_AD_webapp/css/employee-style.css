@@ -2,17 +2,13 @@
     overflow-x: hidden;
 }
 
-
-
-
-
 #main {
     padding-top: 60px;
     padding-right: 20px;
 }
 
 
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width : 1400px) {
     .sidepanelarea {
         display: none;
     }
@@ -362,7 +358,7 @@
     }
 
 
-    .formstyle {
+    .formstyle, .formstyle2 {
         text-align: left;
         padding-left: 320px;
         position: fixed;
@@ -376,9 +372,9 @@
 
 
 
-    #centermain {
-        margin-top: 100px;
-    }
+#centermain, #centermain2 {
+    margin-top: 100px;
+}
 
     .list-table > tbody > tr > td {
         vertical-align: middle;
@@ -464,7 +460,6 @@
 
     .bmkright {
         width: 300px;
-        text-align: right;
     }
 
 .sidedesc {
@@ -479,8 +474,10 @@
     transition: all .3s ease;
     z-index: 22;
     background-color: #f2f3f2;
+    font-weight: 700;
     padding-left: 10px;
     padding-right: 20px;
+    font-size: 1.4rem;
 }
 
     .searchdesc{
@@ -513,12 +510,20 @@
         padding-left:10px;
     }
 
+    .txtconstraint{
+        width: 60px;
+    }
+
 @media only screen and (max-width : 1200px) {
-    .formstyle {
+    .formstyle2 {
         height: 230px;
     }
 
-    #centermain {
+    #centermain{
+        margin-top: 160px;
+    }
+
+    #centermain2 {
         margin-top: 250px;
     }
 
@@ -553,12 +558,22 @@
         padding-left: 15px;
     }
 
-    .formstyle {
+    .formstyle, .formstyle2 {
         padding-left: 20px;
+    }
+
+    .formstyle {
+        height: 160px;
     }
 
     .headtext, .row, .dpager {
         padding-left: 30px;
         padding-right: 30px;
     }
+
+    .txtboxmove {
+        margin-left: 50px;
+    }
+
+
 }
