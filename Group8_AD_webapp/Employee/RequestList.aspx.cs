@@ -158,6 +158,7 @@ namespace Group8_AD_webapp
             master.ShowToastr(this, String.Format("{0} Qty:{1}", description, quantity), "Order Updated", "success");
         }
 
+        // EDIT AFTER WEBAPI UP
         protected void btnBookmark_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;

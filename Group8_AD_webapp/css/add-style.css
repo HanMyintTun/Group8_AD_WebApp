@@ -5,7 +5,7 @@
 .dropdown:hover>ul{
     display:block;
 }
-.dropdown2 {
+.dropdown, .dropdown2 {
     position: relative;
     display: inline-block;
     color: #fff;
