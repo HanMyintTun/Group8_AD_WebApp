@@ -224,8 +224,7 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            //bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
-            bool success = true;
+            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
             Main master = (Main)this.Master;
             if (success)
             {

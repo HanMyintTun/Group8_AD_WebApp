@@ -36,13 +36,13 @@ namespace Group8_AD_webapp.Controllers
 
         }
 
-        // NOT TESTED
+        // ONLY TESTED WITH DUMMY
         public static bool AddBookmark(int empId, string itemCode, string access_token)
         {
             //AddReqDet(empId, reqDet, “Bookmarked”)
             RestClient restClient = new RestClient(API_Url);
 
-            string payload = "empId" + empId + "&ItemCode=" + itemCode + "&Status=Bookmarked";
+            string payload = "empId" + empId + "&ItemCode=" + itemCode + "&ReqQty=1&Status=Bookmarked";
             var request = new RestRequest("/RequestDetail/addReqDet", Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
@@ -59,7 +59,7 @@ namespace Group8_AD_webapp.Controllers
             }
         }
 
-        // NOT TESTED
+        // ONLY TESTED WITH DUMMY
         public static bool AddToCart(int empId, string itemCode, int reqQty, string access_token)
         {
             //AddReqDet(empId, reqDet, “Bookmarked”)
