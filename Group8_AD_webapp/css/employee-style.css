@@ -541,6 +541,36 @@
     padding: 5px 5px;
 }
 
+.modal-lg{
+    width: 500px;
+}
+
+.detail-item table {
+    table-layout: auto !important;
+}
+
+.detail-item th, .detail-item td, .detail-item thead th, .detail-item tbody td {
+    width: auto !important;
+}
+
+.modal-dialog2{
+    margin: 200px auto;
+    width: 400px;
+    height: 250px;
+}
+
+.modal-content{
+    min-height: 250px;
+}
+
+.panel-body2{
+    margin-top: 50px;
+}
+
+.action-btn2{
+    margin-top: 0%;
+}
+
 @media only screen and (max-width : 1200px) {
     .formstyle2 {
         height: 230px;

@@ -41,6 +41,10 @@
         <div id="centermain2">
             <div class="row">
             <div class="col-xs-12">
+                <div ID="divAlert" class="alert alert-success alert-dismissible" role="alert" runat="server">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <strong><asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label></strong>
+                </div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:ListView runat="server" ID="lstRequests">

@@ -15,7 +15,7 @@ namespace Group8_AD_webapp
         static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
         string status = "";
-        int empId = 31;
+        int empId = 42;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,6 +30,16 @@ namespace Group8_AD_webapp
 
                 requests = Controllers.RequestCtrl.GetReq(empId, "All", access_token);
                 BindGrid();
+
+                if(Session["Message"] != null){
+                    lblMessage.Text = Session["Message"].ToString();
+                    Session["Message"] = null;
+                }
+                else
+                {
+                    divAlert.Visible = false;
+                }
+
             }
 
         }

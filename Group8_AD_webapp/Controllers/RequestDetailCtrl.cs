@@ -42,6 +42,7 @@ namespace Group8_AD_webapp.Controllers
             //AddReqDet(empId, reqDet, “Bookmarked”)
             RestClient restClient = new RestClient(API_Url);
 
+            // Must add thru queryString
             string payload = "empId=" + empId + "&ItemCode=" + itemCode + "&ReqQty=1&Status=Bookmarked";
             var request = new RestRequest("/RequestDetail/addReqDet?"+payload, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
@@ -64,6 +65,7 @@ namespace Group8_AD_webapp.Controllers
         {
             RestClient restClient = new RestClient(API_Url);
 
+            // Must add thru queryString
             string payload = "EmpId=" + empId + "&ItemCode=" + itemCode + "&ReqQty=" + reqQty + "&Status=Unsubmitted";
             var request = new RestRequest("/RequestDetail/addReqDet?"+payload, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
@@ -87,6 +89,8 @@ namespace Group8_AD_webapp.Controllers
             RestClient restClient = new RestClient(API_Url);
 
             string payload = "ReqId=" + reqId + "&ItemCode=" + itemCode;
+
+            // Must add thru queryString
             var request = new RestRequest("/RequestDetail/removeReqDet?" + payload, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;

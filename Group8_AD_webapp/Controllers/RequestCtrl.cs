@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Group8_AD_webapp.Models;
+using Newtonsoft.Json;
 
 namespace Group8_AD_webapp.Controllers
 {
@@ -82,6 +83,60 @@ namespace Group8_AD_webapp.Controllers
             else
             {
                 return null;
+            }
+        }
+
+
+        public static bool SubmitRequest(int empId, List<RequestDetailVM> reqDetList)
+        {
+            string access_token = "";
+            RestClient restClient = new RestClient(API_Url);
+
+            var jsonList = JsonConvert.SerializeObject(reqDetList);
+
+            string payload = "empId="+ empId + "&reqDetList=" + jsonList;
+
+            // Must add BOTH to querystring AND to Body
+            var request = new RestRequest("/Request/submit?"+payload, Method.POST);
+
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.AddParameter("application/x-www-form-urlencoded", payload, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = restClient.Execute(request);
+            //return payload; - for testing purposes
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool CancelRequest(int reqId)
+        {
+            string access_token = "";
+            RestClient restClient = new RestClient(API_Url);
+
+            string payload = "reqId=" + reqId;
+
+            // Must add to querystring 
+            var request = new RestRequest("/Request/remove?" + payload, Method.POST);
+
+            request.AddHeader("authorization", "Bearer " + access_token);
+            //request.AddParameter("application/x-www-form-urlencoded", payload, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = restClient.Execute(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

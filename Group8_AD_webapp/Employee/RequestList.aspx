@@ -51,6 +51,7 @@
             <tr>
                 <td style="display:none;"><asp:Label ID="lblList" runat="server">Cart</asp:Label></td>
                 <td style="display:none;"><asp:Label ID="lblReqId" runat="server" Text='<%# Eval("ReqId") %>'/></td>
+                <td style="display:none;"><asp:Label ID="lblReqLineNo" runat="server" Text='<%# Eval("ReqLineNo") %>'/></td>
                 <td style="display:none"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                 <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
@@ -75,9 +76,9 @@
             <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back" OnClick ="btnReqList_Click" />
         </div>
         <div class="col-xs-9  buttonarea"  style = '<%=IsApproved ? "display: none;" : "" %> <%=IsEmpty ? "display: none;" : "" %>''>
-            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" runat="server" Text="Cancel Request" />
-            <asp:Button ID="btnSubmit" Cssclass="btn btn-success" runat="server" Text="Submit" />
-            <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" />
+            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="btnCancel_Click" runat="server" Text="Cancel Request" />
+            <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="btnSubmit_Click" runat="server" Text="Submit" />
+            <!-- <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" /> -->
         </div></div>
         </div>
                      </ContentTemplate>
@@ -122,13 +123,79 @@
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
         </asp:ListView>
+                                                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
          </ContentTemplate>
         </asp:UpdatePanel>
+
            </div>
         </div>
-
-
-        
         </div>
     </div>
+
+
+    <!-- modal content-->
+    <div id="mdlConfirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="panel panel-default">
+        <div class="panel-heading"><button type="button" ID="btnClose" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+            <h3 class="detail-subtitle">Please Confirm Request Details</h3></div>
+            <div class="panel-body">
+            <asp:UpdatePanel ID="udpConfirmModal" runat="server">
+            <ContentTemplate>
+                <div class="detail-item"><asp:ListView runat="server" ID="lstConfirm">
+                    <LayoutTemplate>
+                        <table runat="server" class="table table-detail">
+                        <thead><tr id="grdHeader" runat="server">
+                                    <th scope="col" class="tableleft">Item Description</th>
+                                    <th scope="col">Quantity</th>
+                        </tr></thead>
+                        <tbody><tr id="itemPlaceholder" runat="server"></tr></tbody>
+                    </table>
+                    </LayoutTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Desc") %>' /></td>
+                            <td><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
+                        </tr>
+                    </ItemTemplate>
+                 </asp:ListView></div>
+
+                <div class="action-btn">
+                    <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
+                    <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
+                </div>
+              </ContentTemplate>
+              </asp:UpdatePanel>
+              </div>
+       </div></div></div>
+    </div>
+
+    <!-- modal content-->
+    <div id="mdlCancel" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog2 modal-lg">
+        <div class="modal-content">
+        <div class="panel panel-default">
+        <div class="panel-heading"><button type="button" ID="btnClose2" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+            
+            <div class="panel-body panel-body2">
+                <h4 class="detail-subtitle">Request will be cancelled.<br /><br /> Please confirm!</h4></div>
+
+                <div class="action-btn action-btn2">
+                     <asp:Button ID="btnConfirmCancel" class="btn btn-danger btn-msize" OnClick="btnConfirmCancel_Click" runat="server" Text="Confirm" /> 
+                </div>
+
+              </div>
+       </div></div></div>
+    </div>
+     <script type="text/javascript">
+        function openModal() {
+            $('#mdlConfirm').modal('show');
+         }
+        function openCancelModal() {
+            $('#mdlCancel').modal('show');
+        }
+</script>
 </asp:Content>
