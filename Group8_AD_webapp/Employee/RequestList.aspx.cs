@@ -15,7 +15,7 @@ namespace Group8_AD_webapp
         static List<RequestDetailVM> showList = new List<RequestDetailVM>();
         static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         
-        int reqid;
+        static int reqid;
         string status ="";
         static public bool IsEditable = false;
         static public bool IsNotSubmitted = false;
@@ -24,6 +24,7 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Session["empId"] = 42;
             Session["empId"] = 31;
             int empId = (int)Session["empId"];
 
@@ -60,7 +61,6 @@ namespace Group8_AD_webapp
                         reqid = unsubRequest.ReqId;
                         status = unsubRequest.Status;
                         PopulateList(reqid);
-                        //lstShow.FindControl("thdBookmark").Visible = true;
 
                         BindGrids();
 
@@ -74,16 +74,13 @@ namespace Group8_AD_webapp
                     }
                     if (bookmarks != null)
                     {
-                        reqid = bookmarks.ReqId;
-                        List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
-                        bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
-                        bookmarkList = bookmarkDetails.ToList();
-                        bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
+                        int bmkreqid = bookmarks.ReqId;
+                        PopulateBookmarks(bmkreqid);
                     }
                     BindGrids();
                 }
 
-                lblStatus.Text = status.ToUpper();
+                lblStatus.Text = status.ToUpper() + " REQID:"+reqid;    // TODO: REMOVE REQID
 
                 if (status == "Submitted" || status == "Approved" || status == "Fulfilled" || status == "Cancelled")
                 {
@@ -130,6 +127,14 @@ namespace Group8_AD_webapp
             showList = reqDetails;
         }
 
+        protected void PopulateBookmarks(int reqid)
+        {
+            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+            reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
+            bookmarkList = reqDetails;
+            bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
+        }
+
         protected void BindGrids()
         {
             lstShow.DataSource = showList;
@@ -141,7 +146,7 @@ namespace Group8_AD_webapp
 
         protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
         {
-            BindGrids();
+            //BindGrids();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -183,6 +188,7 @@ namespace Group8_AD_webapp
                 bookmarkList.Add(addtobmktemp);
                 // TEMPORARY: REMOVE AFTER WEBAPI UP
                 
+                // TODO: Update List from DB
                 bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
                 lstBookmark.DataSource = bookmarkList;
                 lstBookmark.DataBind();
@@ -197,9 +203,19 @@ namespace Group8_AD_webapp
         {
             var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
+            Label lblList = (Label)item.FindControl("lblList");
+            Label lblReqId = (Label)item.FindControl("lblReqId");
             Label lblItemCode = (Label)item.FindControl("lblItemCode");
             Label lblDescription = (Label)item.FindControl("lblDescription");
+            string list = lblList.Text;
             string description = lblDescription.Text;
+            string itemCode = lblItemCode.Text;
+            int reqId = Convert.ToInt32(lblReqId.Text);
+
+            bool success = Controllers.RequestDetailCtrl.RemoveReqDet(reqId, itemCode, access_token);
+            if (list == "Cart") { PopulateList(reqId); }
+            else if (list == "Bookmark") { PopulateBookmarks(reqId); }
+            BindGrids();
 
             Main master = (Main)this.Master;
             master.ShowToastr(this, String.Format("{0}", description), "Item Removed", "success");
@@ -208,6 +224,50 @@ namespace Group8_AD_webapp
         protected void btnReqList_Click(object sender, EventArgs e)
         {
             Response.Redirect("RequestHistory.aspx");
+        }
+
+
+        // NEEDS TO BE EDITED AFTER WEBAPI UP
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            var item = (ListViewItem)btn.NamingContainer;
+            Label lblItemCode = (Label)item.FindControl("lblItemCode");
+            Label lblDescription = (Label)item.FindControl("lblDescription");
+            string itemCode = lblItemCode.Text;
+            int reqQty = 1;
+            string description = lblDescription.Text;
+
+            int empId = (int)Session["empId"];
+            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
+            Main master = (Main)this.Master;
+
+            if (success)
+            {
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                RequestDetailVM addtocarttemp = new RequestDetailVM();
+                addtocarttemp.ReqLineNo = 100;
+                addtocarttemp.ItemCode = "F020";
+                addtocarttemp.Desc = "File Separator";
+                addtocarttemp.ReqQty = 1;
+                Main.cartDetailList.Add(addtocarttemp);
+                showList.Add(addtocarttemp);
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+
+                // TODO: update list from DB
+                lstShow.DataSource = showList;
+                lstShow.DataBind();
+
+                (master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
+                (master.FindControl("lstCart") as ListView).DataBind();
+                master.UpdateCartCount();
+
+                master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", itemCode, reqQty), "Item Added Successfully", "success");
+            }
+            else
+            {
+                master.ShowToastr(this, String.Format("Item {0} Not Added", description), "Something Went Wrong!", "error");
+            }
         }
     }
 }

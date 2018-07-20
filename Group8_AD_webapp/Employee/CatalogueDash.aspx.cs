@@ -53,15 +53,12 @@ namespace Group8_AD_webapp
 
         protected void DoSearch()
         {
-            //items = new List<ItemVM>();
+            string cataloguequery = (string)Session["Query"];
+            string querycat = (string)Session["QueryCat"];
 
-            string cataloguequery = "";
-            string querycat = ddlCategory.SelectedItem.ToString();
-
-            if (txtSearch.Text != "")
+            if (cataloguequery != "")
             {
-                cataloguequery = txtSearch.Text.ToLower();
-                Label1.Text = cataloguequery;
+
 
                 if (querycat == "All")
                 {
@@ -77,6 +74,7 @@ namespace Group8_AD_webapp
             }
             else
             {
+                Label1.Text = querycat;
                 if (querycat == "All")
                 {
                     items = Controllers.ItemCtrl.GetAllItems(access_token);
@@ -206,11 +204,6 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnAdd2_Click(object sender, EventArgs e)
-        {
-            ((Main)this.Master).ShowToastr(this, "Hello", "Hello", "success");
-        }
-
         // NEEDS TO BE EDITED AFTER WEBAPI UP
         protected void btnAdd_Click(object sender, EventArgs e)
         {
@@ -241,7 +234,7 @@ namespace Group8_AD_webapp
                 (master.FindControl("lstCart") as ListView).DataBind();
                 master.UpdateCartCount();
 
-                master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", itemCode, reqQty), "Item Added Successfully", "success");
+                master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", description, reqQty), "Item Added Successfully", "success");
             }
             else
             {
@@ -267,31 +260,38 @@ namespace Group8_AD_webapp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //GetSearchQuery();
+            GetSearchQuery();
             DoSearch();
         }
 
-        //protected void GetSearchQuery()
-        //{
-        //    Session["cataloguequery"] = txtSearch.Text;
-        //    Session["querycategory"] = ddlCategory.Text;
-        //}
+        protected void GetSearchQuery()
+        {
+            Session["Query"] = txtSearch.Text.ToLower();
+            Session["QueryCat"] = ddlCategory.Text;
+        }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtSearch.Text = "";
+            Session["Query"] = "";
+            Session["QueryCat"] = ddlCategory.Text;
             DoSearch();
         }
 
         protected void txtSearch_Changed(object sender, EventArgs e)
         {
-            string searchquery = txtSearch.Text;
-            List<ItemVM> searchitems = allItems.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList(); // temporary, will replace
+            string cataloguequery = txtSearch.Text.ToLower();
+            string querycat = ddlCategory.Text;
+            List<ItemVM> searchitems = new List<ItemVM>();
+            if (querycat == "All")
+            {
+                searchitems = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).Take(5).ToList();
+            } 
+            else{
+                searchitems = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList(); // temporary, will replace
+            }
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
-            //GetSearchQuery();
-            //DoSearch();
         }
 
         protected void lstSearch_PagePropertiesChanged(object sender, EventArgs e)
@@ -302,21 +302,6 @@ namespace Group8_AD_webapp
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
-        }
-
-
-        protected void lstSearchbtnAdd_Click(object sender, EventArgs e)
-        {
-            //var btn = (Button)sender;
-            //var item = (ListViewItem)btn.NamingContainer;
-            //TextBox txtQty = (TextBox)item.FindControl("lstSearchspnQty");
-            //Label lblItemCode = (Label)item.FindControl("lstSearchlblItemCode");
-            //Label lblDescription = (Label)item.FindControl("lstSearchlblDescription");
-            //int quantity = Convert.ToInt32(txtQty.Text);
-            //string description = lblDescription.Text;
-
-            Main master = (Main)this.Master;
-            master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", "A","B"), "Item Added Successfully", "success");
         }
 
         protected void ddlPageCount_SelectedIndexChanged(object sender, EventArgs e)

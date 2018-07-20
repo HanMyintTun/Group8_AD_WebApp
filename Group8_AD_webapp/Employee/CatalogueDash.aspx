@@ -17,7 +17,7 @@
         <asp:LinkButton ID="btnList" Cssclass="listbutton btnList" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
         <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
-            <asp:listitem text="All" value="0" />
+            <asp:listitem text="All" value="All" />
         </asp:DropDownList>
              <div class="dd-search">
         <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>

@@ -16,7 +16,7 @@
 
         <div class="row">
 
-        <asp:UpdatePanel ID="udpList" runat="server" UpdateMode="Conditional">
+        <asp:UpdatePanel ID="udpList" runat="server">
         <Triggers>
         </Triggers>
         <ContentTemplate>
@@ -49,7 +49,8 @@
         </LayoutTemplate>
         <ItemTemplate>
             <tr>
-                <td style="display:none;"><asp:Label ID="lblReqLineNo" runat="server" Text='<%# Eval("ReqLineNo") %>'/></td>
+                <td style="display:none;"><asp:Label ID="lblList" runat="server">Cart</asp:Label></td>
+                <td style="display:none;"><asp:Label ID="lblReqId" runat="server" Text='<%# Eval("ReqId") %>'/></td>
                 <td style="display:none"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                 <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
@@ -108,10 +109,12 @@
         </LayoutTemplate>
         <ItemTemplate>
             <tr>
+                <td style="display:none;"><asp:Label ID="lblList" runat="server">Bookmark</asp:Label></td>
+                <td style="display:none;"><asp:Label ID="lblReqId" runat="server" Text='<%# Eval("ReqId") %>'/></td>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td><asp:Button ID="btnBookmark" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="btnBookmark_Click"/></td>
-                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
-                <!-- <td> <asp:TextBox ID="spnQty" type="number" Cssclass="p-2" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td> -->
+                <td><asp:Button ID="btnAdd" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
+                <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' />
+                <asp:TextBox ID="spnQty" type="number" runat="server" min="0" Visible="false" Value="1" Width="60px" /></td>
                <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
             </tr>
         </ItemTemplate>
