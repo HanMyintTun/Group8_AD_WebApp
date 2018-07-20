@@ -13,13 +13,13 @@ namespace Group8_AD_webapp {
     public partial class RequestList {
         
         /// <summary>
-        /// udpUnsub control.
+        /// udpList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpUnsub;
+        protected global::System.Web.UI.UpdatePanel udpList;
         
         /// <summary>
         /// lblStatus control.
@@ -74,6 +74,15 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
+        
+        /// <summary>
+        /// udpBookmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpBookmark;
         
         /// <summary>
         /// lstBookmark control.

@@ -11,6 +11,7 @@ namespace Group8_AD_webapp
 { 
     public partial class CatalogueDash : System.Web.UI.Page
     {
+        static List<ItemVM> allItems = new List<ItemVM>();
         static List<ItemVM> items = new List<ItemVM>();
         static string access_token;
         static bool IsBmkTab;
@@ -20,6 +21,7 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["empId"] = 31;
 
             if (!IsPostBack)
             {
@@ -27,15 +29,15 @@ namespace Group8_AD_webapp
                 PopulateCatalogue();
 
                 IsBmkTab = true;
-                FillSidePanel();
+                PopulateSidePanel();
                 BindSidePanel();
 
                 showgrid.Visible = true;
                 showlist.Visible = false;
-                
-                lstSearch.DataSource = items;
+
+                allItems = Controllers.ItemCtrl.GetAllItems(access_token);
+                lstSearch.DataSource = allItems;
                 lstSearch.DataBind();
-                
             }
 
             ddlsearchcontent.Visible = false;
@@ -45,6 +47,7 @@ namespace Group8_AD_webapp
         {
             lblCatTitle.Text = "Catalogue";
             items = Controllers.ItemCtrl.GetAllItems(access_token);
+
             BindGrids();
         }
 
@@ -84,10 +87,8 @@ namespace Group8_AD_webapp
                     items = items.Where(x => x.Cat == querycat).ToList();  // temporary, will replace
                 }
             }
-            
 
             lblCatTitle.Text = "Search Results";
-            // use Session["cataloguequery"] and Session["querycategory"] to search
             BindGrids();
         }
 
@@ -169,18 +170,48 @@ namespace Group8_AD_webapp
             //grdCatalogue.DataBind();
         }
 
+        // NEEDS TO BE EDITED AFTER WEBAPI UP
         protected void btnBookmark_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
             Label lblItemCode = (Label)item.FindControl("lblItemCode");
             Label lblDescription = (Label)item.FindControl("lblDescription");
+            string itemCode = lblItemCode.Text;
             string description = lblDescription.Text;
 
-            Main master = (Main)this.Master;
-            master.ShowToastr(this, String.Format("{0} Added to Bookmarks", description), "Item Added Successfully", "success");
+            int empId = (int)Session["empId"];
+            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode, access_token);
+
+            if (success)
+            {
+                //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
+
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                RequestDetailVM addtobmktemp = new RequestDetailVM();
+                addtobmktemp.ReqLineNo = 100;
+                addtobmktemp.ItemCode = "P020";
+                addtobmktemp.Desc = "Paper Photostat A3";
+                bookmarkList.Add(addtobmktemp);
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                
+                bookmarkPanel.Visible = true;
+                bookmarkList = bookmarkList.OrderByDescending(x=> x.ReqLineNo).ToList();
+                lstBookmarks.DataSource = bookmarkList;
+                lstBookmarks.DataBind();
+
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("{0} Added to Bookmarks",description), "Item Added Successfully", "success");
+
+            }
         }
 
+        protected void btnAdd2_Click(object sender, EventArgs e)
+        {
+            ((Main)this.Master).ShowToastr(this, "Hello", "Hello", "success");
+        }
+
+        // NEEDS TO BE EDITED AFTER WEBAPI UP
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -188,11 +219,35 @@ namespace Group8_AD_webapp
             TextBox txtQty = (TextBox)item.FindControl("spnQty");
             Label lblItemCode = (Label)item.FindControl("lblItemCode");
             Label lblDescription = (Label)item.FindControl("lblDescription");
-            int quantity = Convert.ToInt32(txtQty.Text);
+            string itemCode = lblItemCode.Text;
+            int reqQty = Convert.ToInt32(txtQty.Text);
             string description = lblDescription.Text;
 
+            int empId = (int)Session["empId"];
+            //bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
+            bool success = true;
             Main master = (Main)this.Master;
-            master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", description, quantity), "Item Added Successfully", "success");
+            if (success)
+            {
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                RequestDetailVM addtocarttemp = new RequestDetailVM();
+                addtocarttemp.ReqLineNo = 100;
+                addtocarttemp.ItemCode = "F020";
+                addtocarttemp.Desc = "File Separator";
+                addtocarttemp.ReqQty = 1;
+                Main.cartDetailList.Add(addtocarttemp);
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+
+                (master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
+                (master.FindControl("lstCart") as ListView).DataBind();
+                master.UpdateCartCount();
+
+                master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", itemCode, reqQty), "Item Added Successfully", "success");
+            }
+            else
+            {
+                master.ShowToastr(this, String.Format("Item {0} Not Added", description), "Something Went Wrong!", "error");
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -225,18 +280,14 @@ namespace Group8_AD_webapp
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //GetSearchQuery();
+            txtSearch.Text = "";
             DoSearch();
         }
 
         protected void txtSearch_Changed(object sender, EventArgs e)
         {
-            //Main master = (Main)this.Master;
-            //master.ShowToastr(this, "", "Cat: " + ddlCategory.Text + " Query: " + txtSearch.Text, "success");
-
             string searchquery = txtSearch.Text;
-            items = Controllers.ItemCtrl.GetAllItems(access_token);
-            List<ItemVM> searchitems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList(); // temporary, will replace
+            List<ItemVM> searchitems = allItems.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList(); // temporary, will replace
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
@@ -293,9 +344,9 @@ namespace Group8_AD_webapp
 
         }
 
-        protected void FillSidePanel()
+        protected void PopulateSidePanel()
         {
-            int empId = 31;
+            int empId = (int)Session["empId"];
             RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
             if (bookmarkReq != null)
             {
@@ -310,7 +361,6 @@ namespace Group8_AD_webapp
 
         protected void BindSidePanel()
         {
-
             if(IsBmkTab == true)
             {
                 lstBookmarks.DataSource = bookmarkList;
@@ -321,7 +371,6 @@ namespace Group8_AD_webapp
                 lstBookmarks.DataSource = frequentList;
                 lstBookmarks.DataBind();
             }
-            
         }
 
         protected void btnOpenBmk_Click(object sender, EventArgs e)
@@ -335,7 +384,6 @@ namespace Group8_AD_webapp
                 bookmarkPanel.Visible = true;
                 BindSidePanel();
             }
-
         }
 
         protected void btnShowBmk_Click(object sender, EventArgs e)

@@ -11,6 +11,8 @@ namespace Group8_AD_webapp
     public partial class Main : System.Web.UI.MasterPage
     {
         static string access_token;
+        public static List<RequestDetailVM> cartDetailList = new List<RequestDetailVM>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,7 +31,7 @@ namespace Group8_AD_webapp
         {
             int empId = 31;
             RequestVM cart = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted", access_token).FirstOrDefault();
-            List<RequestDetailVM> cartDetailList = new List<RequestDetailVM>();
+
 
             if (cart != null)
             {
@@ -39,13 +41,24 @@ namespace Group8_AD_webapp
                 cartDetailList = reqDetails;
                 lstCart.DataSource = cartDetailList;
                 lstCart.DataBind();
+                UpdateCartCount();
 
-                lblCartCount.Text = cartDetailList.Count().ToString();
             }
             else {
                 lstCart.DataSource = cartDetailList;
                 lstCart.DataBind();
             }
+        }
+
+        public void UpdateCartCount()
+        {
+            int cartCount = 0;
+            foreach(RequestDetailVM item in cartDetailList)
+            {
+                cartCount += item.ReqQty;
+            }
+
+            lblCartCount.Text = cartCount.ToString();
         }
 
         protected void lstCart_PagePropertiesChanged(object sender, EventArgs e)

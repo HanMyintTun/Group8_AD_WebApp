@@ -13,16 +13,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
-        <asp:UpdatePanel ID="udpUnsub" runat="server">
+
+        <div class="row">
+
+        <asp:UpdatePanel ID="udpList" runat="server" UpdateMode="Conditional">
+        <Triggers>
+        </Triggers>
         <ContentTemplate>
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
-        <div class="row">
         <div class="col-xs-12 col-lg-6">
        <div class="subtitletext">Request List <a href="#bookmarks" class="viewbmkarea btn btn-warning" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'>VIEW <i class="fa fa-bookmark"></i></a> </div> 
         <span  style = '<%=IsEmpty ? "display: none;":""%>'>STATUS: <asp:Label ID="lblStatus" runat="server" Text="" ></asp:Label></span>
         <!-- Cart List -->
+
        <div class="listview"> 
         <asp:ListView runat="server" ID="lstShow" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <LayoutTemplate>
@@ -46,7 +51,7 @@
             <tr>
                 <td style="display:none;"><asp:Label ID="lblReqLineNo" runat="server" Text='<%# Eval("ReqLineNo") %>'/></td>
                 <td style="display:none"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><div class="btn btn-warning"><i class="fa fa-bookmark"></i></div></td>
+                <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("ReqQty") %>'></asp:Label></td>
                 <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="pad-left10" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
@@ -74,6 +79,8 @@
             <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" />
         </div></div>
         </div>
+                     </ContentTemplate>
+        </asp:UpdatePanel>
 
         <div class="col-xs-12 col-lg-4 col-lg-offset-1"> 
         <div class="showbookmarks" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'>
@@ -81,7 +88,10 @@
         <div class="subtitletext ml-5">Bookmark List</div>
 
         <!-- Bookmark List -->
-        
+        <asp:UpdatePanel ID="udpBookmark" runat="server">
+        <Triggers>
+        </Triggers>
+        <ContentTemplate>
         <asp:ListView runat="server" ID="lstBookmark" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <LayoutTemplate>
             <table runat="server" class="table">
@@ -109,14 +119,13 @@
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
         </asp:ListView>
+         </ContentTemplate>
+        </asp:UpdatePanel>
            </div>
-
-
-
         </div>
 
-        </ContentTemplate>
-        </asp:UpdatePanel>
+
         
         </div>
+    </div>
 </asp:Content>

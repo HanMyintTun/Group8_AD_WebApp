@@ -8,9 +8,9 @@
 }
 
 
-@media only screen and (max-width : 1400px) {
+@media only screen and (max-width : 1200px) {
     .sidepanelarea {
-        /*display: none;*/
+        display: none;
     }
 
 }
@@ -321,7 +321,7 @@
         min-height: 280px;
         margin: 20px;
         text-align: center;
-        box-shadow: 3px 3px 8px 3px #ddd;
+        box-shadow: 6px 6px 15px 5px #ddd;
         border: 1px solid #eaeaea;
     }
 
@@ -471,7 +471,7 @@
     border: 1px solid #fefafc;
     padding: 20px 0;
     box-shadow: 3px 3px 8px 3px #ddd;
-    margin: 20px 0px;
+    margin: 50px 0px;
 }
 
     .bmkright {
@@ -525,6 +525,10 @@
 
     .pad-left10{
         padding-left:10px;
+    }
+
+    .ml-10{
+        margin-left: 10px;
     }
 
     .txtconstraint{

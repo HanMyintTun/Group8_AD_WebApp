@@ -12,23 +12,22 @@ namespace Group8_AD_webapp
     {
         static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
-        List<RequestDetailVM> showList = new List<RequestDetailVM>();
-        List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
-
-        int empId;
+        static List<RequestDetailVM> showList = new List<RequestDetailVM>();
+        static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
+        
         int reqid;
         string status ="";
-        public bool IsEditable = false;
-        public bool IsNotSubmitted = false;
-        public bool IsApproved = false;
-        public bool IsEmpty = false;
+        static public bool IsEditable = false;
+        static public bool IsNotSubmitted = false;
+        static public bool IsApproved = false;
+        static public bool IsEmpty = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            empId = 31;
+            Session["empId"] = 31;
+            int empId = (int)Session["empId"];
 
-            if (!IsPostBack)
-            {
+            if (!IsPostBack) { 
                 // If a request ID is present
                 if (Request.QueryString["reqid"] != null)
                 {
@@ -73,12 +72,13 @@ namespace Group8_AD_webapp
                         IsEmpty = true;
                         // TO DO: custom empty cart message - currently: EmptyDataTemplate
                     }
-                    if(bookmarks != null)
+                    if (bookmarks != null)
                     {
                         reqid = bookmarks.ReqId;
                         List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
                         bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
-                        bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
+                        bookmarkList = bookmarkDetails.ToList();
+                        bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
                     }
                     BindGrids();
                 }
@@ -120,6 +120,7 @@ namespace Group8_AD_webapp
                     lstShow.FindControl("thdFulf").Visible = false;
                 }
             }
+
         }
 
         protected void PopulateList(int reqid)
@@ -159,14 +160,36 @@ namespace Group8_AD_webapp
 
         protected void btnBookmark_Click(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
+            var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
             Label lblItemCode = (Label)item.FindControl("lblItemCode");
             Label lblDescription = (Label)item.FindControl("lblDescription");
+            string itemCode = lblItemCode.Text;
             string description = lblDescription.Text;
 
-            Main master = (Main)this.Master;
-            master.ShowToastr(this, String.Format("{0}", description), "Item Moved to Bookmarks", "success");
+            int empId = (int)Session["empId"];
+            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode, access_token);
+
+            if (success)
+            {
+                //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
+
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                RequestDetailVM addtobmktemp = new RequestDetailVM();
+                addtobmktemp.ReqLineNo = 100;
+                addtobmktemp.ItemCode = "P020";
+                addtobmktemp.Desc = "Paper Photostat A3";
+                bookmarkList.Add(addtobmktemp);
+                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                
+                bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
+                lstBookmark.DataSource = bookmarkList;
+                lstBookmark.DataBind();
+
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("{0} Added to Bookmarks", description), "Item Added Successfully", "success");
+
+            }
         }
 
         protected void btnRemove_Click(object sender, EventArgs e)
