@@ -1537,6 +1537,12 @@ p.back-link {
 .restock-content {
     text-align: center;
 }
+.scrollable-div {
+    display: block;
+    max-height: 350px;
+    overflow-y: auto;
+   -ms-overflow-style: -ms-autohiding-scrollbar
+}
 @media (max-width: 768px) {
     .desktop {
         display: none;
