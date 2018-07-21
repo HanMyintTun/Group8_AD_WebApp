@@ -8,9 +8,9 @@
 }
 
 
-@media only screen and (max-width : 1400px) {
+@media only screen and (max-width : 1200px) {
     .sidepanelarea {
-        /*display: none;*/
+        display: none;
     }
 
 }
@@ -321,7 +321,7 @@
         min-height: 280px;
         margin: 20px;
         text-align: center;
-        box-shadow: 3px 3px 8px 3px #ddd;
+        box-shadow: 6px 6px 15px 5px #ddd;
         border: 1px solid #eaeaea;
     }
 
@@ -412,9 +412,9 @@
         padding-top: 60px;
     }
 
-    .ddlSearch, .txtSearch {
+    .ddlSearch, .ddlsearch, .txtSearch {
         border: 1px solid green !important;
-        vertical-align:unset;
+        vertical-align:unset !important;
     }
 
     .bookmark-panel-top {
@@ -471,7 +471,7 @@
     border: 1px solid #fefafc;
     padding: 20px 0;
     box-shadow: 3px 3px 8px 3px #ddd;
-    margin: 20px 0px;
+    margin: 50px 0px;
 }
 
     .bmkright {
@@ -527,6 +527,10 @@
         padding-left:10px;
     }
 
+    .ml-10{
+        margin-left: 10px;
+    }
+
     .txtconstraint{
         width: 60px;
     }
@@ -535,6 +539,75 @@
     font-size: 2rem;
     font-weight: 700;
     padding: 5px 5px;
+}
+
+.modal-lg{
+    width: 500px;
+}
+
+.detail-item table {
+    table-layout: auto !important;
+}
+
+.detail-item th, .detail-item td, .detail-item thead th, .detail-item tbody td {
+    width: auto !important;
+}
+
+.modal-dialog2{
+    margin: 200px auto;
+    width: 400px;
+    height: 250px;
+}
+
+.modal-content{
+    min-height: 250px;
+}
+
+.panel-body2{
+    margin-top: 50px;
+}
+
+.modal-content3 {
+    height: 300px;
+}
+
+.modal-content4{
+    width: 800px;
+
+}
+
+.detail-item4{
+    overflow-x: hidden;
+    height: 70vh;
+}
+
+.action-btn2{
+    margin-top: 0%;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
 }
 
 @media only screen and (max-width : 1200px) {

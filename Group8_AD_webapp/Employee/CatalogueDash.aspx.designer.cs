@@ -91,7 +91,7 @@ namespace Group8_AD_webapp {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch2;
+        protected global::System.Web.UI.WebControls.LinkButton btnSearch2;
         
         /// <summary>
         /// btnSearch control.

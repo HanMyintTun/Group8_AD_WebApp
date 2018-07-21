@@ -48,7 +48,7 @@
                         <%--<span>Toggle Sidebar</span>--%>
                     </button>
                     <ul class="nav navbar-top-links navbar-right">
-
+                        <asp:UpdatePanel ID="udpMainCart" runat="server"><ContentTemplate>
                         <li class="dropdown dropdown2"><a runat="server" class="dropdown-toggle count-info" href="Employee/RequestList.aspx">
                             <em class="fa fa-shopping-cart"></em>
                             <asp:Label ID="lblCartCount" CssClass="label label-info" runat="server" Text="0"></asp:Label>
@@ -69,10 +69,11 @@
                                 </EmptyDataTemplate>
                                 </asp:ListView>
                                 <li style="text-align:right;">
-                                    <a href="Employee/RequestList.aspx" class="btn btn-gotocart">GO TO CART</a>
+                                    <a href="Employee/RequestList.aspx" class="btn btn-gotocart"><em class="fa fa-shopping-cart"></em> CART</a>
                                 </li>
                             </ul>
                         </li>
+
                         <li class="dropdown"><a runat="server" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <em class="fa fa-bell"></em><span class="label label-info">5</span>
                         </a>
@@ -118,8 +119,9 @@
                                     <i class="fa fa-lock"></i>&nbsp;Logout</a></li>
                             </ul>
                         </li>
-
+                        </ContentTemplate></asp:UpdatePanel>
                     </ul>
+
                 </div>
             </div>
             <!-- /.container-fluid -->

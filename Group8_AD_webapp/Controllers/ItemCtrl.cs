@@ -81,5 +81,28 @@ namespace Group8_AD_webapp.Controllers
                 return null;
             }
         }
+
+        // CHANGE WHEN WEBAPI up
+        public static bool UpdateItems(List<ItemVM> list, string access_token)
+        {
+            RestClient restClient = new RestClient(API_Url);
+            var jsonList = Newtonsoft.Json.JsonConvert.SerializeObject(list);
+            string payload = "list="+jsonList;
+            var request = new RestRequest("/Item/UpdateItem", Method.POST);
+
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.AddParameter("application/x-www-form-urlencoded", payload, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = restClient.Execute(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

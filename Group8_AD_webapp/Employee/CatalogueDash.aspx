@@ -16,8 +16,8 @@
         <asp:LinkButton ID="btnGrid" Cssclass="listbutton btnGrid active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
         <asp:LinkButton ID="btnList" Cssclass="listbutton btnList" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
-            <asp:listitem text="All" value="0" />
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control controlheight" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+            <asp:listitem text="All" value="All" />
         </asp:DropDownList>
              <div class="dd-search">
         <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
@@ -35,13 +35,13 @@
                 <li class="showsearch"><a runat="server" href="#">
                 <table>
                 <tr>
-                    <td style="display:none;"><asp:Label ID="lstSearchlblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                    <td style="width:80px;" rowspan="2" class="showsearch"><img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" width="80px" class="img-responsive"></td>
-                    <td class="sidedesc searchdesc showsearch"><asp:Label ID="lstSearchlblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
+                    <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
+                    <td style="width:80px;" rowspan="2" class="showsearch"><img src="../img/stationery/<%# Eval("ItemCode") %>.jpg" width="80" class="img-responsive"></td>
+                    <td class="sidedesc searchdesc showsearch"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
-                    <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="lstSearchspnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
-                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
+                    <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn pad-left10 showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
                 </a></li>
@@ -52,8 +52,8 @@
             </EmptyDataTemplate>
         </asp:ListView>
             <li class="showsearch" style="text-align:right;">
-                <a href="RequestList.aspx" class="btn btn-gotocart" OnClick="lstSearchbtnAdd_Click" runat="server">GO TO CART</a>
-                <asp:button ID="btnSearch2" CssClass="btn btn-add" OnClick="btnSearch_Click" runat="server" Text="SEE MORE" AutoPostBack="true"></asp:button>
+                <a href="RequestList.aspx" class="btn btn-gotocart" OnClick="lstSearchbtnAdd_Click" runat="server"><i class="fa fa-shopping-cart"></i>&nbsp; CART</a>
+                <asp:LinkButton ID="btnSearch2" CssClass="btn btn-add ml-10 " OnClick="btnSearch_Click" runat="server" AutoPostBack="true"><i class="fa fa-search-plus"></i> SEE MORE</asp:LinkButton>
             </li>
                  </ul></div>
         </ContentTemplate></asp:UpdatePanel></div>
@@ -84,7 +84,7 @@
             <asp:Label ID="lblPageCount" CssClass="lblPage" runat="server" Text="Label"></asp:Label>
 
     <div class="row">
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-12 col-lg-8">
     <div id="showgrid" class="showgrid" runat="server">
     <div class="dpager col-12"><br />
     <asp:DataPager ID="dpgGrdCatalogue" runat="server" PageSize="9" PagedControlID="grdCatalogue" OnPreRender="ListPager_PreRender">
@@ -99,7 +99,7 @@
        <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
         <ItemTemplate>
 
-          <div class="col-xs-12 col-sm-6 col-lg-4 p-3">
+          <div class="col-xs-12 col-sm-6 col-md-4">
          <table class="product-wrapper2" >
             <tr><td class="p-3"><div class="imagewrapper">
                 <asp:LinkButton ID="btnBookmark" CssClass="btn-bookmark btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton>
@@ -184,7 +184,7 @@
 
         </div>
     </div>
-    <div class="sidepanelarea col-md-4">
+    <div class="sidepanelarea col-lg-4">
         <div class="bookmark-panel-top">
             <ul class="nav nav-tabss">
               <li><asp:LinkButton ID="btnShowBmk" CssClass="active" OnClick="btnShowBmk_Click" AutoPostBack="true" runat="server">Bookmarks</asp:LinkButton></li>
@@ -211,7 +211,7 @@
                     <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
-                    <td colspan="3" class="bmkright"> <asp:TextBox ID="TextBox2" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
+                    <td colspan="3" class="bmkright"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
                    <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
