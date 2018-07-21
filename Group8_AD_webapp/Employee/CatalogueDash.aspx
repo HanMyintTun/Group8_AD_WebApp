@@ -16,7 +16,7 @@
         <asp:LinkButton ID="btnGrid" Cssclass="listbutton btnGrid active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
         <asp:LinkButton ID="btnList" Cssclass="listbutton btnList" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control controlheight" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
              <div class="dd-search">

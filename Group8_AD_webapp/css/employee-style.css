@@ -412,9 +412,9 @@
         padding-top: 60px;
     }
 
-    .ddlSearch, .txtSearch {
+    .ddlSearch, .ddlsearch, .txtSearch {
         border: 1px solid green !important;
-        vertical-align:unset;
+        vertical-align:unset !important;
     }
 
     .bookmark-panel-top {
@@ -565,6 +565,20 @@
 
 .panel-body2{
     margin-top: 50px;
+}
+
+.modal-content3 {
+    height: 300px;
+}
+
+.modal-content4{
+    width: 800px;
+
+}
+
+.detail-item4{
+    overflow-x: hidden;
+    height: 70vh;
 }
 
 .action-btn2{
