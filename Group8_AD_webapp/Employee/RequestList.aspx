@@ -10,6 +10,13 @@
               });
             });
         </script>   
+    <style type="text/css"> 
+        .UpdateProgress1 { 
+            top:450px; left: 450px; 
+            position: absolute; 
+            background-color: #C3E1FF; 
+           background-repeat: repeat-x; } 
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
@@ -123,7 +130,7 @@
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
         </asp:ListView>
-                                                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
          </ContentTemplate>
         </asp:UpdatePanel>
 
@@ -143,6 +150,9 @@
             <h3 class="detail-subtitle">Please Confirm Request Details</h3></div>
             <div class="panel-body">
             <asp:UpdatePanel ID="udpConfirmModal" runat="server">
+                           <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnConfirm" />
+            </Triggers>
             <ContentTemplate>
                 <div class="detail-item"><asp:ListView runat="server" ID="lstConfirm">
                     <LayoutTemplate>
@@ -161,13 +171,14 @@
                         </tr>
                     </ItemTemplate>
                  </asp:ListView></div>
-
+              </ContentTemplate>
+              </asp:UpdatePanel>
+                
                 <div class="action-btn">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
+                    <button ID="btnLoading" runat="server" class="btn btn-msize btn-warning " style="display:none"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                 </div>
-              </ContentTemplate>
-              </asp:UpdatePanel>
               </div>
        </div></div></div>
     </div>
@@ -196,6 +207,7 @@
          }
         function openCancelModal() {
             $('#mdlCancel').modal('show');
-        }
+         }
+
 </script>
 </asp:Content>

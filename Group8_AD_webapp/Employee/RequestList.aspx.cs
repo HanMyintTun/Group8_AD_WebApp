@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,12 +11,12 @@ namespace Group8_AD_webapp
 {
     public partial class RequestList : System.Web.UI.Page
     {
-        static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
         static List<RequestDetailVM> showList = new List<RequestDetailVM>();
         static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         static List<RequestDetailVM> submitList = new List<RequestDetailVM>();
 
+        static string access_token;
         static int reqid;
         static string status = "";
         static public bool IsEditable = false;
@@ -28,6 +29,7 @@ namespace Group8_AD_webapp
             Session["empId"] = 42;
             //Session["empId"] = 31;
             int empId = (int)Session["empId"];
+            access_token = Session["Token"].ToString();
 
             if (!IsPostBack)
             {
@@ -317,10 +319,10 @@ namespace Group8_AD_webapp
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             int empId = Convert.ToInt32(Session["empId"]);
-            bool success = Controllers.RequestCtrl.SubmitRequest(empId, submitList);  // TO DO: UPDATE TO REQID WHEN API UP
-            // Label1.Text = s; - for testing purposes
+            bool success = Controllers.RequestCtrl.SubmitRequest(reqid, submitList);  
+            //Label1.Text = success; // for testing purposes
 
-            if (success && status=="Unsubmitted")
+            if (success && status == "Unsubmitted")
             {
                 Session["Message"] = "Request Submitted Successfully";
                 Response.Redirect("RequestHistory.aspx");
@@ -337,7 +339,7 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
+            protected void btnCancel_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openCancelModal();", true);
         }

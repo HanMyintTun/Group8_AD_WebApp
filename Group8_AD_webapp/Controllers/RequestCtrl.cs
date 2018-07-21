@@ -87,14 +87,14 @@ namespace Group8_AD_webapp.Controllers
         }
 
 
-        public static bool SubmitRequest(int empId, List<RequestDetailVM> reqDetList)
+        public static bool SubmitRequest(int reqId, List<RequestDetailVM> reqDetList)
         {
             string access_token = "";
             RestClient restClient = new RestClient(API_Url);
 
             var jsonList = JsonConvert.SerializeObject(reqDetList);
 
-            string payload = "empId="+ empId + "&reqDetList=" + jsonList;
+            string payload = "reqId="+ reqId + "&reqDetList=" + jsonList;
 
             // Must add BOTH to querystring AND to Body
             var request = new RestRequest("/Request/submit?"+payload, Method.POST);
@@ -104,7 +104,7 @@ namespace Group8_AD_webapp.Controllers
             request.RequestFormat = DataFormat.Json;
 
             var response = restClient.Execute(request);
-            //return payload; - for testing purposes
+            //return payload; //- for testing purposes
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;
