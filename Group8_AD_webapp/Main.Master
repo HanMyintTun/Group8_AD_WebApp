@@ -32,7 +32,7 @@
 
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <nav id="nav" runat="server" class="navbar navbar-custom navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -69,7 +69,7 @@
                                 </EmptyDataTemplate>
                                 </asp:ListView>
                                 <li style="text-align:right;">
-                                    <a href="Employee/RequestList.aspx" class="btn btn-gotocart"><em class="fa fa-shopping-cart"></em> CART</a>
+                                    <a href="<%=ResolveClientUrl("~/Employee/RequestList.aspx")%>" class="btn btn-gotocart"><em class="fa fa-shopping-cart"></em> CART</a>
                                 </li>
                             </ul>
                         </li>
@@ -127,6 +127,7 @@
             <!-- /.container-fluid -->
         </nav>
         <!--/.sidebar-->
+        <div id="side" runat="server">
         <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 
             <div class="divider"></div>
@@ -192,7 +193,7 @@
                     </nav>
                 </ContentTemplate>
             </asp:UpdatePanel>
-        </div>
+        </div></div>
         <!--/.sidebar-->
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

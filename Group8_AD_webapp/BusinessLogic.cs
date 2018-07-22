@@ -12,7 +12,7 @@ namespace Group8_AD_webapp
 
         public static List<RequestDetailVM> AddItemDescToReqDet(List<RequestDetailVM> list)
         {
-            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems(access_token);
+            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
             foreach(RequestDetailVM req in list)
             {
                 req.Desc = (items.Where(x => x.ItemCode == req.ItemCode).FirstOrDefault()).Desc;

@@ -13,29 +13,30 @@ namespace Group8_AD_webapp
     {
         static List<ItemVM> allItems = new List<ItemVM>();
         static List<ItemVM> items = new List<ItemVM>();
-        static string access_token;
-        static bool IsBmkTab;
+        static public bool IsBmkTab;
+        string access_token = "";
 
         static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         static List<ItemVM> frequentList = new List<ItemVM>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["empId"] = 31;
+            Session["empId"] = 42;
 
             if (!IsPostBack)
             {
                 PopulateDropDowns();
                 PopulateCatalogue();
-
                 IsBmkTab = true;
+                
                 PopulateSidePanel();
                 BindSidePanel();
 
                 showgrid.Visible = true;
                 showlist.Visible = false;
+                IsClean.Value = "false";
 
-                allItems = Controllers.ItemCtrl.GetAllItems(access_token);
+                allItems = Controllers.ItemCtrl.GetAllItems();
                 lstSearch.DataSource = allItems;
                 lstSearch.DataBind();
             }
@@ -46,7 +47,7 @@ namespace Group8_AD_webapp
         protected void PopulateCatalogue()
         {
             lblCatTitle.Text = "Catalogue";
-            items = Controllers.ItemCtrl.GetAllItems(access_token);
+            items = Controllers.ItemCtrl.GetAllItems();
 
             BindGrids();
         }
@@ -58,31 +59,25 @@ namespace Group8_AD_webapp
 
             if (cataloguequery != "")
             {
-
-
                 if (querycat == "All")
                 {
-                    items = Controllers.ItemCtrl.GetAllItems(access_token);
-                    items = items.Where(x => x.Desc.ToLower().Contains(cataloguequery)).ToList(); // temporary, will replace
-                    Label1.Text = items.ToString();
+                    items = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).ToList(); 
+                    //Label1.Text = items.ToString(); //for testing purposes
                 }
                 else
                 {
-                    items = Controllers.ItemCtrl.GetAllItems(access_token);
-                    items = items.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList(); // temporary, will replace
+                    items = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList(); 
                 }
             }
             else
             {
-                Label1.Text = querycat;
                 if (querycat == "All")
                 {
-                    items = Controllers.ItemCtrl.GetAllItems(access_token);
+                    items = new List<ItemVM>(allItems);
                 }
                 else
                 {
-                    items = Controllers.ItemCtrl.GetAllItems(access_token);
-                    items = items.Where(x => x.Cat == querycat).ToList();  // temporary, will replace
+                    items = allItems.Where(x => x.Cat == querycat).ToList();  
                 }
             }
 
@@ -92,7 +87,7 @@ namespace Group8_AD_webapp
 
         protected void PopulateDropDowns()
         {
-            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory(access_token);
+            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
             ddlCategory.DataBind();
 
             List<string> pagecounts = new List<string> { "6", "9", "12", "All" };
@@ -179,7 +174,7 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode, access_token);
+            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
 
             if (success)
             {
@@ -204,7 +199,6 @@ namespace Group8_AD_webapp
             }
         }
 
-        // NEEDS TO BE EDITED AFTER WEBAPI UP
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -217,21 +211,22 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
+            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
             Main master = (Main)this.Master;
             if (success)
             {
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-                RequestDetailVM addtocarttemp = new RequestDetailVM();
-                addtocarttemp.ReqLineNo = 100;
-                addtocarttemp.ItemCode = "F020";
-                addtocarttemp.Desc = "File Separator";
-                addtocarttemp.ReqQty = 1;
-                Main.cartDetailList.Add(addtocarttemp);
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
+                //RequestDetailVM addtocarttemp = new RequestDetailVM();
+                //addtocarttemp.ReqLineNo = 100;
+                //addtocarttemp.ItemCode = "F020";
+                //addtocarttemp.Desc = "File Separator";
+                //addtocarttemp.ReqQty = 1;
+                //Main.cartDetailList.Add(addtocarttemp);
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
 
-                (master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
-                (master.FindControl("lstCart") as ListView).DataBind();
+                master.FillCart();
+                //(master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
+                //(master.FindControl("lstCart") as ListView).DataBind();
                 master.UpdateCartCount();
 
                 master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", description, reqQty), "Item Added Successfully", "success");
@@ -242,20 +237,31 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Main master = (Main)this.Master;
-            master.ShowToastr(this, "", "Test Message", "success");
-        }
         protected void btnGrid_Click(object sender, EventArgs e)
         {
             showgrid.Visible = true;
             showlist.Visible = false;
+            if (IsClean.Value == "true")
+            {
+                sidepanelarea.Style.Add("display", "none");
+            }
+            else
+            {
+                sidepanelarea.Style.Add("display", "block");
+            }
         }
         protected void btnList_Click(object sender, EventArgs e)
         {
             showgrid.Visible = false;
             showlist.Visible = true;
+            if (IsClean.Value == "true")
+            {
+                sidepanelarea.Style.Add("display", "none");
+            }
+            else
+            {
+                sidepanelarea.Style.Add("display", "block");
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -287,7 +293,7 @@ namespace Group8_AD_webapp
                 searchitems = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).Take(5).ToList();
             } 
             else{
-                searchitems = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList(); // temporary, will replace
+                searchitems = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList();
             }
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
@@ -331,16 +337,16 @@ namespace Group8_AD_webapp
         protected void PopulateSidePanel()
         {
             int empId = (int)Session["empId"];
-            RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
+            RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
             if (bookmarkReq != null)
             {
                 int bmkid = bookmarkReq.ReqId;
-                List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(bmkid, access_token);
+                List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(bmkid);
                 bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
                 bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
             }
             
-            frequentList = Controllers.ItemCtrl.GetFrequentList(empId, access_token);
+            frequentList = Controllers.ItemCtrl.GetFrequentList(empId);
         }
 
         protected void BindSidePanel()
@@ -359,6 +365,7 @@ namespace Group8_AD_webapp
 
         protected void btnOpenBmk_Click(object sender, EventArgs e)
         {
+            sidepanelarea.Style.Add("display", "block");
             if (bookmarkPanel.Visible == true)
             {
                 bookmarkPanel.Visible = false;
@@ -373,6 +380,7 @@ namespace Group8_AD_webapp
         protected void btnShowBmk_Click(object sender, EventArgs e)
         {
             IsBmkTab = true;
+            sidepanelarea.Style.Add("display", "block");
             BindSidePanel();
             btnShowBmk.CssClass = "active";
             btnShowRecc.CssClass = "";
@@ -385,6 +393,7 @@ namespace Group8_AD_webapp
         protected void btnShowRecc_Click(object sender, EventArgs e)
         {
             IsBmkTab = false;
+            sidepanelarea.Style.Add("display", "block");
             BindSidePanel();
             btnShowBmk.CssClass = "";
             btnShowRecc.CssClass = "active";
@@ -393,5 +402,32 @@ namespace Group8_AD_webapp
                 bookmarkPanel.Visible = true;
             }
         }
+
+        ////protected void btnClean_Click(object sender, EventArgs e)
+        ////{
+        ////    if(IsClean == false)
+        ////    {
+        ////        IsClean = true; 
+        ////    }
+        ////    else
+        ////    {
+        ////        IsClean = false;
+        ////    }
+        ////    if(IsClean)
+        ////    {
+        ////        this.Master.FindControl("nav").Visible = false;
+        ////        this.Master.FindControl("side").Visible = false;
+        ////        sidepanelarea.Visible = false;
+        ////        clean.Visible = true;
+        ////    }
+        ////    else
+        ////    {
+        ////        this.Master.FindControl("nav").Visible = true;
+        ////        this.Master.FindControl("side").Visible = true;
+        ////        sidepanelarea.Visible = true;
+        ////        clean.Visible = false;
+        ////    }
+
+        ////}
     }
 }

@@ -18,6 +18,7 @@ namespace Group8_AD_webapp
 
         static string access_token;
         static int reqid;
+        static int bmkid;
         static string status = "";
         static public bool IsEditable = false;
         static public bool IsNotSubmitted = false;
@@ -34,11 +35,12 @@ namespace Group8_AD_webapp
             if (!IsPostBack)
             {
                 reqid = 0;
+                bmkid = 0;
                 // If a request ID is present
                 if (Request.QueryString["reqid"] != null)
                 {
                     reqid = Convert.ToInt32(Request.QueryString["reqid"]);
-                    RequestVM request = Controllers.RequestCtrl.GetRequestByReqId(reqid, access_token);
+                    RequestVM request = Controllers.RequestCtrl.GetRequestByReqId(reqid);
                     if (request != null)
                     {
                         reqid = request.ReqId;
@@ -57,8 +59,8 @@ namespace Group8_AD_webapp
                 // Default: Show Unsubmitted List and Bookmarks
                 else
                 {
-                    RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted", access_token).FirstOrDefault();
-                    RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked", access_token).FirstOrDefault();
+                    RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+                    RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
                     if (unsubRequest != null)
                     {
                         reqid = unsubRequest.ReqId;
@@ -78,15 +80,15 @@ namespace Group8_AD_webapp
                     }
                     if (bookmarks != null)
                     {
-                        int bmkreqid = bookmarks.ReqId;
-                        PopulateBookmarks(bmkreqid);
+                        bmkid = bookmarks.ReqId;
+                        PopulateBookmarks(bmkid);
                     }
                     BindGrids();
                 }
 
-                lblStatus.Text = status.ToUpper() + " REQID:" + reqid;    // TODO: REMOVE REQID
+                lblStatus.Text = status.ToUpper(); // + " REQID:" + reqid;     TODO: REMOVE REQID
 
-                if(status == "Unsubmitted")
+                if (status == "Unsubmitted")
                 {
                     UnsubSettings();
                 }
@@ -98,6 +100,8 @@ namespace Group8_AD_webapp
                     IsApproved = false;
                     btnSubmit.Text = "Update";
                     btnSubmit.Visible = true;
+                    btnCancel.Visible = true;
+                    btnCatalogue.Visible = false;
                     lstShow.FindControl("thdBookmark").Visible = false;
                 }
 
@@ -108,6 +112,8 @@ namespace Group8_AD_webapp
                     IsNotSubmitted = false;
                     lstShow.FindControl("thdBookmark").Visible = false;
                     btnSubmit.Visible = false;
+                    btnCancel.Visible = false;
+                    btnCatalogue.Visible = false;
                     //btnUpdate.Visible = false;
                     lstShow.FindControl("thdRemove").Visible = false;
                 }
@@ -124,8 +130,11 @@ namespace Group8_AD_webapp
         {
             IsEditable = true;
             IsNotSubmitted = true;
+            btnCancel.Visible = true;
             btnSubmit.Visible = true;
             //btnUpdate.Visible = false;
+            btnCatalogue.Visible = true;
+            btnReqList.Visible = false;
         }
 
         protected void HideHeaders()
@@ -137,14 +146,14 @@ namespace Group8_AD_webapp
 
     protected void PopulateList(int reqid)
         {
-            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid);
             reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
             showList = reqDetails;
         }
 
         protected void PopulateBookmarks(int reqid)
         {
-            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid, access_token);
+            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid);
             reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
             bookmarkList = reqDetails;
             bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
@@ -178,7 +187,6 @@ namespace Group8_AD_webapp
         //    master.ShowToastr(this, String.Format("{0} Qty:{1}", description, quantity), "Order Updated", "success");
         //}
 
-        // EDIT AFTER WEBAPI UP
         protected void btnBookmark_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
@@ -189,22 +197,12 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode, access_token);
+            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
 
             if (success)
             {
-                //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
-
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-                RequestDetailVM addtobmktemp = new RequestDetailVM();
-                addtobmktemp.ReqLineNo = 100;
-                addtobmktemp.ItemCode = "P020";
-                addtobmktemp.Desc = "Paper Photostat A3";
-                bookmarkList.Add(addtobmktemp);
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-
-                // TODO: Update List from DB
-                bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
+                RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
+                PopulateBookmarks(bookmarks.ReqId);
                 lstBookmark.DataSource = bookmarkList;
                 lstBookmark.DataBind();
 
@@ -236,6 +234,12 @@ namespace Group8_AD_webapp
             master.ShowToastr(this, String.Format("{0}", description), "Item Removed", "success");
         }
 
+        protected void btnCatalogue_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CatalogueDash.aspx");
+        }
+
+
         protected void btnReqList_Click(object sender, EventArgs e)
         {
             Response.Redirect("RequestHistory.aspx");
@@ -254,22 +258,23 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty, access_token);
+            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
             Main master = (Main)this.Master;
 
             if (success)
             {
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-                RequestDetailVM addtocarttemp = new RequestDetailVM();
-                addtocarttemp.ReqLineNo = 100;
-                addtocarttemp.ItemCode = "F020";
-                addtocarttemp.Desc = "File Separator";
-                addtocarttemp.ReqQty = 1;
-                Main.cartDetailList.Add(addtocarttemp);
-                showList.Add(addtocarttemp);
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
+                //RequestDetailVM addtocarttemp = new RequestDetailVM();
+                //addtocarttemp.ReqLineNo = 100;
+                //addtocarttemp.ItemCode = "F020";
+                //addtocarttemp.Desc = "File Separator";
+                //addtocarttemp.ReqQty = 1;
+                //Main.cartDetailList.Add(addtocarttemp);
+                //showList.Add(addtocarttemp);
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
 
-                // TODO: update list from DB
+                RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+                PopulateList(unsubRequest.ReqId);
                 lstShow.DataSource = showList;
                 lstShow.DataBind();
                 UnsubSettings();
@@ -286,8 +291,7 @@ namespace Group8_AD_webapp
                 master.ShowToastr(this, String.Format("Item {0} Not Added", description), "Something Went Wrong!", "error");
             }
         }
-
-        // CHECK IF QUANTITY CAN BE UPDATED WHEN WEBAPI UP
+        
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             submitList = new List<RequestDetailVM>();
@@ -315,10 +319,9 @@ namespace Group8_AD_webapp
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
-        // TO DO: UPDATE TO REQID WHEN API UP
+
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            int empId = Convert.ToInt32(Session["empId"]);
             bool success = Controllers.RequestCtrl.SubmitRequest(reqid, submitList);  
             //Label1.Text = success; // for testing purposes
 

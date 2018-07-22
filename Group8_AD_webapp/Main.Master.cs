@@ -29,14 +29,13 @@ namespace Group8_AD_webapp
 
         public void FillCart()
         {
-            int empId = 31;
-            RequestVM cart = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted", access_token).FirstOrDefault();
-
-
+            int empId = 42;
+            RequestVM cart = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+            
             if (cart != null)
             {
                 int reqId = cart.ReqId;
-                List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqId, access_token);
+                List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqId);
                 reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
                 cartDetailList = reqDetails;
                 lstCart.DataSource = cartDetailList;

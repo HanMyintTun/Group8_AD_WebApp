@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Group8_AD_webapp.Models;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace Group8_AD_webapp.Controllers
@@ -11,98 +12,46 @@ namespace Group8_AD_webapp.Controllers
     {
         private static readonly string API_Url = System.Configuration.ConfigurationManager.AppSettings["ApiBaseUrl"];
 
-        public static List<ItemVM> GetAllItems(string access_token)
+        public static List<ItemVM> GetAllItems()
         {
-            RestClient restClient = new RestClient(API_Url);
-
-            var request = new RestRequest("/Item", Method.GET);
-            request.AddHeader("authorization", "Bearer " + access_token);
-            request.RequestFormat = DataFormat.Json;
-
-
-            var response = restClient.Execute<List<ItemVM>>(request);
-            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            string jsonResponse = Service.UtilityService.SendGetRequest("/Item", "", true);
+            if (jsonResponse != "false")
             {
-                return null;
+                var response = JsonConvert.DeserializeObject<List<ItemVM>>(jsonResponse);
+                return response;
             }
-            else if (response.Content != null)
-            {
-                return response.Data.ToList<ItemVM>();
-            }
-            else
-            {
-                return null;
-            }
-
+            else return null;
         }
 
-        public static List<string> GetCategory(string access_token)
+        public static List<string> GetCategory()
         {
-            RestClient restClient = new RestClient(API_Url);
-
-            var request = new RestRequest("/Item/GetCategory", Method.GET);
-            request.AddHeader("authorization", "Bearer " + access_token);
-            request.RequestFormat = DataFormat.Json;
-            
-            var response = restClient.Execute<List<string>>(request);
-            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            string jsonResponse = Service.UtilityService.SendGetRequest("/Item/GetCategory", "", true);
+            if (jsonResponse != "false")
             {
-                return null;
+                var response = JsonConvert.DeserializeObject<List<string>>(jsonResponse);
+                return response;
             }
-            else if (response.Content != null)
-            {
-                return response.Data.ToList<string>();
-            }
-            else
-            {
-                return null;
-            }
+            else return null;
         }
 
-        public static List<ItemVM> GetFrequentList(int empId, string access_token)
+        public static List<ItemVM> GetFrequentList(int empId)
         {
-            RestClient restClient = new RestClient(API_Url);
-
-            var request = new RestRequest("/Item/GetFrequentList/"+empId, Method.GET);
-            request.AddHeader("authorization", "Bearer " + access_token);
-            request.RequestFormat = DataFormat.Json;
-            
-            var response = restClient.Execute<List<ItemVM>>(request);
-            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            string querystring = "/" + empId;
+            string jsonResponse = Service.UtilityService.SendGetRequest("/Item/GetFrequentList", querystring, true);
+            if (jsonResponse != "false")
             {
-                return null;
+                var response = JsonConvert.DeserializeObject<List<ItemVM>>(jsonResponse);
+                return response;
             }
-            else if (response.Content != null)
-            {
-                return response.Data.ToList<ItemVM>();
-            }
-            else
-            {
-                return null;
-            }
+            else return null;
         }
 
         // CHANGE WHEN WEBAPI up
-        public static bool UpdateItems(List<ItemVM> list, string access_token)
+        public static bool UpdateItems(List<ItemVM> list)
         {
-            RestClient restClient = new RestClient(API_Url);
-            var jsonList = Newtonsoft.Json.JsonConvert.SerializeObject(list);
-            string payload = "list="+jsonList;
-            var request = new RestRequest("/Item/UpdateItem", Method.POST);
-
-            request.AddHeader("authorization", "Bearer " + access_token);
-            request.AddParameter("application/x-www-form-urlencoded", payload, ParameterType.RequestBody);
-            request.RequestFormat = DataFormat.Json;
-
-            var response = restClient.Execute(request);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var jsonList = JsonConvert.SerializeObject(list);
+            string jsonResponse = Service.UtilityService.SendPostRequest("/Item/UpdateItem", "", jsonList, false);
+            return Convert.ToBoolean(jsonResponse);
         }
     }
 }
