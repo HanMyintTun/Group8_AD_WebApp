@@ -45,14 +45,14 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td>
-                                            <asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqId") %>' /></td>
+                                            <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="Label5" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' />
                                         </td>
                                         <td>
-                                            <asp:LinkButton ID="btnReqDetail"  CommandName="ReqDetail" class="btn btn-primary" runat="server" CommandArgument='<%#Eval("ReqId")%>'>Details</asp:LinkButton>
+                                            <asp:LinkButton ID="btnReqDetail" CommandName="ReqDetail" class="btn btn-primary" runat="server" CommandArgument='<%#Eval("ReqId")%>'>Details</asp:LinkButton>
                                             <%-- <asp:Button ID="btnReqDetail"  CommandName="ReqDetail" CommandArgument='<%#DataBinder.Eval(Container.DataItem,"ReqId") %>'   Text="Details" />--%>
                                         </td>
                                     </tr>
@@ -93,7 +93,6 @@
                                                     <td>
                                                         <asp:Label ID="lblEmpName" runat="server"></asp:Label></td>
                                                     <td>
-                                                       
                                             </tbody>
 
                                         </table>
@@ -171,14 +170,14 @@
 
                                         <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" class="txt-area" />
                                     </div>
-                                     <div class="action-btn">
+                                    <div class="action-btn">
 
-                            <asp:Button ID="btnReject" class="btn btn-danger btn-msize" runat="server" Text="Reject" />
-                            <asp:Button ID="btnAccept" class="btn btn-success btn-msize" OnClick="btnAccept_Click" runat="server" Text="Accept" />
-                        </div>
+                                        <asp:Button ID="btnReject" class="btn btn-danger btn-msize" OnClick="btnReject_Click" runat="server" Text="Reject" />
+                                        <asp:Button ID="btnAccept" class="btn btn-success btn-msize" OnClick="btnAccept_Click" runat="server" Text="Accept" />
+                                    </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
-                       
+
                     </div>
                 </div>
 
@@ -186,7 +185,48 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        function rejectwarning() {
+            swal({
+                title: "Request Rejection",
+                text: "You are about to reject the request for " + '<%= lblEmpName.Text.ToString() %>' + ". Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Removed", {
+                            icon: "success",
+                            js: $('#myModal').modal('toggle')
+                        });
+                    } else {
+                        swal("Cancelled");
+                    }
+                });
+        }
 
+        function approvalalert() {
+            swal({
+                title: "Request Approval",
+                text: "You are about to approve the request for " + '<%= lblEmpName.Text.ToString() %>' + ". Are you sure?",
+                icon: "success",
+                buttons: true,
+                dangerMode: false,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Approved", {
+                            icon: "success",
+                            js: $('#myModal').modal('toggle')
+                        });
+                    } else {
+                        swal("Cancelled");
+                    }
+                });
+        }
+
+    </script>
 
 
 </asp:Content>

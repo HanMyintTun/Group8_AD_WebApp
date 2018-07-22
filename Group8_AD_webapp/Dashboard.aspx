@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Group8_AD_webapp.DepartmentHead.Dashboard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Group8_AD_webapp.Dashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -11,15 +11,12 @@
             </ol>
         </div>
         <!--/.row-->
-
         <div class="row">
             <div class="col-lg-12">
                 <h3 class="page-header">Dashboard</h3>
             </div>
         </div>
         <!--/.row-->
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -52,19 +49,15 @@
                                         </div>
                                         <div class="tab-pane fade" id="pilltab3">
                                             <h4>Tab 3</h4>
-
                                         </div>
                                         <div class="tab-pane fade" id="pilltab4">
                                             <h4>Tab 2</h4>
-
                                         </div>
                                         <div class="tab-pane fade" id="pilltab5">
                                             <h4>Tab 3</h4>
-
                                         </div>
                                         <div class="tab-pane fade" id="pilltab6">
                                             <h4>Tab 2</h4>
-
                                         </div>
 
                                     </div>
@@ -72,7 +65,6 @@
                             </div>
                             <!--/.panel-->
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -94,14 +86,14 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <asp:Label ID="Label1" runat="server" class="delegate-name" Text="Current Delegate :"></asp:Label>
+                                            <asp:Label ID="lblCurDelegate" runat="server" class="delegate-name" Text="Current Delegate :"></asp:Label>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
 
                                         <div class="form-group">
                                             <div style="display: inline-block">
-                                                <asp:TextBox CssClass="form-control" ID="txtCurrentDelegate" runat="server" Text="" ReadOnly="true"> Han Myint Tun</asp:TextBox>
+                                                <asp:TextBox CssClass="form-control" ID="txtCurDelegate" runat="server" Text="" ReadOnly="true"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>
@@ -179,13 +171,9 @@
 
                                 <div class="form-group" style="display: inline">
                                     <div style="display: inline-block">
-                                        <asp:TextBox CssClass="form-control" ID="TextBox1" runat="server" Text="" ReadOnly="true"> Han Myint Tun</asp:TextBox>
+                                        <asp:TextBox CssClass="form-control" ID="txtRep" runat="server" Text="" ReadOnly="true"></asp:TextBox>
                                     </div>
-
-
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="box-2nd-child row">

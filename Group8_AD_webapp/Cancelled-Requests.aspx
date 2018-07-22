@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Cancelled-Requests.aspx.cs" Inherits="Group8_AD_webapp.Cancelled_Requests" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -20,15 +21,16 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <div class="panel-body">
-                            <asp:ListView runat="server" ID="lstOrder">
+                            <asp:ListView runat="server" ID="lstCancel" OnItemCommand="lstOrder_ItemCommand">
                                 <LayoutTemplate>
                                     <table runat="server" class="table">
+
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
-                                                 <th scope="col">Cancelled Date</th>
+                                                <th scope="col">Cancelled Date</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -39,26 +41,25 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
+                                        <td>
+                                            <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
+                                        <td>
+                                            <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
+                                        <td>
+                                            <asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' />
+                                        </td>
+                                        <td>
+                                            <asp:Label runat="server" ID="lblCancelDate" Text='<%# Eval("CancelledDateTime","{0:dd-MMM-yyyy}") %>' />
+                                        </td>
+                                        <td>
+                                            <asp:LinkButton ID="btnReqDetail" CommandName="ReqDetail" class="btn btn-primary" runat="server" CommandArgument='<%#Eval("ReqId")%>'>Details</asp:LinkButton>
 
-                                        <td>
-                                            <asp:Label runat="server" ID="Label3" Text='<%# Eval("OrderID") %>' />
-                                        </td>
-                                        <td>
-                                            <asp:Label runat="server" ID="Label4" Text='<%# Eval("Name") %>' />
-                                        </td>
-                                        <td class="desktop"> 
-                                            <asp:Label runat="server" ID="Label5" Text='<%# Eval("SubmittedDate") %>' />
-                                        </td>
-                                        <td>
-                                            <asp:Label runat="server" ID="Label6" Text='<%# Eval("SubmittedDate") %>' />
-                                        </td>
-                                        <td>
-                                            <asp:Button ID="btnOrderDetail" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" runat="server" Text="Details" />
                                         </td>
                                     </tr>
 
                                 </ItemTemplate>
                             </asp:ListView>
+                          
                         </div>
                         </div>
                     </ContentTemplate>
@@ -67,111 +68,117 @@
         </div>
     </div>
     <%-- modal content--%>
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
-
                     <div class="panel-heading">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                         </button>
-                        <h3 class="detail-subtitle">Cancelled Request Details</h3>
-
+                        <h3 class="detail-subtitle">Submitted Request Details</h3>
                     </div>
+
                     <div class="panel-body">
-                        <div class="detail-info">
-                            <div class="detail-info-left">
-                                <table class="detail-info-col">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label1" runat="server" Text="Employee Name : "></asp:Label></td>
-                                            <td>
-                                                <asp:Label ID="lblEmployeeName" runat="server" Text="Employee 1"></asp:Label></td>
-                                    </tbody>
-                                </table>
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                            <ContentTemplate>
+                                <div class="detail-info">
+
+                                    <div class="detail-info-left">
+                                        <table class="detail-info-col">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="label1" runat="server" Text="Employee Name : "></asp:Label></td>
+                                                    <td>
+                                                        <asp:Label ID="lblEmpName" runat="server"></asp:Label></td>
+                                                    <td>
+                                            </tbody>
+
+                                        </table>
 
 
-                            </div>
-                            <div class="detail-info-right">
+                                    </div>
 
-                                <div>
-                                    <table class="detail-info-col">
-                                        <tbody>
+                                    <div class="detail-info-right">
+
+                                        <div>
+                                            <table class="detail-info-col">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
+                                                        <td>
+                                                            <asp:Label ID="lblReqid" runat="server"></asp:Label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Label ID="label3" runat="server" Text="Submitted date : "></asp:Label></td>
+                                                        <td>
+                                                            <asp:Label ID="lblSubmitteddate" runat="server"></asp:Label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Label ID="label5" runat="server" Text="Cancelled date : "></asp:Label></td>
+                                                        <td>
+                                                            <asp:Label ID="lblCancel" runat="server"></asp:Label></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+
+                                    <asp:ListView runat="server" ID="lstShow">
+
+                                        <LayoutTemplate>
+                                            <table runat="server" class="table table-detail">
+                                                <thead>
+                                                    <tr id="grdHeader" runat="server">
+                                                        <th scope="col" style="display: none">Item Code</th>
+                                                        <th scope="col">Item Name</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col"></th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr id="itemPlaceholder" runat="server"></tr>
+                                                </tbody>
+                                            </table>
+                                        </LayoutTemplate>
+                                        <ItemTemplate>
                                             <tr>
+                                                <td style="display: none">
+                                                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("ItemCode") %>' /></td>
                                                 <td>
-                                                    <asp:Label ID="Label2" runat="server" Text="Order ID : "></asp:Label></td>
+                                                    <asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                                                 <td>
-                                                    <asp:Label ID="lblOrderID" runat="server" Text="O0001"></asp:Label></td>
-                                                
+                                                    <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
+                                                <td></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="label13" runat="server" Text="Submitted Date : "></asp:Label></td>
-                                                <td>
-                                                    <asp:Label ID="lblSubmittedDate" runat="server" Text="12/06/1992"></asp:Label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="Label7" runat="server" Text="Cancelled Date : "></asp:Label></td>
-                                                <td>
-                                                    <asp:Label ID="lblApprovedDate" runat="server" Text="15/06/1992"></asp:Label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
+                                        </ItemTemplate>
+                                        <EmptyDataTemplate>
+                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
+                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
+                                            </span>
+                                        </EmptyDataTemplate>
+                                    </asp:ListView>
 
                                 </div>
-                            </div>
-                        </div>
 
+                                <div>
+                             
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
 
-                         <div class="detail-item">
-                            <table class="table table-detail">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="display:none">Item Code</th>
-                                        <th scope="col">Item Name</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="display:none">001</td>
-                                        <td>2B pen</td>
-                                        <td>12</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="display:none">001</td>
-                                        <td>2B pen</td>
-                                        <td>12</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="display:none">001</td>
-                                        <td>2B pen</td>
-                                        <td>12</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="display:none">001</td>
-                                        <td>2B pen</td>
-                                        <td>12</td>
-                                        <td></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                       
                     </div>
-
                 </div>
+
             </div>
         </div>
-
     </div>
 </asp:Content>

@@ -17,7 +17,6 @@ namespace Group8_AD_webapp.Models
         public DateTime CancelledDateTime { get; set; }
         public DateTime FulfilledDateTime { get; set; }
         public string Status { get; set; }
-
         public EmpReqVM()
         {
 

@@ -7,7 +7,6 @@ namespace Group8_AD_webapp.Models
 {
     public class DepartmentVM
     {
-       
 
         public string DeptCode { get; set; }
         public string DeptName { get; set; }
@@ -20,6 +19,5 @@ namespace Group8_AD_webapp.Models
         public Nullable<System.DateTime> DelegateFromDate { get; set; }
         public Nullable<System.DateTime> DelegateToDate { get; set; }
 
-      
     }
 }

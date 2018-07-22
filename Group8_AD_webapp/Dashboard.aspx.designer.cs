@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Group8_AD_webapp.DepartmentHead {
+namespace Group8_AD_webapp {
     
     
     public partial class Dashboard {
@@ -22,22 +22,22 @@ namespace Group8_AD_webapp.DepartmentHead {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Label1 control.
+        /// lblCurDelegate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblCurDelegate;
         
         /// <summary>
-        /// txtCurrentDelegate control.
+        /// txtCurDelegate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCurrentDelegate;
+        protected global::System.Web.UI.WebControls.TextBox txtCurDelegate;
         
         /// <summary>
         /// btnRemoveDelegate control.
@@ -94,13 +94,13 @@ namespace Group8_AD_webapp.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txtRep control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtRep;
         
         /// <summary>
         /// ddlRep control.
