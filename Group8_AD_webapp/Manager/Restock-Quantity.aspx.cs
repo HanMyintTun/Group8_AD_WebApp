@@ -9,7 +9,7 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class Restock_Quantity : System.Web.UI.Page
     {
-        static List<Item> items = new List<Item>();
+        //static List<Item> items = new List<Item>();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -22,16 +22,16 @@ namespace Group8_AD_webapp.Manager
         }
         protected void AddItems()
         {
-            items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
+            //items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
         
-            items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
+            //items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
            
         }
 
         protected void BindGrids()
         {
-            grdCatalogue.DataSource = items;
-            grdCatalogue.DataBind();
+            //grdCatalogue.DataSource = items;
+            //grdCatalogue.DataBind();
         }
     }
 }

@@ -139,5 +139,49 @@ namespace Group8_AD_webapp.Controllers
                 return false;
             }
         }
+
+        //DepartmentHead 
+        public static bool AcceptRequest(int reqId, int empId, string cmt, string access_token)
+        {
+
+            RestClient restClient = new RestClient(API_Url);
+
+            var request = new RestRequest("api/Request/accept?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.RequestFormat = DataFormat.Json;
+
+
+            var response = restClient.Execute(request);
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool RejectRequest(int reqId, int empId, string cmt, string access_token)
+        {
+
+            RestClient restClient = new RestClient(API_Url);
+
+            var request = new RestRequest("api/Request/reject?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
+            request.AddHeader("authorization", "Bearer " + access_token);
+            request.RequestFormat = DataFormat.Json;
+
+
+            var response = restClient.Execute(request);
+            if (response.Content == null || response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

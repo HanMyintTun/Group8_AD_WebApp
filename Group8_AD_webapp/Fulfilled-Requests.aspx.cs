@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Group8_AD_webapp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,45 +11,54 @@ namespace Group8_AD_webapp
 {
     public partial class Fulfilled_Requests : System.Web.UI.Page
     {
+        static int rid;
+        static string access_token;
+        int empId = 2;
+        string status = "Fulfilled";
+        EmployeeVM emp = new EmployeeVM();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                DataTable oDataTable = new DataTable();
-                DataColumn col1 = new DataColumn("OrderID");
-                DataColumn col2 = new DataColumn("Name");
-                DataColumn col3 = new DataColumn("SubmittedDate");
-                DataColumn col4 = new DataColumn();
-                col1.DataType = System.Type.GetType("System.Int16");
-                col2.DataType = System.Type.GetType("System.String");
-                col3.DataType = System.Type.GetType("System.String");
+                access_token = Session["Token"].ToString();
+                BindGrid();
 
-                oDataTable.Columns.Add(col1);
-                oDataTable.Columns.Add(col2);
-                oDataTable.Columns.Add(col3);
-                oDataTable.Columns.Add(col4);
+            }
+        }
+        protected void BindGrid()
+        {
+            List<EmpReqVM> requestlists = BusinessLogic.GetEmpReqList(empId, status, access_token);
+            lstCancel.DataSource = requestlists;
+            lstCancel.DataBind();
+        }
 
+        // populate cancel detail in modal
+        protected void PopulateDetailList(int rid)
+        {
+            RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid, access_token);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
 
-                DataRow oRow = oDataTable.NewRow();
+            List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
+            lblReqid.Text = req.ReqId.ToString();
+            lblEmpName.Text = emp.EmpName.ToString();
+            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
+            lblApprove.Text = req.ApprovedDateTime.ToString("dd'/'MM'/'yyyy");
+            lblFulfill.Text = req.FulfilledDateTime.ToString("dd'/'MM'/'yyyy");
+            lstShow.DataSource = showList;
+            lstShow.DataBind();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup
+        }
 
-                oRow[col1] = 1;
-                oRow[col2] = "Gary";
-                oRow[col3] = "13/06/2018";
-                oRow[col4] = null;
-
-                DataRow oRow1 = oDataTable.NewRow();
-
-                oRow1[col1] = 2;
-                oRow1[col2] = "Lina";
-                oRow1[col3] = "12/06/2018";
-                oRow1[col4] = null;
-                oDataTable.Rows.Add(oRow);
-                oDataTable.Rows.Add(oRow1);
-
-                lstOrder.DataSource = oDataTable;
-                lstOrder.DataBind();
-
-
+        //detail buttom action 
+        protected void lstOrder_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ReqDetail")
+            {
+                if (e.CommandArgument.ToString() != "")
+                {
+                    rid = Convert.ToInt32(e.CommandArgument);
+                    PopulateDetailList(rid);
+                }
             }
         }
     }
