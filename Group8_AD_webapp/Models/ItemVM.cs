@@ -22,6 +22,7 @@ namespace Group8_AD_webapp.Models
         private double price2;
         private string suppCode3;
         private double price3;
+        private Nullable<int> tempQtyReq;
 
         public string ItemCode { get => itemCode; set => itemCode = value; }
         public string Cat { get => cat; set => cat = value; }
@@ -38,6 +39,7 @@ namespace Group8_AD_webapp.Models
         public double Price2 { get => price2; set => price2 = value; }
         public string SuppCode3 { get => suppCode3; set => suppCode3 = value; }
         public double Price3 { get => price3; set => price3 = value; }
+        public int? TempQtyReq { get => tempQtyReq; set => tempQtyReq = value; }
 
         public ItemVM()
         {

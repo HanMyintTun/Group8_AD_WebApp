@@ -243,10 +243,11 @@ namespace Group8_AD_webapp
         {
             
             bool success = Controllers.ItemCtrl.UpdateItems(editedItems);
+            Label1.Text = success.ToString();
             if (success)
             {
-                //Session["Message"] = "Items Updated Successfully";
-                Response.Redirect("Dashboard.aspx");    //check where to go
+                Session["Message"] = "Items Updated Successfully";
+                Response.Redirect("StoreDashboard.aspx");   
             }
             else
             {
