@@ -24,11 +24,10 @@ namespace Group8_AD_webapp
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-
-
+                
                 access_token = Session["Token"].ToString();
 
-                requests = Controllers.RequestCtrl.GetReq(empId, "All", access_token);
+                requests = Controllers.RequestCtrl.GetReq(empId, "All");
                 BindGrid();
 
                 if(Session["Message"] != null){
@@ -39,9 +38,7 @@ namespace Group8_AD_webapp
                 {
                     divAlert.Visible = false;
                 }
-
             }
-
         }
 
         protected void BindGrid()
@@ -60,7 +57,7 @@ namespace Group8_AD_webapp
             else
             {
                 status = ddlStatus.Text;
-                requests = Controllers.RequestCtrl.GetReq(empId, status, access_token);
+                requests = Controllers.RequestCtrl.GetReq(empId, status);
                 BindGrid();
             }
 

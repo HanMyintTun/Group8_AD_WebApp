@@ -103,13 +103,13 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// Label1 control.
+        /// IsClean control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.HiddenField IsClean;
         
         /// <summary>
         /// udpCatalogue control.
@@ -211,6 +211,15 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.DataPager dpgLstCatalogue2;
         
         /// <summary>
+        /// sidepanelarea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidepanelarea;
+        
+        /// <summary>
         /// btnShowBmk control.
         /// </summary>
         /// <remarks>
@@ -263,5 +272,14 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lstBookmarks;
+        
+        /// <summary>
+        /// clean control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl clean;
     }
 }

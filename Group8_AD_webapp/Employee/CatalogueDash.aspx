@@ -41,7 +41,7 @@
                 </tr>
                  <tr>
                     <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
-                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn pad-left10 showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
+                   <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn ml-10 showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
                 </a></li>
@@ -59,13 +59,13 @@
         </ContentTemplate></asp:UpdatePanel></div>
             
         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />
+             <a ID="btnClean" class="btnClean btn btn-primary"><i class="fa fa-expand"></i></a><asp:hiddenfield id="IsClean" ClientIDMode="Static" runat="server"/>
         </div>
 
 
         <div id="main">
 
         <div id="centermain">
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
         <asp:UpdatePanel ID="udpCatalogue" runat="server">
         <Triggers>
@@ -79,7 +79,8 @@
             <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
             </script>
-          <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />--%>
+          <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
             <span class="pad-left10">Items Per Page: </span><asp:DropDownList ID="ddlPageCount" runat="server" OnSelectedIndexChanged="ddlPageCount_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
             <asp:Label ID="lblPageCount" CssClass="lblPage" runat="server" Text="Label"></asp:Label>
 
@@ -184,7 +185,7 @@
 
         </div>
     </div>
-    <div class="sidepanelarea col-lg-4">
+    <div id="sidepanelarea" runat="server" class="sidepanelarea col-lg-4">
         <div class="bookmark-panel-top">
             <ul class="nav nav-tabss">
               <li><asp:LinkButton ID="btnShowBmk" CssClass="active" OnClick="btnShowBmk_Click" AutoPostBack="true" runat="server">Bookmarks</asp:LinkButton></li>
@@ -234,6 +235,7 @@
         </asp:UpdatePanel>
 
     </div></div>
+    <div id="clean" runat="server" class="clean"></div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      <script>
          $(document).on('keyup', '.txtSearch', function () {
@@ -245,14 +247,15 @@
          //        $('.ddlsearchcontent').hide();
          //});
 
-             $(document).on("click" , function(event){
+         $(document).on("click" , function(event){
                 if( !($(event.target).hasClass('showsearch')))
                 {
                 $('.ddlsearchcontent').hide();
                 }
          });
 
-         $(function() {                       
+         $(function () {  
+             $(".clean").hide();
               $(".btnList").click(function() { 
                   $(this).addClass("active");     
                   $(".btnGrid").removeClass("active");   
@@ -261,6 +264,23 @@
                   $(this).addClass("active");     
                   $(".btnList").removeClass("active");   
               });
-            });
+         });
+         
+         $(".btnClean").click(function () {
+             if ($('#IsClean').val() == "false") {
+                 $("#side").hide("slow");
+                 $(".navbar").hide("slow");
+                 $(".clean").show("slow");
+                 $(".sidepanelarea").hide("slow");
+                 $('#IsClean').val("true");
+             }
+            else {
+                 $("#side").show("slow");
+                 $(".navbar").show("slow");
+                 $(".clean").hide("slow");
+                 $(".sidepanelarea").show("slow");
+                 $('#IsClean').val("false");
+            }
+         });
     </script>
 </asp:Content>

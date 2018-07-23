@@ -16,8 +16,6 @@ namespace Group8_AD_webapp.Models
         private int balance;
         private int reorderLevel;
         private int reorderQty;
-        private int tempQtyDisb;
-        private int tempQtyCheck;
         private string suppCode1;
         private double price1;
         private string suppCode2;
@@ -34,8 +32,6 @@ namespace Group8_AD_webapp.Models
         public int Balance { get => balance; set => balance = value; }
         public int ReorderLevel { get => reorderLevel; set => reorderLevel = value; }
         public int ReorderQty { get => reorderQty; set => reorderQty = value; }
-        public int TempQtyDisb { get => tempQtyDisb; set => tempQtyDisb = value; }
-        public int TempQtyCheck { get => tempQtyCheck; set => tempQtyCheck = value; }
         public string SuppCode1 { get => suppCode1; set => suppCode1 = value; }
         public double Price1 { get => price1; set => price1 = value; }
         public string SuppCode2 { get => suppCode2; set => suppCode2 = value; }

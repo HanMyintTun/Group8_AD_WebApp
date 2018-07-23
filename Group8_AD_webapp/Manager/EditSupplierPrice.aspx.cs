@@ -21,15 +21,14 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
-                suppliers = Controllers.SupplierCtrl.getSupplierCodes(access_token);
+                suppliers = Controllers.SupplierCtrl.getSupplierCodes();
                 access_token = Session["Token"].ToString();
-                ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory(access_token);
+                ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
-                items = Controllers.ItemCtrl.GetAllItems(access_token);
+                items = Controllers.ItemCtrl.GetAllItems();
                 editedItems = items.ToList();
                 BindGrid();
             }
@@ -243,7 +242,7 @@ namespace Group8_AD_webapp
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             
-            bool success = Controllers.ItemCtrl.UpdateItems(editedItems, access_token);
+            bool success = Controllers.ItemCtrl.UpdateItems(editedItems);
             if (success)
             {
                 //Session["Message"] = "Items Updated Successfully";

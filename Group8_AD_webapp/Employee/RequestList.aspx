@@ -2,21 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 
         <link href="../css/employee-style.css" rel="stylesheet" />
-            <script>
-            $(function() {
-              $('a[href*=#]').on('click', function(e) {
-                e.preventDefault();
-                $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 1500, 'linear');
-              });
-            });
-        </script>   
-    <style type="text/css"> 
-        .UpdateProgress1 { 
-            top:450px; left: 450px; 
-            position: absolute; 
-            background-color: #C3E1FF; 
-           background-repeat: repeat-x; } 
-</style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
@@ -80,15 +66,16 @@
 
             <div class="row">
         <div class="col-xs-3 backarea" style = '<%=IsEmpty ? "display: none;":""%>'>
+            <asp:Button ID="btnCatalogue" Cssclass="btn btn-back" runat="server" Text="Catalogue" OnClick ="btnCatalogue_Click" />
             <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back" OnClick ="btnReqList_Click" />
         </div>
-        <div class="col-xs-9  buttonarea"  style = '<%=IsApproved ? "display: none;" : "" %> <%=IsEmpty ? "display: none;" : "" %>''>
+        <div class="col-xs-9  buttonarea">
             <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="btnCancel_Click" runat="server" Text="Cancel Request" />
             <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="btnSubmit_Click" runat="server" Text="Submit" />
             <!-- <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" /> -->
         </div></div>
         </div>
-                     </ContentTemplate>
+        </ContentTemplate>
         </asp:UpdatePanel>
 
         <div class="col-xs-12 col-lg-4 col-lg-offset-1"> 
@@ -129,11 +116,10 @@
         <EmptyDataTemplate>
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
-        </asp:ListView>
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        </asp:ListView><asp:Label ID="Label1" runat="server" Text=""></asp:Label>
          </ContentTemplate>
         </asp:UpdatePanel>
-
+            
            </div>
         </div>
         </div>
@@ -208,6 +194,11 @@
         function openCancelModal() {
             $('#mdlCancel').modal('show');
          }
-
+        $(function() {
+              $('a[href*=#]').on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 1500, 'linear');
+              });
+            }); 
     </script>
 </asp:Content>
