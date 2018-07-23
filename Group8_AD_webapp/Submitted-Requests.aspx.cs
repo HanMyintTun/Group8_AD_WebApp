@@ -31,24 +31,6 @@ namespace Group8_AD_webapp
         //bind grid for submitted requests 
         protected void BindGrid()
         {
-            //List<RequestVM> requests = Controllers.RequestCtrl.GetReq(empId, status, access_token);
-
-            //List<EmpReqVM> requestlists = new List<EmpReqVM>();
-
-            //foreach (RequestVM req in requests)
-            //{
-            //    emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
-
-            //    EmpReqVM empReq = new EmpReqVM();
-            //    empReq.ReqId = req.ReqId;
-            //    empReq.ReqDateTime = req.ReqDateTime;
-            //    empReq.EmpId = req.EmpId;
-            //    empReq.EmpName = emp.EmpName;
-
-            //    requestlists.Add(empReq);
-
-            //}
-            //requestlists = requestlists.OrderByDescending(x => x.ReqDateTime).ToList();
             List<EmpReqVM> requestlists = BusinessLogic.GetEmpReqList(empId, status, access_token);
             lstOrder.DataSource =  requestlists;
 
