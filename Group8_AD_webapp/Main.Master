@@ -205,7 +205,7 @@
         </div>
     </form>
 
-
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script src="<%=ResolveClientUrl("~/js/bootstrap.min.js")%>"></script>
     <script src="<%=ResolveClientUrl("~/js/bootstrap-datepicker.js")%>"></script>
