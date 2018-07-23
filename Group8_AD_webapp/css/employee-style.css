@@ -645,6 +645,12 @@
     .btnSearch {
         margin-top: 10px;
     }
+    .sidepanelarea{
+        display: none;
+    }
+    .btnClean{
+        display:none;
+    }
 }
 
 @media only screen and (min-width : 1200px) {

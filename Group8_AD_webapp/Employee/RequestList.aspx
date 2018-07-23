@@ -116,7 +116,7 @@
         <EmptyDataTemplate>
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
-        </asp:ListView><asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        </asp:ListView><asp:Label ID="Label1" runat="server" Text=""></asp:Label>
          </ContentTemplate>
         </asp:UpdatePanel>
             

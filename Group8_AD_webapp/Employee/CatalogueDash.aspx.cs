@@ -180,18 +180,24 @@ namespace Group8_AD_webapp
             {
                 //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
 
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-                RequestDetailVM addtobmktemp = new RequestDetailVM();
-                addtobmktemp.ReqLineNo = 100;
-                addtobmktemp.ItemCode = "P020";
-                addtobmktemp.Desc = "Paper Photostat A3";
-                bookmarkList.Add(addtobmktemp);
-                // TEMPORARY: REMOVE AFTER WEBAPI UP
-                
-                bookmarkPanel.Visible = true;
-                bookmarkList = bookmarkList.OrderByDescending(x=> x.ReqLineNo).ToList();
-                lstBookmarks.DataSource = bookmarkList;
-                lstBookmarks.DataBind();
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
+                //RequestDetailVM addtobmktemp = new RequestDetailVM();
+                //addtobmktemp.ReqLineNo = 100;
+                //addtobmktemp.ItemCode = "P020";
+                //addtobmktemp.Desc = "Paper Photostat A3";
+                //bookmarkList.Add(addtobmktemp);
+                //// TEMPORARY: REMOVE AFTER WEBAPI UP
+
+                RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
+                PopulateSidePanel();
+                bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
+                btnShowBmk_Click(btnShowBmk,EventArgs.Empty);
+
+
+                //bookmarkPanel.Visible = true;
+
+                //lstBookmarks.DataSource = bookmarkList;
+                //lstBookmarks.DataBind();
 
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("{0} Added to Bookmarks",description), "Item Added Successfully", "success");
