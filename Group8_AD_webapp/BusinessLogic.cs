@@ -67,6 +67,14 @@ namespace Group8_AD_webapp
         }
 
 
+        //public static List<AdjItemVM> GetItemDetailAdjList(string voucherno)
+        //{
+        //    List<AdjItemVM> showList = new List<AdjItemVM>();
+        //    List<AdjustmentVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(rid, access_token);
+        //    reqDetails = AddItemDescToReqDet(reqDetails);
+        //    showList = reqDetails;
+        //    return showList;
+        //}
 
         //public static list<adjitemvm> getitemdetailadjlist(string aid)
         //{
