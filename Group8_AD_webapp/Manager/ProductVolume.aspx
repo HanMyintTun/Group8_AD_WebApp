@@ -42,8 +42,8 @@
            <asp:DropDownList ID="ddlSortDirection" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSortDirection_SelectedIndexChanged">
                            <asp:listitem text="Ascending" value="asc" />
                            <asp:listitem text="Descending" value="desc" />
-           </asp:DropDownList></div>
-            <%--<asp:Label ID="lblPageCount" class="ml-10" runat="server" Text=""></asp:Label>--%>
+           </asp:DropDownList>
+            <asp:Label ID="lblDateRange" class="ml-10 bold" runat="server" Text=""></asp:Label></div>
     <asp:GridView ID="lstProductVolume" CssClass="display" runat="server" AutoGenerateColumns="False">
         <%--CssClass="table" PagerStyle-CssClass="pager"--%>
 <%--        AllowPaging="True" OnPageIndexChanging="lstProductVolume_PageIndexChanging" PageSize="20"> --%>
@@ -95,16 +95,16 @@
                         $(this).datepicker('hide');
                 });
 
-            if ($('#IsDesc').val() == "true") {
+            if ($('#IsDesc').val() == "false") {
                 $('#<%= lstProductVolume.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstProductVolume.ClientID %>').find("tr:first"))).dataTable(
                     {
-                        "order": [[2, "desc"]]
+                        "order": [[2, "asc"]]
                     });
             }
             else {
                $('#<%= lstProductVolume.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstProductVolume.ClientID %>').find("tr:first"))).dataTable(
                     {
-                        "order": [[2, "asc"]]
+                        "order": [[2, "desc"]]
                     });
             }
         }

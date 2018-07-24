@@ -113,3 +113,8 @@
 .ml-10 {
     margin-left: 10px;
 }
+
+.bold{
+    font-weight: 700;
+    font-size: 1.6rem;
+}
