@@ -38,6 +38,11 @@
     padding-bottom: 20px;
 }
 
+.smalltext {
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
 .listtitletext {
     font-family: var(--font-headline);
     font-weight: 700;
