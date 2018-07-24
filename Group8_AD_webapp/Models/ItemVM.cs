@@ -41,6 +41,23 @@ namespace Group8_AD_webapp.Models
         public double Price3 { get => price3; set => price3 = value; }
         public int? TempQtyReq { get => tempQtyReq; set => tempQtyReq = value; }
 
+
+
+
+        public Nullable<int> TempQtyDisb { get; set; }
+        public Nullable<int> TempQtyCheck { get; set; }
+
+        public int TempQtyAcpt { get; set; }
+       
+
+        public string TempReason { get; set; }
+
+        public int TempOrderQty { get; set; }
+        public int ReccReorderLvl { get; set; }
+        public int ReccReorderQty { get; set; }
+
+        public double lvlDiff { get; set; }
+        public double qtyDiff { get; set; }
         public ItemVM()
         {
 
