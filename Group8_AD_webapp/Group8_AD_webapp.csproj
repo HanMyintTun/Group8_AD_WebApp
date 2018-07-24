@@ -570,7 +570,6 @@
       <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemVM.cs" />
-    <Compile Include="Models\LogicUniEf.cs" />
     <Compile Include="Models\Notification.cs">
       <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
     </Compile>
