@@ -90,11 +90,11 @@ namespace Group8_AD_webapp.Manager
 
         protected void PopulateDetailList(string voucherno)
         {
-            AdjustmentVM adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
-            lblstatus.Text = adj.Status.ToString();
-         //  List<AdjItemVM > showList = BusinessLogic.AddItemDescToAdj(voucherno);
-            //lstShow.DataSource = ;
-            //lstShow.DataBind();
+            List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            //lblstatus.Text = adj.Status.ToString();
+            List<AdjItemVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
+             lstShow.DataSource = showList ;
+            lstShow.DataBind();
             //<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(1);
 
             //lstShow.DataSource = adj;

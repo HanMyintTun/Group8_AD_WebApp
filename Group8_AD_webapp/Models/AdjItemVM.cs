@@ -13,5 +13,6 @@ namespace Group8_AD_webapp.Models
         public double Value { get; set; }
         public int QtyChange { get; set; }
         public string VoucherNo { get; set; }
+        public string Reason { get; set; }
     }
 }

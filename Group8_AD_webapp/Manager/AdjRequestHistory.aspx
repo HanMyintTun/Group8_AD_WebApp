@@ -133,7 +133,7 @@
                                                         <th scope="col" style="display: none">Item Code</th>
                                                         <th scope="col">Item Description</th>
                                                         <th scope="col">Discrepancy</th>
-                                                        <th scope="col">Value</th>
+                                                        <th scope="col">Reason</th>
                                                         <%--<th scope="col">Quantity</th>
                                                         <th scope="col"></th>--%>
 
@@ -149,13 +149,11 @@
                                                 <td style="display: none">
                                                     <asp:Label ID="Label4" runat="server" Text='<%# Eval("ItemCode") %>' /></td>
                                                 <td>
-                                                    <asp:Label ID="Label5" runat="server" Text='<%# Eval("ItemCode") %>' /></td>
-                                                <td>
-                                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Reason") %>' /></td>
-                                                <td>
+                                                    <asp:Label ID="Label5" runat="server" Text='<%# Eval("Desc") %>' /></td>
+                                                
                                                     <asp:Label ID="Label3" runat="server" Text='<%# Eval("QtyChange") %>' /></td>
                                                 <td>
-                                                    <asp:Label ID="Label6" runat="server" Text='<%# Eval("QtyChange") %>' /></td>
+                                                    <asp:Label ID="Label6" runat="server" Text='<%# Eval("Reason") %>' /></td>
                                                <%-- <td>
                                                <%-- <td>
                                                     <asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>

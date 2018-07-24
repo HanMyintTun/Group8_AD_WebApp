@@ -32,10 +32,10 @@ namespace Group8_AD_webapp.Manager
             if (Request.QueryString["voucherno"] != null)
             {
                 voucherno = Request.QueryString["voucherno"];
-                AdjustmentVM adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+              //  AdjustmentVM adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
                 
-                    voucherno = adj.VoucherNo;
-                    status = adj.Status;
+                   // voucherno = adj.VoucherNo;
+                 //   status = adj.Status;
                     //PopulateList(voucherno);
                     //BindGrids();
                     //IsEmpty = false;
