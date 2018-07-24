@@ -12,7 +12,6 @@ namespace Group8AD_WebAPI.BusinessLogic
 
         public static RequestDetailVM AddReqDet(int empId, string itemCode, int reqQty, string status)
         {
-
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 RequestDetailVM rvm = new RequestDetailVM();
@@ -104,7 +103,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                         rvm.ReqLineNo = rd.ReqLineNo;
                         rd.ItemCode = itemCode;
                         rvm.ItemCode = rd.ItemCode;
-                        rd.ReqQty = 1;
+                        rd.ReqQty = 0;
                         rvm.ReqQty = rd.ReqQty;
                         rd.AwaitQty = 0;
                         rvm.AwaitQty = rd.AwaitQty;
@@ -143,9 +142,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 request.AwaitQty = r.AwaitQty;
                 request.FulfilledQty = r.FulfilledQty;
             }
-
             return request;
-
         }
 
         //update RequestDetail with reqId and reqDet
