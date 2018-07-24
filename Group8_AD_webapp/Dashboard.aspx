@@ -48,7 +48,7 @@
                                                     <asp:ListItem Text="Doughnut" Value="2" />
                                                     <asp:ListItem Text="Bar" Value="3" />
                                                 </asp:RadioButtonList>
-                                                <asp:DropDownList ID="ddlMonth" runat="server" AutoPostBack="true"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-group" ID="ddlMonth" runat="server" AutoPostBack="true"></asp:DropDownList>
 
                                             </div>
 
@@ -405,4 +405,5 @@
             swal("Representative Added!", "Employee 2 is added", "success");
         }
     </script>
+  
 </asp:Content>
