@@ -1543,6 +1543,9 @@ p.back-link {
     overflow-y: auto;
    -ms-overflow-style: -ms-autohiding-scrollbar
 }
+.fix-modal{
+    width: 900px !important;
+}
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -1576,5 +1579,8 @@ p.back-link {
 
     .sidebarCollapse span {
         display: none;
+    }
+    .fix-modal {
+        width: auto !important;
     }
 }

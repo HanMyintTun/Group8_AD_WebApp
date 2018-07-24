@@ -62,6 +62,7 @@ namespace Group8_AD_webapp
             foreach (AdjItemVM adj in list)
             {
                 adj.Desc = (items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Desc;
+                adj.Price1 = Convert.ToDouble((items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Price1);
             }
             return list;
         }
@@ -71,8 +72,17 @@ namespace Group8_AD_webapp
         {
             List<AdjItemVM> showlist = new List<AdjItemVM>();
             List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+
             adj = AddItemDescToAdj(adj);
-            showlist = adj;
+
+            foreach (AdjItemVM aj in adj)
+            {
+                
+                aj.Value = aj.Price1 * aj.QtyChange;
+                
+                showlist.Add(aj);
+            }
+            
             return showlist;
         }
         

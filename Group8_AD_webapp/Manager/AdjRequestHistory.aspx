@@ -1,11 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="AdjRequestHistory.aspx.cs" Inherits="Group8_AD_webapp.Manager.AdjRequestHistory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
     <link href="../css/employee-style.css" rel="stylesheet" />
-            <link href="../css/datepicker3.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div class="form-group form-inline formstyle2 text-center">
-        <div class="col-lg-3">
+        <div class="col-lg-8">
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Stock Adjustment Request"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
@@ -69,14 +68,14 @@
 
     <%-- modal content--%>
     <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog fix-modal modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                         </button>
-                       <h3 class="detail-subtitle">Stock Adjustment Request</h3>
+                       <h3 class="detail-subtitle">Stock Adjustment Request Details</h3>
                     </div>
 
                     <div class="panel-body">
@@ -98,29 +97,6 @@
 
                                     </div>
 
-                                    <%--<div class="detail-info-right">
-
-                                        <div>
-                                            <table class="detail-info-col">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <asp:Label ID="label2" runat="server" Text="Item ID : "></asp:Label></td>
-                                                        <td>
-                                                            <asp:Label ID="lblReqid" runat="server"></asp:Label></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <asp:Label ID="label3" runat="server" Text="Submitted date : "></asp:Label></td>
-                                                        <td>
-                                                            <asp:Label ID="lblSubmitteddate" runat="server"></asp:Label></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-
-                                        </div>
-                                    </div>--%>
                                 </div>
                                 <div class="detail-item">
 
@@ -129,14 +105,13 @@
                                         <LayoutTemplate>
                                             <table runat="server" class="table table-detail">
                                                 <thead>
-                                                    <tr id="grdHeader" runat="server">
+                                                    <tr>
                                                         <th scope="col" style="display: none">Item Code</th>
                                                         <th scope="col">Item Description</th>
                                                         <th scope="col">Discrepancy</th>
+                                                        <th scope="col">Value</th>
                                                         <th scope="col">Reason</th>
-                                                        <%--<th scope="col">Quantity</th>
-                                                        <th scope="col"></th>--%>
-
+                                             
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -151,19 +126,16 @@
                                                 <td>
                                                     <asp:Label ID="Label5" runat="server" Text='<%# Eval("Desc") %>' /></td>
                                                 
-                                                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("QtyChange") %>' /></td>
+                                                <td><asp:Label ID="Label3" runat="server" Text='<%# Eval("QtyChange") %>' /></td>
+                                                <td>
+                                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Value","{0:C}") %>' /></td>
                                                 <td>
                                                     <asp:Label ID="Label6" runat="server" Text='<%# Eval("Reason") %>' /></td>
-                                               <%-- <td>
-                                               <%-- <td>
-                                                    <asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
-                                                <td>
-                                                    <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
-                                                <td></td>--%>
+                                              
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
+                                            <span class="noresult">Sorry! There are no items to show.<br />
                                                 Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
                                             </span>
                                         </EmptyDataTemplate>
