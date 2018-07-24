@@ -16,6 +16,8 @@ namespace Group8_AD_webapp
     {
         static List<ItemVM> staticpList;
         static List<ItemVM> productList;
+        static DateTime d1;
+        static DateTime d2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,17 +26,16 @@ namespace Group8_AD_webapp
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
-                if (Request.QueryString["sort"] == "desc")
+                if (Request.QueryString["sort"] == "asc")
+                {
+                    IsDesc.Value = "false";
+                }
+                else
                 {
                     IsDesc.Value = "true";
                     ddlSortDirection.SelectedValue = "desc";
                 }
-                else
-                {
-                    IsDesc.Value = "false";
-                }
-
-                DateTime d1, d2;
+                
                 if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
                 {
                     d1 = DateTime.Parse(Request.QueryString["d1"]);
@@ -71,6 +72,7 @@ namespace Group8_AD_webapp
             {
                 max = productList.Count;
             }
+            lblDateRange.Text = "Date Range: " + d1.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
             //lblPageCount.Text = "Showing " + (min + 1) + " to " + max + " of " + productList.Count.ToString();
         }
 
@@ -82,8 +84,8 @@ namespace Group8_AD_webapp
 
         protected List<ItemVM> DoSearch()
         {
-            DateTime d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime d2 = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            d2 = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             return Controllers.TransactionCtrl.GetVolume(d1, d2);
         }
@@ -154,7 +156,13 @@ namespace Group8_AD_webapp
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StoreDashboard.aspx");
+            if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
+            {
+                d1 = DateTime.Parse(Request.QueryString["d1"]);
+                d2 = DateTime.Parse(Request.QueryString["d2"]);
+            }
+
+            Response.Redirect("StoreDashboard.aspx?d=" + d1.ToString("dd-MMM-yyyy") + "&d2=" + d2.ToString("dd-MMM-yyyy"));
         }
     }
 }

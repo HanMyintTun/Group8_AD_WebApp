@@ -24,10 +24,17 @@ namespace Group8_AD_webapp
                     master.ShowToastr(this, String.Format(""), (string)Session["Message"], "success");
                     Session["Message"] = null;
                 }
-                
+                if (Request.QueryString["d"] != null && Request.QueryString["d2"] != null)
+                {
+                    d = DateTime.Parse(Request.QueryString["d"]);
+                    d2 = DateTime.Parse(Request.QueryString["d2"]);
+                }
+                else
+                {
+                    d = DateTime.Today.AddYears(-1);
+                    d2 = DateTime.Today;
+                }
 
-                d = DateTime.Today.AddYears(-1);
-                d2 = DateTime.Today;
                 volumeList = Controllers.TransactionCtrl.GetVolume(d,d2);
                 SortAndBindGrids();
                 lblDateRange.Text = "Date Range: "+d.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");

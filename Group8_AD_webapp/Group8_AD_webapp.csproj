@@ -164,6 +164,9 @@
     <Content Include="css\datepicker3.css" />
     <Content Include="css\employee-style.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\manager-style.css" />
+    <Content Include="css\month-picker-style.css" />
+    <Content Include="css\monthpicker.css" />
     <Content Include="css\styles.css" />
     <Content Include="Default.aspx" />
     <Content Include="Dashboard.aspx" />
@@ -288,13 +291,32 @@
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\AdjRequestList.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
+    <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
     <Content Include="Manager\Restock-Quantity.aspx" />
     <Content Include="Manager\RestockLevel.aspx" />
+    <Content Include="Manager\StoreDashboard.aspx" />
+    <Content Include="Models\SA46Team08ADProjectContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
+      <LastGenOutput>SA46Team08ADProjectContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SA46Team08ADProjectContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
+      <LastGenOutput>SA46Team08ADProjectContext.cs</LastGenOutput>
+    </Content>
     <Content Include="Rejected-Requests.aspx" />
     <Content Include="sass\.sass-cache\deff34d1f5b7167181b556002c25068d6adc024d\styles.scssc" />
     <Content Include="sass\styles.scss" />
     <Content Include="Main.Master" />
+    <EntityDeploy Include="Models\SA46Team08ADProjectContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SA46Team08ADProjectContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
+      <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="img\profile.png" />
     <Content Include="js\bootstrap-datepicker.js" />
@@ -369,6 +391,16 @@
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessLogic.cs" />
+    <Compile Include="BusinessLogic\AdjustmentBL.cs" />
+    <Compile Include="BusinessLogic\DepartmentBL.cs" />
+    <Compile Include="BusinessLogic\EmployeeBL.cs" />
+    <Compile Include="BusinessLogic\ItemBL.cs" />
+    <Compile Include="BusinessLogic\NotificationBL.cs" />
+    <Compile Include="BusinessLogic\ReportItemBL.cs" />
+    <Compile Include="BusinessLogic\RequestBL.cs" />
+    <Compile Include="BusinessLogic\RequestDetailBL.cs" />
+    <Compile Include="BusinessLogic\SupplierBL.cs" />
+    <Compile Include="BusinessLogic\TransactionBL.cs" />
     <Compile Include="Cancelled-Requests.aspx.cs">
       <DependentUpon>Cancelled-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -398,6 +430,7 @@
     <Compile Include="Controllers\RequestDetailCtrl.cs" />
     <Compile Include="Controllers\SupplierCtrl.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\TransactionCtrl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -480,6 +513,13 @@
     <Compile Include="Manager\EditSupplierPrice.aspx.designer.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\ProductVolume.aspx.cs">
+      <DependentUpon>ProductVolume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\ProductVolume.aspx.designer.cs">
+      <DependentUpon>ProductVolume.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -501,27 +541,72 @@
     <Compile Include="Manager\RestockLevel.aspx.designer.cs">
       <DependentUpon>RestockLevel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\StoreDashboard.aspx.cs">
+      <DependentUpon>StoreDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\StoreDashboard.aspx.designer.cs">
+      <DependentUpon>StoreDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdjItemVM.cs" />
-    <Compile Include="Models\Adjustment.cs" />
+    <Compile Include="Models\Adjustment.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdjustmentVM.cs" />
-    <Compile Include="Models\CollectionPoint.cs" />
-    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\CollectionPoint.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollectionPointVM.cs" />
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DepartmentVM.cs" />
-    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmpReqVM.cs" />
     <Compile Include="Models\EmployeeVM.cs" />
-    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Item.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ItemVM.cs" />
     <Compile Include="Models\LogicUniEf.cs" />
-    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationVM.cs" />
     <Compile Include="Models\ReportItemVM.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Models\RequestDetail.cs" />
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestDetail.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestDetailVM.cs" />
     <Compile Include="Models\RequestVM.cs" />
-    <Compile Include="Models\Supplier.cs" />
+    <Compile Include="Models\SA46Team08ADProjectContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA46Team08ADProjectContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SA46Team08ADProjectContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SA46Team08ADProjectContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SupplierVM.cs" />
-    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\Transaction.cs">
+      <DependentUpon>SA46Team08ADProjectContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransactionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rejected-Requests.aspx.cs">
       <DependentUpon>Rejected-Requests.aspx</DependentUpon>
@@ -530,6 +615,8 @@
     <Compile Include="Rejected-Requests.aspx.designer.cs">
       <DependentUpon>Rejected-Requests.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Service\EmployeeUtility.cs" />
+    <Compile Include="Service\ItemUtility.cs" />
     <Compile Include="Service\UtilityService.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -581,6 +668,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
