@@ -12,25 +12,25 @@
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Order Volume"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
          </div>
         <div class="col-xs-12 col-lg-2">
             <div class="form-group">
                 <div class="input-group">
-                    <asp:TextBox ID="txtStartDate" ClientIDMode="Static" placeholder="from: dd/mm/yyyy" autocomplete="off" runat="server" CssClass="form-control controlheight"></asp:TextBox>
-                    <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    <asp:TextBox ID="txtStartDate" ClientIDMode="Static" placeholder="from: dd/mm/yyyy" autocomplete="off" runat="server" CssClass="form-control controlheight bb"></asp:TextBox>
+                    <span class="input-group-addon controlheight bb"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                 </div> 
             </div> 
         </div>
         <div class="col-xs-12 col-lg-4 text-left">
             <div class="form-group"> 
                 <div class="input-group">
-                    <asp:TextBox ID="txtEndDate" ClientIDMode="Static" placeholder="to: dd/mm/yyyy" autocomplete="off" runat="server" CssClass="form-control controlheight"></asp:TextBox>
-                    <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    <asp:TextBox ID="txtEndDate" ClientIDMode="Static" placeholder="to: dd/mm/yyyy" autocomplete="off" runat="server" CssClass="form-control controlheight bb"></asp:TextBox>
+                    <span class="input-group-addon controlheight bb"><i class="fa fa-calendar" aria-hidden="true"></i></span>
 
-                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />
+                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button controlheight" Text="Search" OnClick="btnSearch_Click" />
 
             </div>
         </div>
@@ -53,7 +53,7 @@
                        <asp:BoundField DataField="Desc" HeaderText="Description" SortExpression="Desc" />
                        <asp:BoundField DataField="TempQtyReq" HeaderText="Quantity" SortExpression="TempQtyReq" />
                        <asp:BoundField DataField="SuppCode1" HeaderText="Supplier 1" SortExpression="SuppCode1" />
-                       <asp:BoundField DataField="Price1" HeaderText="Price" SortExpression="Price1" />
+                       <asp:BoundField DataField="Price1" HeaderText="Price (SGD)" SortExpression="Price1" />
             </Columns>
     </asp:GridView>
      <div class="row">

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="CatalogueDash.aspx.cs" Inherits="Group8_AD_webapp.CatalogueDash" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
      <link href="../css/employee-style.css" rel="stylesheet" />
     <link href="../css/add-style.css" rel="stylesheet" />
@@ -16,11 +16,11 @@
         <asp:LinkButton ID="btnGrid" Cssclass="listbutton btnGrid active" runat="server" Text="Button" OnClick="btnGrid_Click"><i class="fa fa-th-large"></i></asp:LinkButton>
         <asp:LinkButton ID="btnList" Cssclass="listbutton btnList" runat="server" Text="Button" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton>
 
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control controlheight" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlSearch form-control controlheight bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
              <div class="dd-search">
-        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control controlheight bb" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
 
          <asp:UpdatePanel ID="UpdatePanel1" runat="server">
 

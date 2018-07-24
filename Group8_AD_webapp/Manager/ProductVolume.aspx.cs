@@ -156,7 +156,13 @@ namespace Group8_AD_webapp
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StoreDashboard.aspx");
+            if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
+            {
+                d1 = DateTime.Parse(Request.QueryString["d1"]);
+                d2 = DateTime.Parse(Request.QueryString["d2"]);
+            }
+
+            Response.Redirect("StoreDashboard.aspx?d=" + d1.ToString("dd-MMM-yyyy") + "&d2=" + d2.ToString("dd-MMM-yyyy"));
         }
     }
 }
