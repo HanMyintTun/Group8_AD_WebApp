@@ -513,6 +513,19 @@
         z-index: 25;
     }
 
+.emptysidedesc {
+    text-align: left;
+    width: 90%;
+    overflow: hidden;
+    transition: all .3s ease;
+    z-index: 22;
+    margin-left: 10px;
+    font-weight: 700;
+    padding-left: 10px;
+    padding-right: 20px;
+    font-size: 1.4rem;
+}
+
     .movedownside {
         margin-top: 10px;
         margin-left: 10px;

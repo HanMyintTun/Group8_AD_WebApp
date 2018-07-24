@@ -36,7 +36,8 @@ namespace Group8_AD_webapp
                     d2 = DateTime.Today;
                 }
 
-                volumeList = Controllers.TransactionCtrl.GetVolume(d,d2);
+                volumeList = Controllers.TransactionCtrl.GetVolume(d,d2); //Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetVolume(d,d2); 
+
                 SortAndBindGrids();
                 lblDateRange.Text = "Date Range: "+d.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
                 PopulateCBChart();
@@ -80,23 +81,14 @@ namespace Group8_AD_webapp
         [System.Web.Services.WebMethod]
         public static List<string> getChartData()
         {
-            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
             var returnData = new List<string>();
-            DateTime d1 = DateTime.Today.AddYears(-1);
-            DateTime d2 = DateTime.Today;
-            List<ReportItemVM> cbList = Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetCBMonthly(d1, d2);
 
-            List<string> deptCodeList;
-            using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
-            {
-                deptCodeList = entities.Departments.Select(x => x.DeptCode).ToList();
-            }
+            List<ReportItemVM> cbList = Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetCBMonthly(d, d2);
 
             var chartLabel = new StringBuilder();
             var chartData = new StringBuilder();
             chartLabel.Append("[");
             chartData.Append("[");
-            //chartLabel.Append("'CLAI', 'COMM', 'CPSC', 'ENGL', 'FINN', 'ESTS', 'REGR', 'SCIC', 'STOR', 'TREA'");
             for (int i = 0; i < 10; i++)
             {
                 if (i < 9)
@@ -119,15 +111,7 @@ namespace Group8_AD_webapp
                     chartData.Append(cbList[i].Val1);
                 }
             }
-            //chartData.Append("12, 19, 3, 17, 6, 3");
-
-            //foreach (DataRow row in dataset.Tables[0].Rows)
-            //{
-            //    chartLabel.Append(string.Format("'{0}',", row["Date"].ToString()));
-            //    chartData.Append(string.Format("{0},", row["Qty"].ToString()));
-            //}
             chartData.Append("]");
-            //chartLabel.Length--; //For removing ',' 
             chartLabel.Append("]");
 
             returnData.Add(chartLabel.ToString());
