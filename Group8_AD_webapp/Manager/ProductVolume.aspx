@@ -9,7 +9,7 @@
         <asp:UpdatePanel ID="udpProductVol" runat="server"><ContentTemplate>
         <div class="form-group form-inline formstyle2 text-center row">
         <div class="col-lg-3">
-        <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Order Volume"></asp:Label></span>
+        <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Request Quantity"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
         <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">

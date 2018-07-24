@@ -16,18 +16,21 @@
                 <div class="col-xs-12 col-md-3">
             <div class="form-group">
                 <div class="input-group">
-                    <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" placeholder="Month - Year" runat="server" CssClass="form-control controlheight" AutoPostBack="true" OnTextChanged="txtMonthPick_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" placeholder="Month - Year" autocomplete="off" runat="server" CssClass="form-control controlheight" AutoPostBack="true" OnTextChanged="txtMonthPick_TextChanged"></asp:TextBox>
                     <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                 </div> 
             </div> 
         </div></div>
 
-    <div class ="phtrend"><span class="subtitletext">Charge-Back    </span></div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="txtMonthPick" />
             </Triggers>
             <ContentTemplate>
+                <div class="phtrend">
+            <canvas id="myChart" width="800" height="450"> </canvas>
+        </div>
+
                 <div class="listtitletext"><asp:Label ID="lblDateRange" runat="server" Text="Label"></asp:Label></div>
 
         
@@ -87,9 +90,71 @@
     <script>
         $('#txtMonthPick').MonthPicker({
             Button: false, MonthFormat: 'MM yy',
-            OnAfterChooseMonth: function () {$("#txtMonthPick").trigger("change");}});
+            OnAfterChooseMonth: function () { $("#txtMonthPick").trigger("change"); }
+        });
 
-
-
+         $(function () {
+        var ctx = document.getElementById("myChart").getContext('2d');
+        $.ajax({
+            url: "StoreDashboard.aspx/getChartData",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var chartLabel = eval(response.d[0]); //Labels
+                var chartData = eval(response.d[1]); //Data
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartLabel, 
+                        datasets: [{
+                            label: 'ChargeBack (SGD)',
+                            data: chartData, 
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                 'rgba(70, 240, 240, 0.2)',
+                                 'rgba(128, 0, 0, 0.2)',
+                                 'rgba(210, 245, 60, 0.2)',
+                                'rgba(230, 190, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(70, 240, 240, 1)',
+                                 'rgba(128, 0, 0, 1)',
+                                 'rgba(210, 245, 60, 1)',
+                                'rgba(230, 190, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options:
+                        {
+                            maintainAspectRatio: false,
+                            scales:
+                                {
+                                    yAxes:
+                                        [{
+                                            ticks:
+                                                {
+                                                    beginAtZero: true
+                                                }
+                                        }]
+                                }
+                        }
+                })
+            }
+        })
+        }
+        );
     </script>
 </asp:Content>

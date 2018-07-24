@@ -119,7 +119,7 @@
             </div>
         </ItemTemplate>
         <EmptyDataTemplate>
-            <span class="noresult">Sorry! There are no items matching your search.</span>
+            <span class="noresult">Your Bookmarks List is empty. Add some bookmarks!</span>
             <!-- Add Back Button here -->
         </EmptyDataTemplate>
         </asp:ListView>

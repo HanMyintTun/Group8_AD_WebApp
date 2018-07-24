@@ -130,8 +130,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         // raise adjustment
-
-        // not dummy, not tested
+        // done, except email
         public static bool RaiseAdjustments(int empId, List<ItemVM> iList)
 
         {

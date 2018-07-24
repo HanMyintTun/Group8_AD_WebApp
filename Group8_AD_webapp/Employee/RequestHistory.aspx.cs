@@ -15,10 +15,11 @@ namespace Group8_AD_webapp
         static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
         string status = "";
-        int empId = 42;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["empId"] = 42;
+            int empId = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
@@ -50,6 +51,7 @@ namespace Group8_AD_webapp
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int empId = Convert.ToInt32(Session["empId"]);
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
                 DoSearch();
@@ -70,13 +72,19 @@ namespace Group8_AD_webapp
 
         protected void DoSearch()
         {
-            status = ddlStatus.Text.ToString();
+            int empId = Convert.ToInt32(Session["empId"]);
+            status = ddlStatus.Text;
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
                 DateTime startDate = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                requests = Controllers.RequestCtrl.GetRequestByDateRange(31, status, startDate, endDate, "");
+                requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate, "");
 
+                BindGrid();
+            }
+            else
+            {
+                requests = Controllers.RequestCtrl.GetReq(empId, status);
                 BindGrid();
             }
         }

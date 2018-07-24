@@ -2,10 +2,10 @@
 
 }
 
-.phtrend{
-    background-color: var(--color-accent);
-    width: 1000px;
-    height: 300px;
+.phtrend {
+    position: relative; 
+    height:50vh; 
+    width:75vw;
 }
 
 #main {
