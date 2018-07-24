@@ -18,7 +18,7 @@
         <div class="col-xs-12 col-lg-3">
             <div class="form-group">
                 <div class="input-group">
-                    <asp:TextBox ID="txtStartDate" ClientIDMode="Static" placeholder="from: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
+                    <asp:TextBox ID="txtStartDate" ClientIDMode="Static" autocomplete="off" placeholder="from: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
                     <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                 </div> 
             </div> 
@@ -26,7 +26,7 @@
         <div class="col-xs-12 col-lg-4">
             <div class="form-group"> 
                 <div class="input-group">
-                    <asp:TextBox ID="txtEndDate" ClientIDMode="Static" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
+                    <asp:TextBox ID="txtEndDate" ClientIDMode="Static" autocomplete="off" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
                     <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
 
                 </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />

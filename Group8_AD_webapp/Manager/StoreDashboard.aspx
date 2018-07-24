@@ -11,7 +11,7 @@
     <div id="centermain">
                  <div class="form-group form-inline formstyle2 text-center">
                 <div class="col-md-4 text-left">
-                    <span class="subtitletext">Trends</span>
+                    <span class="subtitletext">Dashboard</span>
              </div>
                 <div class="col-xs-12 col-md-3">
             <div class="form-group">
@@ -34,7 +34,7 @@
     <div class ="row">
     <div class="col-md-6 tablepad">
         <div class="listtitletext">Top 10 Products By Request Quantity
-            <asp:Button ID="btnMore" CssClass="btn btn-primary btnbold" runat="server" Text="See More" />
+            <asp:Button ID="btnMore" CssClass="btn btn-primary btnbold" runat="server" Text="See More" OnClick="btnMore_Click" />
         </div>
         <asp:GridView ID="grdTopProducts" runat="server" CssClass="table table-striped" AutoGenerateColumns="False"> 
             <Columns>
@@ -57,7 +57,7 @@
     </asp:GridView></div>
     <div class="col-md-6 tablepad">
         <div class="listtitletext">Bottom 10 Products By Request Quantity
-                    <asp:Button ID="btnMore2" CssClass="btn btn-primary btnbold" runat="server" Text="See More" />
+                    <asp:Button ID="btnMore2" CssClass="btn btn-primary btnbold" runat="server" Text="See More" OnClick="btnMore2_Click" />
         </div>
         <asp:GridView ID="grdBotProducts" runat="server" CssClass="table table-striped" AutoGenerateColumns="False"> 
             <Columns>
