@@ -29,7 +29,7 @@
                                                 <th scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
-                                                <th scope="col">Cancelled Date</th>
+                                                <th scope="col">Approved Date</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -75,7 +75,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                         </button>
-                        <h3 class="detail-subtitle">Submitted Request Details</h3>
+                        <h3 class="detail-subtitle">Approved Request Details</h3>
                     </div>
 
                     <div class="panel-body">

@@ -28,8 +28,8 @@
         </div>
         <div class="subtitletext" style="margin-top:0px;">Change Restock Level and Quantity</div>
 
-         <asp:GridView ID="grdRestockItem" runat="server" CssClass="table table-bordered" PagerStyle-CssClass="pager" 
-        AutoGenerateColumns="False" AllowPaging="True"  PageSize="4" >
+         <asp:UpdatePanel ID="udpRestock" runat="server"><ContentTemplate>
+         <asp:GridView ID="grdRestockItem" runat="server" CssClass="table table-bordered" >
                    <Columns>
                 <asp:TemplateField HeaderText="Product">
                     <ItemTemplate>
@@ -59,12 +59,12 @@
                 </asp:TemplateField>
                        <asp:TemplateField HeaderText="">
                     <ItemTemplate>
-                         <asp:Button ID="btnReLevel" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
+                         <asp:Button ID="btnReLevel" OnClick="btnReLevel_Click" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Change Restock Level">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtChangeRestocklvl" type="number" CssClass="p-2 restock-content" runat="server" min="0" Value=" " Width="50px" Height="34px" />
+                        <asp:TextBox ID="txtChangeRestocklvl" runat="server" type="number" CssClass="p-2 restock-content"  min="0" Value=" " Width="50px" Height="34px" />
                     </ItemTemplate>
                 </asp:TemplateField>
                   <asp:TemplateField HeaderText="Restock Qty">
@@ -90,6 +90,7 @@
               
             </Columns>
     </asp:GridView>
+             </ContentTemplate></asp:UpdatePanel>
         <div class="row">
         
     <div class="buttonarea">

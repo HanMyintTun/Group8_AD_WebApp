@@ -76,7 +76,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                         </button>
-                        <h3 class="detail-subtitle">Submitted Request Details</h3>
+                        <h3 class="detail-subtitle">Cancelled Request Details</h3>
                     </div>
 
                     <div class="panel-body">

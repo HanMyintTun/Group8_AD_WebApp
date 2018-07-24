@@ -10,69 +10,78 @@
 namespace Group8_AD_webapp.Manager {
     
     
-    public partial class RestockLevel {
+    public partial class AdjRequestList {
         
         /// <summary>
-        /// ddlThreshold control.
+        /// udpList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlThreshold;
+        protected global::System.Web.UI.UpdatePanel udpList;
         
         /// <summary>
-        /// ddlCategory control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// txtSearch control.
+        /// lstShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.ListView lstShow;
         
         /// <summary>
-        /// btnSearch control.
+        /// udpBookmark control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.UpdatePanel udpBookmark;
         
         /// <summary>
-        /// udpRestock control.
+        /// lstBookmark control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpRestock;
+        protected global::System.Web.UI.WebControls.ListView lstBookmark;
         
         /// <summary>
-        /// grdRestockItem control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdRestockItem;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnUpdate control.
+        /// udpConfirmModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.UpdatePanel udpConfirmModal;
+        
+        /// <summary>
+        /// lstConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lstConfirm;
     }
 }

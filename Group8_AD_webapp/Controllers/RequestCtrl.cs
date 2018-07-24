@@ -126,7 +126,7 @@ namespace Group8_AD_webapp.Controllers
 
             RestClient restClient = new RestClient(API_Url);
 
-            var request = new RestRequest("api/Request/accept?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
+            var request = new RestRequest("/Request/accept?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
 
@@ -147,7 +147,7 @@ namespace Group8_AD_webapp.Controllers
 
             RestClient restClient = new RestClient(API_Url);
 
-            var request = new RestRequest("api/Request/reject?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
+            var request = new RestRequest("/Request/reject?reqId=" + reqId + "&empId=" + empId + "&cmt=" + cmt, Method.POST);
             request.AddHeader("authorization", "Bearer " + access_token);
             request.RequestFormat = DataFormat.Json;
 

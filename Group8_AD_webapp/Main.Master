@@ -228,7 +228,7 @@
             });
         });
     </script>
-    <script>
+   <%-- <script>
 
         var str = location.href.toLowerCase();
         $("#navs li a").each(function () {
@@ -242,6 +242,6 @@
 
     });
 
-    </script>
+    </script>--%>
 </body>
 </html>

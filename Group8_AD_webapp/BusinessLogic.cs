@@ -55,6 +55,28 @@ namespace Group8_AD_webapp
             return showList;
           
         }
+
+        public static List<AdjItemVM> AddItemDescToAdj(List<AdjItemVM> list)
+        {
+            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
+            foreach (AdjItemVM adj in list)
+            {
+                adj.Desc = (items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Desc;
+            }
+            return list;
+        }
+
+
+
+        //public static list<adjitemvm> getitemdetailadjlist(string aid)
+        //{
+        //    list<adjitemvm> showlist = new list<adjitemvm>();
+        //    list<adjitemvm> adjdetail = controllers.adjustmentctrl.getadjbyvoucher(aid);
+        //    adjdetail = additemdesctoadj(adjdetail);
+        //    showlist = adjdetail;
+        //    return showlist;
+
+        //}
     }
 
 

@@ -29,7 +29,7 @@
                                                 <th scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
-                                                <th scope="col">Cancelled Date</th>
+                                                <th scope="col">Fulfilled Date</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -48,7 +48,7 @@
                                             <asp:Label runat="server" ID="lblReqDate" Text='<%# Eval("ReqDateTime","{0:dd-MMM-yyyy}") %>' />
                                         </td>
                                         <td>
-                                            <asp:Label runat="server" ID="lblCancelDate" Text='<%# Eval("FulfilledDateTime","{0:dd-MMM-yyyy}") %>' />
+                                            <asp:Label runat="server" ID="lblFullfilledDate" Text='<%# Eval("FulfilledDateTime","{0:dd-MMM-yyyy}") %>' />
                                         </td>
                                         <td>
                                             <asp:LinkButton ID="btnReqDetail" CommandName="ReqDetail" class="btn btn-primary" runat="server" CommandArgument='<%#Eval("ReqId")%>'>Details</asp:LinkButton>
@@ -75,7 +75,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                         </button>
-                        <h3 class="detail-subtitle">Submitted Request Details</h3>
+                        <h3 class="detail-subtitle">Fulfilled Request Details</h3>
                     </div>
 
                     <div class="panel-body">
@@ -165,7 +165,7 @@
                                                 <td>
                                                     <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
                                                  <td>
-                                                    <asp:Label ID="Label7" runat="server" Text='<%# Eval("FulfilledQty") %>' /></td>
+                                                    <asp:Label ID="lblFulfilled" runat="server" Text='<%# Eval("FulfilledQty") %>' /></td>
                                                 <td></td>
                                             </tr>
                                         </ItemTemplate>

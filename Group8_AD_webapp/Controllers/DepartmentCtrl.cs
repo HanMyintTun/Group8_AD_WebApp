@@ -81,7 +81,7 @@ namespace Group8_AD_webapp.Controllers
 
         public static bool SetDelegate(string deptCode, string fromDate, string toDate, int empId, string access_token)
         {
-            RestClient restClient = new RestClient("http://localhost/Group8AD_WebAPI/api");
+            RestClient restClient = new RestClient(API_Url);
             
             var request = new RestRequest("/Department/setDelegate?deptCode=" +deptCode+ "&fromDate="+fromDate+ "&toDate=" +toDate+ "&empId=" +empId, Method.POST);
 

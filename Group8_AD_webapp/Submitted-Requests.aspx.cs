@@ -57,6 +57,7 @@ namespace Group8_AD_webapp
            
             AcceptReq();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);
+            BindGrid();
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "toastr_message", "toastr.success('Accepted request', 'Success')", true);
         }
@@ -65,7 +66,8 @@ namespace Group8_AD_webapp
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "rejectwarning();", true);
             RejectReq();
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('hide');", true);
+            BindGrid();
             //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
         }
 
