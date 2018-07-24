@@ -58,6 +58,15 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.UpdatePanel udpMainCart;
         
         /// <summary>
+        /// btnCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCart;
+        
+        /// <summary>
         /// lblCartCount control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lstCart;
+        
+        /// <summary>
+        /// btnCartBtm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCartBtm;
         
         /// <summary>
         /// side control.

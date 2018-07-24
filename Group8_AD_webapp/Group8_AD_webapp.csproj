@@ -199,6 +199,7 @@
     <Content Include="css\bootstrap.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="images\pencils.png" />
+    <Content Include="images\stationeryPH.jpg" />
     <Content Include="img\stationery\C001.jpg" />
     <Content Include="img\stationery\C002.jpg" />
     <Content Include="img\stationery\C003.jpg" />

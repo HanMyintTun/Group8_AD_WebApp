@@ -173,9 +173,10 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
+            RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, 1, "Bookmarked");
+                //Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
 
-            if (success)
+            if (success != null)
             {
                 //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
 
@@ -191,7 +192,6 @@ namespace Group8_AD_webapp
                 PopulateSidePanel();
                 bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
                 btnShowBmk_Click(btnShowBmk,EventArgs.Empty);
-
 
                 //bookmarkPanel.Visible = true;
 
@@ -216,9 +216,10 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
+            RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, reqQty, "Unsubmitted");
+            //bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
             Main master = (Main)this.Master;
-            if (success)
+            if (success != null)
             {
                 //// TEMPORARY: REMOVE AFTER WEBAPI UP
                 //RequestDetailVM addtocarttemp = new RequestDetailVM();

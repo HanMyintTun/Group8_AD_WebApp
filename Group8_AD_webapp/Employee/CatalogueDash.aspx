@@ -119,7 +119,7 @@
             </div>
         </ItemTemplate>
         <EmptyDataTemplate>
-            <span class="noresult">Your Bookmarks List is empty. Add some bookmarks!</span>
+            <span class="noresult">Sorry! There are no items matching your search.</span>
             <!-- Add Back Button here -->
         </EmptyDataTemplate>
         </asp:ListView>
@@ -219,8 +219,17 @@
                 </div>
                 </ItemTemplate>
                 <EmptyDataTemplate>
-                    <span class="noresult">Sorry! There are no items matching your search.</span>
-                    <!-- Add Back Button here -->
+                    <div class="bmkwrapper">
+                        <table>
+                        <tr>
+                            <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text=''/></td>
+                            <td rowspan="2" style="width:90px;"><img src="../images/stationeryPH.jpg" width="92" class=""></td>
+                            <td class="emptysidedesc"><asp:Label ID="lblDescription" runat="server" Text='Your List is Empty.<br/> Add something!' /></td>
+                        </tr>
+                         <tr>
+                        </tr>
+                    </table>
+                    </div>
                 </EmptyDataTemplate>
                 </asp:ListView>
                             </div>
