@@ -14,7 +14,6 @@ namespace Group8_AD_webapp
         static List<ItemVM> allItems = new List<ItemVM>();
         static List<ItemVM> items = new List<ItemVM>();
         static public bool IsBmkTab;
-        string access_token = "";
 
         static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         static List<ItemVM> frequentList = new List<ItemVM>();
