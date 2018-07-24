@@ -511,6 +511,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
+            // send accept notification
+            NotificationBL.AddAcptNotification(reqId);
             return;
         }
 
@@ -541,6 +543,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
+            // send reject notification
+            NotificationBL.AddAcptNotification(reqId);
             return;
         }
 
