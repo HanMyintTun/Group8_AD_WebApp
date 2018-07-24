@@ -24,7 +24,6 @@ namespace Group8_AD_webapp
             if (!IsPostBack)
             {
                 suppliers = Controllers.SupplierCtrl.getSupplierCodes();
-                access_token = Session["Token"].ToString();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
@@ -234,6 +233,7 @@ namespace Group8_AD_webapp
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             saveList();
+            editedItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
             lstConfirm.DataSource = editedItems;
             lstConfirm.DataBind();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -245,8 +245,8 @@ namespace Group8_AD_webapp
             bool success = Controllers.ItemCtrl.UpdateItems(editedItems);
             if (success)
             {
-                //Session["Message"] = "Items Updated Successfully";
-                Response.Redirect("Dashboard.aspx");    //check where to go
+                Session["Message"] = "Items Updated Successfully";
+                Response.Redirect("StoreDashboard.aspx");   
             }
             else
             {

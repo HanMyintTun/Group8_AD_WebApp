@@ -50,7 +50,8 @@ namespace Group8_AD_webapp.Controllers
         public static bool UpdateItems(List<ItemVM> list)
         {
             var jsonList = JsonConvert.SerializeObject(list);
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Item/UpdateItem", "", jsonList, false);
+            //return jsonList;
+            string jsonResponse = Service.UtilityService.SendPostRequest("/Item/UpdateItems", "", jsonList, false);
             return Convert.ToBoolean(jsonResponse);
         }
     }
