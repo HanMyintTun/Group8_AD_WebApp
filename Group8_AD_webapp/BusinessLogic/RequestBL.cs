@@ -310,37 +310,48 @@ namespace Group8AD_WebAPI.BusinessLogic
 
         // remove request by empId and status
         // done
-        public static void RemoveReq(int empId, string status)
+        public static bool RemoveReq(int empId, string status)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                bool isRemoved = true;
                 List<Request> reqlist = entities.Requests.Where(r => r.EmpId == empId && r.Status == status).ToList();
+                if (reqlist.Count == 0) isRemoved = false;
                 if (reqlist.Count > 0)
                 {
                     for (int i = 0; i < reqlist.Count; i++)
                     {
                         reqlist[i].Status = "Cancelled";
                         entities.SaveChanges();
+                        if (reqlist[i].Status != "Cancelled")
+                        {
+                            isRemoved = false;
+                        }
                     }
                 }
+                return isRemoved;
             }
-            return;
         }
 
         // remove request by reqId
         // done
-        public static void RemoveReq(int reqId)
+        public static bool RemoveReq(int reqId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                bool isRemoved = false;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
                 if (request != null)
                 {
                     request.Status = "Cancelled";
                     entities.SaveChanges();
                 }
+                if (request.Status == "Cancelled")
+                {
+                    isRemoved = true;
+                }
+                return isRemoved;
             }
-            return;
         }
 
         //// submit request
