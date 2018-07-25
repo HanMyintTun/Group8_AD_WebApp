@@ -29,7 +29,7 @@
         <div class="subtitletext" style="margin-top:0px;">Change Restock Level and Quantity</div>
         
          <asp:UpdatePanel ID="udpRestock" runat="server"><ContentTemplate>
-         <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True"  PageSize="10" runat="server" CssClass="table table-bordered table-stock" AutoGenerateColumns="False" OnPageIndexChanging="grdRestockItem_PageIndexChanging" >
+         <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered table-stock" AutoGenerateColumns="False" >
                    <Columns>
                 <asp:TemplateField HeaderText="Product">
                     <ItemTemplate>

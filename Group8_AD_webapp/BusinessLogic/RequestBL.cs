@@ -310,37 +310,48 @@ namespace Group8AD_WebAPI.BusinessLogic
 
         // remove request by empId and status
         // done
-        public static void RemoveReq(int empId, string status)
+        public static bool RemoveReq(int empId, string status)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                bool isRemoved = true;
                 List<Request> reqlist = entities.Requests.Where(r => r.EmpId == empId && r.Status == status).ToList();
+                if (reqlist.Count == 0) isRemoved = false;
                 if (reqlist.Count > 0)
                 {
                     for (int i = 0; i < reqlist.Count; i++)
                     {
                         reqlist[i].Status = "Cancelled";
                         entities.SaveChanges();
+                        if (!reqlist[i].Status.Equals("Cancelled"))
+                        {
+                            isRemoved = false;
+                        }
                     }
                 }
+                return isRemoved;
             }
-            return;
         }
 
         // remove request by reqId
         // done
-        public static void RemoveReq(int reqId)
+        public static bool RemoveReq(int reqId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                bool isRemoved = false;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
                 if (request != null)
                 {
                     request.Status = "Cancelled";
                     entities.SaveChanges();
                 }
+                if (request.Status.Equals("Cancelled"))
+                {
+                    isRemoved = true;
+                }
+                return isRemoved;
             }
-            return;
         }
 
         //// submit request
@@ -413,9 +424,9 @@ namespace Group8AD_WebAPI.BusinessLogic
         public static RequestVM SubmitReq(int reqId, List<RequestDetailVM> reqDetList)
         {
             // make requestId in reqDetList is the same as reqId
-            RequestVM req = GetReq(reqId);
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                RequestVM req = GetReq(reqId);
                 for (int i = 0; i < reqDetList.Count; i++)
                 {
                     if (reqDetList[i].ReqId == reqId)
@@ -444,14 +455,23 @@ namespace Group8AD_WebAPI.BusinessLogic
                 req.ReqDateTime = DateTime.Now;
                 req.Status = "Submitted";
                 req = UpdateReq(req);
-            }
 
-            int empId = req.EmpId;
-            //// will call when method is completed
-            // EmailBL.SendNewReqEmail(empId, req);
-            NotificationBL.AddNewReqNotification(empId, req);
-            // redirect to SubmittedRequestDetails page
-            return req;
+                int empId = req.EmpId;
+                Employee emp = entities.Employees.Where(x => x.EmpId == empId).FirstOrDefault();
+                string deptCode = emp.DeptCode;
+                Department dept = entities.Departments.Where(x => x.DeptCode == deptCode).FirstOrDefault();
+
+                int fromEmpId = req.EmpId;
+                int toEmpId = (int)dept.DeptHeadId;
+                string type = "Stationery Request";
+                string content = "A new stationery request has been submitted";
+                NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+                
+                //// will call when method is completed
+                // EmailBL.SendNewReqEmail(empId, req);
+
+                return req;
+            }
         }
 
         // update request
@@ -481,7 +501,7 @@ namespace Group8AD_WebAPI.BusinessLogic
 
         // accept request
         // done
-        public static void AcceptRequest(int reqId, int empId, string cmt)
+        public static bool AcceptRequest(int reqId, int empId, string cmt)
         {
             // This is only to explain code steps at Web Api service
             // Call GetReq(empId, “Submitted”)
@@ -490,7 +510,10 @@ namespace Group8AD_WebAPI.BusinessLogic
             // Add ApprovalDateTime as DateTime.Now()
             // Update Status as “Approved”
 
+            bool isApproved = true;
             List<RequestVM> reqlist = GetReq(empId, "Submitted");
+            if (reqlist.Count == 0) isApproved = false;
+            int toId = 0;
             for (int i = 0; i < reqlist.Count; i++)
             {
                 if (reqlist[i].ReqId == reqId)
@@ -498,22 +521,31 @@ namespace Group8AD_WebAPI.BusinessLogic
                     using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
                     {
                         Request req = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
+                        toId = req.EmpId;
                         req.ApproverId = empId;
                         req.ApproverComment = cmt;
                         req.ApprovedDateTime = DateTime.Now;
                         req.Status = "Approved";
                         entities.SaveChanges();
+                        if (!req.Status.Equals("Approved"))
+                        {
+                            isApproved = false;
+                        }
                     }
                 }
             }
-            // send accept notification
-            NotificationBL.AddAcptNotification(reqId);
-            return;
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been approved : No comment";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+
+            return isApproved;
         }
 
         // reject request
         // done
-        public static void RejectRequest(int reqId, int empId,string cmt)
+        public static bool RejectRequest(int reqId, int empId,string cmt)
         {
             // This is only to explain code steps at Web Api service
             // Call GetReq(empId, “Submitted”)
@@ -522,8 +554,10 @@ namespace Group8AD_WebAPI.BusinessLogic
             // Add ApprovalDateTime as DateTime.Now()
             // Update Status as “Rejected”
 
+            bool isRejected = true;
             List<RequestVM> reqlist = GetReq(empId, "Submitted");
-            int toId;
+            if (reqlist.Count == 0) isRejected = false;
+            int toId = 0;
             for (int i = 0; i < reqlist.Count; i++)
             {
                 if (reqlist[i].ReqId == reqId)
@@ -537,34 +571,18 @@ namespace Group8AD_WebAPI.BusinessLogic
                         req.ApprovedDateTime = DateTime.Now;
                         req.Status = "Rejected";
                         entities.SaveChanges();
+                        if (!req.Status.Equals("Rejected"))
+                            isRejected = false;
                     }
                 }
             }
-            // send reject notification
-            //NotificationBL.AddAcptNotification(reqId);
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been rejected : Please review quantities";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
-            // pending notification
-
-            int fromId = empId;
-            return;
-        }
-
-        // update fulfilled request status
-        // included in "Accept Disbursed Items" use case, no need to implement
-        public static void UpdateFulfilledRequestStatus()
-        {
-            // int openCount = 0;
-            // foreach(RequestDetail rd in r) {
-            //  int shortQty = 
-            //      (rd.ReqQty - rd.FulfilledQty);
-            //  openCount += shortQty;}
-            // if (openCount == 0)
-            //  r.Status = “Fulfilled”;
-            // Save Changes for this Request object
-
-            //int openCount = 0;
-
-            return;
+            return isRejected;
         }
     }
 }
