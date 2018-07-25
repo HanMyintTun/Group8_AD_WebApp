@@ -456,6 +456,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 req.Status = "Submitted";
                 req = UpdateReq(req);
 
+                int empId = req.EmpId;
                 Employee emp = entities.Employees.Where(x => x.EmpId == empId).FirstOrDefault();
                 string deptCode = emp.DeptCode;
                 Department dept = entities.Departments.Where(x => x.DeptCode == deptCode).FirstOrDefault();
