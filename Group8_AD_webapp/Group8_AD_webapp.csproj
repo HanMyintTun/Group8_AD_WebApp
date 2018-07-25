@@ -453,8 +453,6 @@
     <Compile Include="Employee\CatalogueDash.aspx.designer.cs">
       <DependentUpon>CatalogueDash.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Employee\Item.cs" />
-    <Compile Include="Employee\RequestDetail.cs" />
     <Compile Include="Employee\RequestHistory.aspx.cs">
       <DependentUpon>RequestHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

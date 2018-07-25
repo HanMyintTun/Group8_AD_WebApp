@@ -9,7 +9,7 @@ namespace Group8AD_WebAPI.BusinessLogic
     public static class NotificationBL
     {
         // add new notification
-        public static void AddNewNotification(int fromEmpId, int toEmpId, string type, string content)
+        public static bool AddNewNotification(int fromEmpId, int toEmpId, string type, string content)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -21,7 +21,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                 notif.Content = content;
                 notif.IsRead = false;
                 entities.Notifications.Add(notif);
-                entities.SaveChanges();
+                int rowinserted = entities.SaveChanges();
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
@@ -37,7 +43,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         //add new reqNoti
-        public static void AddNewReqNotification(int empId, RequestVM currReq)
+        public static bool AddNewReqNotification(int empId, RequestVM currReq)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -52,7 +58,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                     noti.Content = "Request Submitted";
                     noti.IsRead = true;
                     entities.Notifications.Add(noti);
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +97,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         //AddLowStkNotification with empId and item
-        public static void AddLowStkNotification(int empId, Item i)
+        public static bool AddLowStkNotification(int empId, Item i)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -100,53 +112,56 @@ namespace Group8AD_WebAPI.BusinessLogic
                     noti.Content = "Request Submitted";
                     noti.IsRead = true;
                     entities.Notifications.Add(noti);
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
-
-                //var lowStkNoti = entities.Notifications.Where(n => n.Employee.EmpId == empId).FirstOrDefault();
-                //if (lowStkNoti != null)
-                //{
-                //    lowStkNoti.Employee.EmpId = empId;
-                //    Item item = i;
-                //    entities.Notifications.Add(lowStkNoti);
-                //    entities.SaveChanges();
-                //}
             }
         }
 
         //AddFulfillNotification with empId and repId
-        public static void AddFulfillNotification(int empId, int repId)
+        public static bool AddFulfillNotification(int empId, int repId)
         {            
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                var emploeeses=entities.Employees.Where(n => n.EmpId == empId).FirstOrDefault();
-                if (emploeeses != null)
+                //var emploeeses=entities.Employees.Where(n => n.EmpId == empId).FirstOrDefault();
+                //if (emploeeses != null)
+                try
                 {
-                    //var request = entities.Notifications.Where(n => n.Employee.Department.DeptRepId == repId).FirstOrDefault();
-                    //if (request != null)
-                    //{
-                        Notification noti = new Notification();
-                        noti.FromEmp = empId;
-                        noti.ToEmp = repId;
-                        noti.NotificationDateTime = System.DateTime.Now;
-                        noti.RouteUri = "";
-                        noti.Type = "Request Submitted";
-                        noti.Content = "Request Submitted";
-                        noti.IsRead = true;                        
-                        entities.Notifications.Add(noti);
-                        entities.SaveChanges();
-                    
-                    //}
+                    Notification noti = new Notification();
+                    noti.FromEmp = empId;
+                    noti.ToEmp = repId;
+                    noti.NotificationDateTime = System.DateTime.Now;
+                    noti.RouteUri = "";
+                    noti.Type = "Request Submitted";
+                    noti.Content = "Request Submitted";
+                    noti.IsRead = true;                        
+                    entities.Notifications.Add(noti);
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
                 }
             }
         }
 
         //AddAcptNotification with repId
-        public static void AddAcptNotification(int repId)
+        public static bool AddAcptNotification(int repId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -161,20 +176,18 @@ namespace Group8AD_WebAPI.BusinessLogic
                     noti.Content = "Request Submitted";
                     noti.IsRead = true;
                     entities.Notifications.Add(noti);
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 catch (Exception ex)
                 {
                     throw ex;
-                }
-
-                //Notification acptNoti = entities.Notifications.Where(n => n.Employee.Department.DeptRepId == repId).FirstOrDefault();
-                //if (acptNoti != null)
-                //{
-                //    acptNoti.Employee.Department.DeptRepId = repId;
-                //    entities.Notifications.Add(acptNoti);
-                //    entities.SaveChanges();
-                //}
+                }                
             }
         }
 
@@ -219,7 +232,7 @@ namespace Group8AD_WebAPI.BusinessLogic
             return notiSupervisor;
         }
         //AddAcptNotification with repId
-        public static void AdjApprNotification(int fromEmpId , int toEmpId, NotificationVM n)
+        public static bool AdjApprNotification(int fromEmpId , int toEmpId, NotificationVM n)
         {
             NotificationVM adjApprNoti = new NotificationVM();
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
@@ -235,7 +248,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                     noti.Content = "Missing Stock";
                     noti.IsRead = true;
                     entities.Notifications.Add(noti);
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 catch (Exception ex)
                 {

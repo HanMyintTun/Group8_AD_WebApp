@@ -14,6 +14,7 @@ namespace Group8_AD_webapp.Models
         int awaitQty;
         int fulfilledQty;
         string desc;
+        string uom;
 
         public int ReqId { get => reqId; set => reqId = value; }
         public int ReqLineNo { get => reqLineNo; set => reqLineNo = value; }
@@ -23,6 +24,7 @@ namespace Group8_AD_webapp.Models
         public int FulfilledQty { get => fulfilledQty; set => fulfilledQty = value; }
         public string Desc { get => desc; set => desc = value; }
 
+        public string UOM { get => uom; set => uom = value; }
         public RequestDetailVM()
         {
 

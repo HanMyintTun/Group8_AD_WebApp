@@ -1029,13 +1029,13 @@ namespace Group8AD_WebAPI.BusinessLogic
 
 
         //UpdateItem
-        public static void UpdateItem(string itemCode, int reorderLvl, int reorderQty, string s1, double p1, string s2, double p2, string s3, double p3)
+        public static void UpdateItem(string itemCode,string s1, double p1, string s2, double p2, string s3, double p3)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 Item item = entities.Items.Where(i => i.ItemCode.Equals(itemCode)).First();
-                item.ReorderLevel = reorderLvl;
-                item.ReorderQty = reorderQty;
+                //item.ReorderLevel = reorderLvl;
+                //item.ReorderQty = reorderQty;
                 item.SuppCode1 = s1;
                 item.SuppCode2 = s2;
                 item.SuppCode3 = s3;
@@ -1051,7 +1051,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             foreach (ItemVM i in iList)
             {
-                UpdateItem(i.ItemCode, i.ReccReorderLvl, i.ReccReorderQty, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
+                UpdateItem(i.ItemCode, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
             }
         }
 
