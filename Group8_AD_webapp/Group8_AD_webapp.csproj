@@ -198,8 +198,17 @@
     <Content Include="css\bootstrap-theme.min.css.map" />
     <Content Include="css\bootstrap.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="Home.aspx" />
     <Content Include="images\0000.png" />
     <Content Include="images\pencils.png" />
+    <Content Include="img\employee\15.png" />
+    <Content Include="img\employee\101.png" />
+    <Content Include="img\employee\104.png" />
+    <Content Include="img\employee\105.png" />
+    <Content Include="img\employee\24.png" />
+    <Content Include="img\employee\23.png" />
+    <Content Include="img\employee\6.png" />
+    <Content Include="img\employee\profile_default.png" />
     <Content Include="img\stationery\C001.jpg" />
     <Content Include="img\stationery\C002.jpg" />
     <Content Include="img\stationery\C003.jpg" />
@@ -289,6 +298,7 @@
     <Content Include="img\stationery\T024.jpg" />
     <Content Include="img\stationery\T025.jpg" />
     <Content Include="img\stationery\T100.jpg" />
+    <Content Include="js\monthpicker.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
@@ -476,6 +486,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -685,9 +702,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56756</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-
           <IISUrl>http://localhost/Group8_AD_webapp</IISUrl>
-
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

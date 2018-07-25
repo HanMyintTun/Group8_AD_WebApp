@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
+using System.Web.UI.HtmlControls;
 
 namespace Group8_AD_webapp
 {
@@ -17,8 +19,71 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
-                Session["empId"] = 42;
+                
+                SetProfile();
                 FillCart();
+                PopulateMenuItems();
+            }
+        }
+
+        protected void SetProfile()
+        {
+            if(Session["empId"] != null)
+            {
+                int empId = (int)Session["empId"];
+
+                //if (File.Exists(Server.MapPath("~/img/employee/" + empId + ".png")))
+                //{
+                    imgProfile.Src = "~/img/employee/" + empId + ".png";
+                //}
+                //else
+                //{
+                //    imgProfile.Src = "~/img/employee/profile_default.png";
+                //}
+
+                lblName.Text = (string)Session["empName"];
+                lblRole.Text = (string)Session["role"];
+            }
+            else
+            {
+                Response.Redirect("~/Home.aspx");
+            }
+
+        }
+
+        protected void PopulateMenuItems()
+        {
+            List<HtmlGenericControl> deptHeadList = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest };
+            List<HtmlGenericControl> employeeList = new List<HtmlGenericControl>() { menuCatalogueDash, menuEmployeeRequest };
+            List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers };
+            List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment };
+            List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>();
+            allMenu.AddRange(deptHeadList);
+            allMenu.AddRange(employeeList);
+            allMenu.AddRange(storeList);
+            allMenu.AddRange(managerList);
+            foreach (HtmlGenericControl m in allMenu)
+            {
+                m.Visible = false;
+            }
+
+            switch (Session["role"])
+            {
+                case "Department Head":
+                        foreach (HtmlGenericControl m in deptHeadList)  m.Visible = true; break; 
+                case "Delegate":
+                    foreach (HtmlGenericControl m in deptHeadList) m.Visible = true; break;
+                case "Representative":
+                    foreach (HtmlGenericControl m in employeeList) m.Visible = true; break;
+                case "Employee":
+                    foreach (HtmlGenericControl m in employeeList) m.Visible = true; break;
+                case "Store Manager":
+                    foreach (HtmlGenericControl m in managerList) m.Visible = true; break;
+                case "Store Supervisor":
+                    foreach (HtmlGenericControl m in managerList) m.Visible = true; break;
+                case "Store Clerk":
+                    foreach (HtmlGenericControl m in storeList) m.Visible = true; break;
+                default:  break;
             }
         }
 
@@ -69,7 +134,13 @@ namespace Group8_AD_webapp
 
         protected void btnRemove_Click(object sender, EventArgs e)
         {
+        }
 
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("~/Home.aspx");
         }
 
         protected void btnCart_Click(object sender, EventArgs e)
