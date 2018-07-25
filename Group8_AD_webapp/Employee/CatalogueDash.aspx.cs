@@ -20,7 +20,6 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["empId"] = 42;
 
             if (!IsPostBack)
             {

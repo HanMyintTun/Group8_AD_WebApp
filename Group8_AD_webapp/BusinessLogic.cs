@@ -17,6 +17,7 @@ namespace Group8_AD_webapp
             foreach(RequestDetailVM req in list)
             {
                 req.Desc = (items.Where(x => x.ItemCode == req.ItemCode).FirstOrDefault()).Desc;
+                req.UOM = (items.Where(x => x.ItemCode == req.ItemCode).FirstOrDefault()).UOM;
             }
             return list;
         }
