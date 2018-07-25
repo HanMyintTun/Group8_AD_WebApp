@@ -10,26 +10,34 @@
             <div>
                 <div style="display: inline-block;">
                     <span class="lbl-inherit">Threshold :</span>
-                    <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" AutoPostBack="True">
-                        <asp:ListItem Text="All" Value="0" />
+                    <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server"  AutoPostBack="True" OnSelectedIndexChanged="ddlThreshold_SelectedIndexChanged">
+                        <asp:ListItem Text="0%" Value="0" />
+                        <asp:ListItem Text="5%" Value="0.05" />
+                        <asp:ListItem Text="10%" Value="0.1" />
+                        <asp:ListItem Text="15%" Value="0.15" />
+                        <asp:ListItem Text="30%" Value="0.3" />
+                        <asp:ListItem Text="50%" Value="0.5" />
+                        <asp:ListItem Text="75%" Value="0.75" />
+                        <asp:ListItem Text="100%" Value="1" />
                     </asp:DropDownList>
                 </div>
-                <div style="display: inline-block;">
+                <asp:UpdatePanel runat="server"><ContentTemplate> <div style="display: inline-block;">
                     <span class="lbl-inherit">Category :</span>
-                    <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" AutoPostBack="True">
-                        <asp:ListItem Text="All" Value="0" />
+                    <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                        <asp:ListItem Text="All" Value="" />
                     </asp:DropDownList>
                     <div style="display: inline-block;">
                         <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack="True"></asp:TextBox>
                         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
                     </div>
-                </div>
+                </div></ContentTemplate></asp:UpdatePanel>
+               
             </div>
         </div>
         <div class="subtitletext" style="margin-top:0px;">Change Restock Level and Quantity</div>
         
          <asp:UpdatePanel ID="udpRestock" runat="server"><ContentTemplate>
-         <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered table-stock" AutoGenerateColumns="False" >
+         <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered table-stock" AutoGenerateColumns="False" OnRowCommand="grdRestockItem_RowCommand" >
                    <Columns>
                 <asp:TemplateField HeaderText="Product">
                     <ItemTemplate>
@@ -59,7 +67,7 @@
                 </asp:TemplateField>
                        <asp:TemplateField HeaderText="">
                     <ItemTemplate>
-                         <asp:Button ID="btnReLevel" OnClick="btnReLevel_Click" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
+                         <asp:Button ID="btnReLevel" runat="server" CommandName="ReLevel" CommandArgument='<%# Eval("ItemCode") %>' OnClick="btnReLevel_Click" CssClass="btn btn-primary restock-content"  Text="use" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Change Reorder Level">
@@ -79,7 +87,7 @@
                 </asp:TemplateField>
                        <asp:TemplateField HeaderText="">
                     <ItemTemplate>
-                         <asp:Button ID="btnReLevelQty" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
+                         <asp:Button ID="btnReLevelQty"  CommandName="ReQty" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Change Reorder Quantity">
@@ -99,5 +107,5 @@
     </div>
     </div>
         </ContentTemplate></asp:UpdatePanel>
-        
+       </div> 
 </asp:Content>
