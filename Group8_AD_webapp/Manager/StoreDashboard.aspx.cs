@@ -93,11 +93,13 @@ namespace Group8_AD_webapp
             {
                 if (i < 9)
                 {
-                    chartLabel.Append("'" + cbList[i].Label + "', ");
+                    string s = (cbList[i].Label).Replace("Department", "");
+                    chartLabel.Append("'" + s + "', ");
                 }
                 else
                 {
-                    chartLabel.Append("'" + cbList[i].Label + "'");
+                    string s = (cbList[i].Label).Replace("Department", "");
+                    chartLabel.Append("'" + s + "'");
                 }
             }
             for (int i = 0; i < 10; i++)

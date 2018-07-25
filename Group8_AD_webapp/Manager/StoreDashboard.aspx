@@ -18,16 +18,17 @@
                 <div class="col-md-2 text-left">
                     <span class="subtitletext">Dashboard</span>
              </div>
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-4">
             <div class="form-group">                    <span class="smalltext ml-10">View For Month of:</span>
                 <div class="input-group">
                     <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" placeholder="Month - Year" autocomplete="off" runat="server" CssClass="form-control controlheight" AutoPostBack="true" OnTextChanged="txtMonthPick_TextChanged"></asp:TextBox>
-                    <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span></div> 
-                    <span class="smalltext ml-10"><asp:Label ID="lblDateRange" runat="server" Text="Label"></asp:Label></span>
-                
-            </div> 
-        </div></div>
-
+                    <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span></div> </div>
+                    </div>
+                <div class="col-xs-12 col-md-3">
+                       <span class="smalltext ml-10"><asp:Label ID="lblDateRange" runat="server" Text="Label"></asp:Label></span>
+                </div>
+             
+        </div>
 
                 <div class="phtrend">
             <canvas id="myChart" width="800" height="450"> </canvas>
@@ -146,8 +147,10 @@
                                                 },
                                             scaleLabel: {
                                                 display: true,
-                                                labelString: 'ChargeBack (in SGD)',
-                                                fontSize: 15
+                                                labelString: 'ChargeBack (SGD)',
+                                                fontStyle: 'bold',
+                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                                fontSize: 18
                                               }
                                         }],
                                     xAxes:
@@ -155,7 +158,14 @@
                                             ticks:
                                                 {
                                                     fontSize: 14
-                                                }
+                                                },
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Department',
+                                                fontStyle: 'bold',
+                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                                fontSize: 18
+                                              }
                                         }]
                                 }
                         }

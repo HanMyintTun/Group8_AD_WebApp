@@ -20,10 +20,6 @@
     }
 }
 
-
-
-
-
     #toast-container > .toast-success {
         background-color: var(--color-text) !important;
         border-radius: 30px !important;
