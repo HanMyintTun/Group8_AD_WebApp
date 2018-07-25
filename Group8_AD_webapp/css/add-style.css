@@ -202,6 +202,24 @@
 .nav>li{
     width: 100vw;
 }
+.btn-fulfilled {
+    font-size: 1.6rem !important;
+    font-weight: 700;
+    color: var(--color-btn-success);
+}
+
+.btn-back {
+    background-color: #fff;
+    font-family: var(--font-btn);
+    border: 1px solid var(--color-btn-primary);
+    color: var(--color-btn-primary);
+    font-size: 1.6rem;
+}
+
+    .btn-back:hover {
+        color: #fff;
+        background-color: var(--color-btn-primary);
+    }
 
 @media only screen and (max-width: 768px) {
     .sidefix {
