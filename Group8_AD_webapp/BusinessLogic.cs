@@ -62,29 +62,30 @@ namespace Group8_AD_webapp
             foreach (AdjItemVM adj in list)
             {
                 adj.Desc = (items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Desc;
+                adj.Price1 = Convert.ToDouble((items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Price1);
             }
             return list;
         }
 
 
-        //public static List<AdjItemVM> GetItemDetailAdjList(string voucherno)
-        //{
-        //    List<AdjItemVM> showList = new List<AdjItemVM>();
-        //    List<AdjustmentVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(rid, access_token);
-        //    reqDetails = AddItemDescToReqDet(reqDetails);
-        //    showList = reqDetails;
-        //    return showList;
-        //}
+        public static List<AdjItemVM> GetItemAdjustList(string voucherno)
+        {
+            List<AdjItemVM> showlist = new List<AdjItemVM>();
+            List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
 
-        //public static list<adjitemvm> getitemdetailadjlist(string aid)
-        //{
-        //    list<adjitemvm> showlist = new list<adjitemvm>();
-        //    list<adjitemvm> adjdetail = controllers.adjustmentctrl.getadjbyvoucher(aid);
-        //    adjdetail = additemdesctoadj(adjdetail);
-        //    showlist = adjdetail;
-        //    return showlist;
+            adj = AddItemDescToAdj(adj);
 
-        //}
+            foreach (AdjItemVM aj in adj)
+            {
+                
+                aj.Value = aj.Price1 * aj.QtyChange;
+                
+                showlist.Add(aj);
+            }
+            
+            return showlist;
+        }
+        
     }
 
 

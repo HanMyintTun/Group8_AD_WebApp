@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Group8AD_WebAPI.BusinessLogic;
 namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
@@ -13,7 +13,9 @@ namespace Group8_AD_webapp.Manager
         static string access_token;
         List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "";
-        string voucherno;
+        static string voucherno;
+        int empid = 104;
+        static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,7 +26,7 @@ namespace Group8_AD_webapp.Manager
 
                 access_token = Session["Token"].ToString();
 
-                adj = Controllers.AdjustmentCtrl.GetAdjustmentList("all");
+                adj = Controllers.AdjustmentCtrl.GetAdjustmentList("All");
                 BindGrid();
 
                 if (Session["Message"] != null)
@@ -51,15 +53,7 @@ namespace Group8_AD_webapp.Manager
             status = ddlStatus.Text;
             adj = Controllers.AdjustmentCtrl.GetAdjustmentList(status);
             BindGrid();
-            if (status == "Submitted")
-            {
-                txtComments.Visible = true;
-            }
-            else
-            {
-                txtComments.Visible = false;
-            }
-
+          
         }
 
         //detail buttom action 
@@ -69,12 +63,10 @@ namespace Group8_AD_webapp.Manager
             if (e.CommandName == "Detail")
             {
                 if (e.CommandArgument.ToString() != "")
-
                 {
                     voucherno = e.CommandArgument.ToString();
 
                     PopulateDetailList(voucherno);
-
                 }
 
             }
@@ -83,22 +75,69 @@ namespace Group8_AD_webapp.Manager
         }
 
         protected void btnAccept_Click(object sender, EventArgs e)
-        { }
-        protected void btnReject_Click(object sender, EventArgs e)
         {
+            AcceptReq();
         }
 
+        protected void AcceptReq()
+        {
+
+            AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
+        }
+        protected void btnReject_Click(object sender, EventArgs e)
+        {
+            RejectReq();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
+        }
+        protected void RejectReq()
+        {
+            AdjustmentBL.RejectRequest(voucherno, empid, cmt);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
+        }
         protected void PopulateDetailList(string voucherno)
         {
-            AdjustmentVM adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
-            lblstatus.Text = adj.Status.ToString();
-         //  List<AdjItemVM > showList = BusinessLogic.AddItemDescToAdj(voucherno);
-            //lstShow.DataSource = ;
-            //lstShow.DataBind();
-            //<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(1);
+            List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            List<AdjItemVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
+            foreach (AdjItemVM aj in adj)
+            {
+                cmt = txtComments.Text.ToString();
 
-            //lstShow.DataSource = adj;
-            //lstShow.DataBind();
+
+                lblstatus.Text = aj.Status;
+                if (aj.Status == "Submitted")
+                {
+                    txtComments.Visible = true;
+                    btnAccept.Visible = true;
+                    btnReject.Visible = true;
+                    txtComments.ReadOnly = false;
+                }
+                else if (aj.Status == "Rejected")
+                {
+                    txtComments.Visible = true;
+                    txtComments.ReadOnly = true;
+                    btnAccept.Visible = false;
+                    btnReject.Visible = false;
+                    //txtComments.Visible = false;
+                }
+                else
+                {
+                    btnAccept.Visible = false;
+                    btnReject.Visible = false;
+                }
+
+
+                if (aj.ApproverComment == null)
+                {
+                    txtComments.Text = " ";
+                }
+                else
+                {
+                    txtComments.Text = aj.ApproverComment.ToString();
+                }
+            }
+            lstShow.DataSource = showList;
+            lstShow.DataBind();
+
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup
         }
     }

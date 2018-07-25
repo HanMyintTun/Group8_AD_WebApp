@@ -1543,6 +1543,15 @@ p.back-link {
     overflow-y: auto;
    -ms-overflow-style: -ms-autohiding-scrollbar
 }
+.fix-modal{
+    width: 900px !important;
+}
+
+.table-stock tr:hover {
+    background-color: #f2f3f2;
+}
+
+
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -1576,5 +1585,8 @@ p.back-link {
 
     .sidebarCollapse span {
         display: none;
+    }
+    .fix-modal {
+        width: auto !important;
     }
 }

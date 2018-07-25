@@ -17,6 +17,7 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
+                Session["empId"] = 42;
                 FillCart();
             }
         }
@@ -29,7 +30,7 @@ namespace Group8_AD_webapp
 
         public void FillCart()
         {
-            int empId = 42;
+            int empId = (int)Session["empId"];
             RequestVM cart = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
             
             if (cart != null)
@@ -44,6 +45,7 @@ namespace Group8_AD_webapp
 
             }
             else {
+                cartDetailList = new List<RequestDetailVM>();
                 lstCart.DataSource = cartDetailList;
                 lstCart.DataBind();
             }
@@ -69,5 +71,22 @@ namespace Group8_AD_webapp
         {
 
         }
+
+        protected void btnCart_Click(object sender, EventArgs e)
+        {
+
+            int empId = (int)Session["empId"];
+            RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+            Main master = this;
+            if (unsubRequest != null)
+            {
+                if (cartDetailList.Count != 0)
+                {
+                    Response.Redirect("~/Employee/RequestList.aspx");
+                }
+
+            }
+        }
+
     }
 }

@@ -52,7 +52,6 @@ namespace Group8_AD_webapp
                     else
                     {
                         BindGrids();
-                        // Custom Error Message
                     }
                 }
 
@@ -73,7 +72,6 @@ namespace Group8_AD_webapp
                     else
                     {
                         showList = new List<RequestDetailVM>();
-                        bookmarkList = new List<RequestDetailVM>();
                         status = "Unsubmitted";
                         IsEmpty = true;
                         // TO DO: custom empty cart message - currently: EmptyDataTemplate
@@ -83,10 +81,14 @@ namespace Group8_AD_webapp
                         bmkid = bookmarks.ReqId;
                         PopulateBookmarks(bmkid);
                     }
+                    else
+                    {
+                        bookmarkList = new List<RequestDetailVM>();
+                    }
                     BindGrids();
                 }
 
-                lblStatus.Text = status.ToUpper(); // + " REQID:" + reqid;     TODO: REMOVE REQID
+                lblStatus.Text = status.ToUpper(); 
 
                 if (status == "Unsubmitted")
                 {
@@ -231,6 +233,9 @@ namespace Group8_AD_webapp
             BindGrids();
 
             Main master = (Main)this.Master;
+            master.FillCart();
+            master.UpdateCartCount();
+            
             master.ShowToastr(this, String.Format("{0}", description), "Item Removed", "success");
         }
 
@@ -280,9 +285,13 @@ namespace Group8_AD_webapp
                 UnsubSettings();
                 HideHeaders();
 
-                (master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
-                (master.FindControl("lstCart") as ListView).DataBind();
+                
+                master.FillCart();
                 master.UpdateCartCount();
+
+                //(master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
+                //(master.FindControl("lstCart") as ListView).DataBind();
+                //master.UpdateCartCount();
 
                 master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", description, reqQty), "Item Added Successfully", "success");
             }

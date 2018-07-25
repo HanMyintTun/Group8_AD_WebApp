@@ -24,15 +24,15 @@ namespace Group8_AD_webapp.Controllers
             else return null;
 
         }
-        public static AdjustmentVM GetAdjByVoucher(string voucherNo)
+        public static List<AdjItemVM> GetAdjByVoucher(string voucherNo)
         {
             string querystring = "?voucherNo=" + voucherNo;
             string jsonResponse = Service.UtilityService.SendPostRequest("/Adjustment/get", querystring, "", true);
 
             if (jsonResponse != "false")
             {
-                var response = JsonConvert.DeserializeObject<AdjustmentVM>(jsonResponse);
-                return (AdjustmentVM)response;
+                var response = JsonConvert.DeserializeObject<List<AdjItemVM>>(jsonResponse);
+                return (List<AdjItemVM>)response;
             }
             else return null;
 
