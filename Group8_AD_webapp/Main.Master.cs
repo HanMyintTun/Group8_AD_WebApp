@@ -134,7 +134,8 @@ namespace Group8_AD_webapp
 
             lstNotifications.DataSource = notifList.OrderByDescending(x => x.NotificationDateTime).Take(10).ToList();
             lstNotifications.DataBind();
-
+            
+            lblNotifCount.Text = notifList.Where(x=> x.IsRead == false).Count().ToString();
         }
 
         public void UpdateCartCount()
@@ -182,13 +183,30 @@ namespace Group8_AD_webapp
 
         protected void btnViewNotif_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/Notifications.aspx");
 
         }
 
         protected void btnOnNotif_Click(object sender, EventArgs e)
         {
+            var lbl = (LinkButton)sender;
+            var item = (ListViewItem)lbl.NamingContainer;
+            int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
+            NotificationVM ntemp = new NotificationVM();
+            ntemp.NotificationId = id;
+            NotificationBL.ToggleReadNotification(ntemp);
 
+            switch (Session["role"])
+            {
+                case "Department Head": Response.Redirect("~/Submitted-Requests.aspx"); break;   //Change when in DeptHead folder
+                case "Delegate": Response.Redirect("~/Submitted-Requests.aspx"); break;          //Change when in DeptHead folder
+                case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+                case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+                case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+                case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+                case "Store Clerk": break;
+                default:  break;
+            }
 
         }
 

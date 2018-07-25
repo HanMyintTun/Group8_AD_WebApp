@@ -20,8 +20,8 @@
     }
 }
 
-#centermain{
-    margin-top: 70px;
+#centermain, #centermain2{
+    margin-top: 100px;
 }
 
 .titletext {
@@ -145,10 +145,14 @@
 
 @media only screen and (max-width : 1200px) {
     .formstyle2 {
-        height: 160px;
+        height: 230px;
     }
 
     #centermain {
         margin-top: 160px;
+    }
+
+    #centermain2 {
+        margin-top: 230px;
     }
 }

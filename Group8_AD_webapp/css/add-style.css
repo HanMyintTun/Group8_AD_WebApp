@@ -195,6 +195,24 @@
     border-bottom: 1px solid #eee;
 }
 
+#sidebar-collapse{
+    z-index: 999;
+}
+
+.nav>li{
+    width: 100vw;
+}
+
+@media only screen and (max-width: 768px) {
+    .sidefix {
+        position: fixed;
+        top: 0;
+        z-index: 150;
+        transition: all 0.3s;
+    }
+
+}
+
 @media only screen and (max-width: 750px) {
     .dropdown-content {
         left: 0;
