@@ -293,7 +293,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                                 //Check if Request Fulfilled
                                 if (cntFulfilled == 0) r.Status = "Fulfilled";
                                 //int openCount = 0;
-                                //foreach (RequestDetail rd in rdList.Where(rd => rd.ReqId == r.ReqId))
+                                //foreach (RequestDetail rd in rdList.Where(rd => rd.ReqId == r.ReqId)) //***************Old Method****************
                                 //{
                                 //    int shortQty = (rd.ReqQty - rd.FulfilledQty);
                                 //    openCount += shortQty;
