@@ -142,3 +142,13 @@
         color: #fff;
         background-color: var(--color-btn-primary-hover)
     }
+
+@media only screen and (max-width : 1200px) {
+    .formstyle2 {
+        height: 160px;
+    }
+
+    #centermain {
+        margin-top: 160px;
+    }
+}
