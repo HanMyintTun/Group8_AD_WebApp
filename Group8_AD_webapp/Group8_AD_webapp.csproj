@@ -16,7 +16,7 @@
     <RootNamespace>Group8_AD_webapp</RootNamespace>
     <AssemblyName>Group8_AD_webapp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -290,7 +290,6 @@
     <Content Include="img\stationery\T025.jpg" />
     <Content Include="img\stationery\T100.jpg" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
-    <Content Include="Manager\AdjRequestList.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
@@ -365,6 +364,7 @@
     <Content Include="Site.Master" />
     <Content Include="Submitted-request.aspx" />
     <Content Include="Submitted-Requests.aspx" />
+    <Content Include="TestingBLBySai.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -499,13 +499,6 @@
     </Compile>
     <Compile Include="Manager\AdjRequestHistory.aspx.designer.cs">
       <DependentUpon>AdjRequestHistory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Manager\AdjRequestList.aspx.cs">
-      <DependentUpon>AdjRequestList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Manager\AdjRequestList.aspx.designer.cs">
-      <DependentUpon>AdjRequestList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\EditSupplierPrice.aspx.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>
@@ -646,6 +639,13 @@
     <Compile Include="Submitted-Requests.aspx.designer.cs">
       <DependentUpon>Submitted-Requests.aspx</DependentUpon>
     </Compile>
+    <Compile Include="TestingBLBySai.aspx.cs">
+      <DependentUpon>TestingBLBySai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestingBLBySai.aspx.designer.cs">
+      <DependentUpon>TestingBLBySai.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -687,7 +687,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56756</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9999/</IISUrl>
+
+          <IISUrl>http://localhost/Group8_AD_webapp</IISUrl>
+
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
