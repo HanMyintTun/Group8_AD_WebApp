@@ -290,7 +290,6 @@
     <Content Include="img\stationery\T025.jpg" />
     <Content Include="img\stationery\T100.jpg" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
-    <Content Include="Manager\AdjRequestList.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
@@ -499,13 +498,6 @@
     </Compile>
     <Compile Include="Manager\AdjRequestHistory.aspx.designer.cs">
       <DependentUpon>AdjRequestHistory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Manager\AdjRequestList.aspx.cs">
-      <DependentUpon>AdjRequestList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Manager\AdjRequestList.aspx.designer.cs">
-      <DependentUpon>AdjRequestList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\EditSupplierPrice.aspx.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>

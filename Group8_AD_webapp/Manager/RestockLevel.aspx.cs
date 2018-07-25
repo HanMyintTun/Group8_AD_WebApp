@@ -30,14 +30,7 @@ namespace Group8_AD_webapp.Manager
 
             }
         }
-        //protected void AddItems()
-        //{
-        //    items.Add(new Item("A001", "Pen", "Pencil 2B", 50, 1.02, "pack of 12"));
-
-        //    items.Add(new Item("A002", "Pen", "Pencil 2B, With Eraser End", 50, 1.02, "pack of 12"));
-
-        //}
-        
+      
         protected void btnReLevel_Click(object sender, EventArgs e)
         {
            
@@ -45,8 +38,11 @@ namespace Group8_AD_webapp.Manager
 
         protected void BindGrid()
         {
-            items = ItemBL.GetAllItems();
-            grdRestockItem.DataSource = items;
+            //items = ItemBL.GetAllItems();
+            string cat=null;
+           // string desc=null; ItemBL.GetItems(cat, desc, threshold);
+            double threshold=0;
+            grdRestockItem.DataSource = ItemBL.GetAllItems();
             grdRestockItem.DataBind();
         }
         protected void txtSearch_Changed(object sender, EventArgs e)
@@ -58,24 +54,24 @@ namespace Group8_AD_webapp.Manager
 
         protected void grdRestockItem_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            grdRestockItem.PageIndex = e.NewPageIndex;
+           grdRestockItem.PageIndex = e.NewPageIndex;
            BindGrid();
+          // saveList();
         }
 
         protected void saveList()
         {
-          
+
             foreach (GridViewRow row in grdRestockItem.Rows)
             {
                 int pagestart = grdRestockItem.PageIndex * grdRestockItem.PageSize;
                 int i = pagestart + row.RowIndex;
-                if (editedItems[i].ItemCode == ((Label)row.FindControl("lblItemCode")).Text)
-                {
-                    
-                    editedItems[i].Price1 = Convert.ToDouble(((TextBox)row.FindControl("txtChangeReLevel")).Text);
-                    editedItems[i].Price2 = Convert.ToDouble(((TextBox)row.FindControl("txtChangeRestockQty")).Text);
-                  
-                }
+               
+
+                    //editedItems[i].Price1 = Convert.ToDouble(((TextBox)row.FindControl("txtChangeReLevel")).Text);
+                    //editedItems[i].Price2 = Convert.ToDouble(((TextBox)row.FindControl("txtChangeRestockQty")).Text);
+
+                
             }
         }
 
