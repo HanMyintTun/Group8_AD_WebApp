@@ -456,18 +456,18 @@ namespace Group8AD_WebAPI.BusinessLogic
                 req.Status = "Submitted";
                 req = UpdateReq(req);
 
-                int empId = req.EmpId;
                 Employee emp = entities.Employees.Where(x => x.EmpId == empId).FirstOrDefault();
                 string deptCode = emp.DeptCode;
                 Department dept = entities.Departments.Where(x => x.DeptCode == deptCode).FirstOrDefault();
-                int headId = (int)dept.DeptHeadId;
+
+                int fromEmpId = req.EmpId;
+                int toEmpId = (int)dept.DeptHeadId;
+                string type = "Stationery Request";
+                string content = "A new stationery request has been submitted";
+                NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+                
                 //// will call when method is completed
                 // EmailBL.SendNewReqEmail(empId, req);
-                //NotificationBL.AddNewReqNotification(empId, req);
-
-                NotificationBL.AddNewNotification(empId, headId, "Stationery Request", "A new stationery request has been submitted");
-
-                // redirect to SubmittedRequestDetails page
 
                 return req;
             }
@@ -533,10 +533,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
-            //// send accept notification
-            //NotificationBL.AddAcptNotification(reqId);
-
-            NotificationBL.AddNewNotification(toId, empId, "Stationery Request", "Your stationery request has been approved : No comment");
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been approved : No comment";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
             return isApproved;
         }
@@ -574,30 +575,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
-            //// send reject notification
-            //NotificationBL.AddAcptNotification(reqId);
-
-            NotificationBL.AddNewNotification(toId, empId, "Stationery Request", "Your stationery request has been rejected : Please review quantities");
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been rejected : Please review quantities";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
             return isRejected;
         }
-
-        //// update fulfilled request status
-        //// included in "Accept Disbursed Items" use case, no need to implement
-        //public static void UpdateFulfilledRequestStatus()
-        //{
-        //    // int openCount = 0;
-        //    // foreach(RequestDetail rd in r) {
-        //    //  int shortQty = 
-        //    //      (rd.ReqQty - rd.FulfilledQty);
-        //    //  openCount += shortQty;}
-        //    // if (openCount == 0)
-        //    //  r.Status = “Fulfilled”;
-        //    // Save Changes for this Request object
-
-        //    //int openCount = 0;
-
-        //    return;
-        //}
     }
 }
