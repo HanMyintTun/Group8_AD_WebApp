@@ -172,46 +172,68 @@ namespace Group8AD_WebAPI.BusinessLogic
             return ReqDetailVM;
         }
         //remove removeReqDet by empId and reqId 
-        public static void removeReqDet(int empId, string itemCode, string status)
+        public static bool removeReqDet(int empId, string itemCode, string status)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                int rowinserted = 0;
                 List<RequestVM> rvmList = RequestBL.GetReq(empId, status);
                 for (int i = 0; i < rvmList.Count; i++)
                 {
                     int reqId = rvmList[i].ReqId;
                     RequestDetail rd = entities.RequestDetails.Where(x => x.ReqId == reqId && x.ItemCode == itemCode).FirstOrDefault();
                     entities.RequestDetails.Remove(rd);
-                    entities.SaveChanges();
+                    rowinserted = entities.SaveChanges();                    
                 }
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
         //remove ReqDet
-        public static void removeReqDet(int reqId, string itemCode)
+        public static bool removeReqDet(int reqId, string itemCode)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                int rowinserted = 0;
                 RequestDetail request = entities.RequestDetails.Where(r => r.ReqId == reqId && r.ItemCode == itemCode).FirstOrDefault();
                 if (request != null)
                 {
                     entities.RequestDetails.Remove(request);
-                    entities.SaveChanges();
+                    rowinserted = entities.SaveChanges();
+                    
                 }
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
         //remove All
-        public static void removeAllReqDet(int reqId)
+        public static bool removeAllReqDet(int reqId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                int rowinserted = 0;
                 RequestDetail request = entities.RequestDetails.Where(r => r.ReqId == reqId).FirstOrDefault();
                 if (request != null)
                 {
                     entities.RequestDetails.Remove(request);
-                    entities.SaveChanges();
+                    rowinserted = entities.SaveChanges();
                 }
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
@@ -240,7 +262,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         //update Await
-        public static void UpdateAwait(int reqId, int awaitQty)
+        public static bool UpdateAwait(int reqId, int awaitQty)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -249,7 +271,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                 {
                     await.AwaitQty = awaitQty;
                 }
-                entities.SaveChanges();
+                int rowinserted = entities.SaveChanges();
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
@@ -264,17 +292,24 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         //Update Fulfilled
-        public static void UpdateFulfilled(int reqId, int fulfilledQty)
+        public static bool UpdateFulfilled(int reqId, int fulfilledQty)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
+                int rowinserted = 0;
                 RequestDetail fulfilled = entities.RequestDetails.Where(r => r.ReqId == reqId).First<RequestDetail>();
                 //RequestDetail fulfilled = entities.RequestDetails.Where(r => r.ReqId == reqId).First<RequestDetail>();
                 if (fulfilled != null)
                 {
                     fulfilled.FulfilledQty = fulfilledQty;
-                    entities.SaveChanges();
+                    rowinserted = entities.SaveChanges();                    
                 }
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
 
