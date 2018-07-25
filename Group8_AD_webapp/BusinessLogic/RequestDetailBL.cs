@@ -49,7 +49,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                         rd.ReqId = reqId;
                         rvm.ReqId = rd.ReqId;
                         if (rdList.Count == 0)
-                            rd.ReqLineNo = 0;
+                            rd.ReqLineNo = 1;
                         else
                             rd.ReqLineNo = rdList[rdList.Count - 1].ReqLineNo + 1;
                         rvm.ReqLineNo = rd.ReqLineNo;
@@ -97,7 +97,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                         rd.ReqId = reqId;
                         rvm.ReqId = rd.ReqId;
                         if (rdList.Count == 0)
-                            rd.ReqLineNo = 0;
+                            rd.ReqLineNo = 1;
                         else
                             rd.ReqLineNo = rdList[rdList.Count - 1].ReqLineNo + 1;
                         rvm.ReqLineNo = rd.ReqLineNo;
