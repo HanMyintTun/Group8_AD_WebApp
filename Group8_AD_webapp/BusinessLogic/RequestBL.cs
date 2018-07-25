@@ -482,8 +482,8 @@ namespace Group8AD_WebAPI.BusinessLogic
             {
                 int reqId = req.ReqId;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
-                request.EmpId = req.EmpId;
-                request.ApproverId = req.ApproverId;
+                //request.EmpId = req.EmpId;
+                //request.ApproverId = req.ApproverId;
                 request.ApproverComment = req.ApproverComment;
                 if (req.ReqDateTime != null && DateTime.Compare(req.ReqDateTime, new DateTime(1800, 01, 01)) > 0)
                     request.ReqDateTime = req.ReqDateTime;
