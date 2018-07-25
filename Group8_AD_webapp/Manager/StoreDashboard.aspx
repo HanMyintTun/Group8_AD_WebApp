@@ -146,8 +146,10 @@
                                                 },
                                             scaleLabel: {
                                                 display: true,
-                                                labelString: 'ChargeBack (in SGD)',
-                                                fontSize: 15
+                                                labelString: 'ChargeBack (SGD)',
+                                                fontStyle: 'bold',
+                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                                fontSize: 18
                                               }
                                         }],
                                     xAxes:
@@ -155,7 +157,14 @@
                                             ticks:
                                                 {
                                                     fontSize: 14
-                                                }
+                                                },
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Department',
+                                                fontStyle: 'bold',
+                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                                fontSize: 18
+                                              }
                                         }]
                                 }
                         }

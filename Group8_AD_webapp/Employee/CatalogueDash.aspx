@@ -224,7 +224,7 @@
                         <table>
                         <tr>
                             <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text=''/></td>
-                            <td rowspan="2" style="width:90px;"><img src="../images/stationeryPH.jpg" width="92" class=""></td>
+                            <td rowspan="2" style="width:90px;"><img src="../images/0000.png" width="92" class=""></td>
                             <td class="emptysidedesc"><asp:Label ID="lblDescription" runat="server" Text='Your List is Empty.<br/> Add something!' /></td>
                         </tr>
                          <tr>
