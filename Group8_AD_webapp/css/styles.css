@@ -1546,6 +1546,12 @@ p.back-link {
 .fix-modal{
     width: 900px !important;
 }
+
+.table-stock tr:hover {
+    background-color: #f2f3f2;
+}
+
+
 @media (max-width: 768px) {
     .desktop {
         display: none;
