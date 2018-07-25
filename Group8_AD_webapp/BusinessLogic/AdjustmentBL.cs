@@ -132,7 +132,6 @@ namespace Group8AD_WebAPI.BusinessLogic
         // raise adjustment
         // done, except email
         public static bool RaiseAdjustments(int empId, List<ItemVM> iList)
-
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
