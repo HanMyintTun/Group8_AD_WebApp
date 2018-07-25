@@ -163,7 +163,6 @@
                 <div class="action-btn">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
-                    <button ID="btnLoading" runat="server" class="btn btn-msize btn-warning " style="display:none"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                 </div>
               </div>
        </div></div></div>

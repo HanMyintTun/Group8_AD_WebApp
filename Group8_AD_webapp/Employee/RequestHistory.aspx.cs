@@ -78,7 +78,7 @@ namespace Group8_AD_webapp
             {
                 DateTime startDate = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate, "");
+                requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate);
 
                 BindGrid();
             }
