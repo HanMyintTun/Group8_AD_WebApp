@@ -165,6 +165,24 @@
     color:red;
 }
 
+.profile-wrap{
+    height: 60px;
+}
+
+.dropdown-menu{
+    position: absolute;
+    margin-top: -5px;
+}
+.dropdown3{
+    height: 60px;
+    width: 60px;
+}
+
+.img-avatar {
+    height: 60px;
+    width: 60px;
+    padding: 5px;
+}
 
 @media only screen and (max-width: 750px) {
     .dropdown-content {
@@ -201,4 +219,5 @@
             .dd-searchcontent li > a > table {
                 width: 800px;
             }
+
 }

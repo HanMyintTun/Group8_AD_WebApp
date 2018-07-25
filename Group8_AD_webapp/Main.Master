@@ -107,20 +107,21 @@
                         <!--added user img and name -->
                         <li class="profile-name">
                             <div>
-                                <span style="float: right;">SAI MIN HTET</span>
+                                <span style="float: right;">
+                                    <asp:Label ID="lblName" runat="server" Text="Label"></asp:Label></span>
                                 <br>
-                                <span>Department Head</span>
+                                <span>
+                                    <asp:Label ID="lblRole" runat="server" Text="Label"></asp:Label></span>
                             </div>
 
 
 
                         </li>
-                        <li class="dropdown profile-dropdown"><a runat="server" class="dropdown-toggle profile-wrap count-info" data-toggle="dropdown" href="#">
-                            <img class="img-avatar desktop" src="./img/profile.png">
-                        </a>
-                            <ul class="dropdown-menu dropdown-alerts" style="width: 50%; margin-top: 20px">
-                                <li><a runat="server" class="dropdown-item" href="#">
-                                    <i class="fa fa-lock"></i>&nbsp;Logout</a></li>
+                        <li class="dropdown dropdown3 profile-dropdown"><a runat="server" class="dropdown-toggle profile-wrap count-info" href="#">
+                            <img src='"<%=img_src_path%>"' class="img-avatar desktop" id="imgProfile" runat="server"/></a>
+                            <ul class="dropdown-menu dropdown-alerts" style="width: 50%;">
+                                <li><asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" class="dropdown-item">
+                                    <i class="fa fa-lock"></i>&nbsp;Logout</asp:LinkButton></li>
                             </ul>
                         </li>
                         </ContentTemplate></asp:UpdatePanel>
@@ -139,12 +140,11 @@
                 <ContentTemplate>
                     <nav id="sidebar">
                         <ul id="navs" class="nav menu">
-                            <li class=" "><a runat="server" href="Dashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-
-                            <li class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-1">
-                                <span class="fa fa-list-alt">&nbsp;</span> Stationery Request <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                            <li id="menuDeptHeadDash" runat="server"><a runat="server" href="~/Dashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+                            <li id="menuDeptHeadRequest" runat="server" class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-1">
+                                <span class="fa fa-list-alt">&nbsp;</span> Stationery Request 
                             </a>
-                                <ul class="children collapse" id="sub-item-1">
+                                <ul class="children collapse in" id="sub-item-1">
                                     <li class=""><a runat="server" class="" href="Submitted-Requests.aspx">
                                         <span class="">&nbsp;&nbsp;</span> Submitted
                                     </a></li>
@@ -162,36 +162,15 @@
                                     </a></li>
                                 </ul>
                             </li>
-                            <li><a runat="server" href="charts.html"><em class="fa fa-cube">&nbsp;</em> Disbursement</a></li>
-                            <li class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-2">
-                                <span class="fa fa-pencil">&nbsp;</span>Catalogue <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                            </a>
-                                <ul class="children collapse" id="sub-item-2">
-                                    <li><a runat="server" class="" href="#">
-                                        <span class="">&nbsp;&nbsp;</span> Clip
-                                    </a></li>
-                                    <li><a runat="server" class="" href="#">
-                                        <span class="">&nbsp;&nbsp;</span> Envelope
-                                    </a></li>
-                                    <li><a runat="server" class="" href="#">
-                                        <span class="">&nbsp;&nbsp;</span> Eraser
-                                    </a></li>
-                                    <li><a runat="server" class="" href="#">
-                                        <span class="">&nbsp;&nbsp;</span> Files
-                                    </a></li>
-                                    <li><a runat="server" class="" href="#">
-                                        <span class="">&nbsp;&nbsp;</span> Pens
-                                    </a></li>
-                                </ul>
-                            </li>
 
-                            <li><a runat="server" href="#"><em class="fa fa-file-text-o">&nbsp;</em> Requisitions</a></li>
-                            <li><a runat="server" href="#"><em class="fa fa-tasks">&nbsp;</em> Adjustment Requests</a></li>
-                            <li><a runat="server" href="#"><em class="fa fa-edit">&nbsp;</em> Change Restock</a></li>
-                            <li><a runat="server" href="#"><em class="fa fa-address-card-o">&nbsp;</em> Update Suppliers</a></li>
-                            <li class="parent "><a runat="server" data-toggle="collapse" href="#sub-item-1"></a>
+                            <li id="menuCatalogueDash" runat="server"><a runat="server" href="~/Employee/CatalogueDash.aspx"><span class="fa fa-pencil">&nbsp;</span>Catalogue</span></a></li>
+                            <li id="menuEmployeeRequest" runat="server"><a runat="server" href="~/Employee/RequestHistory.aspx"><em class="fa fa-file-text-o">&nbsp;</em> Request History</a></li>
 
-                            </li>
+                            <li id="menuManagerDash" runat="server"><a runat="server" href="~/Manager/StoreDashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+                            <li id="menuProductVol" runat="server"><a runat="server" href="~/Manager/ProductVolume.aspx"><em class="fa fa-list-ol">&nbsp;</em> Product Volume</a></li>
+                            <li id="menuAdjustment" runat="server"><a runat="server" href="~/Manager/AdjRequestHistory.aspx"><em class="fa fa-tasks">&nbsp;</em> Adjustment Requests</a></li>
+                            <li id="menuRestock" runat="server"><a runat="server" href="~/Manager/RestockLevel.aspx"><em class="fa fa-edit">&nbsp;</em> Change Restock</a></li>
+                            <li id="menuSuppliers" runat="server"><a runat="server" href="~/Manager/EditSupplierPrice.aspx"><em class="fa fa-address-card-o">&nbsp;</em> Update Suppliers</a></li>
 
                         </ul>
                     </nav>
@@ -217,8 +196,6 @@
             $('#table_id').dataTable({
                 "autoWidth": false
             });
-            
-
         });
     </script>
     <script>$(document).ready(function () {

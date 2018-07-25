@@ -11,7 +11,10 @@
         <div>
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
         </div>
-        <asp:GridView ID="GridView1" runat="server">
+        <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="Tally" ShowHeader="True" Text="Tally" />
+            </Columns>
         </asp:GridView>
     </form>
 </body>

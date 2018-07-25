@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Group8_AD_webapp.Models;
+using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp.Service
 {
@@ -66,6 +68,44 @@ namespace Group8_AD_webapp.Service
             }
         }
 
+        public static bool Authenticate(int empId, string password)
+        {
+            // CALL Authentication here
 
+
+            EmployeeVM emp = EmployeeBL.GetEmp(empId);
+            if(emp == null)
+            {
+                return false;
+            }
+            else
+            {
+                HttpContext.Current.Session["empId"] = empId;
+                HttpContext.Current.Session["empName"] = emp.EmpName;
+                if (emp.Role == "Employee")
+                {
+                    DepartmentVM dep = DepartmentBL.GetDept(empId);
+                    if (dep.DelegateApproverId == empId)
+                    {
+                        HttpContext.Current.Session["role"] = "Delegate";
+                    }
+                    else if (dep.DeptRepId == empId)
+                    {
+                        HttpContext.Current.Session["role"] = "Representative";
+                    }
+                    else
+                    {
+                        HttpContext.Current.Session["role"] = "Employee";
+                    }
+                }
+                else
+                {
+                    HttpContext.Current.Session["role"] = emp.Role;
+                }
+
+                return true;
+            }
+            
+        }
     }
 }
