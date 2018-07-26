@@ -14,6 +14,7 @@ namespace Group8_AD_webapp
     public partial class Main : System.Web.UI.MasterPage
     {
         public static List<RequestDetailVM> cartDetailList = new List<RequestDetailVM>();
+        public static List<NotificationVM> notifList = new List<NotificationVM>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -129,12 +130,13 @@ namespace Group8_AD_webapp
         public void FillNotifications()
         {
             int empId = (int)Session["empId"];
-            List<NotificationVM> notifList = NotificationBL.GetNotifications(empId);
+            notifList = NotificationBL.GetNotifications(empId);
+            lblNotifCount.Text = notifList.Where(x => x.IsRead == false).Count().ToString();
 
-            lstNotifications.DataSource = notifList.OrderByDescending(x => x.NotificationDateTime).Take(10).ToList();
+            notifList = notifList.OrderByDescending(x => x.NotificationDateTime).Take(10).ToList();
+
+            lstNotifications.DataSource = notifList;
             lstNotifications.DataBind();
-            
-            lblNotifCount.Text = notifList.Where(x=> x.IsRead == false).Count().ToString();
         }
 
         public void UpdateCartCount()
@@ -150,7 +152,14 @@ namespace Group8_AD_webapp
 
         protected void lstCart_PagePropertiesChanged(object sender, EventArgs e)
         {
+            lstCart.DataSource = cartDetailList;
+            lstCart.DataBind();
+        }
 
+        protected void lstNotif_PagePropertiesChanged(object sender, EventArgs e)
+        {
+            lstNotifications.DataSource = notifList;
+            lstNotifications.DataBind();
         }
 
         protected void btnRemove_Click(object sender, EventArgs e)
@@ -191,9 +200,7 @@ namespace Group8_AD_webapp
             var lbl = (LinkButton)sender;
             var item = (ListViewItem)lbl.NamingContainer;
             int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
-            NotificationVM ntemp = new NotificationVM();
-            ntemp.NotificationId = id;
-            NotificationBL.ToggleReadNotification(ntemp);
+            NotificationBL.MarkOneAsRead(id);
 
             switch (Session["role"])
             {
@@ -212,7 +219,9 @@ namespace Group8_AD_webapp
         protected void btnMarkRead_Click(object sender, EventArgs e)
         {
 
-
+            NotificationBL.MarkAllAsRead(notifList);
+            FillNotifications();
+            
         }
     }
 }

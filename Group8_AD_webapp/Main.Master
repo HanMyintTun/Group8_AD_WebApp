@@ -57,7 +57,8 @@
                     <a class="navbar-brand mobile" runat="server" href="#"><span>L</span>U</a>
 
                     <ul class="nav navbar-top-links navbar-right">
-                        <asp:UpdatePanel ID="udpMainCart" runat="server"><ContentTemplate>
+                        <asp:UpdatePanel ID="udpMainCart" runat="server">
+                            <ContentTemplate>
                         <li id="btnCartLi" class="dropdown dropdown2" runat="server" ><asp:LinkButton ID="btnCart" runat="server" CssClass="dropdown-toggle count-info" OnClick="btnCart_Click">
                             <em class="fa fa-shopping-cart"></em>
                             <asp:Label ID="lblCartCount" CssClass="label label-info" runat="server" Text="0"></asp:Label>
@@ -81,17 +82,17 @@
                                     <asp:LinkButton ID="btnCartBtm" runat="server" OnClick="btnCart_Click" class="btn btn-gotocart" AutoPostBack ="False"><em class="fa fa-shopping-cart"></em> CART</asp:LinkButton>
                                 </li>
                             </ul>
-                        </li>
+                        </li> 
 
-                            
                         <li class="dropdown"><a runat="server" class="dropdown-toggle count-info" href="~/Notifications.aspx">
                             <em class="fa fa-bell"></em><asp:Label ID="lblNotifCount" CssClass="label label-info" runat="server" Text="0" />
                         </a>
+  
                             <ul class="dropdown-menu dropdown-alerts dropdown-alerts2">
                                 <li style="text-align:right;">
-                                    <asp:LinkButton ID="btnMarkRead" runat="server" OnClick="btnMarkRead_Click" class="" AutoPostBack ="False"><em class="fa fa-pen-square"></em>Mark All As Read</asp:LinkButton></li>
+                                    <asp:LinkButton ID="btnMarkRead" runat="server" OnClick="btnMarkRead_Click"><em class="fa fa-pen-square"></em>Mark All As Read</asp:LinkButton></li>
 
-                                <asp:ListView ID="lstNotifications" runat="server" OnPagePropertiesChanged="lstCart_PagePropertiesChanged">
+                                <asp:ListView ID="lstNotifications" runat="server" OnPagePropertiesChanged="lstNotif_PagePropertiesChanged">
                                 <ItemTemplate>
                                 <li  class="liborder"><asp:LinkButton ID="btnOnNotif" runat="server" OnClick="btnOnNotif_Click">
                                     <div  style = '<%# (bool)Eval("IsRead")  ? "" : "font-weight:700;" %>'>
@@ -104,7 +105,12 @@
                                     </div>
                                 </asp:LinkButton></li></ItemTemplate><EmptyDataTemplate>
                                    <li><span class="noresult">You have no notifications!</span></li></EmptyDataTemplate></asp:ListView><li style="text-align:right;">
-                                    <asp:LinkButton ID="btnViewNotif" runat="server" OnClick="btnViewNotif_Click"><em class="fa fa-bell"></em> SEE ALL</asp:LinkButton></li></ul></li><li class="profile-name">
+                                    <asp:LinkButton ID="btnViewNotif" runat="server" OnClick="btnViewNotif_Click"><em class="fa fa-bell"></em> SEE ALL</asp:LinkButton></li></ul>
+
+                            
+                        </li>
+                                
+                                <li class="profile-name">
                             <div>
                                 <span style="float: right;">
                                     <asp:Label ID="lblName" runat="server" Text="Label"></asp:Label></span><br>
