@@ -16,5 +16,9 @@ namespace Group8_AD_webapp.Models
         public string Status { get; set; }
         public int ApproverId { get; set; }
         public string ApproverComment { get; set; }
+
+        public string Desc { get; set; }
+        public double Price1 { get; set; }
+        public double Value { get; set; }
     }
 }

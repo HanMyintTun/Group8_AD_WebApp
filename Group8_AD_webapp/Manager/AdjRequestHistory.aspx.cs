@@ -96,9 +96,9 @@ namespace Group8_AD_webapp.Manager
         }
         protected void PopulateDetailList(string voucherno)
         {
-            List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
-            List<AdjItemVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
-            foreach (AdjItemVM aj in adj)
+            List<AdjustmentVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
+            foreach (AdjustmentVM aj in adj)
             {
                 cmt = txtComments.Text.ToString();
 

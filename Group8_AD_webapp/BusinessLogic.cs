@@ -57,10 +57,10 @@ namespace Group8_AD_webapp
           
         }
 
-        public static List<AdjItemVM> AddItemDescToAdj(List<AdjItemVM> list)
+        public static List<AdjustmentVM> AddItemDescToAdj(List<AdjustmentVM> list)
         {
             List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
-            foreach (AdjItemVM adj in list)
+            foreach (AdjustmentVM adj in list)
             {
                 adj.Desc = (items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Desc;
                 adj.Price1 = Convert.ToDouble((items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Price1);
@@ -69,14 +69,14 @@ namespace Group8_AD_webapp
         }
 
 
-        public static List<AdjItemVM> GetItemAdjustList(string voucherno)
+        public static List<AdjustmentVM> GetItemAdjustList(string voucherno)
         {
-            List<AdjItemVM> showlist = new List<AdjItemVM>();
-            List<AdjItemVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            List<AdjustmentVM> showlist = new List<AdjustmentVM>();
+            List<AdjustmentVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
 
             adj = AddItemDescToAdj(adj);
 
-            foreach (AdjItemVM aj in adj)
+            foreach (AdjustmentVM aj in adj)
             {
                 
                 aj.Value = aj.Price1 * aj.QtyChange;
