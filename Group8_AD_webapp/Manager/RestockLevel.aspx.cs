@@ -172,13 +172,13 @@ namespace Group8_AD_webapp.Manager
             if (success)
             {
                 Main master = (Main)this.Master;
-                master.ShowToastr(this, String.Format("Item Reoder level and quantity are updated"), "Successfully update!", "success");
-               // Response.Redirect("StoreDashboard.aspx");
+                master.ShowToastr(this, String.Format("Item Reorder Level and Quantity are updated"), "Successfully update!", "success");
+                BindGrid();
             }
             else
             {
                 Main master = (Main)this.Master;
-                master.ShowToastr(this, String.Format("Item reoder level and quantity Changes not Submitted"), "Something Went Wrong!", "error");
+                master.ShowToastr(this, String.Format("Item Reorder Level and Quantity Changes not Submitted"), "Something Went Wrong!", "error");
             }
             
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup

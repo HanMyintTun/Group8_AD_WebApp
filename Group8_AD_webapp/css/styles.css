@@ -1553,7 +1553,13 @@ p.back-link {
 .sh-section-reorder {
     text-align:right;
 }
-
+.lightbox-scroll {
+    overflow-y: scroll;
+    height: 800px;
+}
+.pagination li {
+    padding:0px;
+}
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -1592,5 +1598,9 @@ p.back-link {
     }
     .fix-modal {
         width: auto !important;
+    }
+    .lightbox-scroll {
+        
+        height: auto;
     }
 }
