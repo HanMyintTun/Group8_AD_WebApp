@@ -1129,7 +1129,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             foreach (ItemVM i in iList)
             {
-                UpdateItem(i.ItemCode, i.ReccReorderLvl, i.ReccReorderQty, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
+                UpdateItem(i.ItemCode, i.ReorderLevel, i.ReorderQty, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
             }
         }
 
