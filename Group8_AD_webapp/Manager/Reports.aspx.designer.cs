@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Group8_AD_webapp.Manager {
+namespace Group8_AD_webapp {
     
     
     public partial class Reports {
@@ -22,13 +22,49 @@ namespace Group8_AD_webapp.Manager {
         protected global::System.Web.UI.WebControls.Button btnExport;
         
         /// <summary>
-        /// Label1 control.
+        /// lblReportTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblReportTitle;
+        
+        /// <summary>
+        /// lblSubtitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubtitle;
+        
+        /// <summary>
+        /// ByDept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ByDept;
+        
+        /// <summary>
+        /// BySupp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton BySupp;
+        
+        /// <summary>
+        /// lblDept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDept;
         
         /// <summary>
         /// ddlDepartment1 control.
@@ -58,31 +94,13 @@ namespace Group8_AD_webapp.Manager {
         protected global::System.Web.UI.WebControls.DropDownList ddlDepartment2;
         
         /// <summary>
-        /// Label2 control.
+        /// lblSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// ddlSupplier control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSupplier;
-        
-        /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblSupplier;
         
         /// <summary>
         /// ddlSupplier1 control.
@@ -94,13 +112,40 @@ namespace Group8_AD_webapp.Manager {
         protected global::System.Web.UI.WebControls.DropDownList ddlSupplier1;
         
         /// <summary>
-        /// Label5 control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// ddlSupplier2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSupplier2;
+        
+        /// <summary>
+        /// IsDept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField IsDept;
+        
+        /// <summary>
+        /// lblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategory;
         
         /// <summary>
         /// ddlCategory control.
@@ -112,6 +157,15 @@ namespace Group8_AD_webapp.Manager {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
+        /// lblOutputType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutputType;
+        
+        /// <summary>
         /// rdbChart control.
         /// </summary>
         /// <remarks>
@@ -121,49 +175,58 @@ namespace Group8_AD_webapp.Manager {
         protected global::System.Web.UI.WebControls.RadioButtonList rdbChart;
         
         /// <summary>
-        /// txtDate control.
+        /// ByMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.LinkButton ByMonth;
         
         /// <summary>
-        /// btnAdd control.
+        /// ByDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdd;
+        protected global::System.Web.UI.WebControls.LinkButton ByDate;
         
         /// <summary>
-        /// pnlForm control.
+        /// IsMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlForm;
+        protected global::System.Web.UI.WebControls.HiddenField IsMonth;
         
         /// <summary>
-        /// ItemsGrid control.
+        /// txtMonthPick control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid ItemsGrid;
+        protected global::System.Web.UI.WebControls.TextBox txtMonthPick;
         
         /// <summary>
-        /// btnRange control.
+        /// udpMonths control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRange;
+        protected global::System.Web.UI.UpdatePanel udpMonths;
+        
+        /// <summary>
+        /// lstMonths control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lstMonths;
         
         /// <summary>
         /// btnMonth control.
@@ -173,5 +236,32 @@ namespace Group8_AD_webapp.Manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMonth;
+        
+        /// <summary>
+        /// txtFromDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+        
+        /// <summary>
+        /// txtToDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+        
+        /// <summary>
+        /// btnRange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRange;
     }
 }

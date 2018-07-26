@@ -25,6 +25,10 @@
         border-radius: 30px !important;
     }
 
+.nav > li {
+    width: 100vw;
+}
+
 .pager span {
     border: 1px #eee solid;
     padding: 5px 15px;

@@ -199,9 +199,7 @@
     z-index: 999;
 }
 
-.nav>li{
-    width: 100vw;
-}
+
 .btn-fulfilled {
     font-size: 1.6rem !important;
     font-weight: 700;

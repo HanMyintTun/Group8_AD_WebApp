@@ -143,6 +143,25 @@
         background-color: var(--color-btn-primary-hover)
     }
 
+#rdbChart>tbody>tr>td{
+    padding-left: 20px;
+}
+
+.mt-15{
+    margin-top: 15px;
+}
+
+.montharea{
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    width: 95%;
+    padding: 10px 20px;
+}
+
+.monthareali{
+    line-height: 2.8rem;
+}
+
 @media only screen and (max-width : 1200px) {
     .formstyle2 {
         height: 230px;
