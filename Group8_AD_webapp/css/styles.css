@@ -1550,7 +1550,9 @@ p.back-link {
 .table-stock tr:hover {
     background-color: #f2f3f2;
 }
-
+.sh-section-reorder {
+    text-align:right;
+}
 
 @media (max-width: 768px) {
     .desktop {

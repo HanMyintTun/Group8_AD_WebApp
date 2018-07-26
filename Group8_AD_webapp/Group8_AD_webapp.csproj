@@ -145,8 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Approved-Requests.aspx" />
-    <Content Include="Cancelled-Requests.aspx" />
+    <Content Include="DepartmentHead\Approved-Requests.aspx" />
+    <Content Include="DepartmentHead\Cancelled-Requests.aspx" />
     <Content Include="Collection-Point.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -169,14 +169,14 @@
     <Content Include="css\monthpicker.css" />
     <Content Include="css\styles.css" />
     <Content Include="Default.aspx" />
-    <Content Include="Dashboard.aspx" />
+    <Content Include="DepartmentHead\Dashboard.aspx" />
     <Content Include="Employee\CatalogueDash.aspx" />
     <Content Include="Employee\RequestHistory.aspx" />
     <Content Include="Employee\RequestList.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Fulfilled-Requests.aspx" />
+    <Content Include="DepartmentHead\Fulfilled-Requests.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -316,7 +316,7 @@
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
       <LastGenOutput>SA46Team08ADProjectContext.cs</LastGenOutput>
     </Content>
-    <Content Include="Rejected-Requests.aspx" />
+    <Content Include="DepartmentHead\Rejected-Requests.aspx" />
     <Content Include="sass\.sass-cache\deff34d1f5b7167181b556002c25068d6adc024d\styles.scssc" />
     <Content Include="sass\styles.scss" />
     <Content Include="Main.Master" />
@@ -372,8 +372,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
-    <Content Include="Submitted-request.aspx" />
-    <Content Include="Submitted-Requests.aspx" />
+    <Content Include="DepartmentHead\Submitted-Requests.aspx" />
     <Content Include="TestingBLBySai.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -385,11 +384,11 @@
     <Content Include="tables\data2.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Approved-Requests.aspx.cs">
+    <Compile Include="DepartmentHead\Approved-Requests.aspx.cs">
       <DependentUpon>Approved-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Approved-Requests.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Approved-Requests.aspx.designer.cs">
       <DependentUpon>Approved-Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -412,11 +411,11 @@
     <Compile Include="BusinessLogic\RequestDetailBL.cs" />
     <Compile Include="BusinessLogic\SupplierBL.cs" />
     <Compile Include="BusinessLogic\TransactionBL.cs" />
-    <Compile Include="Cancelled-Requests.aspx.cs">
+    <Compile Include="DepartmentHead\Cancelled-Requests.aspx.cs">
       <DependentUpon>Cancelled-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cancelled-Requests.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Cancelled-Requests.aspx.designer.cs">
       <DependentUpon>Cancelled-Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Collection-Point.aspx.cs">
@@ -449,11 +448,11 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Dashboard.aspx.cs">
+    <Compile Include="DepartmentHead\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Dashboard.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Employee\CatalogueDash.aspx.cs">
@@ -477,11 +476,11 @@
     <Compile Include="Employee\RequestList.aspx.designer.cs">
       <DependentUpon>RequestList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Fulfilled-Requests.aspx.cs">
+    <Compile Include="DepartmentHead\Fulfilled-Requests.aspx.cs">
       <DependentUpon>Fulfilled-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Fulfilled-Requests.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Fulfilled-Requests.aspx.designer.cs">
       <DependentUpon>Fulfilled-Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -616,11 +615,11 @@
     </Compile>
     <Compile Include="Models\TransactionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rejected-Requests.aspx.cs">
+    <Compile Include="DepartmentHead\Rejected-Requests.aspx.cs">
       <DependentUpon>Rejected-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Rejected-Requests.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Rejected-Requests.aspx.designer.cs">
       <DependentUpon>Rejected-Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\EmployeeUtility.cs" />
@@ -640,18 +639,11 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="Submitted-request.aspx.cs">
-      <DependentUpon>Submitted-request.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Submitted-request.aspx.designer.cs">
-      <DependentUpon>Submitted-request.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Submitted-Requests.aspx.cs">
+    <Compile Include="DepartmentHead\Submitted-Requests.aspx.cs">
       <DependentUpon>Submitted-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Submitted-Requests.aspx.designer.cs">
+    <Compile Include="DepartmentHead\Submitted-Requests.aspx.designer.cs">
       <DependentUpon>Submitted-Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestingBLBySai.aspx.cs">
@@ -671,7 +663,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DepartmentHead\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
