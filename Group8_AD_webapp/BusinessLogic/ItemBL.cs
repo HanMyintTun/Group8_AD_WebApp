@@ -175,7 +175,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         //AcceptDisbursement
         public static void AcceptDisbursement(int empId, List<ItemVM> iList)
         {
-            //List<Item> itemsList = Utility.ItemUtility.Convert_ItemVM_To_Item(iList);
+       
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 string vNum = AdjustmentBL.GenerateVoucherNo();
@@ -212,6 +212,82 @@ namespace Group8AD_WebAPI.BusinessLogic
 
 
                         string deptcode = EmployeeBL.GetDeptCode(empId);
+
+                        //List<RequestDetailVM> requestDetailLists = entities.Employees.Where(e => e.DeptCode.Equals(deptcode))
+                        //                                 .Join(entities.Requests.Where(r => r.Status.Equals("Approved")), e => e.EmpId, r => r.EmpId, (e, r) => new { e, r })
+                        //                                 .Join(entities.RequestDetails, x => x.r.ReqId, rd => rd.ReqId, (x, rd) => new { x, rd })
+                        //                                 .Select(rd => new RequestDetailVM
+                        //                                 {
+                        //                                     ReqId = rd.rd.ReqId,
+                        //                                     ReqLineNo = rd.rd.ReqLineNo,
+                        //                                     ItemCode = rd.rd.ItemCode,
+                        //                                     ReqQty = rd.rd.ReqQty,
+                        //                                     AwaitQty = rd.rd.AwaitQty,
+                        //                                     FulfilledQty = rd.rd.FulfilledQty
+                        //                                 }).ToList();
+
+                        //int count = i.TempQtyAcpt;
+                        //int cntFulfilled = 0;
+                        //foreach (RequestDetailVM  rd in requestDetailLists.Where(rd=> rd.ItemCode.Equals(i.ItemCode)))
+                        //{
+                        //    if (count > 0)
+                        //    {
+                        //        if (rd.AwaitQty > 0 && rd.AwaitQty <= count)
+                        //        {
+                        //            rd.FulfilledQty += rd.AwaitQty;
+                        //            count -= rd.AwaitQty;
+                        //            rd.AwaitQty = 0;
+
+
+                        //            //Save Changes for rd.AwaitQty, Rd.FulfilledQty
+                        //            UpdateAwait(rd.ReqId, rd.ItemCode, rd.AwaitQty);
+                        //            UpdateFulfilled(rd.ReqId, rd.ItemCode, rd.FulfilledQty);
+
+
+                        //            TransactionVM t = new TransactionVM();
+                        //            t.TranDateTime = DateTime.Now;
+                        //            t.ItemCode = i.ItemCode;
+                        //            t.QtyChange = rd.AwaitQty;
+                        //            t.UnitPrice = i.Price1;
+                        //            t.Desc = "Disbursement";
+                        //            t.DeptCode = deptcode;
+
+                        //            TransactionBL.AddTran(t);
+                        //        }
+                        //        else if (rd.AwaitQty > 0 && rd.AwaitQty > count)
+                        //        {
+                        //            rd.FulfilledQty += count;
+                        //            rd.AwaitQty -= count;
+
+
+                        //            //Save Changes for rd.AwaitQty, Rd.FulfilledQty
+                        //            UpdateAwait(rd.ReqId, rd.ItemCode, rd.AwaitQty);
+                        //            UpdateFulfilled(rd.ReqId, rd.ItemCode, rd.FulfilledQty);
+
+                        //            TransactionVM t = new TransactionVM();
+                        //            t.TranDateTime = DateTime.Now;
+                        //            t.ItemCode = i.ItemCode;
+                        //            t.QtyChange = count;
+                        //            t.UnitPrice = i.Price1;
+                        //            t.Desc = "Disbursement";
+                        //            t.DeptCode = deptcode;
+
+                        //            TransactionBL.AddTran(t);
+
+                        //            count = 0;
+                        //        }
+                        //        cntFulfilled += (rd.ReqQty - rd.FulfilledQty);
+                        //    }
+                           
+                        //    if (cntFulfilled == 0) // r.Status = "Fulfilled";
+                        //    {
+                        //        Request request = entities.Requests.Where(r => r.ReqId == rd.ReqId).FirstOrDefault();
+                        //        request.Status = "Fulfilled";
+                        //        entities.SaveChanges();
+                        //    }
+                        //}
+
+                        //----------------------------------------OLD METHOD--------------------------------------------------------------------------
 
                         var EmpIds = entities.Employees.Where(e => e.DeptCode.Equals(deptcode)).ToList();
 
@@ -294,7 +370,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                                 //Check if Request Fulfilled
                                 if (cntFulfilled == 0) r.Status = "Fulfilled";
                                 //int openCount = 0;
-                                //foreach (RequestDetail rd in rdList.Where(rd => rd.ReqId == r.ReqId))
+                                //foreach (RequestDetail rd in rdList.Where(rd => rd.ReqId == r.ReqId)) //***************Old Method****************
                                 //{
                                 //    int shortQty = (rd.ReqQty - rd.FulfilledQty);
                                 //    openCount += shortQty;
@@ -1053,7 +1129,8 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             foreach (ItemVM i in iList)
             {
-                UpdateItem(i.ItemCode, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
+                UpdateItem(i.ItemCode, i.ReorderLevel, i.ReorderQty, i.SuppCode1, i.Price1, i.SuppCode2, i.Price2, i.SuppCode3, i.Price3);
+
             }
         }
 
@@ -1228,8 +1305,6 @@ namespace Group8AD_WebAPI.BusinessLogic
                 }
             }
         }
-
-
 
         //Update Await
         public static void UpdateAwait(int reqId, string iCode, int AwaitQty)

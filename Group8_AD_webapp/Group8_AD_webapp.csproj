@@ -145,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="css\datatables.min.css" />
+    <Content Include="css\toastr.min.css" />
     <Content Include="DepartmentHead\Approved-Requests.aspx" />
     <Content Include="DepartmentHead\Cancelled-Requests.aspx" />
     <Content Include="Collection-Point.aspx" />
@@ -298,7 +300,11 @@
     <Content Include="img\stationery\T024.jpg" />
     <Content Include="img\stationery\T025.jpg" />
     <Content Include="img\stationery\T100.jpg" />
+    <Content Include="js\datatables.min.js" />
+    <Content Include="js\jquery-3.3.1.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\monthpicker.js" />
+    <Content Include="js\toastr.min.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
     <Content Include="Notifications.aspx" />
