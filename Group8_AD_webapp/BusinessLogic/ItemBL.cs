@@ -1106,7 +1106,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
 
-        //UpdateItem
+        //UpdateItem method
         public static void UpdateItem(string itemCode, int reorderLvl, int reorderQty, string s1, double p1, string s2, double p2, string s3, double p3)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
