@@ -55,6 +55,8 @@ namespace Group8_AD_webapp.Models
         public int TempOrderQty { get; set; }
         public int ReccReorderLvl { get; set; }
         public int ReccReorderQty { get; set; }
+        public int NewReorderLvl { get; set; }
+        public int NewReorderQty { get; set; }
 
         public double lvlDiff { get; set; }
         public double qtyDiff { get; set; }

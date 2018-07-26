@@ -19,7 +19,6 @@ namespace Group8_AD_webapp.Manager
         static string cat;
         static string desc;
         static double thres;
-        static string itemcode;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -27,18 +26,27 @@ namespace Group8_AD_webapp.Manager
                 List<String> productList = ItemBL.GetCatList();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();
-                items = ItemBL.GetAllItems();
-                editedItems = items.ToList();
-                // List<String> threshold = new List<String> { 5 10 15 30 50 75  100};
-                // ddlThreshold.DataSource = threshold;
-                //ddlThreshold.DataBind();
                 BindGrid();
-
 
             }
         }
+
+        public List<ItemVM> CopyReLevel(List<ItemVM> list)
+        {
+            items = ItemBL.GetAllItems();
+            foreach (ItemVM item in list)
+            {
+                item.NewReorderLvl = item.ReorderLevel;
+                item.NewReorderQty = item.ReorderQty;
+            }
+            return list;
+
+        }
         protected void BindGrid()
         {
+
+            // items = ItemBL.GetAllItems();
+            editedItems = CopyReLevel(items);
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
@@ -61,7 +69,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void txtSearch_Changed(object sender, EventArgs e)
         {
-            SearchList();
+
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -69,19 +77,19 @@ namespace Group8_AD_webapp.Manager
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchList();
+
         }
 
         protected void ddlThreshold_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchList();
+
         }
 
         protected void grdRestockItem_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             saveList();
             grdRestockItem.PageIndex = e.NewPageIndex;
-            BindGrid();
+
         }
 
         protected void saveList()
@@ -93,11 +101,12 @@ namespace Group8_AD_webapp.Manager
                 int i = pagestart + row.RowIndex;
                 if (editedItems[i].ItemCode == ((Label)row.FindControl("lblItemCode")).Text)
                 {
-                    editedItems[i].ReccReorderLvl = Convert.ToInt32(((TextBox)row.FindControl("txtChangeReLevel")).Text);
-                   // editedItems[i].ReccReorderQty = Convert.ToInt32(((TextBox)row.FindControl("txtChangeRestockQty")).Text);
+                    editedItems[i].NewReorderLvl = Convert.ToInt32(((TextBox)row.FindControl("txtChangeReLevel")).Text);
+                    editedItems[i].NewReorderQty = Convert.ToInt32(((TextBox)row.FindControl("txtChangeRestockQty")).Text);
                 }
+                grdRestockItem.DataSource = editedItems;
+                grdRestockItem.DataBind();
 
-                  
 
 
             }
@@ -108,24 +117,70 @@ namespace Group8_AD_webapp.Manager
 
             int RowIndex = int.Parse(e.CommandArgument.ToString()); // getting row index
 
-                if (e.CommandName == "ReLevel")
-                    if (e.CommandArgument.ToString() != "")
-                    {
-                        Label lb = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRecomLevel");
-                        string l = lb.Text;
-                        TextBox tb = (TextBox)grdRestockItem.Rows[RowIndex].FindControl("txtChangeReLevel");
-                        tb.Text = l;
-                     
-                    }
+            if (e.CommandName == "ReLevel")
+            {
+
+                if (e.CommandArgument.ToString() != "")
+                {
+                    Label lb = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRecomLevel");
+                    string l = lb.Text;
+                    TextBox tb = (TextBox)grdRestockItem.Rows[RowIndex].FindControl("txtChangeReLevel");
+                    tb.Text = l;
+
+                }
+
+            }
+
+            if (e.CommandName == "ReQty")
+            {
+
+                if (e.CommandArgument.ToString() != "")
+                {
+                    Label lb = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRestockQty");
+                    string l = lb.Text;
+                    TextBox tb = (TextBox)grdRestockItem.Rows[RowIndex].FindControl("txtChangeRestockQty");
+                    tb.Text = l;
+
+                }
+
+            }
+
+
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            saveList();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal();", true);//modal popup
         }
-
+      
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
+
+            List<ItemVM> updateitem = new List<ItemVM>();
+
+            foreach (ItemVM item in editedItems)
+            {
+                ItemVM i = ItemBL.GetItem(item.ItemCode);
+                i.ReorderLevel = item.NewReorderLvl;
+                i.ReorderQty = item.NewReorderQty;
+                updateitem.Add(i);
+            }
+
+
+            bool success = Controllers.ItemCtrl.UpdateItems(updateitem);
+            if (success)
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Item Reoder level and quantity are updated"), "Successfully update!", "success");
+               // Response.Redirect("StoreDashboard.aspx");
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Item reoder level and quantity Changes not Submitted"), "Something Went Wrong!", "error");
+            }
+            
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
 
@@ -137,4 +192,4 @@ namespace Group8_AD_webapp.Manager
 
     }
 }
-      
+

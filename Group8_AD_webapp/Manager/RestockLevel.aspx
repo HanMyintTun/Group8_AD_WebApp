@@ -6,12 +6,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
 
-
+           <asp:UpdatePanel runat="server"><ContentTemplate>
         <div class="subtitletext" style="margin-top: 8px;">Change Restock Level and Quantity</div>
         <div class="form-group form-inline m-2 text-center col-12">
             <div class="sh-section-reorder">
 
-               
+            
                         <div style="display: inline-block;">
                             <div style="display: inline-block;">
                                 <span class="lbl-inherit" style="vertical-align: text-bottom">Threshold :</span>
@@ -35,12 +35,11 @@
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>
-               
+               </div>
 
             </div>
-        </div>
-         <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
+       </ContentTemplate></asp:UpdatePanel>
+         <asp:UpdatePanel runat="server"><ContentTemplate>
          <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
                 <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered" AutoGenerateColumns="False" OnRowCommand="grdRestockItem_RowCommand">
                     <Columns>
@@ -77,7 +76,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Change Reorder Level">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtChangeReLevel" runat="server" CssClass="p-2 restock-content" Text='<%# Eval("ReorderLevel") %>' Width="50px" Height="34px" />
+                                <asp:TextBox ID="txtChangeReLevel" runat="server" CssClass="p-2 restock-content" type="number" Text='<%# Eval("NewReorderLvl") %>' min="0" Width="50px" Height="34px" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Reorder Qty">
@@ -97,7 +96,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Change Reorder Quantity">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtChangeRestockQty" type="number" CssClass="p-2 restock-content" runat="server" min="0" Value=" " Width="50px" Height="34px" />
+                                <asp:TextBox ID="txtChangeRestockQty" type="number" CssClass="p-2 restock-content" Text='<%# Eval("NewReorderQty") %>' runat="server" min="0" Width="50px" Height="34px" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -127,61 +126,16 @@
             <h3 class="detail-subtitle">Change Restock Level & Quantity</h3></div>
             <div class="panel-body">
                 You are about to change the restock levels and restock quantities.<br />
-                are you sure?
-            <%--<asp:UpdatePanel ID="udpConfirmModal" runat="server">
-                           <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="btnConfirm" />
-            </Triggers>
-            <ContentTemplate>
-                <div class="detail-item"><asp:ListView runat="server" ID="lstConfirm">
-                    <LayoutTemplate>
-                        <table runat="server" class="table table-detail">
-                        <thead><tr id="grdHeader" runat="server">
-                                    <th scope="col" class="tableleft">Item Description</th>
-                                    <th scope="col">Quantity</th>
-                        </tr></thead>
-                        <tbody><tr id="itemPlaceholder" runat="server"></tr></tbody>
-                    </table>
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Desc") %>' /></td>
-                            <td><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
-                        </tr>
-                    </ItemTemplate>
-                 </asp:ListView></div>
-              </ContentTemplate>
-              </asp:UpdatePanel>--%>
+                Are you sure?
+            
                 
                 <div class="action-btn">
-                    <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
+                 
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Yes" />
                      <asp:Button ID="btnCancel" class="btn btn-danger btn-msize" OnClick="btnNo_Click" runat="server" Text="No" />
                 </div>
               </div>
        </div></div></div>
     </div>
-    <%--<div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
-                        </button>
-                        <h3 class="detail-subtitle">Submitted Request Details</h3>
-                    </div>
 
-                    <div class="panel-body">
-                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                            <ContentTemplate>
-                                <div class="detail-info">
-                                </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
 </asp:Content>
