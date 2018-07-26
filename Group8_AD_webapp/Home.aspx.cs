@@ -33,8 +33,8 @@ namespace Group8_AD_webapp
                 {
                     switch (Session["role"])
                     {
-                        case "Department Head": Response.Redirect("~/Dashboard.aspx"); break;   //Change when in DeptHead folder
-                        case "Delegate": Response.Redirect("~/Dashboard.aspx"); break;          //Change when in DeptHead folder
+                        case "Department Head": Response.Redirect("~/DepartmentHead/Dashboard.aspx"); break;   //Change when in DeptHead folder
+                        case "Delegate": Response.Redirect("~/DepartmentHead/Dashboard.aspx"); break;          //Change when in DeptHead folder
                         case "Representative": Response.Redirect("~/Employee/CatalogueDash.aspx"); break;
                         case "Employee": Response.Redirect("~/Employee/CatalogueDash.aspx"); break;
                         case "Store Manager": Response.Redirect("~/Manager/StoreDashboard.aspx"); break;

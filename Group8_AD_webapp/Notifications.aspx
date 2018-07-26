@@ -1,14 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Notifications.aspx.cs" Inherits="Group8_AD_webapp.Notifications" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
     <link href="<%=ResolveClientUrl("~/css/manager-style.css")%>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/css/employee-style.css")%>" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript" ></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main"><div id="centermain">
+        <div class="subtittletext">Notifications</div>
         <asp:GridView ID="lstFullNof" CssClass="display" runat="server" AutoGenerateColumns="False">
            <Columns>
-                       <asp:BoundField DataField="NotificationDateTime" HeaderText="Notification Date" SortExpression="NotificationDateTime" />
+               <asp:TemplateField><HeaderTemplate>Notification Date</HeaderTemplate><ItemTemplate><asp:Label runat="server" Text='<%# ((DateTime)Eval("NotificationDateTime")).ToString("yyyy-MM-dd") %>'/></ItemTemplate></asp:TemplateField>
                        <asp:BoundField DataField="FromEmpName" HeaderText="From" SortExpression="FromEmpName" />
                        <asp:BoundField DataField="Type" HeaderText="Notification" SortExpression="Type" />
                        <asp:BoundField DataField="Content" HeaderText="Content" SortExpression="Content" />
@@ -22,6 +24,9 @@
 
     </div></div>
     <script>
-        $('#<%= lstFullNof.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstFullNof.ClientID %>').find("tr:first"))).dataTable();
+        $('#<%= lstFullNof.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstFullNof.ClientID %>').find("tr:first"))).dataTable(
+             {
+                "order": [[0, "desc"]]
+            });
     </script>
 </asp:Content>

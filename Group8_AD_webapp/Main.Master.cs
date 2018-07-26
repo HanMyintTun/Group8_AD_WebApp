@@ -13,7 +13,6 @@ namespace Group8_AD_webapp
 {
     public partial class Main : System.Web.UI.MasterPage
     {
-        static string access_token;
         public static List<RequestDetailVM> cartDetailList = new List<RequestDetailVM>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -198,8 +197,8 @@ namespace Group8_AD_webapp
 
             switch (Session["role"])
             {
-                case "Department Head": Response.Redirect("~/Submitted-Requests.aspx"); break;   //Change when in DeptHead folder
-                case "Delegate": Response.Redirect("~/Submitted-Requests.aspx"); break;          //Change when in DeptHead folder
+                case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;   
+                case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;          
                 case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
                 case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
                 case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
