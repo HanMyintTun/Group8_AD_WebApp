@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
+using Newtonsoft.Json;
 
 namespace Group8_AD_webapp
 {
@@ -27,8 +28,6 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["empId"] = 42;
-            //Session["empId"] = 31;
             int empId = (int)Session["empId"];
             access_token = Session["Token"].ToString();
 
@@ -227,7 +226,7 @@ namespace Group8_AD_webapp
             string itemCode = lblItemCode.Text;
             int reqId = Convert.ToInt32(lblReqId.Text);
 
-            bool success = Controllers.RequestDetailCtrl.RemoveReqDet(reqId, itemCode, access_token);
+            bool success = Controllers.RequestDetailCtrl.RemoveReqDet(reqId, itemCode);
             if (list == "Cart") { PopulateList(reqId); }
             else if (list == "Bookmark") { PopulateBookmarks(reqId); }
             BindGrids();
@@ -329,10 +328,17 @@ namespace Group8_AD_webapp
         }
 
 
+        // NEEDS TO BE FIXED
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            bool success = Controllers.RequestCtrl.SubmitRequest(reqid, submitList);  
-            //Label1.Text = success; // for testing purposes
+            bool success = Controllers.RequestCtrl.SubmitRequest(reqid, submitList);
+            //int empId = 42;
+            //RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+            //List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(unsubRequest.ReqId);
+
+            //Label1.Text = reqid+" ***"+JsonConvert.SerializeObject(reqDetails);      //success; // for testing purposes
+            //RequestVM success = Group8AD_WebAPI.BusinessLogic.RequestBL.SubmitReq(unsubRequest.ReqId, reqDetails); // Controllers.RequestCtrl.SubmitRequest(unsubRequest.ReqId, reqDetails);
+            //Label1.Text = success.ToString();
 
             if (success && status == "Unsubmitted")
             {
@@ -351,10 +357,12 @@ namespace Group8_AD_webapp
             }
         }
 
-            protected void btnCancel_Click(object sender, EventArgs e)
+
+        protected void btnCancel_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openCancelModal();", true);
         }
+
         protected void btnConfirmCancel_Click(object sender, EventArgs e)
         {
             bool success = Controllers.RequestCtrl.CancelRequest(reqid);
@@ -368,6 +376,28 @@ namespace Group8_AD_webapp
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Request not Cancelled"), "Something Went Wrong!", "error");
             }
+        }
+
+        protected void btnConfirm_Click1(object sender, EventArgs e)
+        {
+            //bool success = Controllers.RequestCtrl.SubmitRequest(reqid, submitList);
+            Label1.Text = JsonConvert.SerializeObject(submitList);      //success; // for testing purposes
+
+            //if (success && status == "Unsubmitted")
+            //{
+            //    Session["Message"] = "Request Submitted Successfully";
+            //    Response.Redirect("RequestHistory.aspx");
+            //}
+            //else if (success)
+            //{
+            //    Session["Message"] = "Request Updated Successfully";
+            //    Response.Redirect("RequestHistory.aspx");
+            //}
+            //else
+            //{
+            //    Main master = (Main)this.Master;
+            //    master.ShowToastr(this, String.Format("Request not Submitted"), "Something Went Wrong!", "error");
+            //}
         }
     }
 }

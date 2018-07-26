@@ -9,7 +9,7 @@ namespace Group8AD_WebAPI.BusinessLogic
     public static class DepartmentBL
     {
         //remove Delegate by DepartmentCode
-        public static void removeDelegate(string deptCode)
+        public static bool removeDelegate(string deptCode)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -18,50 +18,59 @@ namespace Group8AD_WebAPI.BusinessLogic
                     department.DelegateApproverId = null;
                     department.DelegateFromDate = null;
                     department.DelegateToDate = null;
-                    entities.SaveChanges();
-                };
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
             }
         }
 
         //set Delegate by DepartmentCode , fromDate , toDate and empId
-        public static void setDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId)
+        public static bool setDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId)
         {
             //DepartmentVM deptVM = new DepartmentVM();
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                //deptVM = entities.Departments.Where(d => d.DeptCode.Equals(deptCode)).Select(n => new DepartmentVM()
-                //{
-                //    DeptCode = deptCode,
-                //    DelegateApproverId = empId,
-                //    DelegateFromDate = fromDate,
-                //    DelegateToDate = toDate
-                //}).First<DepartmentVM>();
-                //entities.SaveChanges();
                 Department department = entities.Departments.Where(d => d.DeptCode.Equals(deptCode)).First();
 
                 department.DeptCode = deptCode;
                 department.DelegateFromDate = fromDate;
                 department.DelegateToDate = toDate;
                 department.DelegateApproverId = empId;
-                entities.SaveChanges();
-            }            
+                int rowinserted = entities.SaveChanges();
+                if (rowinserted > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
 
         //set Rep by DepartmentCode , fromEmpId and toEmpId
-       
-        public static void setRep(string deptCode, int empId)
+
+        public static bool setRep(string deptCode, int empId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 Department department = entities.Departments.Where(d => d.DeptCode.Equals(deptCode)).First<Department>();
                 {
                     department.DeptRepId = empId;
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
             }
-            return;
         }
-        
+
         public static List<CollectionPointVM> GetCollPtList()
         {
             List<CollectionPointVM> collist = new List<CollectionPointVM>();
@@ -88,21 +97,26 @@ namespace Group8AD_WebAPI.BusinessLogic
                     Location = c.Location
                 }).First<CollectionPointVM>();
             }
-            return collectionPoint;            
+            return collectionPoint;
         }
 
         //set CollPt by DepartmentCode , collPt
-        public static void setCollPt(string deptCode, int collPt)
+        public static bool setCollPt(string deptCode, int collPt)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 Department department = entities.Departments.Where(d => d.DeptCode.Equals(deptCode)).First<Department>();
                 {
                     department.ColPtId = collPt;
-                    entities.SaveChanges();
+                    int rowinserted = entities.SaveChanges();
+                    if (rowinserted > 0)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
             }
-            return;
         }
 
         //get department code 

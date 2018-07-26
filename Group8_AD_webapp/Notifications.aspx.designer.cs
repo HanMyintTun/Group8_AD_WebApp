@@ -10,15 +10,24 @@
 namespace Group8_AD_webapp {
     
     
-    public partial class Submitted_request {
+    public partial class Notifications {
         
         /// <summary>
-        /// list control.
+        /// lstFullNof control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView list;
+        protected global::System.Web.UI.WebControls.GridView lstFullNof;
+        
+        /// <summary>
+        /// btnReqList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReqList;
     }
 }

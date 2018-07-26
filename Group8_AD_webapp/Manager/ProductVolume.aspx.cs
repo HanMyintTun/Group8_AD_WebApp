@@ -47,6 +47,11 @@ namespace Group8_AD_webapp
                     d2 = DateTime.Today;
                 }
                 staticpList = Controllers.TransactionCtrl.GetVolume(d1, d2);
+                foreach(ItemVM i in staticpList)
+                {
+                    i.Price1 = Math.Round(i.Price1, 2);
+                }
+
                 productList = new List<ItemVM>(staticpList);
                 SortAndBindGrid();
             }

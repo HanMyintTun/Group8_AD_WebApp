@@ -148,15 +148,6 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Button btnConfirm;
         
         /// <summary>
-        /// btnLoading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnLoading;
-        
-        /// <summary>
         /// btnConfirmCancel control.
         /// </summary>
         /// <remarks>

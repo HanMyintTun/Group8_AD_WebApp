@@ -41,7 +41,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price1 (SGD)" SortExpression="Price1">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice1" runat="server" Text='<%# Bind("Price1") %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice1" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price1")) %>' Width="60px"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Supplier2" SortExpression="Supplier2">
@@ -51,7 +51,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price2 (SGD)" SortExpression="Price2">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice2" runat="server" Text='<%# Bind("Price2") %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice2" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price2")) %>' Width="60px"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Supplier3" SortExpression="Supplier3">
@@ -61,7 +61,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price3 (SGD)" SortExpression="Price3">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice3" runat="server" Text='<%# Bind("Price3") %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice3" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price3")) %>' Width="60px"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
