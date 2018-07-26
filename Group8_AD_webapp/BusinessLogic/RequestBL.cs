@@ -314,22 +314,24 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                bool isRemoved = true;
                 List<Request> reqlist = entities.Requests.Where(r => r.EmpId == empId && r.Status == status).ToList();
-                if (reqlist.Count == 0) isRemoved = false;
                 if (reqlist.Count > 0)
                 {
                     for (int i = 0; i < reqlist.Count; i++)
                     {
-                        reqlist[i].Status = "Cancelled";
-                        entities.SaveChanges();
-                        if (!reqlist[i].Status.Equals("Cancelled"))
+                        if (reqlist[i].Status.Equals("Unsubmitted") || reqlist[i].Status.Equals("BookMarked"))
                         {
-                            isRemoved = false;
+                            RequestDetailBL.removeAllReqDet(reqlist[i].ReqId);
+                        }
+                        else
+                        {
+                            reqlist[i].Status = "Cancelled";
+                            reqlist[i].CancelledDateTime = DateTime.Now;
+                            entities.SaveChanges();
                         }
                     }
                 }
-                return isRemoved;
+                return true;
             }
         }
 
@@ -339,18 +341,21 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                bool isRemoved = false;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
                 if (request != null)
                 {
-                    request.Status = "Cancelled";
-                    entities.SaveChanges();
+                    if (request.Status.Equals("Unsubmitted") || request.Status.Equals("Unsubmitted"))
+                    {
+                        RequestDetailBL.removeAllReqDet(reqId);
+                    }
+                    else
+                    {
+                        request.Status = "Cancelled";
+                        request.CancelledDateTime = DateTime.Now;
+                        entities.SaveChanges();
+                    }
                 }
-                if (request.Status.Equals("Cancelled"))
-                {
-                    isRemoved = true;
-                }
-                return isRemoved;
+                return true;
             }
         }
 
@@ -460,14 +465,15 @@ namespace Group8AD_WebAPI.BusinessLogic
                 Employee emp = entities.Employees.Where(x => x.EmpId == empId).FirstOrDefault();
                 string deptCode = emp.DeptCode;
                 Department dept = entities.Departments.Where(x => x.DeptCode == deptCode).FirstOrDefault();
-                int headId = (int)dept.DeptHeadId;
+
+                int fromEmpId = req.EmpId;
+                int toEmpId = (int)dept.DeptHeadId;
+                string type = "Stationery Request";
+                string content = "A new stationery request has been submitted";
+                NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+                
                 //// will call when method is completed
                 // EmailBL.SendNewReqEmail(empId, req);
-                //NotificationBL.AddNewReqNotification(empId, req);
-
-                NotificationBL.AddNewNotification(empId, headId, "Stationery Request", "A new stationery request has been submitted");
-
-                // redirect to SubmittedRequestDetails page
 
                 return req;
             }
@@ -481,8 +487,8 @@ namespace Group8AD_WebAPI.BusinessLogic
             {
                 int reqId = req.ReqId;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
-                request.EmpId = req.EmpId;
-                request.ApproverId = req.ApproverId;
+                //request.EmpId = req.EmpId;
+                //request.ApproverId = req.ApproverId;
                 request.ApproverComment = req.ApproverComment;
                 if (req.ReqDateTime != null && DateTime.Compare(req.ReqDateTime, new DateTime(1800, 01, 01)) > 0)
                     request.ReqDateTime = req.ReqDateTime;
@@ -533,10 +539,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
-            //// send accept notification
-            //NotificationBL.AddAcptNotification(reqId);
-
-            NotificationBL.AddNewNotification(toId, empId, "Stationery Request", "Your stationery request has been approved : No comment");
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been approved : No comment";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
             return isApproved;
         }
@@ -574,30 +581,13 @@ namespace Group8AD_WebAPI.BusinessLogic
                     }
                 }
             }
-            //// send reject notification
-            //NotificationBL.AddAcptNotification(reqId);
-
-            NotificationBL.AddNewNotification(toId, empId, "Stationery Request", "Your stationery request has been rejected : Please review quantities");
+            int fromEmpId = empId;
+            int toEmpId = toId;
+            string type = "Stationery Request";
+            string content = "Your stationery request has been rejected : Please review quantities";
+            NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
             return isRejected;
         }
-
-        //// update fulfilled request status
-        //// included in "Accept Disbursed Items" use case, no need to implement
-        //public static void UpdateFulfilledRequestStatus()
-        //{
-        //    // int openCount = 0;
-        //    // foreach(RequestDetail rd in r) {
-        //    //  int shortQty = 
-        //    //      (rd.ReqQty - rd.FulfilledQty);
-        //    //  openCount += shortQty;}
-        //    // if (openCount == 0)
-        //    //  r.Status = “Fulfilled”;
-        //    // Save Changes for this Request object
-
-        //    //int openCount = 0;
-
-        //    return;
-        //}
     }
 }

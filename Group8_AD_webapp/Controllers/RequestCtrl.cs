@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Group8_AD_webapp.Models;
 using Newtonsoft.Json;
+using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp.Controllers
 {
@@ -15,15 +16,17 @@ namespace Group8_AD_webapp.Controllers
 
         public static List<RequestVM> GetReq(int empId, string status)
         {
-            string querystring = "?empId=" + empId + "&status=" + status;
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+            return RequestBL.GetReq(empId, status);
 
-            if (jsonResponse != "false")
-            {
-                var response = JsonConvert.DeserializeObject<List<RequestVM>>(jsonResponse);
-                return (List<RequestVM>)response;
-            }
-            else return null;
+            //string querystring = "?empId=" + empId + "&status=" + status;
+            //string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+
+            //if (jsonResponse != "false")
+            //{
+            //    var response = JsonConvert.DeserializeObject<List<RequestVM>>(jsonResponse);
+            //    return (List<RequestVM>)response;
+            //}
+            //else return null;
         }
 
         //superseded by above
@@ -52,20 +55,22 @@ namespace Group8_AD_webapp.Controllers
 
         }
 
-        public static List<RequestVM> GetRequestByDateRange(int empId, string status, DateTime fromDate, DateTime toDate, string access_token)
+        public static List<RequestVM> GetRequestByDateRange(int empId, string status, DateTime fromDate, DateTime toDate)
         {
-            string from = fromDate.ToString("yyyy-MM-ddTHH:mm:ss");
-            string to = toDate.ToString("yyyy-MM-ddTHH:mm:ss");
+            return RequestBL.GetReq(empId, status, fromDate, toDate);
 
-            string querystring = "?empId=" + empId + "&status=" + status + "&fromDate=" + from + "&toDate=" + to;
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+            //string from = fromDate.ToString("yyyy-MM-ddTHH:mm:ss");
+            //string to = toDate.ToString("yyyy-MM-ddTHH:mm:ss");
 
-            if (jsonResponse != "false")
-            {
-                var response = JsonConvert.DeserializeObject<List<RequestVM>>(jsonResponse);
-                return (List<RequestVM>)response;
-            }
-            else return null;
+            //string querystring = "?empId=" + empId + "&status=" + status + "&fromDate=" + from + "&toDate=" + to;
+            //string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+
+            //if (jsonResponse != "false")
+            //{
+            //    var response = JsonConvert.DeserializeObject<List<RequestVM>>(jsonResponse);
+            //    return (List<RequestVM>)response;
+            //}
+            //else return null;
         }
 
         // Superseded by Below Method
@@ -94,30 +99,43 @@ namespace Group8_AD_webapp.Controllers
 
         public static RequestVM GetRequestByReqId(int reqId)
         {
-            string querystring = "?reqId=" + reqId;
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+            return RequestBL.GetReq(reqId);
 
-            if (jsonResponse != "false")
-            {
-                var response = JsonConvert.DeserializeObject<RequestVM>(jsonResponse);
-                return (RequestVM)response;
-            }
-            else return null;
+            //string querystring = "?reqId=" + reqId;
+            //string jsonResponse = Service.UtilityService.SendPostRequest("/Request/get", querystring, "", true);
+
+            //if (jsonResponse != "false")
+            //{
+            //    var response = JsonConvert.DeserializeObject<RequestVM>(jsonResponse);
+            //    return (RequestVM)response;
+            //}
+            //else return null;
         }
 
         public static bool SubmitRequest(int reqId, List<RequestDetailVM> reqDetList)
         {
-            var jsonList = JsonConvert.SerializeObject(reqDetList);
-            string querystring = "?reqId=" + reqId;
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Request/submit", querystring, jsonList, false);
-            return Convert.ToBoolean(jsonResponse);
+            RequestVM req = RequestBL.SubmitReq(reqId, reqDetList);
+            if (req != null)
+            {
+                return true;
+            }
+            return false;
+
+            //var jsonList = JsonConvert.SerializeObject(reqDetList);
+            //string querystring = "?reqId=" + reqId;
+            //string jsonResponse = Service.UtilityService.SendPostRequest("/Request/submit", querystring, jsonList, false);
+            //return Convert.ToBoolean(jsonResponse);
         }
 
+        // TO REPLACE DUMMY
         public static bool CancelRequest(int reqId)
         {
-            string querystring = "?reqId=" + reqId;
-            string jsonResponse = Service.UtilityService.SendPostRequest("/Request/remove", querystring, "", false);
-            return Convert.ToBoolean(jsonResponse);
+            RequestBL.RemoveReq(reqId);
+            return true;        // DUMMY - TO REPLACE
+
+            //string querystring = "?reqId=" + reqId;
+            //string jsonResponse = Service.UtilityService.SendPostRequest("/Request/remove", querystring, "", false);
+            //return Convert.ToBoolean(jsonResponse);
         }
 
         //DepartmentHead 

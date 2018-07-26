@@ -165,10 +165,78 @@
     color:red;
 }
 
+.profile-wrap{
+    height: 60px;
+}
+
+.dropdown-menu{
+    position: absolute;
+    margin-top: -5px;
+}
+.dropdown3{
+    height: 60px;
+    width: 60px;
+}
+
+.img-avatar {
+    height: 60px;
+    width: 60px;
+    padding: 5px;
+}
+
+.dropdown-alerts2{
+    overflow:hidden;
+    width: 400px;
+    height: unset;
+}
+
+.liborder {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+#sidebar-collapse{
+    z-index: 999;
+}
+
+.nav>li{
+    width: 100vw;
+}
+.btn-fulfilled {
+    font-size: 1.6rem !important;
+    font-weight: 700;
+    color: var(--color-btn-success);
+}
+
+.btn-back {
+    background-color: #fff;
+    font-family: var(--font-btn);
+    border: 1px solid var(--color-btn-primary);
+    color: var(--color-btn-primary);
+    font-size: 1.6rem;
+}
+
+    .btn-back:hover {
+        color: #fff;
+        background-color: var(--color-btn-primary);
+    }
+
+@media only screen and (max-width: 768px) {
+    .sidefix {
+        position: fixed;
+        top: 0;
+        z-index: 150;
+        transition: all 0.3s;
+    }
+
+}
 
 @media only screen and (max-width: 750px) {
     .dropdown-content {
         left: 0;
+    }
+    .profile-name {
+        display: none;
     }
 }
 @media only screen and (min-width: 1200px) {
@@ -201,4 +269,5 @@
             .dd-searchcontent li > a > table {
                 width: 800px;
             }
+
 }

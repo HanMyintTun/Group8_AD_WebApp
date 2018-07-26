@@ -20,5 +20,7 @@ namespace Group8_AD_webapp.Models
         //public int RepId { get; set; }
         //public Notification notification { get; set; }
         //public Request Request { get; set; }
+
+        public string FromEmpName { get; set; }
     }
 }

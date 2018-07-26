@@ -5,6 +5,7 @@ using System.Web;
 using Group8_AD_webapp.Models;
 using Newtonsoft.Json;
 using RestSharp;
+using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp.Controllers
 {
@@ -14,23 +15,32 @@ namespace Group8_AD_webapp.Controllers
 
         public static List<string> getSupplierCodes()
         {
-            string jsonResponse = Service.UtilityService.SendGetRequest("/Supplier", "", true);
 
-            if (jsonResponse != "false")
+            List<SupplierVM> suppList =  SupplierBL.GetAllSupp();
+            List<string> suppCodeList = new List<string>();
+            foreach (SupplierVM s in suppList)
             {
-                var response = JsonConvert.DeserializeObject<List<SupplierVM>>(jsonResponse);
-                if (response != null)
-                {
-                    List<string> suppCodeList = new List<string>();
-                    foreach (SupplierVM s in response)
-                    {
-                        suppCodeList.Add(s.SuppCode);
-                    }
-                    return suppCodeList;
-                }
-                return null;
+                suppCodeList.Add(s.SuppCode);
             }
-            else return null;
+            return suppCodeList;
+
+            //string jsonResponse = Service.UtilityService.SendGetRequest("/Supplier", "", true);
+
+            //if (jsonResponse != "false")
+            //{
+            //    var response = JsonConvert.DeserializeObject<List<SupplierVM>>(jsonResponse);
+            //    if (response != null)
+            //    {
+            //        List<string> suppCodeList = new List<string>();
+            //        foreach (SupplierVM s in response)
+            //        {
+            //            suppCodeList.Add(s.SuppCode);
+            //        }
+            //        return suppCodeList;
+            //    }
+            //    return null;
+            //}
+            //else return null;
         }
     }
 }

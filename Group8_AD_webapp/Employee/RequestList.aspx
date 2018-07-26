@@ -30,9 +30,10 @@
                         <th runat="server" id="thdBookmark" ></th>
                         <th scope="col">Product Description</th>
                         <th scope="col">Request Qty</th>
-                        <th runat="server" id="thdRemove">Remove</th>
                         <th runat="server" id="thdFulfQty">Fulfilled Qty</th>
                         <th runat="server" id="thdBalQty">Balance Qty</th>
+                        <th runat="server" id="th1">Units</th>
+                        <th runat="server" id="thdRemove">Remove</th>
                         <th runat="server" id="thdFulf" style="border:none;"></th>
                 </tr></thead>
                 <tbody>
@@ -50,11 +51,12 @@
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("ReqQty") %>'></asp:Label></td>
                 <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="pad-left10" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
-                <td style = '<%=IsEditable ? "" : "display: none;" %>'><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
-                <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("FulfilledQty") %>'></asp:Label></td>
+                 <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("FulfilledQty") %>'></asp:Label></td>
                 <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblBalanceQty" runat="server" Text='<%# Convert.ToInt32(Eval("ReqQty")) - Convert.ToInt32(Eval("FulfilledQty"))%>'></asp:Label></td>
+                <td><asp:Label ID="lblUOM" runat="server" Text='<%#String.Format("{0:C}",Eval("UOM"))%>' /></td>    
+               <td style = '<%=IsEditable ? "" : "display: none;" %>'><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
                 <td style = '<%=IsApproved ? "" : "display: none;" %> <%#(Convert.ToInt32(Eval("ReqQty")) == Convert.ToInt32(Eval("FulfilledQty"))) ? "border:none" : "display: none;" %>'><div class="btn-fulfilled"><i class="fa fa-check-circle"></i></div></td>
-            </tr>
+           </tr>
         </ItemTemplate>
         <EmptyDataTemplate>
             <span class="noresult">Sorry! There are no items in your cart!.<br />
@@ -163,7 +165,6 @@
                 <div class="action-btn">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
-                    <button ID="btnLoading" runat="server" class="btn btn-msize btn-warning " style="display:none"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
                 </div>
               </div>
        </div></div></div>

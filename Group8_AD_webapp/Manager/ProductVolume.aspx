@@ -36,7 +36,7 @@
         </div>
         </div>
 
-        <div id="centermain">
+        <div id="centermain2">
             <asp:hiddenfield id="IsDesc" ClientIDMode="Static" runat="server"/>
             <div class=" form-inline"> Sort Direction: 
            <asp:DropDownList ID="ddlSortDirection" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSortDirection_SelectedIndexChanged">

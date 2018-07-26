@@ -15,7 +15,6 @@ namespace Group8_AD_webapp
     {
         static List<ItemVM> items = new List<ItemVM>();
         static List<ItemVM> editedItems = new List<ItemVM>();
-        static string access_token;
         static List<String> suppliers;
         static bool isClear = false;
 
