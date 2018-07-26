@@ -12,7 +12,7 @@
                        <asp:BoundField DataField="FromEmpName" HeaderText="From" SortExpression="FromEmpName" />
                        <asp:BoundField DataField="Type" HeaderText="Notification" SortExpression="Type" />
                        <asp:BoundField DataField="Content" HeaderText="Content" SortExpression="Content" />
-               <asp:TemplateField><ItemTemplate><asp:Label style = '<%#(bool)Eval("IsRead") ? "" : "display: none;" %>' runat="server"><div class="btn-fulfilled"><i class="fa fa-check-circle"></i></div></asp:Label></ItemTemplate></asp:TemplateField>
+               <asp:TemplateField><HeaderTemplate>Read</HeaderTemplate> <ItemTemplate><asp:Label style = '<%#(bool)Eval("IsRead") ? "" : "display: none;" %>' runat="server"><div class="btn-fulfilled"><i class="fa fa-check-circle"></i><span style="display:none;"><%#(bool)Eval("IsRead")%></span></div></asp:Label></ItemTemplate></asp:TemplateField>
             </Columns>
     </asp:GridView>
      <div class="row">
