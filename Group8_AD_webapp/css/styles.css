@@ -1578,7 +1578,9 @@ p.back-link {
     }
 
     .sidebar {
-        margin-left: -250px;
+        margin-top: 60px;
+        /*margin-left: -250px;*/
+        width: 100vw;
     }
 
         .sidebar.active {

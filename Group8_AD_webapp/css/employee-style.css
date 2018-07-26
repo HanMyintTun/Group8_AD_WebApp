@@ -16,7 +16,7 @@
 }
 @media only screen and (min-width : 768px) {
     #main {
-        padding-left: 300px;
+        padding-left: 19vw;
     }
 }
 
@@ -643,9 +643,6 @@
 }
 
 @media only screen and (max-width : 1200px) {
-    .formstyle2 {
-        height: 230px;
-    }
 
     #centermain{
         margin-top: 160px;
@@ -698,6 +695,10 @@
 
     .formstyle {
         height: 160px;
+    }
+
+    .formstyle2{
+        height: 230px;
     }
 
     .headtext, .row, .dpager {

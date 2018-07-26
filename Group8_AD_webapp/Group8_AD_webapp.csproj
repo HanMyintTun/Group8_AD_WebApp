@@ -301,6 +301,7 @@
     <Content Include="js\monthpicker.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
+    <Content Include="Notifications.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
     <Content Include="Manager\Restock-Quantity.aspx" />
@@ -520,6 +521,13 @@
     </Compile>
     <Compile Include="Manager\EditSupplierPrice.aspx.designer.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications.aspx.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notifications.aspx.designer.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\ProductVolume.aspx.cs">
       <DependentUpon>ProductVolume.aspx</DependentUpon>

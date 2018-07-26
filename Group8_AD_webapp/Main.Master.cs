@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
 using System.Web.UI.HtmlControls;
+using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp
 {
@@ -22,6 +23,7 @@ namespace Group8_AD_webapp
                 
                 SetProfile();
                 FillCart();
+                FillNotifications();
                 PopulateMenuItems();
             }
         }
@@ -32,16 +34,16 @@ namespace Group8_AD_webapp
             {
                 int empId = (int)Session["empId"];
 
-                //if (File.Exists(Server.MapPath("~/img/employee/" + empId + ".png")))
-                //{
+                if (File.Exists(Server.MapPath("~/img/employee/" + empId + ".png")))
+                {
                     imgProfile.Src = "~/img/employee/" + empId + ".png";
-                //}
-                //else
-                //{
-                //    imgProfile.Src = "~/img/employee/profile_default.png";
-                //}
+                }
+                else
+                {
+                    imgProfile.Src = "~/img/employee/profile_default.png";
+                }
 
-                lblName.Text = (string)Session["empName"];
+            lblName.Text = (string)Session["empName"];
                 lblRole.Text = (string)Session["role"];
             }
             else
@@ -54,7 +56,7 @@ namespace Group8_AD_webapp
         protected void PopulateMenuItems()
         {
             List<HtmlGenericControl> deptHeadList = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest };
-            List<HtmlGenericControl> employeeList = new List<HtmlGenericControl>() { menuCatalogueDash, menuEmployeeRequest };
+            List<HtmlGenericControl> employeeList = new List<HtmlGenericControl>() { menuCatalogueDash, menuEmployeeRequest};
             List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers };
             List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment };
             List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>();
@@ -66,6 +68,7 @@ namespace Group8_AD_webapp
             {
                 m.Visible = false;
             }
+            btnCartLi.Visible = false;
 
             switch (Session["role"])
             {
@@ -74,9 +77,17 @@ namespace Group8_AD_webapp
                 case "Delegate":
                     foreach (HtmlGenericControl m in deptHeadList) m.Visible = true; break;
                 case "Representative":
-                    foreach (HtmlGenericControl m in employeeList) m.Visible = true; break;
+                    {
+                        foreach (HtmlGenericControl m in employeeList) m.Visible = true;
+                        btnCartLi.Visible = true;
+                        break;
+                    }
                 case "Employee":
-                    foreach (HtmlGenericControl m in employeeList) m.Visible = true; break;
+                    {
+                        foreach (HtmlGenericControl m in employeeList) m.Visible = true;
+                        btnCartLi.Visible = true;
+                        break;
+                    }
                 case "Store Manager":
                     foreach (HtmlGenericControl m in managerList) m.Visible = true; break;
                 case "Store Supervisor":
@@ -114,6 +125,17 @@ namespace Group8_AD_webapp
                 lstCart.DataSource = cartDetailList;
                 lstCart.DataBind();
             }
+        }
+
+        public void FillNotifications()
+        {
+            int empId = (int)Session["empId"];
+            List<NotificationVM> notifList = NotificationBL.GetNotifications(empId);
+
+            lstNotifications.DataSource = notifList.OrderByDescending(x => x.NotificationDateTime).Take(10).ToList();
+            lstNotifications.DataBind();
+            
+            lblNotifCount.Text = notifList.Where(x=> x.IsRead == false).Count().ToString();
         }
 
         public void UpdateCartCount()
@@ -159,5 +181,39 @@ namespace Group8_AD_webapp
             }
         }
 
+        protected void btnViewNotif_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Notifications.aspx");
+
+        }
+
+        protected void btnOnNotif_Click(object sender, EventArgs e)
+        {
+            var lbl = (LinkButton)sender;
+            var item = (ListViewItem)lbl.NamingContainer;
+            int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
+            NotificationVM ntemp = new NotificationVM();
+            ntemp.NotificationId = id;
+            NotificationBL.ToggleReadNotification(ntemp);
+
+            switch (Session["role"])
+            {
+                case "Department Head": Response.Redirect("~/Submitted-Requests.aspx"); break;   //Change when in DeptHead folder
+                case "Delegate": Response.Redirect("~/Submitted-Requests.aspx"); break;          //Change when in DeptHead folder
+                case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+                case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+                case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+                case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+                case "Store Clerk": break;
+                default:  break;
+            }
+
+        }
+
+        protected void btnMarkRead_Click(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }
