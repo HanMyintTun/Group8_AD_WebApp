@@ -57,8 +57,8 @@ namespace Group8_AD_webapp
         {
             List<HtmlGenericControl> deptHeadList = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest };
             List<HtmlGenericControl> employeeList = new List<HtmlGenericControl>() { menuCatalogueDash, menuEmployeeRequest};
-            List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers };
-            List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment };
+            List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers,menuReports };
+            List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment, menuReports };
             List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>();
             allMenu.AddRange(deptHeadList);
             allMenu.AddRange(employeeList);
