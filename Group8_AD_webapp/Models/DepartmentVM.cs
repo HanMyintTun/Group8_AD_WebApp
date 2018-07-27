@@ -18,7 +18,7 @@ namespace Group8_AD_webapp.Models
         public Nullable<int> DelegateApproverId { get; set; }
         public Nullable<System.DateTime> DelegateFromDate { get; set; }
         public Nullable<System.DateTime> DelegateToDate { get; set; }
-
+        public int FulfilledQty { get; set; }
         public int EmpId { get; set; }
 
     }

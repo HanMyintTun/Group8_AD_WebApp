@@ -535,6 +535,7 @@
     <Compile Include="Manager\EditSupplierPrice.aspx.designer.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DisbursementDetailVM.cs" />
     <Compile Include="Models\PdfVM.cs" />
     <Compile Include="Notifications.aspx.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
