@@ -156,6 +156,7 @@
                                     <div class="input-group">
                                         <asp:UpdatePanel ID="updatepanel2" runat="server">
                                             <ContentTemplate>
+
                                                 <button runat="server" id="btnAddDelegate" causesvalidation="true" class="btn btn-success btn-remove" validationgroup="addDel" onserverclick="AddDelegate">
                                                     <i class="fa fa-check" aria-hidden="true"></i>
                                                 </button>
@@ -200,14 +201,20 @@
                                         <asp:ListItem Text="Select Employee" Value="0" />
                                     </asp:DropDownList>
                                 </div>
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" Display="Dynamic" ControlToValidate="ddlRep" ValueToCompare="0" ForeColor="red" Operator="NotEqual" ValidationGroup="addRep" ErrorMessage="Please Select Employee"></asp:CompareValidator>
                             </div>
                             <div class="col-lg-6" style="margin-top: 14px;">
                                 <div class="form-group">
-                                    <button runat="server" id="btnAddRep" class="btn btn-success btn-remove" onserverclick="AddRep">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </button>
+                                    <asp:UpdatePanel ID="updatepanel3" runat="server">
+                                        <ContentTemplate>
+                                            <button runat="server" causesvalidation="true" validationgroup="addRep" id="btnAddRep" class="btn btn-success btn-remove" onserverclick="AddRep">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            </button>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -243,21 +250,41 @@
                     <div class="panel-heading">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
-                        <h3 class="detail-subtitle">Delegate Add!</h3>
+                        <h3 class="detail-subtitle">Delegate Addition!</h3>
                     </div>
                     <div class="panel-body">
-                        You are about to remove <span style="font-weight: bold;">
-                            <asp:Label runat="server" ID="Label1"></asp:Label></span> from being your delegate. Are you sure?<br />
+                        You are about to add <span style="font-weight: bold;">
+                            <asp:Label runat="server" ID="Label1"></asp:Label></span> to your delegate. Are you sure?<br />
                         <div class="action-btn" style="text-align: center; float: none;">
-                            <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnRemovDelYes_Click" runat="server" Text="Yes" />
-                            <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnRemovDelNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnSetDelYes_Click" runat="server" Text="Yes" />
+                            <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnSetDelNo_Click" runat="server" Text="No" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="mdlRepSet" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg confirm-modal">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+                        <h3 class="detail-subtitle">Representative Addition!</h3>
+                    </div>
+                    <div class="panel-body">
+                        You are about to add <span style="font-weight: bold;">
+                            <asp:Label runat="server" ID="Label3"></asp:Label></span> to your representative. Are you sure?<br />
+                        <div class="action-btn" style="text-align: center; float: none;">
+                            <asp:Button ID="Button3" class="btn btn-success btn-msize" OnClick="btnSetRepYes_Click" runat="server" Text="Yes" />
+                            <asp:Button ID="Button4" class="btn btn-danger btn-msize" OnClick="btnSetRepNo_Click" runat="server" Text="No" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- /.row -->
     <script type="text/javascript">
