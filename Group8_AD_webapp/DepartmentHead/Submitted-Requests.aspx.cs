@@ -41,7 +41,7 @@ namespace Group8_AD_webapp
         protected void PopulateDetailList(int rid)
         {
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid, access_token);
-            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
             lblEmpName.Text = emp.EmpName.ToString();
@@ -75,7 +75,7 @@ namespace Group8_AD_webapp
         {
             string cmt = txtComments.Text.ToString();
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid, access_token);
-            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
             int empId = emp.EmpId;
             Controllers.RequestCtrl.AcceptRequest(rid, empId, cmt, access_token);
             
@@ -84,7 +84,7 @@ namespace Group8_AD_webapp
         {
             string cmt = txtComments.Text.ToString();
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid, access_token);
-            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
             int empId = emp.EmpId;
             Controllers.RequestCtrl.RejectRequest(rid, empId, cmt, access_token);
            
