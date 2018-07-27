@@ -31,7 +31,7 @@ namespace Group8_AD_webapp
 
             foreach (RequestVM req in requests)
             {
-              EmployeeVM  emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
+              EmployeeVM  emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
 
                 EmpReqVM empReq = new EmpReqVM();
                 empReq.ReqId = req.ReqId;

@@ -40,7 +40,7 @@ namespace Group8_AD_webapp
         protected void PopulateDetailList(int rid)
         {
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid, access_token);
-            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId, access_token);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
 
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();

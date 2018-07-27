@@ -1560,47 +1560,71 @@ p.back-link {
 .pagination li {
     padding:0px;
 }
-@media (max-width: 768px) {
-    .desktop {
-        display: none;
-    }
+input[type="radio"] {
+    margin: 4px 4px 0;
+}
+.confirm-modal {
+    width: 500px;
+    top: 180px;
+}
+    @media (max-width: 768px) {
 
-    .mobile {
-        display: block;
-    }
-
-    .detail-info-right, .detail-info-left, .action-btn {
-        float: none;
-    }
-
-    .txt-area {
-        width: 100%;
-    }
-    .delegate-name {
-        float: none;
-    }
-    .action-btn {
-        margin-top: 0px;
-    }
-
-    .sidebar {
-        margin-top: 60px;
-        /*margin-left: -250px;*/
-        width: 100vw;
-    }
-
-        .sidebar.active {
-            margin-left: 0;
+        .desktop {
+            display: none;
         }
 
-    .sidebarCollapse span {
-        display: none;
+        .mobile {
+            display: block;
+        }
+
+        .detail-info-right, .detail-info-left, .action-btn {
+            float: none;
+        }
+
+        .txt-area {
+            width: 100%;
+        }
+
+        .delegate-name {
+            float: none;
+        }
+
+        .action-btn {
+            margin-top: 0px;
+        }
+
+        .sidebar {
+            margin-top: 60px;
+            /*margin-left: -250px;*/
+            width: 100vw;
+        }
+
+            .sidebar.active {
+                margin-left: 0;
+            }
+
+        .sidebarCollapse span {
+            display: none;
+        }
+
+        .fix-modal {
+            width: auto !important;
+        }
+
+        .lightbox-scroll {
+            height: auto;
+        }
+
+        .chartjs-render-monitor {
+            width: auto !important;
+            height: auto !important;
+        }
+        .confirm-modal {
+            width: auto;
+            top:100px;
+        }
+        action-btn{
+            float:none;
+            text-align:center;
+        }
     }
-    .fix-modal {
-        width: auto !important;
-    }
-    .lightbox-scroll {
-        
-        height: auto;
-    }
-}
