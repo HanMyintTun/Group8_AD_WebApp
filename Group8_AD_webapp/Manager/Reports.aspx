@@ -28,7 +28,9 @@
         <!--/.row-->
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="page-header">Reports</h3>
+                <h3 class="page-header">Reports
+                <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="btnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
+                <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
             <div class="col-lg-6">
                 <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" />
@@ -45,13 +47,30 @@
                         <asp:Label ID="lblReportTitle"  style="font-size:2.4rem;" runat="server" Text="Label"></asp:Label>
 					
                     </div>
+                    <asp:UpdatePanel ID="udpChartArea" runat="server">
+                        <ContentTemplate>
                     <div class="panel-body">
+
+                        <div id="showchart" runat="server">
                         <div class="canvas-wrapper" style="height: 500px;">
-                            <canvas id="myChart"> </canvas>
-                        </div>
-                        <div class="text-center">
+                            <canvas id="myChart"> </canvas></div>
+                         <div class="text-center">
                         <asp:Label ID="lblSubtitle" style="font-size:1.8rem;" runat="server" Text=""></asp:Label></div>
-                    </div>
+                        </div>
+
+                        <div id="showlist" runat="server" >
+                        <asp:GridView ID="lstData" CssClass="table" runat="server" AutoGenerateColumns="False">
+                        <Columns>
+                            <asp:BoundField DataField="Label" HeaderText="" SortExpression="Val1" ItemStyle-Width="150px" />
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val1")) %>'/></ItemTemplate></asp:TemplateField>
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val2")) %>'/></ItemTemplate></asp:TemplateField>
+
+                        </Columns>
+                        </asp:GridView>
+                        <div class="text-center">
+                        <asp:Label ID="lblSubtitle2" style="font-size:1.8rem;" runat="server" Text=""></asp:Label></div>
+                        </div>
+                    </div></ContentTemplate></asp:UpdatePanel>
                 </div>
             </div>
             <div class="col-md-6">
@@ -77,7 +96,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                        <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="OnChange">
                                             <asp:ListItem Value="0">Select Department</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -91,7 +110,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                        <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="OnChange">
                                             <asp:ListItem Value="0">Select Department</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -111,7 +130,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                        <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true"  OnSelectedIndexChanged="OnChange">
                                             <asp:ListItem Value="0">Select Supplier</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -125,7 +144,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlSupplier2" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                        <asp:DropDownList ID="ddlSupplier2" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true"  OnSelectedIndexChanged="OnChange">
                                             <asp:ListItem Value="0">Select Supplier</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -150,11 +169,11 @@
                                         </div>
 
                                         <div class="">
-                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" AppendDataBoundItems="true"  AutoPostBack="true" OnSelectedIndexChanged="OnChange">
                                                 <asp:ListItem Value="All">All</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
-                                         <div>
+<%--                                         <div>
                                             <div class="form-group form-inline mt-15" >
                                                 <asp:Label ID="lblOutputType" runat="server" Text="Output Type"></asp:Label>
                                             </div>
@@ -165,7 +184,7 @@
                                                 <asp:ListItem Selected="True"> Bar</asp:ListItem>
                                                 <asp:ListItem> List</asp:ListItem>
                                             </asp:RadioButtonList>
-                                        </div>
+                                        </div>--%>
                                     </div>
 
                                 </div>
@@ -181,13 +200,21 @@
                         </ul>
                         <div class="tab-content tab-box">
                             <div class="tab-pane fade in active" id="tabMonth">
+
                                     <div class="col-lg-6">
+
+                                         <div>
+                                            <div class="form-group mt-15">
+                                                <asp:Label ID="Label1" runat="server" class="" Text="Select Month(s) to display"></asp:Label>
+                                            </div>
+                                        </div>
+
                                          <div class="input-group"><asp:hiddenfield id="IsMonth" Value="true" ClientIDMode="Static" runat="server"/>
                                             <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" autocomplete="off" OnTextChanged="txtMonthPick_TextChanged" AutoPostBack="true" placeholder="Month-Year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                          </div>
                                         <div class="text-right mt-15">
-                                        <%--<asp:Button ID="btnAddToList" CssClass="btn btn-success" OnClick="btnAdd_Click" runat="server" Text=" Add To List" />--%></div>
+                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="btnClear_Click" runat="server" Text=" Clear List" /></div>
 
                                     </div>
                                     <div class="col-lg-6">
@@ -281,6 +308,8 @@ $(document).ready(function () {
     $('#ByDate').click(function () {
         $('#IsMonth').val("false");
     });
+    
+
         });
 
         $(document).ready(drawChart);

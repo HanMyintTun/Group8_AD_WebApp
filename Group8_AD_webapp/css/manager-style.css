@@ -162,6 +162,37 @@
     line-height: 2.8rem;
 }
 
+#btnBar .active {
+    color: var(--color-primary);
+}
+
+#btnList .active {
+    color: var(--color-primary);
+}
+
+.listbutton {
+    border: 1px #eee solid;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 2rem;
+    color: var(--color-text);
+    margin: 0px;
+}
+
+    .listbutton:hover {
+        text-decoration: none;
+        background-color: #eee;
+    }
+
+    .listbutton a {
+        text-decoration: none;
+    }
+
+    .listbutton.active {
+        color: var(--color-primary);
+    }
+
 @media only screen and (max-width : 1200px) {
     .formstyle2 {
         height: 230px;

@@ -135,7 +135,16 @@
                                         <span class="">&nbsp;&nbsp;</span> Rejected </a></li><li><a runat="server" class="" href="~/DepartmentHead/Cancelled-Requests.aspx">
                                         <span class="">&nbsp;&nbsp;</span> Cancelled </a></li><li><a runat="server" class="" href="~/DepartmentHead/Fulfilled-Requests.aspx">
                                         <span class="">&nbsp;&nbsp;</span> Fulfilled </a></li></ul></li>
-                            <li id="menuCatalogueDash" runat="server"><a runat="server" href="~/Employee/CatalogueDash.aspx"><span class="fa fa-pencil">&nbsp;</span>Catalogue</span></a></li><li id="menuEmployeeRequest" runat="server"><a runat="server" href="~/Employee/RequestHistory.aspx"><em class="fa fa-file-text-o">&nbsp;</em> Request History</a></li><li id="menuManagerDash" runat="server"><a runat="server" href="~/Manager/StoreDashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li><li id="menuProductVol" runat="server"><a runat="server" href="~/Manager/ProductVolume.aspx"><em class="fa fa-list-ol">&nbsp;</em> Product Volume</a></li><li id="menuAdjustment" runat="server"><a runat="server" href="~/Manager/AdjRequestHistory.aspx"><em class="fa fa-tasks">&nbsp;</em> Adjustment Requests</a></li><li id="menuRestock" runat="server"><a runat="server" href="~/Manager/RestockLevel.aspx"><em class="fa fa-edit">&nbsp;</em> Change Restock</a></li><li id="menuSuppliers" runat="server"><a runat="server" href="~/Manager/EditSupplierPrice.aspx"><em class="fa fa-address-card-o">&nbsp;</em> Update Suppliers</a></li></ul></nav></div></div><!--/.sidebar--><div>
+                            <li id="menuCatalogueDash" runat="server"><a runat="server" href="~/Employee/CatalogueDash.aspx"><span class="fa fa-pencil">&nbsp;</span>Catalogue</a></li>
+                            <li id="menuEmployeeRequest" runat="server"><a runat="server" href="~/Employee/RequestHistory.aspx"><em class="fa fa-file-text-o">&nbsp;</em> Request History</a></li>
+                            <li id="menuManagerDash" runat="server"><a runat="server" href="~/Manager/StoreDashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+                            <li id="menuProductVol" runat="server"><a runat="server" href="~/Manager/ProductVolume.aspx"><em class="fa fa-list-ol">&nbsp;</em> Product Volume</a></li>
+                            <li id="menuAdjustment" runat="server"><a runat="server" href="~/Manager/AdjRequestHistory.aspx"><em class="fa fa-tasks">&nbsp;</em> Adjustment Requests</a></li>
+                            <li id="menuRestock" runat="server"><a runat="server" href="~/Manager/RestockLevel.aspx"><em class="fa fa-edit">&nbsp;</em> Change Restock</a></li>
+                            <li id="menuSuppliers" runat="server"><a runat="server" href="~/Manager/EditSupplierPrice.aspx"><em class="fa fa-address-card-o">&nbsp;</em> Update Suppliers</a></li>
+                            <li id="menuReports" runat="server"><a runat="server" href="~/Manager/Reports.aspx"><em class="fa fa-bar-chart">&nbsp;</em> Generate Reports</a></li></ul></nav>
+
+        </div></div><!--/.sidebar--><div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
