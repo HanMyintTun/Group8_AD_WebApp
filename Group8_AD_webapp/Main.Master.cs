@@ -203,17 +203,17 @@ namespace Group8_AD_webapp
             int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
             NotificationBL.ToggleReadNotification(id);
             FillNotifications();
-            switch (Session["role"])
-            {
-                case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
-                case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
-                case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
-                case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
-                case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
-                case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
-                case "Store Clerk": break;
-                default: break;
-            }
+            //switch (Session["role"])
+            //{
+            //    case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
+            //    case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
+            //    case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+            //    case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
+            //    case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+            //    case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
+            //    case "Store Clerk": break;
+            //    default: break;
+            //}
 
         }
 

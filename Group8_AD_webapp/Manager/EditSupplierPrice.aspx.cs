@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
 using Newtonsoft.Json;
+using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp
 {
@@ -135,6 +136,16 @@ namespace Group8_AD_webapp
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            GenerateEditedList();
+            if (submitItems.Count != 0)
+            {
+                isClear = false;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openClearModal();", true);
+            }
+            else
+            {
+                DoSearch();
+            }
         }
 
         protected void txtSearch_Changed(object sender, EventArgs e)
@@ -143,8 +154,16 @@ namespace Group8_AD_webapp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            isClear = false;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openClearModal();", true);
+            GenerateEditedList();
+            if(submitItems.Count != 0)
+            {
+                isClear = false;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openClearModal();", true);
+            }
+            else
+            {
+                DoSearch();
+            }
 
         }
 
@@ -170,30 +189,37 @@ namespace Group8_AD_webapp
             }
             else
             {
-                string searchquery = txtSearch.Text;
-                string querycat = ddlCategory.Text;
-                if (querycat == "All")
-                {
-                    editedItems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).ToList();
-                }
-                else
-                {
-                    editedItems = items.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(searchquery)).ToList();
-                }
-                BindGrid();
+                DoSearch();
             }
 
         }
 
-        protected void btnConfirmSearch_Click(object sender, EventArgs e)
+        //protected void btnConfirmSearch_Click(object sender, EventArgs e)
+        //{
+        //    ClearTextBoxes(Page.Controls);
+        //    for (int i = 0; i < editedItems.Count; i++)
+        //    {
+        //        ItemVM tempitem = editedItems[i];
+        //        editedItems[i] = new ItemVM();
+        //        editedItems[i].ItemCode = tempitem.ItemCode;
+        //        editedItems[i].Desc = tempitem.Desc;
+        //    }
+        //    BindGrid();
+        //}
+
+        protected void DoSearch()
         {
-            ClearTextBoxes(Page.Controls);
-            for (int i = 0; i < editedItems.Count; i++)
+            string searchquery = txtSearch.Text;
+            string querycat = ddlCategory.Text;
+            if (querycat == "All")
             {
-                ItemVM tempitem = editedItems[i];
-                editedItems[i] = new ItemVM();
-                editedItems[i].ItemCode = tempitem.ItemCode;
-                editedItems[i].Desc = tempitem.Desc;
+                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
+                editedItems = editedItems.Where(x => x.Desc.ToLower().Contains(searchquery)).ToList();
+            }
+            else
+            {
+                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
+                editedItems = editedItems.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(searchquery)).ToList();
             }
             BindGrid();
         }
@@ -228,10 +254,26 @@ namespace Group8_AD_webapp
             }
         }
 
+        protected void GenerateEditedList()
+        {
+            if (saveList())
+            {
+                submitItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
+                submitItems = submitItems.Where(
+                    x => x.SuppCode1 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode1
+                    || Math.Round(Convert.ToDouble(x.Price1), 2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price1), 2)
+                    || Math.Round(Convert.ToDouble(x.Price2), 2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price2), 2)
+                    || Math.Round(Convert.ToDouble(x.Price3), 2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price3), 2)
+                    || x.SuppCode2 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode2
+                    || x.SuppCode3 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode3
+                ).ToList();
+            }
+         }
+
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             
-            bool success = Controllers.ItemCtrl.UpdateItems(submitItems);
+            bool success = ItemBL.UpdateSuppliers(submitItems);
             if (success)
             {
                 Session["Message"] = "Items Updated Successfully";

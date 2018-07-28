@@ -1450,6 +1450,28 @@ namespace Group8AD_WebAPI.BusinessLogic
             }
         }
 
+        //Update Suppliers and Prices only
+        public static bool UpdateSuppliers(List<ItemVM> iList)
+        {
+            bool success = true;
+            foreach (ItemVM i in iList)
+            {
+                using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
+                {
+                    Item item = entities.Items.Where(x => x.ItemCode.Equals(i.ItemCode)).First();
+                    item.SuppCode1 = i.SuppCode1;
+                    item.SuppCode2 = i.SuppCode2;
+                    item.SuppCode3 = i.SuppCode3;
+                    item.Price1 = i.Price1;
+                    item.Price2 = i.Price2;
+                    item.Price3 = i.Price3;
+                    int n = entities.SaveChanges();
+                    if (n == 0) success = false; 
+                }
+            }
+            return success;
+        }
+
 
         //GetItems by  Threshold
         public static List<ItemVM> GetAllItemsbyThreshold()

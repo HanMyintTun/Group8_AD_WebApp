@@ -71,7 +71,7 @@
 
      <div class="row">
         <div class="col-xs-3 backarea">
-            <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back"  />
+            <a class="btn btn-back" href="~/Manager/StoreDashboard.aspx" runat="server">Dashboard</a>
         </div>
     <div class="col-xs-9  buttonarea">
         <asp:Button ID="btnSubmit" Cssclass="btn btn-success" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
@@ -121,6 +121,9 @@
                             <td><asp:Label ID="lblSupp3" runat="server" Text='<%# Eval("SuppCode3") %>' /></td>
                             <td><asp:Label ID="lblPrice3" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price3")) %>' /></td></tr>
                     </ItemTemplate>
+                    <EmptyDataTemplate>
+                        There are no items that match your search criteria!
+                    </EmptyDataTemplate>
                  </asp:ListView></div>
                 <asp:Label ID="lblEmptyChange" runat="server" Text="Label"></asp:Label>
 
@@ -155,7 +158,7 @@
 
               </div>
        </div></div></div></div>
-    </div>
+    </div></div>
 
    <script type="text/javascript">
         $(document).ready(openClearModal());
