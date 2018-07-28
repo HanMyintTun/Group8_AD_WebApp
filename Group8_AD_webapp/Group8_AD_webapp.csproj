@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -324,6 +327,9 @@
       <LastGenOutput>SA46Team08ADProjectContext.cs</LastGenOutput>
     </Content>
     <Content Include="DepartmentHead\Rejected-Requests.aspx" />
+    <Content Include="Report_Templates\DisbursementListByDept_Body.txt" />
+    <Content Include="Report_Templates\DisbursementListByDept_Footer.txt" />
+    <Content Include="Report_Templates\DisbursementListByDept_Header.txt" />
     <Content Include="sass\.sass-cache\deff34d1f5b7167181b556002c25068d6adc024d\styles.scssc" />
     <Content Include="sass\styles.scss" />
     <Content Include="Main.Master" />
@@ -391,6 +397,7 @@
     <Content Include="tables\data2.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\PdfBL.cs" />
     <Compile Include="DepartmentHead\Approved-Requests.aspx.cs">
       <DependentUpon>Approved-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -528,6 +535,8 @@
     <Compile Include="Manager\EditSupplierPrice.aspx.designer.cs">
       <DependentUpon>EditSupplierPrice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DisbursementDetailVM.cs" />
+    <Compile Include="Models\PdfVM.cs" />
     <Compile Include="Notifications.aspx.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -677,6 +686,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PDF\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
