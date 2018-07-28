@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ProductVolume.aspx.cs" Inherits="Group8_AD_webapp.ProductVolume" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
             <link href="../css/manager-style.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript" ></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -9,7 +10,7 @@
         <asp:UpdatePanel ID="udpProductVol" runat="server"><ContentTemplate>
         <div class="form-group form-inline formstyle2 text-center row">
         <div class="col-lg-3">
-        <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Request Quantity"></asp:Label></span>
+        <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Ranking"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
         <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
@@ -98,13 +99,15 @@
             if ($('#IsDesc').val() == "false") {
                 $('#<%= lstProductVolume.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstProductVolume.ClientID %>').find("tr:first"))).dataTable(
                     {
-                        "order": [[2, "asc"]]
+                        "order": [[2, "asc"]],
+                        responsive: true
                     });
             }
             else {
                $('#<%= lstProductVolume.ClientID %>').prepend($("<thead></thead>").append($('#<%= lstProductVolume.ClientID %>').find("tr:first"))).dataTable(
                     {
-                        "order": [[2, "desc"]]
+                        "order": [[2, "desc"]],
+                        responsive: true
                     });
             }
         }

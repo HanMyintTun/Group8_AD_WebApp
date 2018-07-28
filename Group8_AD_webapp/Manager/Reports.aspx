@@ -90,7 +90,7 @@
 
                                     <div style="padding-left: 15px;">
                                         <div class="form-group">
-                                            <asp:Label ID="lblDept" runat="server" class="" Text="Department"></asp:Label>
+                                            <asp:Label ID="lblDept" runat="server" class="" Text="Department 1"></asp:Label>
                                         </div>
                                     </div>
 
@@ -104,7 +104,7 @@
                                 <div style="clear: both; padding-top: 20px;">
                                     <div style="padding-left: 15px;">
                                         <div class="form-group">
-                                            <asp:Label ID="Label3" runat="server" class="" Text="Department"></asp:Label>
+                                            <asp:Label ID="Label3" runat="server" class="" Text="Department 2"></asp:Label>
                                         </div>
                                     </div>
 
@@ -124,7 +124,7 @@
 
                                     <div style="padding-left: 15px;">
                                         <div class="form-group">
-                                            <asp:Label ID="lblSupplier" runat="server" class="" Text="Supplier"></asp:Label>
+                                            <asp:Label ID="lblSupplier" runat="server" class="" Text="Supplier 1"></asp:Label>
                                         </div>
                                     </div>
 
@@ -138,7 +138,7 @@
                                 <div style="clear: both; padding-top: 20px;">
                                     <div style="padding-left: 15px;">
                                         <div class="form-group">
-                                            <asp:Label ID="Label4" runat="server" class="" Text="Supplier"></asp:Label>
+                                            <asp:Label ID="Label4" runat="server" class="" Text="Supplier 2"></asp:Label>
                                         </div>
                                     </div>
 

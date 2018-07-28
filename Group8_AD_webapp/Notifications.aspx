@@ -10,7 +10,7 @@
         <div class="subtitletext">Notifications</div>
         <asp:GridView ID="lstFullNof" CssClass="display" runat="server" AutoGenerateColumns="False">
            <Columns>
-               <asp:TemplateField Visible="True"><ItemTemplate><asp:Label ID="lblNofId" runat="server" Text='<%#Eval("NotificationId")%>'/></ItemTemplate></asp:TemplateField>
+               <asp:TemplateField Visible="False"><ItemTemplate><asp:Label ID="lblNofId" runat="server" Text='<%#Eval("NotificationId")%>'/></ItemTemplate></asp:TemplateField>
                <asp:TemplateField><HeaderTemplate>Notification Date</HeaderTemplate><ItemTemplate><asp:Label runat="server" Text='<%# ((DateTime)Eval("NotificationDateTime")).ToString("yyyy-MM-dd") %>'/></ItemTemplate></asp:TemplateField>
                        <asp:BoundField DataField="FromEmpName" HeaderText="From" SortExpression="FromEmpName" />
                        <asp:BoundField DataField="Type" HeaderText="Notification" SortExpression="Type" />

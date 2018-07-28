@@ -72,7 +72,7 @@
             <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back" OnClick ="btnReqList_Click" />
         </div>
         <div class="col-xs-9  buttonarea">
-            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="btnCancel_Click" runat="server" Text="Cancel Request" />
+            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="btnCancel_Click" runat="server" Text="Cancel" />
             <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="btnSubmit_Click" runat="server" Text="Submit" />
             <!-- <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" /> -->
         </div></div>

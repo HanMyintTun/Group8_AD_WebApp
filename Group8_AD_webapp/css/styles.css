@@ -1558,7 +1558,7 @@ p.back-link {
     height: 800px;
 }
 .pagination li {
-    padding:0px;
+    padding:0px !important;
 }
 input[type="radio"] {
     margin: 4px 4px 0;

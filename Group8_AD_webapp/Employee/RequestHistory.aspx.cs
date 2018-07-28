@@ -18,7 +18,15 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Employee");
             int empId = Convert.ToInt32(Session["empId"]);
+
+            if (Session["Message"] == null)
+            {
+                lblMessage.Text = "";
+                divAlert.Visible = false;
+            }
+
             if (!IsPostBack)
             {
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
@@ -33,12 +41,14 @@ namespace Group8_AD_webapp
                 if(Session["Message"] != null){
                     lblMessage.Text = Session["Message"].ToString();
                     Session["Message"] = null;
+                    divAlert.Visible = true;
                 }
                 else
                 {
                     divAlert.Visible = false;
                 }
             }
+
         }
 
         protected void BindGrid()

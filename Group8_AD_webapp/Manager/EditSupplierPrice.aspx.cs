@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
+using Newtonsoft.Json;
 
 namespace Group8_AD_webapp
 {
@@ -15,6 +16,7 @@ namespace Group8_AD_webapp
     {
         static List<ItemVM> items = new List<ItemVM>();
         static List<ItemVM> editedItems = new List<ItemVM>();
+        static List<ItemVM> submitItems = new List<ItemVM>();
         static List<String> suppliers;
         static bool isClear = false;
 
@@ -22,12 +24,15 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
+                Service.UtilityService.CheckRoles("Store");
+
                 suppliers = Controllers.SupplierCtrl.getSupplierCodes();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
                 items = Controllers.ItemCtrl.GetAllItems();
-                editedItems = items.ToList();
+                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
+
                 BindGrid();
             }
         }
@@ -89,80 +94,44 @@ namespace Group8_AD_webapp
 
         protected void grdSupplier_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            saveList();
-            grdSupplier.PageIndex = e.NewPageIndex;
-            BindGrid();
+            if (saveList())
+            {
+                grdSupplier.PageIndex = e.NewPageIndex;
+                BindGrid();
+            }
         }
 
-        protected void saveList()
+        protected bool saveList()
         {
+            Main master = (Main)this.Master;
             lblPageCount.Text = "";
             foreach (GridViewRow row in grdSupplier.Rows)
             {
                 int pagestart = grdSupplier.PageIndex * grdSupplier.PageSize;
                 int i = pagestart + row.RowIndex;
-                if (editedItems[i].ItemCode == ((Label)row.FindControl("lblItemCode")).Text)
+
+                if(!(((TextBox)row.FindControl("txtPrice1")).Text).Any(x => !char.IsLetter(x)))
                 {
-                    editedItems[i].SuppCode1 = ((DropDownList)row.FindControl("ddlSupplier1")).Text;
-                    editedItems[i].SuppCode2 = ((DropDownList)row.FindControl("ddlSupplier2")).Text;
-                    editedItems[i].SuppCode3 = ((DropDownList)row.FindControl("ddlSupplier3")).Text;
-                    editedItems[i].Price1 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice1")).Text);
-                    editedItems[i].Price2 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice2")).Text);
-                    editedItems[i].Price3 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice3")).Text);
+                    master.ShowToastr(this, "Please enter a number", 
+                        "Price for "+ ((Label)row.FindControl("lblDescription")).Text+" is blank or contains a letter", "error");
+                    return false;
+                }
+                else
+                {
+                    if (editedItems[i].ItemCode == ((Label)row.FindControl("lblItemCode")).Text)
+                    {
+                        editedItems[i].SuppCode1 = ((DropDownList)row.FindControl("ddlSupplier1")).Text;
+                        editedItems[i].SuppCode2 = ((DropDownList)row.FindControl("ddlSupplier2")).Text;
+                        editedItems[i].SuppCode3 = ((DropDownList)row.FindControl("ddlSupplier3")).Text;
+                        editedItems[i].Price1 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice1")).Text);
+                        editedItems[i].Price2 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice2")).Text);
+                        editedItems[i].Price3 = Convert.ToDouble(((TextBox)row.FindControl("txtPrice3")).Text);
+                    }
                 }
             }
+
+            return true;
         }
-
-        //protected void grdSupplier_Sorting(object sender, GridViewSortEventArgs e)
-        //{
-        //    string Sortdir = GetSortDirection(e.SortExpression);
-        //    string SortExp = e.SortExpression;
-        //    var list = items;
-        //    if (Sortdir == "ASC")
-        //    {
-        //        list = Sort<ItemVM>(list, SortExp, SortDirection.Ascending);
-        //    }
-        //    else
-        //    {
-        //        list = Sort<ItemVM>(list, SortExp, SortDirection.Descending);
-        //    }
-        //    this.grdSupplier.DataSource = list;
-        //    this.grdSupplier.DataBind();
-        //}
-
-        //private string GetSortDirection(string column)
-        //{
-        //    string sortDirection = "ASC";
-        //    string sortExpression = ViewState["SortExpression"] as string;
-        //    if (sortExpression != null)
-        //    {
-        //        if (sortExpression == column)
-        //        {
-        //            string lastDirection = ViewState["SortDirection"] as string;
-        //            if ((lastDirection != null) && (lastDirection == "ASC"))
-        //            {
-        //                sortDirection = "DESC";
-        //            }
-        //        }
-        //    }
-        //    ViewState["SortDirection"] = sortDirection;
-        //    ViewState["SortExpression"] = column;
-        //    return sortDirection;
-        //}
-
-        //public List<Item> Sort<TKey>(List<Item> list, string sortBy, SortDirection direction)
-        //{
-        //    PropertyInfo property = list.GetType().GetGenericArguments()[0].GetProperty(sortBy);
-        //    if (direction == SortDirection.Ascending)
-        //    {
-        //        return list.OrderBy(e => property.GetValue(e, null)).ToList<Item>();
-        //    }
-        //    else
-        //    {
-        //        return list.OrderByDescending(e => property.GetValue(e, null)).ToList<Item>();
-        //    }
-        //}
-
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -231,17 +200,38 @@ namespace Group8_AD_webapp
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            saveList();
-            editedItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
-            lstConfirm.DataSource = editedItems;
+            if (saveList()) { 
+            submitItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
+            submitItems = submitItems.Where(
+                x => x.SuppCode1 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode1
+                || Math.Round(Convert.ToDouble(x.Price1),2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price1),2)
+                || Math.Round(Convert.ToDouble(x.Price2),2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price2),2)
+                || Math.Round(Convert.ToDouble(x.Price3),2) != Math.Round(Convert.ToDouble(items.Where(y => y.ItemCode == x.ItemCode).First().Price3),2)
+                || x.SuppCode2 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode2
+                || x.SuppCode3 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode3
+            ).ToList();
+            lstConfirm.DataSource = submitItems;
             lstConfirm.DataBind();
+            if(submitItems.Count == 0)
+            {
+                lblEmptyChange.Text = "You have not made any changes!";
+                btnConfirm.Visible = false;
+                submitDetail.Visible = false;
+            }
+            else
+            {
+                    lblEmptyChange.Text = "";
+                    btnConfirm.Visible = true;
+                submitDetail.Visible = true;
+            }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             
-            bool success = Controllers.ItemCtrl.UpdateItems(editedItems);
+            bool success = Controllers.ItemCtrl.UpdateItems(submitItems);
             if (success)
             {
                 Session["Message"] = "Items Updated Successfully";

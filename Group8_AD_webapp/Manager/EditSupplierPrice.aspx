@@ -7,17 +7,19 @@
     <div id="main">
             <asp:UpdatePanel ID="udpSupplier" runat="server"><ContentTemplate>
     <div class="form-group form-inline formstyle m-2 text-center col-12">
+        <div class="row">
+        <div class="col-md-3"><span class="subtitletext">Update Suppliers </span></div>
+        <div class="col-md-8">
         <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
         <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
-    </div>
+     </div></div></div>
 
         <div id="centermain">
 
-                        
-          <div class="subtitletext">Edit Supplier/Price</div>
+                <div class="mobilespacer"></div>        
                 <asp:Button ID="btnClear" CssClass="btn btn-warning pad-left10" style="color:#000; font-weight:700;" runat="server" Text="Clear Suppliers/Prices" OnClick="btnClear_Click" />
           <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
     <asp:GridView ID="grdSupplier" runat="server" CssClass="table" PagerStyle-CssClass="pager" OnRowDataBound="GridView_RowDataBound"
@@ -41,7 +43,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price1 (SGD)" SortExpression="Price1">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice1" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price1")) %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice1" ClientIDMode="Static" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price1")) %>' Width="60px" TextMode="Number" min="0" step="0.01"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Supplier2" SortExpression="Supplier2">
@@ -72,7 +74,6 @@
             <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back"  />
         </div>
     <div class="col-xs-9  buttonarea">
-        <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" runat="server" Text="Cancel Request" />
         <asp:Button ID="btnSubmit" Cssclass="btn btn-success" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
     </div></div>
     </div>
@@ -93,7 +94,7 @@
                 <asp:AsyncPostBackTrigger ControlID="btnSubmit" />
             </Triggers>
             <ContentTemplate>
-                <div class="detail-item detail-item4"><asp:ListView runat="server" ID="lstConfirm">
+                <div id="submitDetail" runat="server" class="detail-item detail-item4"><asp:ListView runat="server" ID="lstConfirm">
                     <LayoutTemplate>
                         <table runat="server" class="table table-detail">
                         <thead><tr id="grdHeader" runat="server">
@@ -114,21 +115,23 @@
                             <td><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>' /></td>
                             <td><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Desc") %>' /></td>
                             <td><asp:Label ID="lblSupp1" runat="server" Text='<%# Eval("SuppCode1") %>' /></td>
-                            <td><asp:Label ID="lblPrice1" runat="server" Text='<%# Eval("Price1") %>' /></td>
+                            <td><asp:Label ID="lblPrice1" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price1")) %>' /></td>
                             <td><asp:Label ID="lblSupp2" runat="server" Text='<%# Eval("SuppCode2") %>' /></td>
-                            <td><asp:Label ID="lblPrice2" runat="server" Text='<%# Eval("Price2") %>' /></td>
+                            <td><asp:Label ID="lblPrice2" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price2")) %>' /></td>
                             <td><asp:Label ID="lblSupp3" runat="server" Text='<%# Eval("SuppCode3") %>' /></td>
-                            <td><asp:Label ID="lblPrice3" runat="server" Text='<%# Eval("Price3") %>' /></td></tr>
+                            <td><asp:Label ID="lblPrice3" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price3")) %>' /></td></tr>
                     </ItemTemplate>
                  </asp:ListView></div>
-              </ContentTemplate>
-              </asp:UpdatePanel>
+                <asp:Label ID="lblEmptyChange" runat="server" Text="Label"></asp:Label>
+
                 
                 <div class="action-btn action-btn2">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
                   </div>
               </div>
+                </ContentTemplate>
+              </asp:UpdatePanel>
        </div></div></div>
     </div>
 
@@ -151,17 +154,18 @@
                 </div>
 
               </div>
-       </div></div></div>
+       </div></div></div></div>
     </div>
 
-         <script type="text/javascript">
-             $(document).ready(openClearModal());
+   <script type="text/javascript">
+        $(document).ready(openClearModal());
         function openClearModal() {
             $('#mdlClear').modal('show');
              }
          function openModal() {
             $('#mdlConfirm').modal('show');
-         }
+       }
 
+       Sys.WebForms.PageRequestManager.getInstance().add_endRequest(openClearModal);
     </script>
 </asp:Content>

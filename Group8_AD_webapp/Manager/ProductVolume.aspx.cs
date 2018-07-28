@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,6 +24,8 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
+                Service.UtilityService.CheckRoles("Store");
+
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 

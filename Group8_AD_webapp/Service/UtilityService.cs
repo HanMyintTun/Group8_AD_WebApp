@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using Group8_AD_webapp.Models;
 using Group8AD_WebAPI.BusinessLogic;
+using System.Security.Principal;
 
 namespace Group8_AD_webapp.Service
 {
@@ -68,11 +69,8 @@ namespace Group8_AD_webapp.Service
             }
         }
 
-        public static bool Authenticate(int empId, string password)
+        public static bool Authenticate(int empId)
         {
-            // CALL Authentication here
-
-
             EmployeeVM emp = EmployeeBL.GetEmp(empId);
             if(emp == null)
             {
@@ -107,5 +105,54 @@ namespace Group8_AD_webapp.Service
             }
             
         }
+
+        public static void CheckRoles(string role)
+        {
+            if(HttpContext.Current.Session["empId"] == null && HttpContext.Current.Session["role"] == null && HttpContext.Current.Session["empName"] == null)
+            {
+                HttpContext.Current.Response.Redirect("~/Login.aspx?error=notvalid");
+            }
+            else
+            {
+                string r = (string)HttpContext.Current.Session["role"];
+                
+                switch (role)
+                {
+                    case "Store":
+                        {
+                            if (r != "Store Clerk" && r != "Store Supervisor" && r != "Store Manager")
+                            {
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?error=noaccess");
+                            }
+                            break;
+                        }
+                    case "Manager":
+                        {
+                            if (r != "Store Supervisor" && r != "Store Manager")
+                            {
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?error=noaccess");
+                            }
+                            break;
+                        }
+                    case "Employee":
+                        {
+                            if (r != "Employee" && r != "Representative")
+                            {
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?"+r);
+                            }
+                            break;
+                        }
+                    case "DeptHead":
+                        {
+                            if (r != "Department Head" && r != "Delegate")
+                            {
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?error=noaccess");
+                            }
+                            break;
+                        }
+                    default: HttpContext.Current.Response.Redirect("~/Login.aspx"); break;
+                }
+            }
+        } 
     }
 }

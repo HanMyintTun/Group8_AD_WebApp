@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
 using System.Web.UI.HtmlControls;
 using Group8AD_WebAPI.BusinessLogic;
+using System.Web.Security;
 
 namespace Group8_AD_webapp
 {
@@ -158,8 +159,7 @@ namespace Group8_AD_webapp
 
         protected void lstNotif_PagePropertiesChanged(object sender, EventArgs e)
         {
-            lstNotifications.DataSource = notifList;
-            lstNotifications.DataBind();
+            FillNotifications();
         }
 
         protected void btnRemove_Click(object sender, EventArgs e)
@@ -170,7 +170,8 @@ namespace Group8_AD_webapp
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("~/Home.aspx");
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Login.aspx");
         }
 
         protected void btnCart_Click(object sender, EventArgs e)
@@ -200,18 +201,18 @@ namespace Group8_AD_webapp
             var lbl = (LinkButton)sender;
             var item = (ListViewItem)lbl.NamingContainer;
             int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
-            NotificationBL.MarkOneAsRead(id);
-
+            NotificationBL.ToggleReadNotification(id);
+            FillNotifications();
             switch (Session["role"])
             {
-                case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;   
-                case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;          
+                case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
+                case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
                 case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
                 case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
                 case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
                 case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
                 case "Store Clerk": break;
-                default:  break;
+                default: break;
             }
 
         }
