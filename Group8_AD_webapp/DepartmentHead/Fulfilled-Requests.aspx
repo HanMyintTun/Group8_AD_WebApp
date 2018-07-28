@@ -26,7 +26,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Request ID</th>
+                                                <th style="display:none;" scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
                                                 <th scope="col">Fulfilled Date</th>
@@ -40,7 +40,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td>
+                                        <td style="display:none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -104,7 +104,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr style="display:none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -170,8 +170,8 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
-                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
+                                            <span class="noresult">Sorry! There are no items in your list.s
+                                               
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>

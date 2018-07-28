@@ -105,8 +105,8 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
+                                                    <tr style="display:none;"> 
+                                                        <td >
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
                                                             <asp:Label ID="lblReqid" runat="server"></asp:Label></td>
