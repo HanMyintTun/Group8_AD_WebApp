@@ -1493,6 +1493,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                     item.ReccReorderLvl = item.ReccReorderQty * 2;
                     item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                     item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                    item.NewReorderLvl = item.ReorderLevel;
+                    item.NewReorderQty = item.ReorderQty;
                 }
                 double threshold = 0.3;
                 itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1520,6 +1522,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
 
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1535,6 +1539,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
 
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1550,6 +1556,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
 
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1565,6 +1573,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
 
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1581,6 +1591,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
                     threshold = 0.3;
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1596,6 +1608,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
                     threshold = 0.3;
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1611,6 +1625,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
                     threshold = 0.3;
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1626,6 +1642,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
                     threshold = 0.3;
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
@@ -1641,6 +1659,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                         item.ReccReorderLvl = item.ReccReorderQty * 2;
                         item.lvlDiff = (item.ReccReorderLvl - item.ReccReorderQty) / item.ReccReorderQty;
                         item.qtyDiff = (item.ReccReorderQty - item.ReorderQty) / item.ReorderQty;
+                        item.NewReorderLvl = item.ReorderLevel;
+                        item.NewReorderQty = item.ReorderQty;
                     }
                     threshold = 0.3;
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
