@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Group8_AD_webapp.Models;
-
+using Group8AD_WebAPI.BusinessLogic;
 namespace Group8_AD_webapp
 {
     public static class BusinessLogic
     {
-        
-        static string access_token;
 
         public static List<RequestDetailVM> AddItemDescToReqDet(List<RequestDetailVM> list)
         {
-            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
+            List<ItemVM> items = ItemBL.GetAllItems();
             foreach(RequestDetailVM req in list)
             {
                 req.Desc = (items.Where(x => x.ItemCode == req.ItemCode).FirstOrDefault()).Desc;
@@ -23,15 +21,15 @@ namespace Group8_AD_webapp
         }
        
         //request list for departmenthead 
-        public static List<EmpReqVM> GetEmpReqList(int empId, string status, string access_token)
+        public static List<EmpReqVM> GetEmpReqList(int empId, string status)
         {
-            List<RequestVM> requests = Controllers.RequestCtrl.GetReq(empId, status, access_token);
+            List<RequestVM> requests = RequestBL.GetReq(empId, status);
 
             List<EmpReqVM> requestlists = new List<EmpReqVM>();
 
             foreach (RequestVM req in requests)
             {
-              EmployeeVM  emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
+              EmployeeVM  emp = EmployeeBL.GetEmp(req.EmpId);
 
                 EmpReqVM empReq = new EmpReqVM();
                 empReq.ReqId = req.ReqId;
@@ -50,7 +48,7 @@ namespace Group8_AD_webapp
         public static List<RequestDetailVM> GetItemDetailList(int rid)
         {
             List<RequestDetailVM> showList = new List<RequestDetailVM>();
-            List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(rid, access_token);
+            List<RequestDetailVM> reqDetails = RequestDetailBL.GetReqDetList(rid);
             reqDetails = AddItemDescToReqDet(reqDetails);
             showList = reqDetails;
             return showList;
@@ -59,7 +57,7 @@ namespace Group8_AD_webapp
 
         public static List<AdjustmentVM> AddItemDescToAdj(List<AdjustmentVM> list)
         {
-            List<ItemVM> items = Controllers.ItemCtrl.GetAllItems();
+            List<ItemVM> items = ItemBL.GetAllItems();
             foreach (AdjustmentVM adj in list)
             {
                 adj.Desc = (items.Where(x => x.ItemCode == adj.ItemCode).FirstOrDefault()).Desc;
@@ -72,7 +70,7 @@ namespace Group8_AD_webapp
         public static List<AdjustmentVM> GetItemAdjustList(string voucherno)
         {
             List<AdjustmentVM> showlist = new List<AdjustmentVM>();
-            List<AdjustmentVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
 
             adj = AddItemDescToAdj(adj);
 

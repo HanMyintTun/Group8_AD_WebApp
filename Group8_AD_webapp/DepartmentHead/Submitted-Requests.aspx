@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Submitted-Requests.aspx.cs" Inherits="Group8_AD_webapp.Submitted_Requests" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <div class="row">
             <ol class="breadcrumb">
@@ -16,19 +17,16 @@
                 <h3 class="page-header">Submitted Requests</h3>
             </div>
             <div class="col-lg-12">
-
-
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstOrder" OnItemCommand="lstOrder_ItemCommand">
                                 <LayoutTemplate>
-                                    <table runat="server" class="table">
+                                    <table id="s-table" class="table">
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Request ID</th>
+                                                <th scope="col" style="display: none;">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Submitted Date</th>
                                                 <th scope="col"></th>
@@ -44,7 +42,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td>
+                                        <td style="display: none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -58,6 +56,9 @@
                                     </tr>
 
                                 </ItemTemplate>
+                                <EmptyDataTemplate>
+                                    There is nothing in the list 
+                                </EmptyDataTemplate>
                             </asp:ListView>
 
                         </div>
@@ -68,20 +69,22 @@
         </div>
     </div>
     <%-- modal content--%>
+
     <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
-                        </button>
-                        <h3 class="detail-subtitle">Submitted Request Details</h3>
-                    </div>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" id="btn_modal" runat="server" class="close" onserverclick="btn_modal_Click" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
+                                </button>
+                                <h3 class="detail-subtitle">Submitted Request Details</h3>
+                            </div>
 
-                    <div class="panel-body">
-                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                            <ContentTemplate>
+                            <div class="panel-body">
+
                                 <div class="detail-info">
 
                                     <div class="detail-info-left">
@@ -105,7 +108,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr style="display: none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -156,8 +159,7 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
-                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
+                                            <span class="noresult">Sorry! There are no items in your list.
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>
@@ -175,16 +177,70 @@
                                         <asp:Button ID="btnReject" class="btn btn-danger btn-msize" OnClick="btnReject_Click" runat="server" Text="Reject" />
                                         <asp:Button ID="btnAccept" class="btn btn-success btn-msize" OnClick="btnAccept_Click" runat="server" Text="Accept" />
                                     </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
 
-                    </div>
-                </div>
 
+                                </div>
+                            </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </div>
 
+    <%--   <asp:UpdatePanel runat="server"><ContentTemplate>--%>
+    <div id="mdlreject" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg confirm-modal">
+
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" id="btnClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+                        <h3 class="detail-subtitle">Request Rejection</h3>
+                    </div>
+                    <div class="panel-body">
+                        You are about to reject the request for <span style="font-weight: bold;">
+                            <asp:Label runat="server" ID="lblEmployeename"></asp:Label></span>. Are you sure?<br />
+                        <div class="action-btn" style="text-align: center; float: none;">
+                            <asp:Button ID="btnRemovDelNo" class="btn btn-danger btn-msize" OnClick="btnRejectNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="btnRemovDelYes" class="btn btn-success btn-msize" OnClick="btnRejectYes_Click" runat="server" Text="Yes" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="mdlaccept" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg confirm-modal">
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+                        <h3 class="detail-subtitle">Request Approval!</h3>
+                    </div>
+                    <div class="panel-body">
+                       
+                       <asp:UpdatePanel runat="server">
+                           <ContentTemplate>
+                               You are about to approve the request for <span style="font-weight: bold;"><asp:Label runat="server" ID="lblReqEmployeename"></asp:Label></span>. Are you sure?
+
+                           </ContentTemplate>
+                       </asp:UpdatePanel>
+                        <div class="action-btn" style="text-align: center; float: none;">
+                            <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnAcceptNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnAcceptYes_Click" runat="server" Text="Yes" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--</ContentTemplate></asp:UpdatePanel>--%>
     <script type="text/javascript">
         function rejectwarning() {
             swal({
@@ -228,5 +284,8 @@
 
     </script>
 
-
+    <script>$(document).ready(function () {
+            $('#s-table').DataTable();
+        });
+    </script>
 </asp:Content>

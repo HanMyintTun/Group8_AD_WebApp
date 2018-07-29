@@ -33,6 +33,13 @@ body {
     width: 100%;
     background-color: var(--color-background);
 }
+h3 {
+    font-family: var(--font-headline);
+    font-weight: 700 !important;
+    font-size: 2.4rem;
+   
+    padding-bottom: 20px;
+}
 
 .btn-danger {
     background-color: var(--color-btn-danger) !important;
@@ -1028,7 +1035,9 @@ a.label:hover, a.label:focus {
         padding: 10px 0 0 0;
         margin: 10px 10px 20px 10px;
     }
-
+.paginate_button {
+    padding: 0px !important;
+}
 @media (min-width: 768px) {
 
     .sidebar {
@@ -1558,7 +1567,7 @@ p.back-link {
     height: 800px;
 }
 .pagination li {
-    padding:0px;
+    padding:0px !important;
 }
 input[type="radio"] {
     margin: 4px 4px 0;
@@ -1566,6 +1575,10 @@ input[type="radio"] {
 .confirm-modal {
     width: 500px;
     top: 180px;
+}
+#toast-container > .toast-success {
+    background-color: var(--color-text) !important;
+    border-radius: 30px !important;
 }
     @media (max-width: 768px) {
 

@@ -12,8 +12,11 @@
     <link href="./css/datepicker3.css" rel="stylesheet">
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/add-style.css" rel="stylesheet" />
-    <%--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">--%>
-    <link rel="stylesheet" type="text/css" href="<%=ResolveClientUrl("~/css/datatables.min.css")%>">
+    <%--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
+    <script src="<%=ResolveClientUrl("~/js/jquery-3.3.1.min.js")%>"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <%--<link rel="stylesheet" type="text/css" href="<%=ResolveClientUrl("~/css/datatables.min.css")%>">--%>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript" ></script>
     <%--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />--%>
     <link rel="stylesheet" type="text/css" href="<%=ResolveClientUrl("~/css/toastr.min.css")%>">
 
@@ -25,8 +28,7 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
-    <%--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
-    <script src="<%=ResolveClientUrl("~/js/jquery-3.3.1.min.js")%>"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js" type="text/javascript"></script>
@@ -52,11 +54,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn desktop">
+<%--                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn desktop">
                         <i class="glyphicon glyphicon-align-left"></i>
-                    </button>
-                    <a class="navbar-brand desktop" runat="server" href="#"><span>Logic</span>University</a>
-                    <a class="navbar-brand mobile" runat="server" href="#"><span>L</span>U</a>
+                    </button>--%>
+                    <a class="navbar-brand desktop" runat="server" href="~/Login.aspx"><span>Logic</span>University</a>
+                    <a class="navbar-brand mobile" runat="server" href="~/Login.aspx"><span>L</span>U</a>
 
                     <ul class="nav navbar-top-links navbar-right">
                         <asp:UpdatePanel ID="udpMainCart" runat="server">
@@ -107,7 +109,7 @@
                                     </div>
                                 </asp:LinkButton></li></ItemTemplate><EmptyDataTemplate>
                                    <li><span class="noresult">You have no notifications!</span></li></EmptyDataTemplate></asp:ListView><li style="text-align:right;">
-                                    <asp:LinkButton ID="btnViewNotif" runat="server" OnClick="btnViewNotif_Click"><em class="fa fa-bell"></em> SEE ALL</asp:LinkButton></li></ul>
+                               <%--<asp:LinkButton ID="btnViewNotif" runat="server" OnClick="btnViewNotif_Click"><em class="fa fa-bell"></em> SEE ALL</asp:LinkButton>--%></li></ul>
 
                             
                         </li>
@@ -122,8 +124,7 @@
                             <ul class="dropdown-menu dropdown-alerts" style="width: 50%;">
                                 <li><asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" class="dropdown-item">
                                     <i class="fa fa-lock"></i>&nbsp;Logout</asp:LinkButton></li></ul></li></ContentTemplate></asp:UpdatePanel></ul></div></div><!-- /.container-fluid --></nav><!--/.sidebar--><div id="side" runat="server">
-        <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-
+        <div id="sidebar-collapse" class="col-sm-3 col-md-2 sidebar">
 
                     <nav id="sidebar">
                         <ul id="navs" class="nav menu">
@@ -138,7 +139,7 @@
                             <li id="menuCatalogueDash" runat="server"><a runat="server" href="~/Employee/CatalogueDash.aspx"><span class="fa fa-pencil">&nbsp;</span>Catalogue</a></li>
                             <li id="menuEmployeeRequest" runat="server"><a runat="server" href="~/Employee/RequestHistory.aspx"><em class="fa fa-file-text-o">&nbsp;</em> Request History</a></li>
                             <li id="menuManagerDash" runat="server"><a runat="server" href="~/Manager/StoreDashboard.aspx"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-                            <li id="menuProductVol" runat="server"><a runat="server" href="~/Manager/ProductVolume.aspx"><em class="fa fa-list-ol">&nbsp;</em> Product Volume</a></li>
+                            <li id="menuProductVol" runat="server"><a runat="server" href="~/Manager/ProductVolume.aspx"><em class="fa fa-list-ol">&nbsp;</em> Product Ranking</a></li>
                             <li id="menuAdjustment" runat="server"><a runat="server" href="~/Manager/AdjRequestHistory.aspx"><em class="fa fa-tasks">&nbsp;</em> Adjustment Requests</a></li>
                             <li id="menuRestock" runat="server"><a runat="server" href="~/Manager/RestockLevel.aspx"><em class="fa fa-edit">&nbsp;</em> Change Restock</a></li>
                             <li id="menuSuppliers" runat="server"><a runat="server" href="~/Manager/EditSupplierPrice.aspx"><em class="fa fa-address-card-o">&nbsp;</em> Update Suppliers</a></li>

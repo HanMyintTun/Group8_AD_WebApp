@@ -14,7 +14,8 @@
                 <asp:AsyncPostBackTrigger ControlID="txtMonthPick" />
             </Triggers>
             <ContentTemplate>
-                 <div class="form-group form-inline formstyle2 text-center">
+                 <div class="form-group form-inline formstyle text-center">
+                     <div class="row">
                 <div class="col-md-2 text-left">
                     <span class="subtitletext">Dashboard</span>
              </div>
@@ -24,14 +25,14 @@
                     <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" placeholder="Month - Year" autocomplete="off" runat="server" CssClass="form-control controlheight" AutoPostBack="true" OnTextChanged="txtMonthPick_TextChanged"></asp:TextBox>
                     <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span></div> </div>
                     </div>
-                <div class="col-xs-12 col-md-3">
+                <div class="col-xs-12 col-md-4">
                        <span class="smalltext ml-10"><asp:Label ID="lblDateRange" runat="server" Text="Label"></asp:Label></span>
                 </div>
-             
+             </div>
         </div>
 
                 <div class="phtrend">
-            <canvas id="myChart" width="800" height="450"> </canvas>
+            <canvas id="myChart" class="chart" width="800" height="450"> </canvas>
         </div>
                 
         
@@ -133,8 +134,10 @@
                             borderWidth: 1
                         }]
                     },
+                    responsive: true,
                     options:
                         {
+                            
                             maintainAspectRatio: false,
                             scales:
                                 {

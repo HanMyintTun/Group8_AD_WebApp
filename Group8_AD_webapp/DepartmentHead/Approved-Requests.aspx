@@ -104,7 +104,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr style="display:none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -161,8 +161,7 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
-                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
+                                            <span class="noresult">Sorry! There are no items in your list.
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>

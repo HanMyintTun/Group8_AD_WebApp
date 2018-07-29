@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+        <div id="main"> <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
          <div class="form-group form-inline formstyle2 text-center">
         <div class="col-lg-3">
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Request History"></asp:Label></span>
@@ -15,7 +15,7 @@
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
          </div>
-        <div class="col-xs-12 col-lg-3">
+        <div class="col-xs-12 col-lg-2">
             <div class="form-group">
                 <div class="input-group">
                     <asp:TextBox ID="txtStartDate" ClientIDMode="Static" autocomplete="off" placeholder="from: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
@@ -23,7 +23,7 @@
                 </div> 
             </div> 
         </div>
-        <div class="col-xs-12 col-lg-4">
+        <div class="col-xs-12 col-lg-3">
             <div class="form-group"> 
                 <div class="input-group">
                     <asp:TextBox ID="txtEndDate" ClientIDMode="Static" autocomplete="off" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
@@ -36,17 +36,18 @@
         </div>
 
 
-    <div id="main"> <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
+
         
         <div id="centermain2">
             <div class="row">
             <div class="col-xs-12">
-                <div ID="divAlert" class="alert alert-success alert-dismissible" role="alert" runat="server">
+
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+               <div ID="divAlert" class="alert alert-success alert-dismissible" role="alert" runat="server">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <strong><asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label></strong>
                 </div>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
                         <asp:ListView runat="server" ID="lstRequests">
                             <LayoutTemplate>
                                 <table runat="server" class="table">

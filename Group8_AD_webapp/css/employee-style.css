@@ -16,6 +16,12 @@
 }
 @media only screen and (min-width : 768px) {
     #main {
+        padding-left: 250px;
+    }
+}
+
+@media only screen and (min-width : 1200px) {
+    #main {
         padding-left: 19vw;
     }
 }
@@ -311,12 +317,6 @@
         margin-left: 15px;
     }
 
-    .list-table {
-    }
-
-    body {
-    }
-
     .product-wrapper2 {
         min-width: 180px;
         background-color: #fff;
@@ -360,17 +360,17 @@
     }
 
 
-    .formstyle, .formstyle2 {
-        text-align: left;
-        padding-left: 320px;
-        position: fixed;
-        top: 60px;
-        padding-top: 8px;
-        width: 100%;
-        height: 60px;
-        z-index: 99;
-        background-color: #fff;
-    }
+.formstyle, .formstyle2 {
+    text-align: left;
+    /*padding-left: 320px;*/
+    position: fixed;
+    top: 60px;
+    padding-top: 8px;
+    width: 100%;
+    height: 60px;
+    z-index: 99;
+    background-color: #fff;
+}
 
 
 
@@ -597,11 +597,12 @@
 }
 
 .btnClean{
-    position: absolute;
+    position: fixed;
     right: 10px;
     margin-top: 10px;
     font-weight: 900;
     font-size: 2rem;
+    z-index: 300;
 }
 
 
@@ -663,9 +664,17 @@
     }
     .sidepanelarea{
         display: none;
+        position:fixed;
+        right: -300px;
     }
     .btnClean{
         display:none;
+    }
+    .formstyle {
+        height: 100px;
+    }
+    .formstyle2 {
+        height: 160px;
     }
 }
 
@@ -695,17 +704,17 @@
         padding-left: 15px;
     }
 
-    .formstyle, .formstyle2 {
-        padding-left: 20px;
-    }
+.formstyle, .formstyle2 {
+    padding-left: 20px;
+}
 
-    .formstyle {
-        height: 160px;
-    }
+.formstyle {
+    height: 160px;
+}
 
-    .formstyle2{
-        height: 230px;
-    }
+.formstyle2{
+    height: 230px;
+}
 
     .headtext, .row, .dpager {
         padding-left: 30px;
@@ -716,5 +725,7 @@
         margin-left: 50px;
     }
 
-
+    .mobilespacer{
+        height: 100px;
+    }
 }
