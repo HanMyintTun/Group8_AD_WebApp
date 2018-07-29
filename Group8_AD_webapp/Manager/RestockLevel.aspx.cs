@@ -32,9 +32,9 @@ namespace Group8_AD_webapp.Manager
             }
         }
 
-        public List<ItemVM> CopyReLevel(List<ItemVM> list)
+        public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
         {
-            items = ItemBL.GetAllItems();
+            items = ItemBL.GetAllItemsbyThreshold();
             foreach (ItemVM item in list)
             {
                 item.NewReorderLvl = item.ReorderLevel;
@@ -47,7 +47,7 @@ namespace Group8_AD_webapp.Manager
         {
 
             // items = ItemBL.GetAllItems();
-            editedItems = CopyReLevel(items);
+            editedItems = GetAllIteminfo(items);
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
