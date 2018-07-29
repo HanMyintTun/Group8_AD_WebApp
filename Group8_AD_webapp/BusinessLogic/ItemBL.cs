@@ -1509,7 +1509,7 @@ namespace Group8AD_WebAPI.BusinessLogic
 
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                if (cat.Equals("All") && desc == null || desc == "" && threshold > 0)  //1
+                if (cat.Equals("All") && desc == null || desc == "" && threshold > 0 && threshold != 0)  //1
                 {
 
                     List<Item> iList = entities.Items.ToList();
@@ -1525,7 +1525,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
                     return itemlist;
                 }
-                else if (desc != null && cat.Equals("All") && threshold > 0) //2
+                else if (desc != null && cat.Equals("All") && threshold > 0 && threshold !=0) //2
                 {
                     List<Item> iList = entities.Items.Where(i => i.Desc.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
@@ -1540,7 +1540,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
                     return itemlist;
                 }
-                else if (desc == null || desc == "" && cat != null || cat !="ALL" && threshold > 0) //3
+                else if (desc == null || desc == "" && cat != null && cat != "All" && threshold > 0 && threshold !=0) //3
                 {
                     List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
@@ -1555,7 +1555,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
                     return itemlist;
                 }
-                else if (desc != null && cat != null || cat != "ALL" && threshold > 0) //3
+                else if (desc != null && cat != null && cat != "All" && threshold > 0 && threshold != 0) //3
                 {
                     List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
@@ -1571,7 +1571,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     return itemlist;
                 }
 
-                else if (cat != null || cat != "ALL" && desc != null && threshold == 0) //4
+                else if (cat != null && cat != "All" && desc != null && threshold == 0) //4
                 {
                     List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
@@ -1601,7 +1601,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     itemlist = itemlist.Where(i => i.lvlDiff >= threshold || i.qtyDiff >= threshold).ToList();
                     return itemlist;
                 }
-                else if (cat != null || cat != "ALL" && desc == null || desc =="" && threshold == 0) //6
+                else if (cat != null && cat != "All" && desc == null || desc =="" && threshold == 0) //6
                 {
                     List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
