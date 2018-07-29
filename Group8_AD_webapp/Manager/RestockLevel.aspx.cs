@@ -21,6 +21,7 @@ namespace Group8_AD_webapp.Manager
         static double thres;
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindGrid();
             if (!IsPostBack)
             {
                 List<String> productList = ItemBL.GetCatList();
@@ -64,7 +65,14 @@ namespace Group8_AD_webapp.Manager
             cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
-            grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
+            List<ItemVM> searchlist =ItemBL.GetItems(cat, desc, thres);
+            foreach (ItemVM item in searchlist)
+            {
+                item.NewReorderLvl = item.ReorderLevel;
+                item.NewReorderQty = item.ReorderQty;
+            }
+
+            grdRestockItem.DataSource = searchlist;
             grdRestockItem.DataBind();
         }
 
