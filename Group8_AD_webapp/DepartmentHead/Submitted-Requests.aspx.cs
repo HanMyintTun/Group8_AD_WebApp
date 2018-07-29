@@ -145,7 +145,12 @@ namespace Group8_AD_webapp
 
             }
 
-
+            
         }
+        protected void DataPagerProducts_PreRender(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
+
     }
 }

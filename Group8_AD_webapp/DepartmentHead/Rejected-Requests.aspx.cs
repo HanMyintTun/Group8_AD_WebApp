@@ -41,7 +41,15 @@ namespace Group8_AD_webapp
             lblEmpName.Text = emp.EmpName.ToString();
             lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
             lblReject.Text = req.ApprovedDateTime.ToString("dd'/'MM'/'yyyy");
-            txtComments.Text = req.ApproverComment.ToString();
+            if (req.ApproverComment == null)
+            {
+                txtComments.Text = "";
+            }
+            else
+            {
+                txtComments.Text = req.ApproverComment.ToString();
+            }
+           
             lstShow.DataSource = showList;
             lstShow.DataBind();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup
@@ -58,6 +66,11 @@ namespace Group8_AD_webapp
                     PopulateDetailList(rid);
                 }
             }
+        }
+
+        protected void DataPagerProducts_PreRender(object sender, EventArgs e)
+        {
+            BindGrid();
         }
     }
 }

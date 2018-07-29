@@ -6,12 +6,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="main">
 
-           <asp:UpdatePanel runat="server"><ContentTemplate>
-        <div class="subtitletext" style="margin-top: 8px;">Change Restock Level and Quantity</div>
-        <div class="form-group form-inline m-2 text-center col-12">
-            <div class="sh-section-reorder">
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <div class="subtitletext" style="margin-top: 8px;">Change Restock Level and Quantity</div>
+                <div class="form-group form-inline m-2 text-center col-12">
+                    <div class="sh-section-reorder">
 
-            
+
                         <div style="display: inline-block;">
                             <div style="display: inline-block;">
                                 <span class="lbl-inherit" style="vertical-align: text-bottom">Threshold :</span>
@@ -35,12 +36,14 @@
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>
-               </div>
+                    </div>
 
-            </div>
-       </ContentTemplate></asp:UpdatePanel>
-         <asp:UpdatePanel runat="server"><ContentTemplate>
-         <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
                 <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered" AutoGenerateColumns="False" OnRowCommand="grdRestockItem_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Product">
@@ -91,7 +94,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="">
                             <ItemTemplate>
-                                <asp:Button ID="btnReLevelQty" CommandName="ReQty" CssClass="btn btn-primary restock-content" runat="server" Text="use" />
+                                <asp:Button ID="btnReLevelQty" CommandName="ReQty"  CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' CssClass="btn btn-primary restock-content" runat="server" Text="use" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Change Reorder Quantity">
@@ -119,23 +122,27 @@
 
     <div id="mdlConfirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <div class="panel panel-default">
-        <div class="panel-heading"><button type="button" ID="btnClose" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
-            <h3 class="detail-subtitle">Change Restock Level & Quantity</h3></div>
-            <div class="panel-body">
-                You are about to change the restock levels and restock quantities.<br />
-                Are you sure?
+            <div class="modal-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" id="btnClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
+                        <h3 class="detail-subtitle">Change Restock Level & Quantity</h3>
+                    </div>
+                    <div class="panel-body">
+                        You are about to change the restock levels and restock quantities.<br />
+                        Are you sure?
             
                 
                 <div class="action-btn">
-                 
+                    <asp:Button ID="btnCancel" class="btn btn-danger btn-msize" OnClick="btnNo_Click" runat="server" Text="No" />
                     <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Yes" />
-                     <asp:Button ID="btnCancel" class="btn btn-danger btn-msize" OnClick="btnNo_Click" runat="server" Text="No" />
+
                 </div>
-              </div>
-       </div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </asp:Content>

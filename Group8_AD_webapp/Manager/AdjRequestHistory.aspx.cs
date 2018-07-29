@@ -11,13 +11,14 @@ namespace Group8_AD_webapp.Manager
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
         static string access_token;
-        List<AdjustmentVM> adj = new List<AdjustmentVM>();
-        string status = "";
+        static List<AdjustmentVM> adj = new List<AdjustmentVM>();
+        string status = "All";
         static string voucherno;
         int empid = 104;
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
@@ -26,8 +27,7 @@ namespace Group8_AD_webapp.Manager
 
                 access_token = Session["Token"].ToString();
 
-                adj = Controllers.AdjustmentCtrl.GetAdjustmentList("All");
-                BindGrid();
+
 
                 if (Session["Message"] != null)
                 {
@@ -38,22 +38,33 @@ namespace Group8_AD_webapp.Manager
                 {
                     divAlert.Visible = false;
                 }
+
+                BindGrid();
+
             }
         }
 
         protected void BindGrid()
         {
-            adj = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
-            lstRequests.DataSource = adj;
+            adj = AdjustmentBL.GetAdjList(status);
+            List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
+            List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
+
+            foreach (string vnum in voucherno)
+            {
+                AdjustmentVM adjj = adj.Where(a => a.VoucherNo.Equals(vnum)).FirstOrDefault();
+                adj2.Add(adjj);
+            }
+            // adj = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
+
+            lstRequests.DataSource = adj2.OrderByDescending(x => x.DateTimeIssued).ToList();
             lstRequests.DataBind();
         }
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             status = ddlStatus.Text;
-            adj = Controllers.AdjustmentCtrl.GetAdjustmentList(status);
             BindGrid();
-          
         }
 
         //detail buttom action 
@@ -73,36 +84,72 @@ namespace Group8_AD_webapp.Manager
 
 
         }
-
+        //accept
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            AcceptReq();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal();", true);//modal popup
         }
-
-        protected void AcceptReq()
+        protected void btnConfirm_Click(object sender, EventArgs e)
         {
+            cmt = txtComments.Text.ToString();
+            bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
+            if (success)
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Request has been accepted!"), "Successfully approved!", "success");
+                BindGrid();
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Changes not Submitted"), "Something Went Wrong!", "error");
+            }
 
-            AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
         }
+
+        protected void btnNo_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
+        }
+
+        //reject
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            RejectReq();
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal();", true);//modal popup
         }
-        protected void RejectReq()
+
+        protected void btnRejConfirm_Click(object sender, EventArgs e)
         {
-            AdjustmentBL.RejectRequest(voucherno, empid, cmt);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
+
+            cmt = txtComments.Text.ToString();
+            bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
+            if (success)
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Request has been rejected!"), "Successfully rejected!", "success");
+                BindGrid();
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Changes not Submitted"), "Something Went Wrong!", "error");
+            }
         }
+
+        protected void btnRejNo_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal('toggle');", true);//modal popup
+        }
+
         protected void PopulateDetailList(string voucherno)
         {
-            List<AdjustmentVM> adj = Controllers.AdjustmentCtrl.GetAdjByVoucher(voucherno);
+            // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
             List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
-            foreach (AdjustmentVM aj in adj)
+            foreach (AdjustmentVM aj in showList)
             {
                 cmt = txtComments.Text.ToString();
 
-
+                lblvnum.Text = voucherno.ToString();
                 lblstatus.Text = aj.Status;
                 if (aj.Status == "Submitted")
                 {
@@ -113,8 +160,34 @@ namespace Group8_AD_webapp.Manager
                 }
                 else if (aj.Status == "Rejected")
                 {
-                    txtComments.Visible = true;
-                    txtComments.ReadOnly = true;
+                    if (aj.ApproverComment == null)
+                    {
+                        txtComments.Text = " ";
+                    }
+                    else
+                    {
+                        txtComments.Visible = true;
+                        txtComments.ReadOnly = true;
+                        txtComments.Text = aj.ApproverComment.ToString();
+                    }
+
+                    btnAccept.Visible = false;
+                    btnReject.Visible = false;
+                    //txtComments.Visible = false;
+                }
+                else if (aj.Status == "Approved")
+                {
+                    if (aj.ApproverComment == null)
+                    {
+                        txtComments.Text = " ";
+                    }
+                    else
+                    {
+                        txtComments.Visible = true;
+                        txtComments.ReadOnly = true;
+                        txtComments.Text = aj.ApproverComment.ToString();
+                    }
+
                     btnAccept.Visible = false;
                     btnReject.Visible = false;
                     //txtComments.Visible = false;
@@ -139,6 +212,11 @@ namespace Group8_AD_webapp.Manager
             lstShow.DataBind();
 
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup
+        }
+
+        protected void DataPagerProducts_PreRender(object sender, EventArgs e)
+        {
+            BindGrid();
         }
     }
 }

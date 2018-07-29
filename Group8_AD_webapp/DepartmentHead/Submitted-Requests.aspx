@@ -22,7 +22,7 @@
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstOrder" OnItemCommand="lstOrder_ItemCommand">
                                 <LayoutTemplate>
-                                    <table id="s-table" class="table">
+                                    <table runat="server" class="table">
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
@@ -62,6 +62,14 @@
                             </asp:ListView>
 
                         </div>
+                           <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstOrder"
+                            PageSize="9" OnPreRender="DataPagerProducts_PreRender">
+                            <Fields>
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+                            </Fields>
+                        </asp:DataPager>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -284,8 +292,8 @@
 
     </script>
 
-    <script>$(document).ready(function () {
+  <%--  <script>$(document).ready(function () {
             $('#s-table').DataTable();
         });
-    </script>
+    </script>--%>
 </asp:Content>
