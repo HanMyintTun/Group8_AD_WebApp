@@ -16,7 +16,7 @@
                         <div style="display: inline-block;">
                             <div style="display: inline-block;">
                                 <span class="lbl-inherit" style="vertical-align: text-bottom">Threshold :</span>
-                                <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlThreshold_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server" AutoPostBack="false" OnSelectedIndexChanged="ddlThreshold_SelectedIndexChanged">
                                     <asp:ListItem Text="0%" Value="0" />
                                     <asp:ListItem Text="5%" Value="0.05" />
                                     <asp:ListItem Text="10%" Value="0.1" />
@@ -25,14 +25,15 @@
                                     <asp:ListItem Text="50%" Value="0.5" />
                                     <asp:ListItem Text="75%" Value="0.75" />
                                     <asp:ListItem Text="100%" Value="1" />
+
                                 </asp:DropDownList>
                             </div>
                             <span class="lbl-inherit" style="vertical-align: text-bottom">Category :</span>
-                            <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlCategory" CssClass="form-control mx-2" runat="server" AppendDataBoundItems="True" AutoPostBack="false" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                                 <asp:ListItem Text="All" Value="All" />
                             </asp:DropDownList>
                             <div style="display: inline-block;">
-                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack="True"></asp:TextBox>
+                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server"></asp:TextBox>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>

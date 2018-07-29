@@ -61,7 +61,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void SearchList()
         {
-            cat = ddlCategory.Text;
+            cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
             grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
