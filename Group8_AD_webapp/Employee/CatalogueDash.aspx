@@ -9,7 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+            <div id="main">
          <div class="form-group form-inline formstyle m-2 text-center">
         <span class="titletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Label"></asp:Label></span>
 
@@ -63,7 +63,7 @@
         </div>
 
 
-        <div id="main">
+
 
         <div id="centermain">
 
@@ -240,7 +240,6 @@
 
     </div>
 
-        </div>
         </ContentTemplate>
         </asp:UpdatePanel>
 
@@ -252,10 +251,6 @@
             $(".txtSearch").blur();
              $(".txtSearch").focus();
          });
-
-         //$(".ddlsearchcontent").focusout(function () {
-         //        $('.ddlsearchcontent').hide();
-         //});
 
          $(document).on("click" , function(event){
                 if( !($(event.target).hasClass('showsearch')))
@@ -292,5 +287,7 @@
                  $('#IsClean').val("false");
             }
          });
+         
     </script>
+
 </asp:Content>

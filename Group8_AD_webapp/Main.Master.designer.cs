@@ -130,15 +130,6 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.ListView lstNotifications;
         
         /// <summary>
-        /// btnViewNotif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnViewNotif;
-        
-        /// <summary>
         /// lblName control.
         /// </summary>
         /// <remarks>

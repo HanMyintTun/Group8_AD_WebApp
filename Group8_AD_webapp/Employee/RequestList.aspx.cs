@@ -16,8 +16,7 @@ namespace Group8_AD_webapp
         static List<RequestDetailVM> showList = new List<RequestDetailVM>();
         static List<RequestDetailVM> bookmarkList = new List<RequestDetailVM>();
         static List<RequestDetailVM> submitList = new List<RequestDetailVM>();
-
-        static string access_token;
+        
         static int reqid;
         static int bmkid;
         static string status = "";
@@ -28,8 +27,8 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int empId = (int)Session["empId"];
-            access_token = Session["Token"].ToString();
+            Service.UtilityService.CheckRoles("Employee");
+            int empId = Convert.ToInt32(Session["empId"]);
 
             if (!IsPostBack)
             {
@@ -106,7 +105,7 @@ namespace Group8_AD_webapp
                     lstShow.FindControl("thdBookmark").Visible = false;
                 }
 
-                if (status == "Approved" || status == "Fulfilled" || status == "Cancelled")
+                if (status == "Approved" || status == "Fulfilled" || status == "Cancelled" || status == "Rejected")
                 {
                     IsEditable = false;
                     IsApproved = true;

@@ -29,6 +29,8 @@ namespace Group8_AD_webapp
             master = (Main)this.Master;
             if (!IsPostBack)
             {
+                Service.UtilityService.CheckRoles("Store");
+
                 datesList = new List<DateTime>();
                 monthsList = new List<DateTime>();
                 cbList = new List<ReportItemVM>();

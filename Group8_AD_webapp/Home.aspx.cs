@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,24 +12,30 @@ namespace Group8_AD_webapp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["empId"] != null && Session["role"] != null)
+            //IIdentity id = User.Identity;
+            //Label1.Text = String.Format("IsAuthenticated:{0},Name:{1},Type:{2}",
+            //                            id.IsAuthenticated, id.Name, id.AuthenticationType);
+
+            if (Session["empId"] != null && Session["role"] != null)
             {
                 GoToDash();
             }
-
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnEnter_Click(object sender, EventArgs e)
         {
-            bool IsValid = Int32.TryParse(TextBox1.Text, out int empId);
-            string password = "";
+            bool IsValid = Int32.TryParse(txtID.Text, out int empId);
             if (!IsValid)
             {
                 Label1.Text = "Please Type a Number";
             }
             else
             {
-                bool success = Service.UtilityService.Authenticate(empId, password);
+                bool success = Service.UtilityService.Authenticate(empId);
                 if (!success)
                 {
                     Label1.Text = "Invalid Number";
@@ -51,7 +58,7 @@ namespace Group8_AD_webapp
                 case "Store Manager": Response.Redirect("~/Manager/StoreDashboard.aspx"); break;
                 case "Store Supervisor": Response.Redirect("~/Manager/StoreDashboard.aspx"); break;
                 case "Store Clerk": Response.Redirect("~/Manager/StoreDashboard.aspx"); break;
-                default: Label1.Text = "Not a Valid Role"; break;       // Redirect to exception?
+                default: Response.Redirect("Login.aspx"); break;       // Redirect to exception?
             }
         }
     }

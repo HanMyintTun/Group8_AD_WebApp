@@ -76,24 +76,6 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.GridView grdSupplier;
         
         /// <summary>
-        /// btnReqList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReqList;
-        
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
         /// btnSubmit control.
         /// </summary>
         /// <remarks>
@@ -112,6 +94,15 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.UpdatePanel udpConfirmModal;
         
         /// <summary>
+        /// submitDetail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl submitDetail;
+        
+        /// <summary>
         /// lstConfirm control.
         /// </summary>
         /// <remarks>
@@ -119,6 +110,15 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lstConfirm;
+        
+        /// <summary>
+        /// lblEmptyChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmptyChange;
         
         /// <summary>
         /// btnFinalCancel control.

@@ -19,7 +19,9 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
-                if(Session["Message"] != null)
+                Service.UtilityService.CheckRoles("Store");
+
+                if (Session["Message"] != null)
                 {
                     Main master = (Main)this.Master;
                     master.ShowToastr(this, String.Format(""), (string)Session["Message"], "success");
