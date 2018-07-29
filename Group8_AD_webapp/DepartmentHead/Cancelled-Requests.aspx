@@ -27,7 +27,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th style="display:none;" scope="col">Request ID</th>
+                                                <th style="display: none;" scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
                                                 <th scope="col">Cancelled Date</th>
@@ -41,7 +41,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td style="display:none;">
+                                        <td style="display: none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -59,8 +59,16 @@
 
                                 </ItemTemplate>
                             </asp:ListView>
-                          
+
                         </div>
+                      <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
+                                    PageSize="9" OnPreRender="DataPagerProducts_PreRender">
+                                    <Fields>
+                                        <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                                        <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                                        <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+                                    </Fields>
+                                </asp:DataPager>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -78,10 +86,10 @@
                         </button>
                         <h3 class="detail-subtitle">Cancelled Request Details</h3>
                     </div>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <div class="panel-body">
 
-                    <div class="panel-body">
-                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                            <ContentTemplate>
                                 <div class="detail-info">
 
                                     <div class="detail-info-left">
@@ -105,7 +113,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr style="display:none;">
+                                                    <tr style="display: none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -169,11 +177,11 @@
                                 </div>
 
                                 <div>
-                             
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                </div>
+                                
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
-                    </div>
                 </div>
 
             </div>

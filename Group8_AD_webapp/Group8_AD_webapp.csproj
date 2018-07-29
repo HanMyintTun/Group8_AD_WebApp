@@ -313,7 +313,6 @@
     <Content Include="Notifications.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
-    <Content Include="Manager\Restock-Quantity.aspx" />
     <Content Include="Manager\RestockLevel.aspx" />
     <Content Include="Manager\StoreDashboard.aspx" />
     <Content Include="Models\SA46Team08ADProjectContext.Context.tt">
@@ -557,13 +556,6 @@
     </Compile>
     <Compile Include="Manager\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Manager\Restock-Quantity.aspx.cs">
-      <DependentUpon>Restock-Quantity.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Manager\Restock-Quantity.aspx.designer.cs">
-      <DependentUpon>Restock-Quantity.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\RestockLevel.aspx.cs">
       <DependentUpon>RestockLevel.aspx</DependentUpon>

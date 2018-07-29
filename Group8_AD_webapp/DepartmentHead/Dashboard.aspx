@@ -9,8 +9,8 @@
 
         @media (max-width: 768px) {
             .chartjs-render-monitor {
-                width: 330px !important;
-                height: 230px !important;
+                width: 385px !important;
+                height: 215px !important;
             }
         }
     </style>
