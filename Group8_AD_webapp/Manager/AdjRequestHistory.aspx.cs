@@ -144,7 +144,7 @@ namespace Group8_AD_webapp.Manager
         protected void PopulateDetailList(string voucherno)
         {
             // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
-            List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
+            List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno, empid);
             foreach (AdjustmentVM aj in showList)
             {
                 cmt = txtComments.Text.ToString();
