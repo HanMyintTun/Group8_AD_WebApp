@@ -1558,6 +1558,7 @@ p.back-link {
 }
 .fix-modal{
     width: 900px !important;
+    
 }
 
 .table-stock tr:hover {
@@ -1568,7 +1569,7 @@ p.back-link {
 }
 .lightbox-scroll {
     overflow-y: scroll;
-    height: 800px;
+    max-height: 800px;
 }
 .pagination li {
     padding:0px !important;
