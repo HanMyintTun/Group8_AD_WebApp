@@ -348,7 +348,6 @@ namespace Group8_AD_webapp
                 txtMonthPick.Text = "";
                 lstMonths.DataSource = monthsList;
                 lstMonths.DataBind();
-
             }
             ClearChart();
         }

@@ -12,7 +12,6 @@ namespace Group8_AD_webapp
 {
     public partial class RequestHistory : System.Web.UI.Page
     {
-        static string access_token;
         List<RequestVM> requests = new List<RequestVM>();
         string status = "";
 
@@ -32,8 +31,6 @@ namespace Group8_AD_webapp
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-                
-                access_token = Session["Token"].ToString();
 
                 requests = Controllers.RequestCtrl.GetReq(empId, "All");
                 BindGrid();
@@ -87,10 +84,20 @@ namespace Group8_AD_webapp
             {
                 DateTime startDate = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 DateTime endDate = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate);
 
-                BindGrid();
-            }
+                if (endDate.CompareTo(startDate) >= 0)
+                {
+
+                    requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate);
+
+                    BindGrid();
+                }
+                else
+                {
+                    Main master = (Main)this.Master;
+                    master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                }
+             }
             else
             {
                 requests = Controllers.RequestCtrl.GetReq(empId, status);
