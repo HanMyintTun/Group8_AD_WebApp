@@ -57,7 +57,7 @@
 
                                 </ItemTemplate>
                                 <EmptyDataTemplate>
-                                    There is nothing in the list.
+                                    <span class="noresult">There is nothing in the list.</span>
                                 </EmptyDataTemplate>
                             </asp:ListView>
 

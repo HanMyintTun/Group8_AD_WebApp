@@ -169,8 +169,7 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your list.
-                                            </span>
+                                            <span class="noresult">There is nothing in the list.</span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>
 

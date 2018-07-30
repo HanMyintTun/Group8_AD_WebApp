@@ -10,39 +10,28 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
-        static string access_token;
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
-        int empid = 104;
+        static int empid;
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Service.UtilityService.CheckRoles("Store");
+            empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
+                
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-                //access_token = Session["Token"].ToString();
-                //if (Session["Message"] != null)
-                //{
-                //    lblMessage.Text = Session["Message"].ToString();
-                //    Session["Message"] = null;
-                //}
-                //else
-                //{
-                //    divAlert.Visible = false;
-                //}
-
-                BindGrid();
-
+            
             }
         }
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjList(status, empid);
+            adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -59,7 +48,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            status = ddlStatus.Text;
+            
             BindGrid();
         }
 
