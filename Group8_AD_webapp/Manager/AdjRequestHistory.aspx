@@ -5,8 +5,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdatePanel runat="server"><ContentTemplate>
-    <div class="form-group form-inline formstyle2 text-center">
-        <div class="col-lg-9">
+   
+    <div id="main">
+        <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
+         <div class="form-group form-inline formstyle2 text-center">
+        <div class="col-lg-8">
             <span class="subtitletext mt-5 ml-5">
                 <asp:Label ID="lblCatTitle" runat="server" Text="Stock Adjustment Request"></asp:Label></span>
         </div>
@@ -16,17 +19,10 @@
             </asp:DropDownList>
         </div>
     </div>
-    <div id="main">
-        <!-- col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 -->
-
         <div id="centermain2">
             <div class="row">
                 <div class="col-xs-12">
-                    <div id="divAlert" class="alert alert-success alert-dismissible" role="alert" runat="server">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>
-                            <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label></strong>
-                    </div>
+                    
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
                             <asp:ListView runat="server" ID="lstRequests" OnItemCommand="lstRequests_ItemCommand">

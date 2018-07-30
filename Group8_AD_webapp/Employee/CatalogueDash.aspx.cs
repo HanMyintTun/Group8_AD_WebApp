@@ -21,9 +21,12 @@ namespace Group8_AD_webapp
         protected void Page_Load(object sender, EventArgs e)
         {
             Service.UtilityService.CheckRoles("Employee");
-
+            
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("catalogue");
+
                 PopulateDropDowns();
                 PopulateCatalogue();
                 IsBmkTab = true;

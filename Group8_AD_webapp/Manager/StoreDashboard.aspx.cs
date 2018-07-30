@@ -21,9 +21,11 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("storedash");
+
                 if (Session["Message"] != null)
                 {
-                    Main master = (Main)this.Master;
                     master.ShowToastr(this, String.Format(""), (string)Session["Message"], "success");
                     Session["Message"] = null;
                 }
