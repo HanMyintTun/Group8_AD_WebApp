@@ -28,6 +28,9 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("reqhistory");
+
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();

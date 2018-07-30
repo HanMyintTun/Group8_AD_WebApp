@@ -22,7 +22,6 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
-                
                 SetProfile();
                 FillCart();
                 FillNotifications();
@@ -222,6 +221,36 @@ namespace Group8_AD_webapp
         {
             NotificationBL.MarkAllAsRead(notifList);
             FillNotifications();
+        }
+
+        public void ActiveMenu(string page)
+        {
+            List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest, menuCatalogueDash,
+                menuEmployeeRequest, menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuReports, menuAdjustment };
+            foreach(HtmlGenericControl menu in allMenu)
+            {
+                menu.Attributes.Remove("class");
+            }
+
+            switch (page)
+            {
+                case "catalogue": menuCatalogueDash.Attributes.Add("class", "menuactive"); break;
+                case "reqhistory": menuEmployeeRequest.Attributes.Add("class", "menuactive"); break;
+                case "storedash": menuManagerDash.Attributes.Add("class", "menuactive"); break;
+                case "productrank": menuProductVol.Attributes.Add("class", "menuactive"); break;
+                case "updatesupp": menuSuppliers.Attributes.Add("class", "menuactive"); break;
+                case "reports": menuReports.Attributes.Add("class", "menuactive"); break;
+
+                case "dhdash": menuDeptHeadDash.Attributes.Add("class", "menuactive"); break;
+                case "dhrequest": menuDeptHeadRequest.Attributes.Add("class", "menuactive"); break;
+                case "storerestock": menuRestock.Attributes.Add("class", "menuactive"); break;
+                case "storeadjustment": menuAdjustment.Attributes.Add("class", "menuactive"); break;
+                case "none": break;
+                default: break;
+            }
+        
+            
+                
         }
     }
 }

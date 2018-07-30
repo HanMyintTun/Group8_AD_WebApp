@@ -33,7 +33,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjList(status, empid);
+            adj = AdjustmentBL.GetAdjList(status);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
