@@ -223,10 +223,10 @@ namespace Group8_AD_webapp
         // Service method to add active class to sidebar menu item
         public void ActiveMenu(string page)
         {
-            List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest, menuCatalogueDash,
-                menuEmployeeRequest, menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuReports, menuAdjustment };
+            List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest, menuDeptHeadSubmitted, menuDeptHeadApproved, menuDeptHeadRejected,
+                menuDeptHeadSubmitCancelled, menuDeptHeadFulfilled, menuCatalogueDash, menuEmployeeRequest, menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuReports, menuAdjustment };
             foreach(HtmlGenericControl menu in allMenu)
-            {
+            { 
                 menu.Attributes.Remove("class");
             }
 
@@ -241,6 +241,11 @@ namespace Group8_AD_webapp
 
                 case "dhdash": menuDeptHeadDash.Attributes.Add("class", "menuactive"); break;
                 case "dhrequest": menuDeptHeadRequest.Attributes.Add("class", "menuactive"); break;
+                case "dhsubmit": menuDeptHeadSubmitted.Attributes.Add("class", "menuactive"); break;
+                case "dhapprove": menuDeptHeadApproved.Attributes.Add("class", "menuactive"); break;
+                case "dhcancel": menuDeptHeadSubmitCancelled.Attributes.Add("class", "menuactive"); break;
+                case "dhreject": menuDeptHeadRejected.Attributes.Add("class", "menuactive"); break;
+                case "dhfulfill": menuDeptHeadFulfilled.Attributes.Add("class", "menuactive"); break;
                 case "storerestock": menuRestock.Attributes.Add("class", "menuactive"); break;
                 case "storeadjustment": menuAdjustment.Attributes.Add("class", "menuactive"); break;
                 case "none": break;

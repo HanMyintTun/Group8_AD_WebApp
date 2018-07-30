@@ -21,7 +21,8 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
-               
+                Main master = (Main)this.Master;
+                master.ActiveMenu("dhsubmit");
                 BindGrid();
             }
 

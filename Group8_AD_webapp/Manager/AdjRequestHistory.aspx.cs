@@ -21,7 +21,10 @@ namespace Group8_AD_webapp.Manager
             empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
-                
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("storeadjustment");
+
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();

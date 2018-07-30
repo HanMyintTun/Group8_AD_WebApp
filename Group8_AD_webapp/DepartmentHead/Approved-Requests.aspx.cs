@@ -20,7 +20,10 @@ namespace Group8_AD_webapp
         {
             if (!IsPostBack)
             {
-                
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("dhapprove");
+
                 BindGrid();
 
 

@@ -22,9 +22,13 @@ namespace Group8_AD_webapp
         string deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Service.UtilityService.CheckRoles("DeptHead");
+            // Adds active class to menu Item (sidebar)
+            Main master = (Main)this.Master;
+            master.ActiveMenu("dhdash");
 
+            Service.UtilityService.CheckRoles("DeptHead");
             empId = Convert.ToInt32(Session["empId"]);
+
             if (empId == dept.DelegateApproverId)
             {
                 btnRemoveDelegate.Disabled = true;
