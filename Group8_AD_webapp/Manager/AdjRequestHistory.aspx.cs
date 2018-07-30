@@ -13,27 +13,25 @@ namespace Group8_AD_webapp.Manager
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
-        int empid;
+        static int empid;
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Service.UtilityService.CheckRoles("Store");
+            empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
-                empid = Convert.ToInt32(Session["empId"]);
+                
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
             
-                //BindGrid();
-
             }
         }
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjListByApproverId(empid);
+            adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -50,10 +48,8 @@ namespace Group8_AD_webapp.Manager
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            status = ddlStatus.Text;
-            adj = AdjustmentBL.GetAdjList(status);
-            lstRequests.DataSource = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
-            lstRequests.DataBind();
+            
+            BindGrid();
         }
 
         //detail buttom action 
