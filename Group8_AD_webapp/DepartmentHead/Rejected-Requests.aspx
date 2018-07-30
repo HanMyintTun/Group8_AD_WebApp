@@ -21,7 +21,7 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
 
-                       
+
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstCancel" OnItemCommand="lstOrder_ItemCommand">
                                 <LayoutTemplate>
@@ -60,10 +60,14 @@
                                     </tr>
 
                                 </ItemTemplate>
+                                <EmptyDataTemplate>
+                                    <span class="noresult">Sorry! There are no items in your list.
+                                    </span>
+                                </EmptyDataTemplate>
                             </asp:ListView>
 
                         </div>
-                         <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
+                        <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
                             PageSize="9" OnPreRender="DataPagerProducts_PreRender">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />

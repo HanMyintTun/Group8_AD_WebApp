@@ -58,17 +58,21 @@
                                     </tr>
 
                                 </ItemTemplate>
+                                <EmptyDataTemplate>
+                                    <span class="noresult">Sorry! There are no items in your list.
+                                    </span>
+                                </EmptyDataTemplate>
                             </asp:ListView>
 
                         </div>
-                      <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
-                                    PageSize="9" OnPreRender="DataPagerProducts_PreRender">
-                                    <Fields>
-                                        <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
-                                        <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
-                                        <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
-                                    </Fields>
-                                </asp:DataPager>
+                        <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
+                            PageSize="9" OnPreRender="DataPagerProducts_PreRender">
+                            <Fields>
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+                            </Fields>
+                        </asp:DataPager>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -178,7 +182,6 @@
 
                                 <div>
                                 </div>
-                                
                         </ContentTemplate>
                     </asp:UpdatePanel>
 

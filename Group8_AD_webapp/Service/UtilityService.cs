@@ -89,7 +89,7 @@ namespace Group8_AD_webapp.Service
                         {
                             if (r != "Employee" && r != "Representative")
                             {
-                                HttpContext.Current.Response.Redirect("~/Login.aspx?"+r);
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?error=noaccess");
                             }
                             break;
                         }

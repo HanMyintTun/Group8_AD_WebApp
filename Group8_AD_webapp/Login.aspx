@@ -4,6 +4,9 @@
 
 <html>
 <head>
+    <link rel="icon" 
+      type="image/png" 
+      href="img/leaf.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Logic University Login</title>
@@ -20,7 +23,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
 
-                <a class="navbar-brand desktop" runat="server" href="#"><span><strong>Logic</strong></span>University</a>
+                <a class="navbar-brand desktop" runat="server" href="#"><span><strong>Logic</strong></span>University</a><span class="tinylogo desktop"><img style="width: 25px;height: 40px;" src="img/leaf.png"/></span>
                 <a class="navbar-brand mobile" runat="server" href="#"><span>L</span>U</a>
             </div>
         </div>
