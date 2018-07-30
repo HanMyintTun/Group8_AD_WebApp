@@ -31,6 +31,9 @@ namespace Group8_AD_webapp
             master = (Main)this.Master;
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("reports");
+
                 datesList = new List<DateTime>();
                 monthsList = new List<DateTime>();
                 cbList = new List<ReportItemVM>();

@@ -27,6 +27,9 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("updatesupp");
+
                 suppliers = Controllers.SupplierCtrl.getSupplierCodes();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();

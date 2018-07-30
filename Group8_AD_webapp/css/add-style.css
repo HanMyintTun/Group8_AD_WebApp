@@ -2,6 +2,17 @@
     height: 60px;
 }
 
+.menuactive{
+    font-weight: 700;
+}
+
+.menuactive>a {
+    color: var(--color-primary) !important;
+}
+    .menuactive:hover > a {
+        color: #fff !important;
+    }
+
 .dropdown:hover>ul{
     display:block;
 }

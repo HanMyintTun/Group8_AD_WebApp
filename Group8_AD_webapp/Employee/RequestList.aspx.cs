@@ -32,6 +32,9 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                Main master = (Main)this.Master;
+                master.ActiveMenu("none");
+
                 reqid = 0;
                 bmkid = 0;
                 // If a request ID is present
