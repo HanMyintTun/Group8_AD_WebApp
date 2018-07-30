@@ -21,7 +21,7 @@ namespace Group8_AD_webapp.Manager
         static double thres;
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindGrid();
+           
             if (!IsPostBack)
             {
                 List<String> productList = ItemBL.GetCatList();
@@ -33,22 +33,22 @@ namespace Group8_AD_webapp.Manager
             }
         }
 
-        public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
-        {
-            items = ItemBL.GetAllItemsbyThreshold();
-            foreach (ItemVM item in list)
-            {
-                item.NewReorderLvl = item.ReorderLevel;
-                item.NewReorderQty = item.ReorderQty;
-            }
-            return list;
+        //public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
+        //{
+        //    items = ItemBL.GetAllItemsbyThreshold();
+        //    foreach (ItemVM item in list)
+        //    {
+        //        item.NewReorderLvl = item.ReorderLevel;
+        //        item.NewReorderQty = item.ReorderQty;
+        //    }
+        //    return list;
 
-        }
+        //}
         protected void BindGrid()
         {
 
             // items = ItemBL.GetAllItems();
-            editedItems = GetAllIteminfo(items);
+            editedItems = ItemBL.GetAllItemsbyThreshold();
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
@@ -65,14 +65,7 @@ namespace Group8_AD_webapp.Manager
             cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
-            List<ItemVM> searchlist =ItemBL.GetItems(cat, desc, thres);
-            foreach (ItemVM item in searchlist)
-            {
-                item.NewReorderLvl = item.ReorderLevel;
-                item.NewReorderQty = item.ReorderQty;
-            }
-
-            grdRestockItem.DataSource = searchlist;
+            grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
             grdRestockItem.DataBind();
         }
 
@@ -182,7 +175,7 @@ namespace Group8_AD_webapp.Manager
             {
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Item Reorder Level and Quantity are updated"), "Successfully update!", "success");
-                BindGrid();
+                //BindGrid();
             }
             else
             {
