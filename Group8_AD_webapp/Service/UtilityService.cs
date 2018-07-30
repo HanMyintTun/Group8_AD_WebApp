@@ -12,6 +12,7 @@ namespace Group8_AD_webapp.Service
 {
     public class UtilityService
     {
+        // Checks for role and adds to Session variable
         public static bool Authenticate(int empId)
         {
             EmployeeVM emp = EmployeeBL.GetEmp(empId);
@@ -57,6 +58,7 @@ namespace Group8_AD_webapp.Service
             
         }
 
+        // Prevents access to pages based on role
         public static void CheckRoles(string role)
         {
             if(HttpContext.Current.Session["empId"] == null && HttpContext.Current.Session["role"] == null && HttpContext.Current.Session["empName"] == null)

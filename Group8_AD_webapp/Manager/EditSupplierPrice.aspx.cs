@@ -27,20 +27,23 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
                 Main master = (Main)this.Master;
                 master.ActiveMenu("updatesupp");
 
+                // Populates Search Bar
                 suppliers = Controllers.SupplierCtrl.getSupplierCodes();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
+                // Populates items in list
                 items = Controllers.ItemCtrl.GetAllItems();
                 editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
-
                 BindGrid();
             }
         }
 
+        // Populates dropdowns within gridview
         protected void GridView_RowDataBound(Object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -63,25 +66,7 @@ namespace Group8_AD_webapp
             }
         }
 
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ClearTextBoxes(ControlCollection controls)
-        {
-            foreach (Control ctrl in controls)
-            {
-                if (ctrl is TextBox)
-                    ((TextBox)ctrl).Text = string.Empty;
-
-                if (ctrl is DropDownList)
-                    ((DropDownList)ctrl).SelectedIndex = 0;
-                ClearTextBoxes(ctrl.Controls);
-            }
-        }
-
+        // Populates gridview
         protected void BindGrid()
         {
             grdSupplier.DataSource = editedItems;
@@ -96,16 +81,18 @@ namespace Group8_AD_webapp
             lblPageCount.Text = "Showing " + (min + 1) + " to " + max + " of " + editedItems.Count.ToString();
         }
 
-        protected void grdSupplier_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        // Save data upon pagination
+        protected void GrdSupplier_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            if (saveList())
+            if (SaveList())
             {
                 grdSupplier.PageIndex = e.NewPageIndex;
                 BindGrid();
             }
         }
 
-        protected bool saveList()
+        // Saves Supplier/Price data in list
+        protected bool SaveList()
         {
             Main master = (Main)this.Master;
             lblPageCount.Text = "";
@@ -139,7 +126,8 @@ namespace Group8_AD_webapp
             return true;
         }
 
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        // Repopulates list upon category dropdown change
+        protected void DdlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             GenerateEditedList();
             if (submitItems.Count != 0)
@@ -153,11 +141,8 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void txtSearch_Changed(object sender, EventArgs e)
-        {
-        }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
+        // Performs search
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
             GenerateEditedList();
             if(submitItems.Count != 0)
@@ -169,16 +154,35 @@ namespace Group8_AD_webapp
             {
                 DoSearch();
             }
-
         }
 
-        protected void btnClear_Click(object sender, EventArgs e)
+        // Performs search
+        protected void DoSearch()
+        {
+            string searchquery = txtSearch.Text;
+            string querycat = ddlCategory.Text;
+            if (querycat == "All")
+            {
+                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
+                editedItems = editedItems.Where(x => x.Desc.ToLower().Contains(searchquery)).ToList();
+            }
+            else
+            {
+                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
+                editedItems = editedItems.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(searchquery)).ToList();
+            }
+            BindGrid();
+        }
+
+        // Pops up confirm clear modal
+        protected void BtnClear_Click(object sender, EventArgs e)
         {
             isClear = true;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openClearModal();", true);
         }
 
-        protected void btnConfirmClear_Click(object sender, EventArgs e)
+        // Clears textboxes/ Dropdowns
+        protected void BtnConfirmClear_Click(object sender, EventArgs e)
         {
             if (isClear)
             {
@@ -199,26 +203,24 @@ namespace Group8_AD_webapp
 
         }
 
-        protected void DoSearch()
+        // Clears textboxes/ Dropdowns
+        private void ClearTextBoxes(ControlCollection controls)
         {
-            string searchquery = txtSearch.Text;
-            string querycat = ddlCategory.Text;
-            if (querycat == "All")
+            foreach (Control ctrl in controls)
             {
-                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
-                editedItems = editedItems.Where(x => x.Desc.ToLower().Contains(searchquery)).ToList();
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
+
+                if (ctrl is DropDownList)
+                    ((DropDownList)ctrl).SelectedIndex = 0;
+                ClearTextBoxes(ctrl.Controls);
             }
-            else
-            {
-                editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
-                editedItems = editedItems.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(searchquery)).ToList();
-            }
-            BindGrid();
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        // Submits and saves Supplier/Price list
+        protected void BtnSubmit_Click(object sender, EventArgs e)
         {
-            if (saveList()) { 
+            if (SaveList()) { 
             submitItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
             submitItems = submitItems.Where(
                 x => x.SuppCode1 != items.Where(y => y.ItemCode == x.ItemCode).First().SuppCode1
@@ -246,9 +248,10 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Checks for items that have changed information and are not blank
         protected void GenerateEditedList()
         {
-            if (saveList())
+            if (SaveList())
             {
                 submitItems = editedItems.Where(x => x.SuppCode1 != "" && x.Price1 != 0).ToList();
                 submitItems = submitItems.Where(
@@ -262,9 +265,9 @@ namespace Group8_AD_webapp
             }
          }
 
-        protected void btnConfirm_Click(object sender, EventArgs e)
+        // Confirms and saves submission of edited Supplier/Price list
+        protected void BtnConfirm_Click(object sender, EventArgs e)
         {
-            
             bool success = ItemBL.UpdateSuppliers(submitItems);
             if (success)
             {

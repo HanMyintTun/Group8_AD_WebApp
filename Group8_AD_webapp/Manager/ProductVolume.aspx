@@ -10,7 +10,7 @@
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Product Ranking"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
          </div>
@@ -28,7 +28,7 @@
                     <asp:TextBox ID="txtEndDate" ClientIDMode="Static" placeholder="to: dd/mm/yyyy" autocomplete="off" runat="server" CssClass="form-control controlheight bb"></asp:TextBox>
                     <span class="input-group-addon controlheight bb"><i class="fa fa-calendar" aria-hidden="true"></i></span>
 
-                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button controlheight" Text="Search" OnClick="btnSearch_Click" />
+                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button controlheight" Text="Search" OnClick="BtnSearch_Click" />
 
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div id="centermain2">
             <asp:hiddenfield id="IsDesc" ClientIDMode="Static" runat="server"/>
             <div class=" form-inline"> Sort Direction: 
-           <asp:DropDownList ID="ddlSortDirection" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSortDirection_SelectedIndexChanged">
+           <asp:DropDownList ID="ddlSortDirection" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlSortDirection_SelectedIndexChanged">
                            <asp:listitem text="Ascending" value="asc" />
                            <asp:listitem text="Descending" value="desc" />
            </asp:DropDownList>
@@ -54,7 +54,7 @@
     </asp:GridView>
      <div class="row">
         <div class="col-xs-3 backarea">
-            <asp:Button ID="btnReqList" Cssclass="btn btn-back" OnClick="btnBack_Click" runat="server" Text="Back"  />
+            <asp:Button ID="btnReqList" Cssclass="btn btn-back" OnClick="BtnBack_Click" runat="server" Text="Back"  />
         </div></div>
     </div>
 </ContentTemplate></asp:UpdatePanel></div>

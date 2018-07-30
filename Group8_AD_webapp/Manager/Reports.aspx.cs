@@ -31,6 +31,7 @@ namespace Group8_AD_webapp
             master = (Main)this.Master;
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
                 Main master = (Main)this.Master;
                 master.ActiveMenu("reports");
 
@@ -42,11 +43,9 @@ namespace Group8_AD_webapp
                 lblReportTitle.Text = "Welcome";
                 showlist.Visible = false;
             }
-
-
         }
 
-
+        // Populates chart upon first load
         protected void DemoChart()
         {
             List<DateTime> demoList = new List<DateTime>() { new DateTime(2018, 07, 01), new DateTime(2018, 06, 01), new DateTime(2018, 05, 01) };
@@ -60,15 +59,7 @@ namespace Group8_AD_webapp
             FillDataList();
         }
 
-        protected void FillDataList()
-        {
-            lstData.DataSource = cbList;
-            lstData.DataBind();
-            lstData.HeaderRow.Cells[0].Text = lbl0;
-            lstData.HeaderRow.Cells[1].Text = lbl1+ " Department";
-            lstData.HeaderRow.Cells[2].Text = lbl2+ " Department";
-        }
-
+        // Popualates Dept/Supplier Dropdowns
         protected void FillDropDowns()
         {
             ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
@@ -84,16 +75,49 @@ namespace Group8_AD_webapp
             List<DepartmentVM> departments = DepartmentBL.GetAllDept();
             foreach (DepartmentVM d in departments)
             {
-                if(d.DeptName != "Store Department") { 
-                ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
-                ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+                if (d.DeptName != "Store Department")
+                {
+                    ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+                    ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
                 }
             }
         }
 
+        // Populates Data Listview
+        protected void FillDataList()
+        {
+            lstData.DataSource = cbList;
+            lstData.DataBind();
+            lstData.HeaderRow.Cells[0].Text = lbl0;
+            lstData.HeaderRow.Cells[1].Text = lbl1+ " Department";
+            lstData.HeaderRow.Cells[2].Text = lbl2+ " Department";
+        }
 
+        // Adds month to month list
+        protected void TxtMonthPick_TextChanged(object sender, EventArgs e)
+        {
+            if (txtMonthPick.Text != "")
+            {
+                string d = txtMonthPick.Text;
+                DateTime tempDate = DateTime.ParseExact(txtMonthPick.Text, "MMMM yyyy", CultureInfo.InvariantCulture);
+                if (!monthsList.Contains(tempDate))
+                {
+                    monthsList.Add(tempDate);
+                    monthsList = monthsList.OrderBy(x => x.Date).ToList();
+                }
+                else
+                {
+                    master.ShowToastr(this, "", "Month already added", "error");
+                }
+                txtMonthPick.Text = "";
+                lstMonths.DataSource = monthsList;
+                lstMonths.DataBind();
+            }
+            ClearChart();
+        }
 
-        protected void btnRemove_Click(object sender, EventArgs e)
+        // Removes month from month List
+        protected void BtnRemove_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
@@ -104,16 +128,28 @@ namespace Group8_AD_webapp
             lstMonths.DataBind();
         }
 
-        protected void btnMonth_Click(object sender, EventArgs e)
+        // Clears Month List
+        protected void BtnClear_Click(object sender, EventArgs e)
+        {
+            monthsList = new List<DateTime>();
+            lstMonths.DataSource = monthsList;
+            lstMonths.DataBind();
+            ClearChart();
+        }
+
+        // Generates chart by Months
+        protected void BtnMonth_Click(object sender, EventArgs e)
         {
             GenerateGraph(true);
         }
 
-        protected void btnRange_Click(object sender, EventArgs e)
+        // Generates chart by Date Range
+        protected void BtnRange_Click(object sender, EventArgs e)
         {
             GenerateGraph(false);
         }
 
+        // Gets data for chart
         protected void GenerateGraph(bool byMonth)
         {
             string cat = ddlCategory.Text;
@@ -274,6 +310,7 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Populates data to send to Chart.js
         [System.Web.Services.WebMethod]
         public static List<string> getChartData()
         {
@@ -332,29 +369,8 @@ namespace Group8_AD_webapp
             returnData.Add(lbl3);
             return returnData;
         }
-
-        protected void txtMonthPick_TextChanged(object sender, EventArgs e)
-        {
-            if (txtMonthPick.Text != "")
-            {
-                string d = txtMonthPick.Text;
-                DateTime tempDate = DateTime.ParseExact(txtMonthPick.Text, "MMMM yyyy", CultureInfo.InvariantCulture);
-                if (!monthsList.Contains(tempDate))
-                {
-                    monthsList.Add(tempDate);
-                    monthsList = monthsList.OrderBy(x => x.Date).ToList();
-                }
-                else
-                {
-                    master.ShowToastr(this, "", "Month already added", "error");
-                }
-                txtMonthPick.Text = "";
-                lstMonths.DataSource = monthsList;
-                lstMonths.DataBind();
-            }
-            ClearChart();
-        }
-
+        
+        // Clears Chart upon invalid selection
         protected void ClearChart()
         {
             cbList = new List<ReportItemVM>();
@@ -366,28 +382,23 @@ namespace Group8_AD_webapp
             lblSubtitle2.Text = "";
         }
 
+        // Clears Chart
         protected void OnChange(object sender, EventArgs e)
         {
             ClearChart();
         }
 
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            monthsList = new List<DateTime>();
-            lstMonths.DataSource = monthsList;
-            lstMonths.DataBind();
-            ClearChart();
-        }
-
-        protected void btnBar_Click(object sender, EventArgs e)
+        // Changes from List to Bar Chart
+        protected void BtnBar_Click(object sender, EventArgs e)
         {
             showchart.Visible = true;
             showlist.Visible = false;
             btnList.CssClass = "listbutton";
             btnBar.CssClass = "listbutton active";
-
         }
-        protected void btnList_Click(object sender, EventArgs e)
+
+        // Changes from Bar chart to List
+        protected void BtnList_Click(object sender, EventArgs e)
         {
             showchart.Visible = false;
             showlist.Visible = true;

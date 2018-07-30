@@ -18,11 +18,11 @@
             </script>
         <div class="col-xs-12 col-lg-6">
        <div class="subtitletext">Request List <a href="#bookmarks" class="viewbmkarea btn btn-warning" style = '<%=IsNotSubmitted ? "" : "display: none;" %>'>VIEW <i class="fa fa-bookmark"></i></a> </div> 
-        <span  style = '<%=IsEmpty ? "display: none;":""%>'>STATUS: <asp:Label ID="lblStatus" runat="server" Text="" ></asp:Label></span>
+        <span>STATUS: <asp:Label ID="lblStatus" runat="server" Text="" ></asp:Label></span>
         <!-- Cart List -->
 
        <div class="listview"> 
-        <asp:ListView runat="server" ID="lstShow" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstShow">
         <LayoutTemplate>
             <table runat="server" class="table">
                 <thead><tr id="grdHeader" runat="server">
@@ -47,14 +47,14 @@
                 <td style="display:none;"><asp:Label ID="lblReqId" runat="server" Text='<%# Eval("ReqId") %>'/></td>
                 <td style="display:none;"><asp:Label ID="lblReqLineNo" runat="server" Text='<%# Eval("ReqLineNo") %>'/></td>
                 <td style="display:none"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
+                <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="BtnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("ReqQty") %>'></asp:Label></td>
                 <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="pad-left10" runat="server" min="1"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
                  <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("FulfilledQty") %>'></asp:Label></td>
                 <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblBalanceQty" runat="server" Text='<%# Convert.ToInt32(Eval("ReqQty")) - Convert.ToInt32(Eval("FulfilledQty"))%>'></asp:Label></td>
                 <td><asp:Label ID="lblUOM" runat="server" Text='<%#String.Format("{0:C}",Eval("UOM"))%>' /></td>    
-               <td style = '<%=IsEditable ? "" : "display: none;" %>'><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
+               <td style = '<%=IsEditable ? "" : "display: none;" %>'><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="BtnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
                 <td style = '<%=IsApproved ? "" : "display: none;" %> <%#(Convert.ToInt32(Eval("ReqQty")) == Convert.ToInt32(Eval("FulfilledQty"))) ? "border:none" : "display: none;" %>'><div class="btn-fulfilled"><i class="fa fa-check-circle"></i></div></td>
            </tr>
         </ItemTemplate>
@@ -67,13 +67,13 @@
            </div>
 
             <div class="row">
-        <div class="col-xs-3 backarea" style = '<%=IsEmpty ? "display: none;":""%>'>
-            <asp:Button ID="btnCatalogue" Cssclass="btn btn-back" runat="server" Text="Catalogue" OnClick ="btnCatalogue_Click" />
-            <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back" OnClick ="btnReqList_Click" />
+        <div class="col-xs-3 backarea">
+            <asp:Button ID="btnCatalogue" Cssclass="btn btn-back" runat="server" Text="Catalogue" OnClick ="BtnCatalogue_Click" />
+            <asp:Button ID="btnReqList" Cssclass="btn btn-back" runat="server" Text="Back" OnClick ="BtnReqList_Click" />
         </div>
         <div class="col-xs-9  buttonarea">
-            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="btnCancel_Click" runat="server" Text="Cancel" />
-            <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="btnSubmit_Click" runat="server" Text="Submit" />
+            <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="BtnCancel_Click" runat="server" Text="Cancel" />
+            <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="BtnSubmit_Click" runat="server" Text="Submit" />
             <!-- <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" /> -->
         </div></div>
         </div>
@@ -90,7 +90,7 @@
         <Triggers>
         </Triggers>
         <ContentTemplate>
-        <asp:ListView runat="server" ID="lstBookmark" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstBookmark">
         <LayoutTemplate>
             <table runat="server" class="table">
                 <thead><tr id="grdHeader" runat="server">
@@ -109,10 +109,10 @@
                 <td style="display:none;"><asp:Label ID="lblList" runat="server">Bookmark</asp:Label></td>
                 <td style="display:none;"><asp:Label ID="lblReqId" runat="server" Text='<%# Eval("ReqId") %>'/></td>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
-                <td><asp:Button ID="btnAdd" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
+                <td><asp:Button ID="btnAdd" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="BtnAdd_Click"/></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' />
                 <asp:TextBox ID="spnQty" type="number" runat="server" min="1" Visible="false" Value="1" Width="60px" /></td>
-               <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
+               <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="BtnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
             </tr>
         </ItemTemplate>
         <EmptyDataTemplate>
@@ -164,7 +164,7 @@
                 
                 <div class="action-btn">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
-                    <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
+                    <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="BtnConfirm_Click" runat="server" Text="Confirm" />
                 </div>
               </div>
        </div></div></div>
@@ -182,7 +182,7 @@
                 <h4 class="detail-subtitle">Request will be cancelled.<br /><br /> Please confirm!</h4></div>
 
                 <div class="action-btn action-btn2">
-                     <asp:Button ID="btnConfirmCancel" class="btn btn-danger btn-msize" OnClick="btnConfirmCancel_Click" runat="server" Text="Confirm" /> 
+                     <asp:Button ID="btnConfirmCancel" class="btn btn-danger btn-msize" OnClick="BtnConfirmCancel_Click" runat="server" Text="Confirm" /> 
                 </div>
 
               </div>

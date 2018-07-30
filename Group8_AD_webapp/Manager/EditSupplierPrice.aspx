@@ -10,20 +10,20 @@
         <div class="row">
         <div class="col-md-3"><span class="subtitletext">Update Suppliers </span></div>
         <div class="col-md-8">
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
-        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server" OnTextChanged="txtSearch_Changed" AutoPostBack ="True"></asp:TextBox>
-        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server" AutoPostBack ="True"></asp:TextBox>
+        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="BtnSearch_Click" />
      </div></div></div>
 
         <div id="centermain">
 
                 <div class="mobilespacer"></div>        
-                <asp:Button ID="btnClear" CssClass="btn btn-warning pad-left10" style="color:#000; font-weight:700;" runat="server" Text="Clear Suppliers/Prices" OnClick="btnClear_Click" />
+                <asp:Button ID="btnClear" CssClass="btn btn-warning pad-left10" style="color:#000; font-weight:700;" runat="server" Text="Clear Suppliers/Prices" OnClick="BtnClear_Click" />
           <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
     <asp:GridView ID="grdSupplier" runat="server" CssClass="table" PagerStyle-CssClass="pager" OnRowDataBound="GridView_RowDataBound"
-        AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="grdSupplier_PageIndexChanging" PageSize="20"> 
+        AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="GrdSupplier_PageIndexChanging" PageSize="20"> 
                    <Columns>
                 <asp:TemplateField HeaderText="Item Code" SortExpression="ItemCode">
                     <ItemTemplate>
@@ -73,7 +73,7 @@
             <a class="btn btn-back" href="~/Manager/StoreDashboard.aspx" runat="server">Dashboard</a>
         </div>
     <div class="col-xs-9  buttonarea">
-        <asp:Button ID="btnSubmit" Cssclass="btn btn-success" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+        <asp:Button ID="btnSubmit" Cssclass="btn btn-success" runat="server" Text="Submit" OnClick="BtnSubmit_Click" />
     </div></div>
     </div>
 </ContentTemplate></asp:UpdatePanel>
@@ -129,7 +129,7 @@
                 
                 <div class="action-btn action-btn2">
                     <!-- <asp:Button ID="btnFinalCancel" class="btn btn-danger btn-msize" runat="server" Text="Cancel" /> -->
-                    <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="btnConfirm_Click" runat="server" Text="Confirm" />
+                    <asp:Button ID="btnConfirm" class="btn btn-success btn-msize" OnClick="BtnConfirm_Click" runat="server" Text="Confirm" />
                   </div>
               </div>
                 </ContentTemplate>
@@ -152,7 +152,7 @@
                      Confirm if you wish to proceed.</h4></div>
 
                 <div class="action-btn action-btn2">
-                     <asp:Button ID="btnConfirmClear" class="btn btn-danger btn-msize" OnClick="btnConfirmClear_Click" runat="server" Text="Confirm" /> 
+                     <asp:Button ID="btnConfirmClear" class="btn btn-danger btn-msize" OnClick="BtnConfirmClear_Click" runat="server" Text="Confirm" /> 
                 </div>
 
               </div>

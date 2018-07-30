@@ -24,20 +24,21 @@ namespace Group8_AD_webapp
             
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
                 Main master = (Main)this.Master;
                 master.ActiveMenu("catalogue");
 
+                // Prepare dropdowns and Catalogue/Bookmarks/Recommendations
                 PopulateDropDowns();
                 PopulateCatalogue();
-                IsBmkTab = true;
-                
-                PopulateSidePanel();
-                BindSidePanel();
-
                 showgrid.Visible = true;
                 showlist.Visible = false;
                 IsClean.Value = "false";
+                IsBmkTab = true;
+                PopulateSidePanel();
+                BindSidePanel();
 
+                // Populates items for searching
                 allItems = (Controllers.ItemCtrl.GetAllItems()).OrderBy(x => x.Desc).ToList();
                 lstSearch.DataSource = allItems;
                 lstSearch.DataBind();
@@ -46,6 +47,19 @@ namespace Group8_AD_webapp
             ddlsearchcontent.Visible = false;
         }
 
+        // Populates Category and Page Count choice dropdowns
+        protected void PopulateDropDowns()
+        {
+            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
+            ddlCategory.DataBind();
+
+            List<string> pagecounts = new List<string> { "6", "9", "12", "All" };
+            ddlPageCount.DataSource = pagecounts;
+            ddlPageCount.SelectedIndex = 1;
+            ddlPageCount.DataBind();
+        }
+
+        // Populates catalogue items
         protected void PopulateCatalogue()
         {
             lblCatTitle.Text = "Catalogue";
@@ -54,6 +68,56 @@ namespace Group8_AD_webapp
             BindGrids();
         }
 
+        // Databind Catalogue Grid/List
+        protected void BindGrids()
+        {
+            lstCatalogue.DataSource = items;
+            lstCatalogue.DataBind();
+
+            grdCatalogue.DataSource = items;
+            grdCatalogue.DataBind();
+
+            int max = dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows;
+            if (items.Count < max)
+            {
+                max = items.Count;
+            }
+            lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + max + " of " + items.Count();
+        }
+
+        // Populates Bookmark/Recommendation panel
+        protected void PopulateSidePanel()
+        {
+            int empId = (int)Session["empId"];
+            RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
+            if (bookmarkReq != null)
+            {
+                int bmkid = bookmarkReq.ReqId;
+                List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(bmkid);
+                bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
+                bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
+            }
+
+            frequentList = Controllers.ItemCtrl.GetFrequentList(empId);
+            frequentList = frequentList.OrderBy(x => x.Desc).ToList();
+        }
+
+        // Binds Bookmark/Recommendation panel
+        protected void BindSidePanel()
+        {
+            if (IsBmkTab == true)
+            {
+                lstBookmarks.DataSource = bookmarkList;
+                lstBookmarks.DataBind();
+            }
+            else
+            {
+                lstBookmarks.DataSource = frequentList;
+                lstBookmarks.DataBind();
+            }
+        }
+
+        // Searches Catalogue
         protected void DoSearch()
         {
             string cataloguequery = (string)Session["Query"];
@@ -86,44 +150,18 @@ namespace Group8_AD_webapp
             BindGrids();
         }
 
-        protected void PopulateDropDowns()
-        {
-            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
-            ddlCategory.DataBind();
-
-            List<string> pagecounts = new List<string> { "6", "9", "12", "All" };
-            ddlPageCount.DataSource = pagecounts;
-            ddlPageCount.SelectedIndex = 1;
-            ddlPageCount.DataBind();
-        }
-
-        protected void BindGrids()
-        {
-            lstCatalogue.DataSource = items;
-            lstCatalogue.DataBind();
-
-            grdCatalogue.DataSource = items;
-            grdCatalogue.DataBind();
-
-            int max = dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows;
-            if (items.Count < max)
-            {
-                max = items.Count;
-            }
-            lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + max + " of " + items.Count();
-        }
-
-        protected void lstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        // Rebinds listviews upon changes
+        protected void LstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             dpgGrdCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             dpgLstCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             dpgGrdCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             dpgLstCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             BindGrids();
-            
         }
         
-        protected void btnBookmark_Click(object sender, EventArgs e)
+        // Adds Item to Bookmarks
+        protected void BtnBookmark_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
@@ -140,7 +178,7 @@ namespace Group8_AD_webapp
                 RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
                 PopulateSidePanel();
                 bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
-                btnShowBmk_Click(btnShowBmk,EventArgs.Empty);
+                BtnShowBmk_Click(btnShowBmk,EventArgs.Empty);
 
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("{0} Added to Bookmarks",description), "Item Added Successfully", "success");
@@ -148,7 +186,8 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        // Adds item to Cart (Unsubmitted Request List)
+        protected void BtnAdd_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
             var item = (ListViewItem)btn.NamingContainer;
@@ -175,7 +214,8 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnGrid_Click(object sender, EventArgs e)
+        // Switches from List to Picture View
+        protected void BtnGrid_Click(object sender, EventArgs e)
         {
             showgrid.Visible = true;
             showlist.Visible = false;
@@ -188,7 +228,9 @@ namespace Group8_AD_webapp
                 sidepanelarea.Style.Add("display", "block");
             }
         }
-        protected void btnList_Click(object sender, EventArgs e)
+
+        //Switches from Picture to List view
+        protected void BtnList_Click(object sender, EventArgs e)
         {
             showgrid.Visible = false;
             showlist.Visible = true;
@@ -202,26 +244,44 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
+        // Go to cart if cart is not empty
+        protected void btnCart_Click(object sender, EventArgs e)
+        {
+            int empId = (int)Session["empId"];
+            RequestVM cart = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
+            if (cart != null)
+            {
+                if (Controllers.RequestDetailCtrl.GetReqDetList(cart.ReqId).Count != 0)
+                {
+                    Response.Redirect("~/Employee/RequestList.aspx");
+                }
+            }
+        }
+
+        // Search Catalogue
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
             GetSearchQuery();
             DoSearch();
         }
 
+        // Saves search query to session
         protected void GetSearchQuery()
         {
             Session["Query"] = txtSearch.Text.ToLower();
             Session["QueryCat"] = ddlCategory.Text;
         }
 
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        // Saves category query to session
+        protected void DdlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["Query"] = "";
             Session["QueryCat"] = ddlCategory.Text;
             DoSearch();
         }
 
-        protected void txtSearch_Changed(object sender, EventArgs e)
+        // Populates dropdown when search terms entered
+        protected void TxtSearch_Changed(object sender, EventArgs e)
         {
             string cataloguequery = txtSearch.Text.ToLower();
             string querycat = ddlCategory.Text;
@@ -238,7 +298,8 @@ namespace Group8_AD_webapp
             ddlsearchcontent.Visible = true;
         }
 
-        protected void lstSearch_PagePropertiesChanged(object sender, EventArgs e)
+        // Rebinds search list upon changes
+        protected void LstSearch_PagePropertiesChanged(object sender, EventArgs e)
         {
             items = new List<ItemVM>();
             string searchquery = txtSearch.Text;
@@ -248,7 +309,8 @@ namespace Group8_AD_webapp
             ddlsearchcontent.Visible = true;
         }
 
-        protected void ddlPageCount_SelectedIndexChanged(object sender, EventArgs e)
+        // Changes page count when dropdown option chosen
+        protected void DdlPageCount_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(ddlPageCount.SelectedValue == "All"){
                 dpgGrdCatalogue.PageSize = Convert.ToInt32(items.Count());
@@ -268,51 +330,8 @@ namespace Group8_AD_webapp
             BindGrids();
         }
 
-        protected void PopulateSidePanel()
-        {
-            int empId = (int)Session["empId"];
-            RequestVM bookmarkReq = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
-            if (bookmarkReq != null)
-            {
-                int bmkid = bookmarkReq.ReqId;
-                List<RequestDetailVM> bookmarkDetails = Controllers.RequestDetailCtrl.GetReqDetList(bmkid);
-                bookmarkDetails = BusinessLogic.AddItemDescToReqDet(bookmarkDetails);
-                bookmarkList = bookmarkDetails.OrderBy(x => x.Desc).ToList();
-            }
-            
-            frequentList = Controllers.ItemCtrl.GetFrequentList(empId);
-            frequentList = frequentList.OrderBy(x => x.Desc).ToList();
-        }
-
-        protected void BindSidePanel()
-        {
-            if(IsBmkTab == true)
-            {
-                lstBookmarks.DataSource = bookmarkList;
-                lstBookmarks.DataBind();
-            }
-            else
-            {
-                lstBookmarks.DataSource = frequentList;
-                lstBookmarks.DataBind();
-            }
-        }
-
-        protected void btnOpenBmk_Click(object sender, EventArgs e)
-        {
-            sidepanelarea.Style.Add("display", "block");
-            if (bookmarkPanel.Visible == true)
-            {
-                bookmarkPanel.Visible = false;
-            }
-            else
-            {
-                bookmarkPanel.Visible = true;
-                BindSidePanel();
-            }
-        }
-
-        protected void btnShowBmk_Click(object sender, EventArgs e)
+        // Opens Bookmarks panel
+        protected void BtnShowBmk_Click(object sender, EventArgs e)
         {
             IsBmkTab = true;
             sidepanelarea.Style.Add("display", "block");
@@ -325,7 +344,8 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void btnShowRecc_Click(object sender, EventArgs e)
+        // Opens recommendation panel
+        protected void BtnShowRecc_Click(object sender, EventArgs e)
         {
             IsBmkTab = false;
             sidepanelarea.Style.Add("display", "block");
@@ -335,6 +355,21 @@ namespace Group8_AD_webapp
             if (bookmarkPanel.Visible == false)
             {
                 bookmarkPanel.Visible = true;
+            }
+        }
+
+        // Makes Bookmarks Panel Visible/Hidden
+        protected void BtnOpenBmk_Click(object sender, EventArgs e)
+        {
+            sidepanelarea.Style.Add("display", "block");
+            if (bookmarkPanel.Visible == true)
+            {
+                bookmarkPanel.Visible = false;
+            }
+            else
+            {
+                bookmarkPanel.Visible = true;
+                BindSidePanel();
             }
         }
     }

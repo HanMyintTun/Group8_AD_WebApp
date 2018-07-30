@@ -47,12 +47,12 @@
                         <asp:UpdatePanel ID="udpMainCart" runat="server">
                             <ContentTemplate>
                                 <li id="btnCartLi" class="dropdown dropdown2" runat="server">
-                                    <asp:LinkButton ID="btnCart" runat="server" CssClass="dropdown-toggle count-info" OnClick="btnCart_Click">
+                                    <asp:LinkButton ID="btnCart" runat="server" CssClass="dropdown-toggle count-info" OnClick="BtnCart_Click">
                                         <em class="fa fa-shopping-cart"></em>
                                         <asp:Label ID="lblCartCount" CssClass="label label-info" runat="server" Text="0"></asp:Label>
                                     </asp:LinkButton>
                                     <ul class="dropdown-content dropdown-alerts">
-                                        <asp:ListView ID="lstCart" runat="server" OnPagePropertiesChanged="lstCart_PagePropertiesChanged">
+                                        <asp:ListView ID="lstCart" runat="server" OnPagePropertiesChanged="LstCart_PagePropertiesChanged">
                                             <ItemTemplate>
                                                 <li><a runat="server" href="#">
                                                     <table>
@@ -61,7 +61,6 @@
                                                                 <asp:Label ID="lblCartDesc" runat="server" CssClass="" Text='<%#Eval("Desc") %>' /></td>
                                                             <td class="ddlcartitem2">
                                                                 <asp:Label ID="lblCartReqQty" runat="server" CssClass="blank" Text='<%#Eval("ReqQty") %>' /></td>
-                                                            <!-- <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-removeitem" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton> </td> -->
                                                         </tr>
                                                     </table>
                                                 </a></li>
@@ -71,7 +70,7 @@
                                             </EmptyDataTemplate>
                                         </asp:ListView>
                                         <li style="text-align: right;">
-                                            <asp:LinkButton ID="btnCartBtm" runat="server" OnClick="btnCart_Click" class="btn btn-gotocart" AutoPostBack="False"><em class="fa fa-shopping-cart"></em> CART</asp:LinkButton>
+                                            <asp:LinkButton ID="btnCartBtm" runat="server" OnClick="BtnCart_Click" class="btn btn-gotocart" AutoPostBack="False"><em class="fa fa-shopping-cart"></em> CART</asp:LinkButton>
                                         </li>
                                     </ul>
                                 </li>
@@ -85,7 +84,7 @@
                                         <li style="text-align: right;">
                                             <asp:LinkButton ID="btnMarkRead" runat="server" OnClick="BtnMarkRead_Click" AutoPostBack="true"><em class="fa fa-pen-square"></em>Mark All As Read</asp:LinkButton></li>
 
-                                        <asp:ListView ID="lstNotifications" runat="server" OnPagePropertiesChanged="lstNotif_PagePropertiesChanged">
+                                        <asp:ListView ID="lstNotifications" runat="server" OnPagePropertiesChanged="LstNotif_PagePropertiesChanged">
                                             <ItemTemplate>
                                                 <li class="liborder">
                                                     <asp:LinkButton ID="btnOnNotif" runat="server" OnClick="BtnOnNotif_Click">
@@ -123,7 +122,7 @@
                                     <img src='"<%=img_src_path%>"' class="img-avatar" id="imgProfile" runat="server" /></a>
                                     <ul class="dropdown-menu dropdown-alerts" style="width: 50%;">
                                         <li>
-                                            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" class="dropdown-item">
+                                            <asp:LinkButton ID="btnLogout" runat="server" OnClick="BtnLogout_Click" class="dropdown-item">
                                     <i class="fa fa-lock"></i>&nbsp;Logout</asp:LinkButton></li>
                                     </ul>
                                 </li>

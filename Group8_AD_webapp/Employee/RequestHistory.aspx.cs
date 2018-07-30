@@ -17,9 +17,11 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Adds active class to menu Item (sidebar)
             Service.UtilityService.CheckRoles("Employee");
             int empId = Convert.ToInt32(Session["empId"]);
 
+            // Clears message upon postback
             if (Session["Message"] == null)
             {
                 lblMessage.Text = "";
@@ -28,17 +30,21 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
                 Main master = (Main)this.Master;
                 master.ActiveMenu("reqhistory");
 
-                List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled"};
+                // Populates dropdown list
+                List<string> statuses = new List<string> { "Submitted", "Approved", "Fulfilled", "Cancelled", "Rejected"};
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
 
+                // Populates Request List
                 requests = Controllers.RequestCtrl.GetReq(empId, "All");
                 BindGrid();
 
-                if(Session["Message"] != null){
+                // For showing message if coming from request list page
+                if (Session["Message"] != null){
                     lblMessage.Text = Session["Message"].ToString();
                     Session["Message"] = null;
                     divAlert.Visible = true;
@@ -51,6 +57,7 @@ namespace Group8_AD_webapp
 
         }
 
+        // Binds List of Requests
         protected void BindGrid()
         {
             requests = requests.OrderByDescending(x => x.ReqDateTime).ToList();
@@ -58,7 +65,8 @@ namespace Group8_AD_webapp
             lstRequests.DataBind();
         }
 
-        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        // Searches request list upon dropdown change
+        protected void DdlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             int empId = Convert.ToInt32(Session["empId"]);
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
@@ -71,14 +79,15 @@ namespace Group8_AD_webapp
                 requests = Controllers.RequestCtrl.GetReq(empId, status);
                 BindGrid();
             }
-
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
+        // Performs search
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
             DoSearch();
         }
 
+        // Performs search
         protected void DoSearch()
         {
             int empId = Convert.ToInt32(Session["empId"]);
@@ -90,9 +99,7 @@ namespace Group8_AD_webapp
 
                 if (endDate.CompareTo(startDate) >= 0)
                 {
-
                     requests = Controllers.RequestCtrl.GetRequestByDateRange(empId, status, startDate, endDate);
-
                     BindGrid();
                 }
                 else

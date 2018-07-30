@@ -29,6 +29,7 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Sets up profile badge
         protected void SetProfile()
         {
             if(Session["empId"] != null)
@@ -51,9 +52,9 @@ namespace Group8_AD_webapp
             {
                 Response.Redirect("~/Home.aspx");
             }
-
         }
 
+        // Sets up Sidebar menu based on role
         protected void PopulateMenuItems()
         {
             List<HtmlGenericControl> deptHeadList = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest };
@@ -99,12 +100,7 @@ namespace Group8_AD_webapp
             }
         }
 
-        public void ShowToastr(object sender, string message, string title, string type)
-        {
-            ScriptManager.RegisterStartupScript((Page)sender, sender.GetType(), "toastr_message",
-            String.Format("toastr.{0}('{1}', '{2}', {{positionClass: 'toast-bottom-right'}});", type.ToLower(), message, title), true);
-        }
-
+        // Sets up Cart dropdown
         public void FillCart()
         {
             int empId = (int)Session["empId"];
@@ -128,6 +124,18 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Sets up Cart count dropdown
+        public void UpdateCartCount()
+        {
+            int cartCount = 0;
+            foreach (RequestDetailVM item in cartDetailList)
+            {
+                cartCount += item.ReqQty;
+            }
+            lblCartCount.Text = cartCount.ToString();
+        }
+
+        // Sets up Notification dropdown
         public void FillNotifications()
         {
             int empId = (int)Session["empId"];
@@ -140,43 +148,30 @@ namespace Group8_AD_webapp
             lstNotifications.DataBind();
         }
 
-        public void UpdateCartCount()
-        {
-            int cartCount = 0;
-            foreach(RequestDetailVM item in cartDetailList)
-            {
-                cartCount += item.ReqQty;
-            }
-
-            lblCartCount.Text = cartCount.ToString();
-        }
-
-        protected void lstCart_PagePropertiesChanged(object sender, EventArgs e)
+        // Rebind cart
+        protected void LstCart_PagePropertiesChanged(object sender, EventArgs e)
         {
             lstCart.DataSource = cartDetailList;
             lstCart.DataBind();
         }
 
-        protected void lstNotif_PagePropertiesChanged(object sender, EventArgs e)
+        // Rebind notifications
+        protected void LstNotif_PagePropertiesChanged(object sender, EventArgs e)
         {
             FillNotifications();
         }
 
-        protected void btnRemove_Click(object sender, EventArgs e)
-        {
-        }
-
-
-        protected void btnLogout_Click(object sender, EventArgs e)
+        // Logout of site
+        protected void BtnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
             Response.Redirect("~/Login.aspx");
         }
 
-        protected void btnCart_Click(object sender, EventArgs e)
+        // GO to cart button
+        protected void BtnCart_Click(object sender, EventArgs e)
         {
-
             int empId = (int)Session["empId"];
             RequestVM unsubRequest = Controllers.RequestCtrl.GetReq(empId, "Unsubmitted").FirstOrDefault();
             Main master = this;
@@ -186,16 +181,10 @@ namespace Group8_AD_webapp
                 {
                     Response.Redirect("~/Employee/RequestList.aspx");
                 }
-
             }
         }
 
-        protected void btnViewNotif_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Notifications.aspx");
-
-        }
-
+        // Toggles read status of notifications
         protected void BtnOnNotif_Click(object sender, EventArgs e)
         {
             var lbl = (LinkButton)sender;
@@ -217,12 +206,21 @@ namespace Group8_AD_webapp
 
         }
 
+        // Marksall visible notifications as read
         protected void BtnMarkRead_Click(object sender, EventArgs e)
         {
             NotificationBL.MarkAllAsRead(notifList);
             FillNotifications();
         }
 
+        // Service Method for showing Toast
+        public void ShowToastr(object sender, string message, string title, string type)
+        {
+            ScriptManager.RegisterStartupScript((Page)sender, sender.GetType(), "toastr_message",
+            String.Format("toastr.{0}('{1}', '{2}', {{positionClass: 'toast-bottom-right'}});", type.ToLower(), message, title), true);
+        }
+
+        // Service method to add active class to sidebar menu item
         public void ActiveMenu(string page)
         {
             List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest, menuCatalogueDash,
@@ -247,10 +245,7 @@ namespace Group8_AD_webapp
                 case "storeadjustment": menuAdjustment.Attributes.Add("class", "menuactive"); break;
                 case "none": break;
                 default: break;
-            }
-        
-            
-                
+            }                
         }
     }
 }

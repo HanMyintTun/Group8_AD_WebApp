@@ -22,8 +22,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3 class="page-header">Reports
-                <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="btnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
-                <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
+                <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="BtnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
+                <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="BtnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
             <div class="col-lg-6">
                 <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" />
@@ -191,11 +191,11 @@
                                         </div>
 
                                          <div class="input-group"><asp:hiddenfield id="IsMonth" Value="true" ClientIDMode="Static" runat="server"/>
-                                            <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" autocomplete="off" OnTextChanged="txtMonthPick_TextChanged" AutoPostBack="true" placeholder="Month-Year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" autocomplete="off" OnTextChanged="TxtMonthPick_TextChanged" AutoPostBack="true" placeholder="Month-Year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                          </div>
                                         <div class="text-right mt-15">
-                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="btnClear_Click" runat="server" Text=" Clear List" /></div>
+                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="BtnClear_Click" runat="server" Text=" Clear List" /></div>
 
                                     </div>
                                     <div class="col-lg-6">
@@ -204,12 +204,12 @@
                                             <ContentTemplate>
                                             <div class="montharea">
                                                 <asp:ListView ID="lstMonths" runat="server"><ItemTemplate>
-                                                <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="btnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton> <br />
+                                                <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="BtnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton> <br />
                                                 </ItemTemplate></asp:ListView>
                                             </div></ContentTemplate></asp:UpdatePanel>
                                         <div  class="text-right">
                                         <div class="report-btn mt-15">
-                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="btnMonth_Click" runat="server" Text="Generate By Month" />
+                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
                                             </div> </div> 
                                     </div>
                             </div>
@@ -228,7 +228,7 @@
                                 </div>
                                 <div class="col-md-12 text-right">
                                           <div class="report-btn mt-15 text-right">
-                                            <asp:Button ID="btnRange" OnClick="btnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
+                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
                                         </div>
                                 </div>
                             </div></div>

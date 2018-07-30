@@ -11,7 +11,7 @@
         <span class="subtitletext mt-5 ml-5"><asp:Label ID="lblCatTitle" runat="server" Text="Request History"></asp:Label></span>
         </div>
         <div class="col-xs-12 col-lg-2">
-        <asp:DropDownList ID="ddlStatus" CssClass="ddlStatus form-control" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlStatus" CssClass="ddlStatus form-control" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
          </div>
@@ -29,7 +29,7 @@
                     <asp:TextBox ID="txtEndDate" ClientIDMode="Static" autocomplete="off" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control controlheight"></asp:TextBox>
                     <span class="input-group-addon controlheight"><i class="fa fa-calendar" aria-hidden="true"></i></span>
 
-                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="btnSearch_Click" />
+                </div><asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-add button" Text="Search" OnClick="BtnSearch_Click" />
 
             </div>
         </div>

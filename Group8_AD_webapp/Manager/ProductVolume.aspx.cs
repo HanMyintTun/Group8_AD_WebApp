@@ -26,12 +26,15 @@ namespace Group8_AD_webapp
 
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
                 Main master = (Main)this.Master;
                 master.ActiveMenu("productrank");
 
+                // Populates Search Bar
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
+                // Determines Sort Direction based on button clicked on dashboard
                 if (Request.QueryString["sort"] == "asc")
                 {
                     IsDesc.Value = "false";
@@ -42,6 +45,7 @@ namespace Group8_AD_webapp
                     ddlSortDirection.SelectedValue = "desc";
                 }
                 
+                // Determines dates based on dates from dashboard
                 if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
                 {
                     d1 = DateTime.Parse(Request.QueryString["d1"]);
@@ -52,18 +56,20 @@ namespace Group8_AD_webapp
                     d1 = DateTime.Today.AddYears(-1);
                     d2 = DateTime.Today;
                 }
+
+                // Populates DataTable Product List
                 staticpList = Controllers.TransactionCtrl.GetVolume(d1, d2);
                 foreach(ItemVM i in staticpList)
                 {
                     i.Price1 = Math.Round(i.Price1, 2);
                 }
-
                 productList = new List<ItemVM>(staticpList);
                 SortAndBindGrid();
             }
 
         }
 
+        // Populates DataTable Product List
         protected void SortAndBindGrid()
         {
             if (IsDesc.Value == "true")
@@ -86,12 +92,13 @@ namespace Group8_AD_webapp
             lblDateRange.Text = "Date Range: " + d1.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
         }
 
-
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        // Does search in list
+        protected void DdlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSearch_Click(btnSearch, EventArgs.Empty);
+            BtnSearch_Click(btnSearch, EventArgs.Empty);
         }
 
+        // Does search in list
         protected List<ItemVM> DoSearch()
         {
             d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -110,8 +117,8 @@ namespace Group8_AD_webapp
 
         }
 
-
-        protected void btnSearch_Click(object sender, EventArgs e)
+        // Does search in list
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
             string cat = ddlCategory.Text;
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
@@ -141,7 +148,8 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void ddlSortDirection_SelectedIndexChanged(object sender, EventArgs e)
+        // Changes sort direction
+        protected void DdlSortDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sort = ddlSortDirection.SelectedValue;
             if (sort == "asc")
@@ -156,8 +164,8 @@ namespace Group8_AD_webapp
             }
         }
         
-
-        protected void btnBack_Click(object sender, EventArgs e)
+        // Back to Dashboard
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
             {
