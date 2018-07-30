@@ -50,7 +50,7 @@
                 <td style = '<%=IsNotSubmitted ? "" : "display: none;" %>'><asp:LinkButton ID="btnBookmark" AutoPostBack="false" CssClass="btn btn-warning" OnClick="btnBookmark_Click" runat="server"><i class="fa fa-bookmark"></i> </asp:LinkButton></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 <td style = '<%=IsEditable ? "display: none;" : "" %>'> <asp:Label ID="txtQty" runat="server" Text='<%# Eval("ReqQty") %>'></asp:Label></td>
-                <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="pad-left10" runat="server" min="0"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
+                <td style = '<%=IsEditable ? "" : "display: none;" %>'> <asp:TextBox ID="spnQty" type="number" Cssclass="pad-left10" runat="server" min="1"  Value='<%# Eval("ReqQty") %>' Width="60px" /></td>
                  <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblFulfilledQty" runat="server" Text='<%# Eval("FulfilledQty") %>'></asp:Label></td>
                 <td style = '<%=IsApproved ? "" : "display: none;" %>'><asp:Label ID="lblBalanceQty" runat="server" Text='<%# Convert.ToInt32(Eval("ReqQty")) - Convert.ToInt32(Eval("FulfilledQty"))%>'></asp:Label></td>
                 <td><asp:Label ID="lblUOM" runat="server" Text='<%#String.Format("{0:C}",Eval("UOM"))%>' /></td>    
@@ -111,7 +111,7 @@
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                 <td><asp:Button ID="btnAdd" CssClass="btn-warning btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' />
-                <asp:TextBox ID="spnQty" type="number" runat="server" min="0" Visible="false" Value="1" Width="60px" /></td>
+                <asp:TextBox ID="spnQty" type="number" runat="server" min="1" Visible="false" Value="1" Width="60px" /></td>
                <td><asp:LinkButton runat="server" ID="btnRemove" CssClass="btn-remove" OnClick="btnRemove_Click"><i class="fa fa-times-circle"></i></asp:LinkButton></td>
             </tr>
         </ItemTemplate>

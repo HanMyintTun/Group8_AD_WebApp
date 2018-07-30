@@ -39,7 +39,7 @@
                     <td class="sidedesc searchdesc showsearch"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
-                    <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="0"  Value="1" Width="60px" />
+                    <td colspan="3" class="bmkright showsearch"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside showsearch" runat="server" min="1"  Value="1" Width="60px" />
                    <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn ml-10 showsearch" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
@@ -109,7 +109,7 @@
                 <div class="" ><asp:Label ID="lblDescription" runat="server" CssClass="blank" Text='<%#Eval("Desc") %>'></asp:Label></div></td></tr>
             <tr><td class="form-inline lblQty movedown">
                <span class=""> Qty: 
-                   <asp:TextBox ID="spnQty" type="number" Cssclass="form-control controlheight txtboxmove" width="80px" runat="server" min="0"  Value="1" /></span><br />
+                   <asp:TextBox ID="spnQty" type="number" Cssclass="form-control controlheight txtboxmove" width="80px" runat="server" min="1"  Value="1" /></span><br />
                  </td></tr>
             <tr><td class="p-1 m-auto">
                 <asp:Button ID="btnAdd" CssClass="btn-add btn-add2  btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/>
@@ -151,6 +151,7 @@
                         <th scope="col" style="display:none;">Item Code</th>
                         <th scope="col">Product Description</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Units</th>
                         <th scope="col"></th>
                 </tr></thead>
                 <tbody>
@@ -162,7 +163,8 @@
             <tr>
                 <td style="display:none;"><asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ItemCode") %>'/></td>
                 <td><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
-                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign controlheight txtconstraint" runat="server" min="0"  Value="1"/></td>
+                <td> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign controlheight txtconstraint" runat="server" min="1"  Value="1"/></td>
+                <td><asp:Label ID="lbllstUOM" runat="server" Text='<%# Eval("UOM") %>'/></td>
                 <td><asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD TO CART" OnClick="btnAdd_Click"/></td>
             </tr>
         </ItemTemplate>
@@ -210,7 +212,7 @@
                     <td class="sidedesc"><asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                 </tr>
                  <tr>
-                    <td colspan="3" class="bmkright"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside" runat="server" min="0"  Value="1" Width="60px" />
+                    <td colspan="3" class="bmkright"> <asp:TextBox ID="spnQty" type="number" Cssclass="vertalign movedownside" runat="server" min="1"  Value="1" Width="60px" />
                    <asp:Button ID="btnAdd" CssClass="btn-add-list vertalign btn" runat="server" Text="ADD" OnClick="btnAdd_Click"/></td>
                 </tr>
                 </table>
