@@ -12,12 +12,14 @@ namespace Group8_AD_webapp
     public partial class Fulfilled_Requests : System.Web.UI.Page
     {
         static int rid;
-        
-        int empId = 2;
+
+        int empId;
         string status = "Fulfilled";
         EmployeeVM emp = new EmployeeVM();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("DeptHead");
+            empId = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
                 Main master = (Main)this.Master;

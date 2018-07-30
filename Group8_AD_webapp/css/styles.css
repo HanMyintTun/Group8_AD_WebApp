@@ -1583,6 +1583,7 @@ input[type="radio"] {
 }
 .update-area {
     margin-right: 17px !important;
+    padding-right: 0px !important;
 }
 .updatebtn {
     width : 170px;
