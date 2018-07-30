@@ -67,10 +67,10 @@ namespace Group8_AD_webapp
         }
 
 
-        public static List<AdjustmentVM> GetItemAdjustList(string voucherno, int empid)
+        public static List<AdjustmentVM> GetItemAdjustList(string voucherno)
         {
             List<AdjustmentVM> showlist = new List<AdjustmentVM>();
-            List<AdjustmentVM> adj = AdjustmentBL.GetAdjList(voucherno, empid);
+            List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
 
             adj = AddItemDescToAdj(adj);
 
