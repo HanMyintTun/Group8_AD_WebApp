@@ -26,14 +26,14 @@ namespace Group8_AD_webapp.Manager
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
             
-                BindGrid();
+                //BindGrid();
 
             }
         }
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjList(status);
+            adj = AdjustmentBL.GetAdjListByApproverId(empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -51,7 +51,9 @@ namespace Group8_AD_webapp.Manager
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             status = ddlStatus.Text;
-            BindGrid();
+            adj = AdjustmentBL.GetAdjList(status);
+            lstRequests.DataSource = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
+            lstRequests.DataBind();
         }
 
         //detail buttom action 
