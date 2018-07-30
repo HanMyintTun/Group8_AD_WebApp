@@ -73,16 +73,16 @@
         <!--/.row-->
 
         <div class="row">
-            <div class="col-lg-12">
+            <%--<div class="col-lg-12">
                 <div class="panel-heading">
                     Settings
                 </div>
-            </div>
+            </div>--%>
 
 
             <div class="col-md-8">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Delegate</div>
+                    <div class="panel-heading">Assign Delegate</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -174,7 +174,7 @@
 
             <div class="col-md-4">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Representative</div>
+                    <div class="panel-heading">Assign Representative</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -234,8 +234,9 @@
                         You are about to remove <span style="font-weight: bold;">
                             <asp:Label runat="server" ID="lblCurrentDel"></asp:Label></span> from being your delegate. Are you sure?<br />
                         <div class="action-btn" style="text-align: center; float: none;">
-                            <asp:Button ID="btnRemovDelYes" class="btn btn-success btn-msize" OnClick="btnRemovDelYes_Click" runat="server" Text="Yes" />
+
                             <asp:Button ID="btnRemovDelNo" class="btn btn-danger btn-msize" OnClick="btnRemovDelNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="btnRemovDelYes" class="btn btn-success btn-msize" OnClick="btnRemovDelYes_Click" runat="server" Text="Yes" />
                         </div>
                     </div>
                 </div>
@@ -256,8 +257,9 @@
                         You are about to add <span style="font-weight: bold;">
                             <asp:Label runat="server" ID="Label1"></asp:Label></span> to your delegate. Are you sure?<br />
                         <div class="action-btn" style="text-align: center; float: none;">
-                            <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnSetDelYes_Click" runat="server" Text="Yes" />
+
                             <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnSetDelNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnSetDelYes_Click" runat="server" Text="Yes" />
                         </div>
                     </div>
                 </div>
@@ -277,8 +279,9 @@
                         You are about to add <span style="font-weight: bold;">
                             <asp:Label runat="server" ID="Label3"></asp:Label></span> to your representative. Are you sure?<br />
                         <div class="action-btn" style="text-align: center; float: none;">
-                            <asp:Button ID="Button3" class="btn btn-success btn-msize" OnClick="btnSetRepYes_Click" runat="server" Text="Yes" />
+
                             <asp:Button ID="Button4" class="btn btn-danger btn-msize" OnClick="btnSetRepNo_Click" runat="server" Text="No" />
+                            <asp:Button ID="Button3" class="btn btn-success btn-msize" OnClick="btnSetRepYes_Click" runat="server" Text="Yes" />
                         </div>
                     </div>
                 </div>
