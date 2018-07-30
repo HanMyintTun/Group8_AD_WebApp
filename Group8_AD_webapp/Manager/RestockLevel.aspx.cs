@@ -21,32 +21,34 @@ namespace Group8_AD_webapp.Manager
         static double thres;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             if (!IsPostBack)
             {
                 List<String> productList = ItemBL.GetCatList();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();
+                
                 BindGrid();
 
             }
         }
 
-        public List<ItemVM> CopyReLevel(List<ItemVM> list)
-        {
-            items = ItemBL.GetAllItems();
-            foreach (ItemVM item in list)
-            {
-                item.NewReorderLvl = item.ReorderLevel;
-                item.NewReorderQty = item.ReorderQty;
-            }
-            return list;
+        //public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
+        //{
+        //    items = ItemBL.GetAllItemsbyThreshold();
+        //    foreach (ItemVM item in list)
+        //    {
+        //        item.NewReorderLvl = item.ReorderLevel;
+        //        item.NewReorderQty = item.ReorderQty;
+        //    }
+        //    return list;
 
-        }
+        //}
         protected void BindGrid()
         {
 
             // items = ItemBL.GetAllItems();
-            editedItems = CopyReLevel(items);
+            editedItems = ItemBL.GetAllItemsbyThreshold();
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
@@ -60,7 +62,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void SearchList()
         {
-            cat = ddlCategory.Text;
+            cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
             grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
@@ -136,10 +138,10 @@ namespace Group8_AD_webapp.Manager
 
                 if (e.CommandArgument.ToString() != "")
                 {
-                    Label lb = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRestockQty");
-                    string l = lb.Text;
-                    TextBox tb = (TextBox)grdRestockItem.Rows[RowIndex].FindControl("txtChangeRestockQty");
-                    tb.Text = l;
+                    Label lb1 = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRecomQty");
+                    string l1 = lb1.Text;
+                    TextBox tb1 = (TextBox)grdRestockItem.Rows[RowIndex].FindControl("txtChangeRestockQty");
+                    tb1.Text = l1;
 
                 }
 
@@ -173,7 +175,7 @@ namespace Group8_AD_webapp.Manager
             {
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Item Reorder Level and Quantity are updated"), "Successfully update!", "success");
-                BindGrid();
+                //BindGrid();
             }
             else
             {
@@ -189,7 +191,7 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
 
-
+        
     }
 }
 

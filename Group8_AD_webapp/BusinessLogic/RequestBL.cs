@@ -319,7 +319,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 {
                     for (int i = 0; i < reqlist.Count; i++)
                     {
-                        if (reqlist[i].Status.Equals("Unsubmitted") || reqlist[i].Status.Equals("BookMarked"))
+                        if (reqlist[i].Status.Equals("Unsubmitted") || reqlist[i].Status.Equals("Bookmarked"))
                         {
                             RequestDetailBL.removeAllReqDet(reqlist[i].ReqId);
                         }
@@ -344,7 +344,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
                 if (request != null)
                 {
-                    if (request.Status.Equals("Unsubmitted") || request.Status.Equals("Unsubmitted"))
+                    if (request.Status.Equals("Unsubmitted") || request.Status.Equals("Bookmarked"))
                     {
                         RequestDetailBL.removeAllReqDet(reqId);
                     }
@@ -487,8 +487,6 @@ namespace Group8AD_WebAPI.BusinessLogic
             {
                 int reqId = req.ReqId;
                 Request request = entities.Requests.Where(r => r.ReqId == reqId).FirstOrDefault();
-                //request.EmpId = req.EmpId;
-                //request.ApproverId = req.ApproverId;
                 request.ApproverComment = req.ApproverComment;
                 if (req.ReqDateTime != null && DateTime.Compare(req.ReqDateTime, new DateTime(1800, 01, 01)) > 0)
                     request.ReqDateTime = req.ReqDateTime;
@@ -508,16 +506,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         // done
         public static bool AcceptRequest(int reqId, int empId, string cmt)
         {
-            // This is only to explain code steps at Web Api service
-            // Call GetReq(empId, “Submitted”)
-            // Update ApproverId as empId
-            // Add ApproverComment as cmt
-            // Add ApprovalDateTime as DateTime.Now()
-            // Update Status as “Approved”
-
-            bool isApproved = true;
             List<RequestVM> reqlist = GetReq(empId, "Submitted");
-            if (reqlist.Count == 0) isApproved = false;
             int toId = 0;
             for (int i = 0; i < reqlist.Count; i++)
             {
@@ -532,10 +521,6 @@ namespace Group8AD_WebAPI.BusinessLogic
                         req.ApprovedDateTime = DateTime.Now;
                         req.Status = "Approved";
                         entities.SaveChanges();
-                        if (!req.Status.Equals("Approved"))
-                        {
-                            isApproved = false;
-                        }
                     }
                 }
             }
@@ -545,23 +530,14 @@ namespace Group8AD_WebAPI.BusinessLogic
             string content = "Your stationery request has been approved : No comment";
             NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
-            return isApproved;
+            return true;
         }
 
         // reject request
         // done
         public static bool RejectRequest(int reqId, int empId,string cmt)
         {
-            // This is only to explain code steps at Web Api service
-            // Call GetReq(empId, “Submitted”)
-            // Update ApproverId as empId
-            // Add ApproverComment as cmt
-            // Add ApprovalDateTime as DateTime.Now()
-            // Update Status as “Rejected”
-
-            bool isRejected = true;
             List<RequestVM> reqlist = GetReq(empId, "Submitted");
-            if (reqlist.Count == 0) isRejected = false;
             int toId = 0;
             for (int i = 0; i < reqlist.Count; i++)
             {
@@ -576,8 +552,6 @@ namespace Group8AD_WebAPI.BusinessLogic
                         req.ApprovedDateTime = DateTime.Now;
                         req.Status = "Rejected";
                         entities.SaveChanges();
-                        if (!req.Status.Equals("Rejected"))
-                            isRejected = false;
                     }
                 }
             }
@@ -587,7 +561,7 @@ namespace Group8AD_WebAPI.BusinessLogic
             string content = "Your stationery request has been rejected : Please review quantities";
             NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
-            return isRejected;
+            return true;
         }
     }
 }

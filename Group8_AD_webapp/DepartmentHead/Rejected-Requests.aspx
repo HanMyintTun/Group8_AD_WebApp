@@ -20,6 +20,8 @@
             <div class="col-lg-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
+
+                       
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstCancel" OnItemCommand="lstOrder_ItemCommand">
                                 <LayoutTemplate>
@@ -61,6 +63,14 @@
                             </asp:ListView>
 
                         </div>
+                         <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
+                            PageSize="9" OnPreRender="DataPagerProducts_PreRender">
+                            <Fields>
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
+                                <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
+                                <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false" ButtonCssClass="pagingbutton" />
+                            </Fields>
+                        </asp:DataPager>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -68,7 +78,7 @@
         </div>
     </div>
     <%-- modal content--%>
-   <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
@@ -105,8 +115,8 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr style="display:none;"> 
-                                                        <td >
+                                                    <tr style="display: none;">
+                                                        <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
                                                             <asp:Label ID="lblReqid" runat="server"></asp:Label></td>

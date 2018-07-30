@@ -41,7 +41,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                List<Adjustment> adjList = entities.Adjustments.Where(a => a.VoucherNo == voucherNo).ToList();
+                List<Adjustment> adjList = entities.Adjustments.Where(a => a.VoucherNo.Equals(voucherNo)).ToList();
                 List<AdjustmentVM> avmList = new List<AdjustmentVM>();
                 for (int i = 0; i < adjList.Count; i++)
                 {
@@ -53,10 +53,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                     adj.Reason = adjList[i].Reason;
                     adj.QtyChange = adjList[i].QtyChange;
                     adj.Status = adjList[i].Status;
+                    Employee emp = entities.Employees.Where(x => x.Role.Equals("Store Supervisor")).FirstOrDefault();
                     if (adjList[i].ApproverId != null)
                         adj.ApproverId = (int)adjList[i].ApproverId;
                     else
-                        adjList[i].ApproverId = 0;
+                        adj.ApproverId = emp.EmpId;
                     adj.ApproverComment = adjList[i].ApproverComment;
                     avmList.Add(adj);
                 }
@@ -122,10 +123,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                         adj.Reason = adjlist[i].Reason;
                         adj.QtyChange = adjlist[i].QtyChange;
                         adj.Status = adjlist[i].Status;
+                        Employee emp = entities.Employees.Where(x => x.Role.Equals("Store Supervisor")).FirstOrDefault();
                         if (adjlist[i].ApproverId != null)
                             adj.ApproverId = (int)adjlist[i].ApproverId;
                         else
-                            adjlist[i].ApproverId = 0;
+                            adj.ApproverId = emp.EmpId;
                         adj.ApproverComment = adjlist[i].ApproverComment;
                         list.Add(adj);
                     }
@@ -143,10 +145,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                         adj.Reason = adjlist[i].Reason;
                         adj.QtyChange = adjlist[i].QtyChange;
                         adj.Status = adjlist[i].Status;
+                        Employee emp = entities.Employees.Where(x => x.Role.Equals("Store Supervisor")).FirstOrDefault();
                         if (adjlist[i].ApproverId != null)
                             adj.ApproverId = (int)adjlist[i].ApproverId;
                         else
-                            adjlist[i].ApproverId = 0;
+                            adj.ApproverId = emp.EmpId;
                         adj.ApproverComment = adjlist[i].ApproverComment;
                         list.Add(adj);
                     }
@@ -254,9 +257,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                bool isRaised = false;
                 string vNum = GenerateVoucherNo();
-                double chgBck = 0;
                 for (int i = 0; i < iList.Count; i++)
                 {
                     if ((iList[i].TempQtyCheck - iList[i].Balance) != 0)
@@ -269,41 +270,30 @@ namespace Group8AD_WebAPI.BusinessLogic
                         a.Reason = iList[i].TempReason;
                         a.QtyChange = (int)iList[i].TempQtyCheck - iList[i].Balance;
                         a.Status = "Submitted";
+
+                        Employee emp = new Employee();
+                        emp = entities.Employees.Where(x => x.Role.Equals("Store Supervisor")).FirstOrDefault();
+                        double chgBck = a.QtyChange * iList[i].Price1;
+                        if (a.QtyChange < 0)
+                        {
+                            chgBck = chgBck * -1;
+                        }
+                        if (chgBck >= 250)
+                        {
+                            emp = entities.Employees.Where(x => x.Role.Equals("Store Manager")).FirstOrDefault();
+                        }
+                        a.ApproverId = emp.EmpId;
+
                         a.ApproverComment = "";
                         entities.Adjustments.Add(a);
                         entities.SaveChanges();
 
-                        if ((iList[i].TempQtyCheck - iList[i].Balance) < 0)
-                        {
-                            chgBck = chgBck + a.QtyChange * -1 * iList[i].Price1;
-                        }
+                        int fromEmpIdA = empId;
+                        int toEmpIdA = emp.EmpId;
+                        string typeA = "Adjustment Request";
+                        string contentA = vNum + " has been raised";
+                        NotificationBL.AddNewNotification(fromEmpIdA, toEmpIdA, typeA, contentA);
                     }
-                }
-
-                Employee emp = new Employee();
-                if (chgBck >= 250)
-                {
-                    emp = entities.Employees.Where(x => x.Role.Equals("Store Manager")).FirstOrDefault();
-                }
-                else
-                {
-                    emp = entities.Employees.Where(x => x.Role.Equals("Store Supervisor")).FirstOrDefault();
-                }
-                if (chgBck > 0) isRaised = true;
-                int fromEmpIdA = empId;
-                int toEmpIdA = emp.EmpId;
-                string typeA = "Adjustment Request";
-                string contentA = vNum + " has been raised";
-                NotificationBL.AddNewNotification(fromEmpIdA, toEmpIdA, typeA, contentA);
-
-                List<Employee> clerk = entities.Employees.Where(x => x.Role.Equals("Store Clerk")).ToList();
-                int fromEmpIdL = empId;
-                string typeL = "Low Stock";
-                string contentL = "In a recent stationery stock check, there are some items with balance below reorder level.";
-                for (int i = 0; i < clerk.Count; i++)
-                {
-                    int toEmpIdL = clerk[i].EmpId;
-                    NotificationBL.AddNewNotification(fromEmpIdL, toEmpIdL, typeL, contentL);
                 }
 
                 // will implement when Email service method is done
@@ -313,73 +303,41 @@ namespace Group8AD_WebAPI.BusinessLogic
                 // EmailBL.SendAdjReqEmail(104, adjlist);
                 //// send email to supervisor
                 // EmailBL.SendAdjReqEmail(105, adjlist);
-                return isRaised;
-            }
 
-            // dummy codes
-            //List<Adjustment> adjList = new List<Adjustment>();
-            //foreach (Item i in iList)
-            //  if (TempQtyChk - i.Balance > 0) {
-            //      Adjustment a = new Adjustment();
-            //      a.EmpId = empId;
-            //      a.DateTimeIssued = DateTime.Now();
-            //      a.ItemCode = i.ItemCode;
-            //      int index = iList.FindIndex(x => x.ItemCode.Equals(i.ItemCode));
-            //      a.Reason = reasonList[index]; // Assumes reasonList is populated from page and is as long as iList 
-            //      a.QtyChange = TempQtyChk - i.Balance;
-            //      a.Status = “Submitted”
-            //      adjList.Add(a)
-            //      ctx.Adjustment.Add(a);
-            //      ctx.SaveChanges();
-            //      double chgVal = a.QtyChange * i.Price1
-            //      if (chgVal >= 250)
-            //          Notify Manager
-            //      else
-            //          Notify Supervisor
-            //  }
-            //  Call AddLowStockNotification(empId, i);
-            //loop through each i in iList
-            //Send email notification to all clerks, supervisor and manager with SendAdjReqEmail(empId, adjList)
-            //Item controller displays toast message on StockTake page
-            
+                return true;
+            }
         }
 
         // reject adjustment request
         // done, except email
         public static bool RejectRequest(string voucherNo, int empId, string cmt)
         {
-            // Call GetAdj(voucherNo)
-            // Update ApproverId as empId
-            // Add ApproverComment as cmt
-            // Update Status as “Rejected”
-            // SaveChanges()
-            // Send Notification to Clerk
-            // Send Email to Clerk
-
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                bool isRejected = false;
-                Adjustment adjustment = entities.Adjustments.Where(a => a.VoucherNo == voucherNo).FirstOrDefault();
-                adjustment.ApproverId = empId;
-                adjustment.ApproverComment = cmt;
-                adjustment.Status = "Rejected";
-                entities.SaveChanges();
-                if (adjustment.Status.Equals("Rejected"))
+                int toId = 0;
+                List<Adjustment> adjList = entities.Adjustments.Where(a => a.VoucherNo.Equals(voucherNo)).ToList();
+                for (int i = 0; i < adjList.Count; i++)
                 {
-                    isRejected = true;
+                    if (adjList[i].ApproverId == empId)
+                    {
+                        adjList[i].ApproverComment = cmt;
+                        adjList[i].Status = "Rejected";
+                        toId = adjList[i].EmpId;
+                    }
                 }
+                entities.SaveChanges();
 
                 int fromEmpId = empId;
-                int toEmpId = adjustment.EmpId;
+                int toEmpId = toId;
                 string type = "Adjustment Request";
-                string content = adjustment.VoucherNo + " has been rejected: Please review quantities";
+                string content = voucherNo + " has been rejected: Please review quantities";
 
                 NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
                 //// will uncomment when email service method is done
                 // EmailBL.SendAdjApprEmail(empId, adjustment);
 
-                return isRejected;
+                return true;
             }
         }
 
@@ -387,39 +345,32 @@ namespace Group8AD_WebAPI.BusinessLogic
         // done, except email
         public static bool AcceptRequest(string voucherNo, int empId, string cmt)
         {
-            // Call GetAdj(empId)
-            // Update ApproverId as empId
-            // Add ApproverComment as cmt
-            // Update Status as “Approved”
-            // SaveChanges()
-            // Add Transaction for each Adjustment
-            // Send Notification to Clerk
-            // Send Email to Clerk
-
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
-                bool isAccepted = false;
-                Adjustment adjustment = entities.Adjustments.Where(a => a.VoucherNo == voucherNo).FirstOrDefault();
-                adjustment.ApproverId = empId;
-                adjustment.ApproverComment = cmt;
-                adjustment.Status = "Approved";
-                entities.SaveChanges();
-                if (adjustment.Status.Equals("Approved"))
+                int toId = 0;
+                List<Adjustment> adjList = entities.Adjustments.Where(a => a.VoucherNo.Equals(voucherNo)).ToList();
+                for (int i = 0; i < adjList.Count; i++)
                 {
-                    isAccepted = true;
+                    if (adjList[i].ApproverId == empId)
+                    {
+                        adjList[i].ApproverComment = cmt;
+                        adjList[i].Status = "Approved";
+                        toId = adjList[i].EmpId;
+                    }
                 }
+                entities.SaveChanges();
 
                 int fromEmpId = empId;
-                int toEmpId = adjustment.EmpId;
+                int toEmpId = toId;
                 string type = "Adjustment Request";
-                string content = adjustment.VoucherNo + " has been approved: No comment";
+                string content = voucherNo + " has been approved: No comment";
 
                 NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
                 //// will uncomment when email method is done
                 // EmailBL.SendAdjApprEmail(empId, adjustment);
 
-                return isAccepted;
+                return true;
             }
         }
 
