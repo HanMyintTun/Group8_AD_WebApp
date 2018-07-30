@@ -102,9 +102,10 @@
                                 <asp:UpdatePanel ID="updatepanel1" runat="server">
                                     <ContentTemplate>
                                         <div class="form-group">
-                                            <button runat="server" id="btnRemoveDelegate" class="btn btn-danger btn-remove" onserverclick="RemoveDelegate">
+                                            <asp:LinkButton runat="server" id="btnRemoveDelegate" class="btn btn-danger btn-remove" onserverclick="RemoveDelegate">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
+                                            </asp:LinkButton>
+                                           
                                         </div>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
@@ -456,7 +457,6 @@
                 changeMonth: true,
                 changeYear: true,
                 format: "dd-mm-yyyy",
-
                 language: "tr"
             }).on('changeDate', function (ev) {
                 $(this).blur();

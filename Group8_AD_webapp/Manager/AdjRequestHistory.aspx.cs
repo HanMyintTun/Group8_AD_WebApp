@@ -24,20 +24,16 @@ namespace Group8_AD_webapp.Manager
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-
-                access_token = Session["Token"].ToString();
-
-
-
-                if (Session["Message"] != null)
-                {
-                    lblMessage.Text = Session["Message"].ToString();
-                    Session["Message"] = null;
-                }
-                else
-                {
-                    divAlert.Visible = false;
-                }
+                //access_token = Session["Token"].ToString();
+                //if (Session["Message"] != null)
+                //{
+                //    lblMessage.Text = Session["Message"].ToString();
+                //    Session["Message"] = null;
+                //}
+                //else
+                //{
+                //    divAlert.Visible = false;
+                //}
 
                 BindGrid();
 
@@ -46,7 +42,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjList(status);
+            adj = AdjustmentBL.GetAdjList(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -95,9 +91,10 @@ namespace Group8_AD_webapp.Manager
             bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
             if (success)
             {
+                BindGrid();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Request has been accepted!"), "Successfully approved!", "success");
-                BindGrid();
+               
             }
             else
             {
@@ -125,9 +122,10 @@ namespace Group8_AD_webapp.Manager
             bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
             if (success)
             {
+                BindGrid();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Request has been rejected!"), "Successfully rejected!", "success");
-                BindGrid();
+                
             }
             else
             {

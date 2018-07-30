@@ -15,15 +15,30 @@ namespace Group8_AD_webapp
 
     public partial class Dashboard : System.Web.UI.Page
     {
-        int empId = 1;
-        string deptCode = "ENGL";
+        
+        static DepartmentVM dept = new DepartmentVM();
+        int empId;
+
+        string deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("DeptHead");
 
+            empId = Convert.ToInt32(Session["empId"]);
+            if (empId == dept.DelegateApproverId)
+            {
+                btnRemoveDelegate.Enabled = false;
+                ddlDelegate.Enabled = false;
+                btnAddDelegate.Visible = false;
+                txtFromDate.Enabled = false;
+                txtToDate.Enabled = false;
+            }
+          
 
+            dept = DepartmentBL.GetDept(empId);
+            deptCode = dept.DeptCode;
             var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
-            // monthslist.Sort
             GetDeleRep();
             if (!IsPostBack)
             {
@@ -39,7 +54,8 @@ namespace Group8_AD_webapp
             int dphId;
             int delId;
             int repId;
-            DepartmentVM dept = DepartmentBL.GetDept(empId);
+           // empId = (int)Session["empId"];
+            //DepartmentVM dept = DepartmentBL.GetDept(empId);
 
             if (dept.DelegateApproverId == null)
             {
