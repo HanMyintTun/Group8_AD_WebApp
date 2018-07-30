@@ -92,7 +92,7 @@ namespace Group8_AD_webapp.Manager
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
+            bool success = AdjustmentBL.AcceptRequest(voucherno, cmt);
             if (success)
             {
                 Main master = (Main)this.Master;
@@ -122,7 +122,7 @@ namespace Group8_AD_webapp.Manager
         {
 
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
+            bool success = AdjustmentBL.RejectRequest(voucherno, cmt);
             if (success)
             {
                 Main master = (Main)this.Master;
