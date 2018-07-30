@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="CatalogueDash.aspx.cs" Inherits="Group8_AD_webapp.CatalogueDash" %>
 
-<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
      <link href="../css/employee-style.css" rel="stylesheet" />
     <link href="../css/add-style.css" rel="stylesheet" />
@@ -77,11 +76,9 @@
             <asp:AsyncPostBackTrigger ControlID="ddlCategory" />
         </Triggers>
         <ContentTemplate>
-            <script type="text/javascript">
+<%--            <script type="text/javascript">
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(toastr_message);
-            </script>
-          <%--<asp:Button ID="Button1" runat="server" Text="Example Toast" OnClick="Button1_Click" />
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
+            </script>--%>
             <span class="pad-left10">Items Per Page: </span><asp:DropDownList ID="ddlPageCount" runat="server" OnSelectedIndexChanged="ddlPageCount_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
             <asp:Label ID="lblPageCount" CssClass="lblPage" runat="server" Text="Label"></asp:Label>
 
@@ -89,7 +86,7 @@
     <div class="col-xs-12 col-lg-8">
     <div id="showgrid" class="showgrid" runat="server">
     <div class="dpager col-12"><br />
-    <asp:DataPager ID="dpgGrdCatalogue" runat="server" PageSize="9" PagedControlID="grdCatalogue" OnPreRender="ListPager_PreRender">
+    <asp:DataPager ID="dpgGrdCatalogue" runat="server" PageSize="9" PagedControlID="grdCatalogue">
          <Fields>
             <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
             <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -98,7 +95,7 @@
     </asp:DataPager></div>
 
      <!-- Listview -->
-       <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+       <asp:ListView ID="grdCatalogue" runat="server" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging">
         <ItemTemplate>
 
           <div class="col-xs-12 col-sm-6 col-md-4">
@@ -138,7 +135,7 @@
 
         <div id="showlist" class="showlist" runat="server">
         <div class="dpager col-xs-12"><br />
-        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="9" PagedControlID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPreRender="ListPager_PreRender">
+        <asp:DataPager ID="dpgLstCatalogue" runat="server" PageSize="9" PagedControlID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging">
              <Fields>
                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true"   ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
                 <asp:NumericPagerField ButtonCount="5" NumericButtonCssClass="pagingbutton" ButtonType="Button" CurrentPageLabelCssClass="currentpg" PreviousPageText="..." NextPreviousButtonCssClass="pagingbutton" />
@@ -147,7 +144,7 @@
         </asp:DataPager></div>
 
        <div class=" col-xs-12"> 
-        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging" OnPagePropertiesChanged="lstCatalogue_PagePropertiesChanged">
+        <asp:ListView runat="server" ID="lstCatalogue" OnPagePropertiesChanging="lstCatalogue_PagePropertiesChanging">
         <LayoutTemplate>
             <table runat="server" class="table list-table">
                 <thead><tr id="grdHeader" runat="server">
@@ -203,7 +200,7 @@
         <ContentTemplate>
                         <div id="bookmarkPanel" class="bookmark-panel" runat="server">
             <div class="tab-content panelcontent">
-               <asp:ListView ID="lstBookmarks" runat="server" OnPagePropertiesChanged="lstBookmarks_PagePropertiesChanged">
+               <asp:ListView ID="lstBookmarks" runat="server">
                 <ItemTemplate>
                 <div class="bmkwrapper">
                 <table>
@@ -245,49 +242,9 @@
 
     </div></div>
     <div id="clean" runat="server" class="clean"></div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <script>
-         $(document).on('keyup', '.txtSearch', function () {
-            $(".txtSearch").blur();
-             $(".txtSearch").focus();
-         });
 
-         $(document).on("click" , function(event){
-                if( !($(event.target).hasClass('showsearch')))
-                {
-                $('.ddlsearchcontent').hide();
-                }
-         });
 
-         $(function () {  
-             $(".clean").hide();
-              $(".btnList").click(function() { 
-                  $(this).addClass("active");     
-                  $(".btnGrid").removeClass("active");   
-             });
-             $(".btnGrid").click(function() { 
-                  $(this).addClass("active");     
-                  $(".btnList").removeClass("active");   
-              });
-         });
-         
-         $(".btnClean").click(function () {
-             if ($('#IsClean').val() == "false") {
-                 $("#side").hide("slow");
-                 $(".navbar").hide("slow");
-                 $(".clean").show("slow");
-                 $(".sidepanelarea").hide("slow");
-                 $('#IsClean').val("true");
-             }
-            else {
-                 $("#side").show("slow");
-                 $(".navbar").show("slow");
-                 $(".clean").hide("slow");
-                 $(".sidepanelarea").show("slow");
-                 $('#IsClean').val("false");
-            }
-         });
-         
-    </script>
-
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/catalogue-script.js")%>"></script>
 </asp:Content>

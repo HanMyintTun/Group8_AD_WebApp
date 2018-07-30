@@ -17,10 +17,10 @@ namespace Group8_AD_webapp
         static DateTime d2;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
-
                 if (Session["Message"] != null)
                 {
                     Main master = (Main)this.Master;

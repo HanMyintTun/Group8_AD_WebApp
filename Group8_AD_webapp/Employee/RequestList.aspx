@@ -188,18 +188,7 @@
               </div>
        </div></div></div>
     </div>
-     <script type="text/javascript">
-        function openModal() {
-            $('#mdlConfirm').modal('show');
-         }
-        function openCancelModal() {
-            $('#mdlCancel').modal('show');
-         }
-        $(function() {
-              $('a[href*=#]').on('click', function(e) {
-                e.preventDefault();
-                $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 1500, 'linear');
-              });
-            }); 
-    </script>
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/requestlist-script.js")%>"></script>
 </asp:Content>

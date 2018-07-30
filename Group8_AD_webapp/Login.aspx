@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Logic University Login</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/datepicker3.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/login-style.css" rel="stylesheet">
@@ -52,12 +53,13 @@
                                 
                         <fieldset>
                             <div class="form-group">
-                                                        <asp:TextBox ID="UserName"  runat="server" ClientIDMode="Static"  placeholder="Employee Number" CssClass="form-control"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfv1" ClientIDMode="Static" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="User Name is required." ValidationGroup="Login1" Text="User Name is required." ForeColor="Red" Font-Bold="True"></asp:RequiredFieldValidator>
+                                                        <asp:TextBox ID="UserName"  runat="server" ClientIDMode="Static"  placeholder="Employee Number" CssClass="form-control" ToolTip="Employee ID should be a number"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="rfvUsername" ClientIDMode="Static" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="Employee ID is required." ValidationGroup="Login1" ForeColor="Red" Font-Bold="True"></asp:RequiredFieldValidator>
+                            
                             </div>
                             <div class="form-group">
-                                                        <asp:TextBox ID="Password"  runat="server" ClientIDMode="Static" placeholder="Password" CssClass="form-control" TextMode="Password"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfv2" ClientIDMode="Static" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1" ForeColor="Red" Font-Bold="True">Password is required.</asp:RequiredFieldValidator>
+                                                        <asp:TextBox ID="Password"  runat="server" ClientIDMode="Static" placeholder="Password" CssClass="form-control" TextMode="Password" ToolTip="Password should be >8 chars, with at least one number and special character"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="rfvPassword" ClientIDMode="Static" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1" ForeColor="Red" Font-Bold="True">Password is required.</asp:RequiredFieldValidator>
                             </div>
                             <div class="text-right">
                                                         <asp:Label ID="FailureText" CssClass="errortext" runat="server" EnableViewState="False"></asp:Label>
@@ -77,8 +79,8 @@
     </div>
     <!-- /.row -->
 
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+<%--    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>--%>
     <script type="text/javascript">
 
         ChangeIt();

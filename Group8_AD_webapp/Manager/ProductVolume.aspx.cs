@@ -22,10 +22,10 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
-
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
@@ -81,7 +81,6 @@ namespace Group8_AD_webapp
                 max = productList.Count;
             }
             lblDateRange.Text = "Date Range: " + d1.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
-            //lblPageCount.Text = "Showing " + (min + 1) + " to " + max + " of " + productList.Count.ToString();
         }
 
 
@@ -95,20 +94,19 @@ namespace Group8_AD_webapp
             d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             d2 = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            return Controllers.TransactionCtrl.GetVolume(d1, d2);
+            if (d2.CompareTo(d1) >= 0 )
+            {
+                return Controllers.TransactionCtrl.GetVolume(d1, d2);
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                return new List<ItemVM>();
+            }
+
         }
 
-
-        protected void txtMonthPick_TextChanged(object sender, EventArgs e)
-        {
-            //string s = txtMonthPick.Text.ToString();
-            //DateTime d = DateTime.ParseExact(s, "MMMM yyyy", CultureInfo.InvariantCulture);
-            //int n = DateTime.DaysInMonth(d.Year, d.Month);
-            //DateTime d2 = d.AddDays(n - d.Day);
-            //volumeList = Controllers.TransactionCtrl.GetVolume(d, d2);
-            //SortAndBindGrids();
-            //lblDateRange.Text = "Date Range: " + d.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
-        }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -143,7 +141,6 @@ namespace Group8_AD_webapp
         protected void ddlSortDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sort = ddlSortDirection.SelectedValue;
-            //lblPageCount.Text = sort;
             if (sort == "asc")
             {
                 IsDesc.Value = "false";
@@ -155,12 +152,7 @@ namespace Group8_AD_webapp
                 SortAndBindGrid();
             }
         }
-
-        //protected void lstProductVolume_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    lstProductVolume.PageIndex = e.NewPageIndex;
-        //    lstProductVolume.DataBind();
-        //}
+        
 
         protected void btnBack_Click(object sender, EventArgs e)
         {

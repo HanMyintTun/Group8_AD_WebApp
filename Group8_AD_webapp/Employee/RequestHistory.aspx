@@ -87,32 +87,7 @@
     </div>
         </div>
 
-
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-                $(document).ready(function () {
-                    var dp1 = $('#<%=txtEndDate.ClientID%>');
-                    dp1.datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        format: "dd/mm/yyyy",
-                        language: "tr"
-                    }).on('changeDate', function (ev) {
-                        $(this).blur();
-                        $(this).blur();
-                        $(this).datepicker('hide');
-                    });
-                    var dp = $('#<%=txtStartDate.ClientID%>');
-
-                    dp.datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        format: "dd/mm/yyyy",
-                        language: "tr"
-                    }).on('changeDate', function (ev) {
-                        $(this).blur();
-                        $(this).datepicker('hide');
-                    });
-                });
-    </script>
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/requesthistory-script.js")%>"></script>
 </asp:Content>

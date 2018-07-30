@@ -35,7 +35,7 @@ namespace Group8_AD_webapp
                 showlist.Visible = false;
                 IsClean.Value = "false";
 
-                allItems = Controllers.ItemCtrl.GetAllItems();
+                allItems = (Controllers.ItemCtrl.GetAllItems()).OrderBy(x => x.Desc).ToList();
                 lstSearch.DataSource = allItems;
                 lstSearch.DataBind();
             }
@@ -46,7 +46,7 @@ namespace Group8_AD_webapp
         protected void PopulateCatalogue()
         {
             lblCatTitle.Text = "Catalogue";
-            items = Controllers.ItemCtrl.GetAllItems();
+            items = (Controllers.ItemCtrl.GetAllItems()).OrderBy(x => x.Desc).ToList();
 
             BindGrids();
         }
@@ -60,12 +60,11 @@ namespace Group8_AD_webapp
             {
                 if (querycat == "All")
                 {
-                    items = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).ToList(); 
-                    //Label1.Text = items.ToString(); //for testing purposes
+                    items = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).OrderBy(y=>y.Desc).ToList(); 
                 }
                 else
                 {
-                    items = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList(); 
+                    items = allItems.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(cataloguequery)).OrderBy(y => y.Desc).ToList(); 
                 }
             }
             else
@@ -111,15 +110,6 @@ namespace Group8_AD_webapp
             lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + max + " of " + items.Count();
         }
 
-        protected void ListPager_PreRender(object sender, EventArgs e)
-        {
-            //lstCatalogue.DataSource = items;
-            //lstCatalogue.DataBind();
-
-            //grdCatalogue.DataSource = items;
-            //grdCatalogue.DataBind();
-        }
-
         protected void lstCatalogue_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             dpgGrdCatalogue.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
@@ -127,42 +117,9 @@ namespace Group8_AD_webapp
             dpgGrdCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             dpgLstCatalogue2.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             BindGrids();
-
-            //int pageNumber = Convert.ToInt32(Request["pageNumber"]);
-
-            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
-
-            //grdCatalogue.DataSource = items;
-            //grdCatalogue.DataBind();
-
-            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
-
-            //lstCatalogue.DataSource = items;
-            //lstCatalogue.DataBind();
-
-            //int max = e.StartRowIndex + e.MaximumRows;
-            //if(items.Count < max)
-            //{
-            //    max = items.Count;
-            //}
-
-            //lblPageCount.Text = "Showing "+ (e.StartRowIndex+1) +" to "+ max +" of "+items.Count();
+            
         }
-
-        protected void lstCatalogue_PagePropertiesChanged(object sender, EventArgs e)
-        {
-            //(grdCatalogue.FindControl("dpgGrdCatalogue") as DataPager).SetPageProperties(pageNumber * e.StartRowIndex, e.MaximumRows, false);
-
-            //lstCatalogue.DataSource = items;
-            //lstCatalogue.DataBind();
-
-            //(lstCatalogue.FindControl("dpgLstCatalogue") as DataPager).SetPageProperties(pageNumber*e.StartRowIndex, e.MaximumRows, false);
-
-            //grdCatalogue.DataSource = items;
-            //grdCatalogue.DataBind();
-        }
-
-        // NEEDS TO BE EDITED AFTER WEBAPI UP
+        
         protected void btnBookmark_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
@@ -174,29 +131,13 @@ namespace Group8_AD_webapp
 
             int empId = (int)Session["empId"];
             RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, 1, "Bookmarked");
-                //Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
 
             if (success != null)
             {
-                //btnShowBmk_Click(btnShowBmk, EventArgs.Empty);
-
-                //// TEMPORARY: REMOVE AFTER WEBAPI UP
-                //RequestDetailVM addtobmktemp = new RequestDetailVM();
-                //addtobmktemp.ReqLineNo = 100;
-                //addtobmktemp.ItemCode = "P020";
-                //addtobmktemp.Desc = "Paper Photostat A3";
-                //bookmarkList.Add(addtobmktemp);
-                //// TEMPORARY: REMOVE AFTER WEBAPI UP
-
                 RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
                 PopulateSidePanel();
                 bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
                 btnShowBmk_Click(btnShowBmk,EventArgs.Empty);
-
-                //bookmarkPanel.Visible = true;
-
-                //lstBookmarks.DataSource = bookmarkList;
-                //lstBookmarks.DataBind();
 
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("{0} Added to Bookmarks",description), "Item Added Successfully", "success");
@@ -217,22 +158,10 @@ namespace Group8_AD_webapp
 
             int empId = (int)Session["empId"];
             RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, reqQty, "Unsubmitted");
-            //bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
             Main master = (Main)this.Master;
             if (success != null)
             {
-                //// TEMPORARY: REMOVE AFTER WEBAPI UP
-                //RequestDetailVM addtocarttemp = new RequestDetailVM();
-                //addtocarttemp.ReqLineNo = 100;
-                //addtocarttemp.ItemCode = "F020";
-                //addtocarttemp.Desc = "File Separator";
-                //addtocarttemp.ReqQty = 1;
-                //Main.cartDetailList.Add(addtocarttemp);
-                //// TEMPORARY: REMOVE AFTER WEBAPI UP
-
                 master.FillCart();
-                //(master.FindControl("lstCart") as ListView).DataSource = Main.cartDetailList;
-                //(master.FindControl("lstCart") as ListView).DataBind();
                 master.UpdateCartCount();
 
                 master.ShowToastr(this, String.Format("{0} Qty:{1} Added to Order", description, reqQty), "Item Added Successfully", "success");
@@ -266,7 +195,7 @@ namespace Group8_AD_webapp
             }
             else
             {
-                    sidepanelarea.Style.Add("display", "block");
+                sidepanelarea.Style.Add("display", "block");
             }
         }
 
@@ -296,10 +225,10 @@ namespace Group8_AD_webapp
             List<ItemVM> searchitems = new List<ItemVM>();
             if (querycat == "All")
             {
-                searchitems = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).Take(5).ToList();
+                searchitems = allItems.Where(x => x.Desc.ToLower().Contains(cataloguequery)).OrderBy(y => y.Desc).Take(5).ToList();
             } 
             else{
-                searchitems = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).ToList();
+                searchitems = allItems.Where(x => x.Cat == querycat && x.Desc.Contains(cataloguequery)).OrderBy(y => y.Desc).ToList();
             }
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
@@ -310,7 +239,7 @@ namespace Group8_AD_webapp
         {
             items = new List<ItemVM>();
             string searchquery = txtSearch.Text;
-            List<ItemVM> searchitems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).Take(5).ToList();
+            List<ItemVM> searchitems = items.Where(x => x.Desc.ToLower().Contains(searchquery)).OrderBy(y => y.Desc).Take(5).ToList();
             lstSearch.DataSource = searchitems;
             lstSearch.DataBind();
             ddlsearchcontent.Visible = true;
@@ -335,10 +264,6 @@ namespace Group8_AD_webapp
             dpgLstCatalogue2.SetPageProperties(dpgGrdCatalogue.StartRowIndex, dpgGrdCatalogue.MaximumRows, true);
             BindGrids();
         }
-        protected void lstBookmarks_PagePropertiesChanged(object sender, EventArgs e)
-        {
-
-        }
 
         protected void PopulateSidePanel()
         {
@@ -353,6 +278,7 @@ namespace Group8_AD_webapp
             }
             
             frequentList = Controllers.ItemCtrl.GetFrequentList(empId);
+            frequentList = frequentList.OrderBy(x => x.Desc).ToList();
         }
 
         protected void BindSidePanel()
@@ -408,32 +334,5 @@ namespace Group8_AD_webapp
                 bookmarkPanel.Visible = true;
             }
         }
-
-        ////protected void btnClean_Click(object sender, EventArgs e)
-        ////{
-        ////    if(IsClean == false)
-        ////    {
-        ////        IsClean = true; 
-        ////    }
-        ////    else
-        ////    {
-        ////        IsClean = false;
-        ////    }
-        ////    if(IsClean)
-        ////    {
-        ////        this.Master.FindControl("nav").Visible = false;
-        ////        this.Master.FindControl("side").Visible = false;
-        ////        sidepanelarea.Visible = false;
-        ////        clean.Visible = true;
-        ////    }
-        ////    else
-        ////    {
-        ////        this.Master.FindControl("nav").Visible = true;
-        ////        this.Master.FindControl("side").Visible = true;
-        ////        sidepanelarea.Visible = true;
-        ////        clean.Visible = false;
-        ////    }
-
-        ////}
     }
 }
