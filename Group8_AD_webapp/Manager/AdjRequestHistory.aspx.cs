@@ -10,31 +10,22 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
-        static string access_token;
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
-        int empid = 104;
+        int empid;
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack)
             {
+                Service.UtilityService.CheckRoles("Store");
+                empid = Convert.ToInt32(Session["empId"]);
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-                //access_token = Session["Token"].ToString();
-                //if (Session["Message"] != null)
-                //{
-                //    lblMessage.Text = Session["Message"].ToString();
-                //    Session["Message"] = null;
-                //}
-                //else
-                //{
-                //    divAlert.Visible = false;
-                //}
-
+            
                 BindGrid();
 
             }
