@@ -232,6 +232,10 @@
     .formstyle2 {
         height: 230px;
     }
+
+    .input-group{
+        max-width: 250px;
+    }
 }
 
     @media only screen and (max-width : 1200px) {

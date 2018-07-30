@@ -520,7 +520,7 @@
           <Property Name="ToEmp" Type="Int32" Nullable="false" />
           <Property Name="RouteUri" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Notificat__FromE__534D60F1" FromRole="Notification" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK__Notificat__ToEmp__5441852A" FromRole="Notification" ToRole="Employee" />

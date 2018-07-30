@@ -24,7 +24,6 @@
           <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
     <asp:GridView ID="grdSupplier" runat="server" CssClass="table" PagerStyle-CssClass="pager" OnRowDataBound="GridView_RowDataBound"
         AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="grdSupplier_PageIndexChanging" PageSize="20"> 
-        <%--AllowSorting="True" OnSorting ="grdSupplier_Sorting" >--%>
                    <Columns>
                 <asp:TemplateField HeaderText="Item Code" SortExpression="ItemCode">
                     <ItemTemplate>
@@ -53,7 +52,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price2 (SGD)" SortExpression="Price2">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice2" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price2")) %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice2" ClientIDMode="Static" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price2")) %>' Width="60px" TextMode="Number" min="0" step="0.01"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Supplier3" SortExpression="Supplier3">
@@ -63,7 +62,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Price3 (SGD)" SortExpression="Price3">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPrice3" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price3")) %>' Width="60px"></asp:TextBox>
+                        <asp:TextBox ID="txtPrice3" ClientIDMode="Static"  runat="server" Text='<%# String.Format("{0:0.00}", Eval("Price3")) %>' Width="60px" TextMode="Number" min="0" step="0.01"></asp:TextBox>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -160,8 +159,11 @@
        </div></div></div></div>
     </div></div>
 
+
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
    <script type="text/javascript">
-        $(document).ready(openClearModal());
+
         function openClearModal() {
             $('#mdlClear').modal('show');
              }
@@ -169,6 +171,5 @@
             $('#mdlConfirm').modal('show');
        }
 
-       Sys.WebForms.PageRequestManager.getInstance().add_endRequest(openClearModal);
     </script>
 </asp:Content>

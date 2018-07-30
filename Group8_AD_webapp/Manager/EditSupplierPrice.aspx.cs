@@ -23,10 +23,10 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
-
                 suppliers = Controllers.SupplierCtrl.getSupplierCodes();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
@@ -111,7 +111,9 @@ namespace Group8_AD_webapp
                 int pagestart = grdSupplier.PageIndex * grdSupplier.PageSize;
                 int i = pagestart + row.RowIndex;
 
-                if(!(((TextBox)row.FindControl("txtPrice1")).Text).Any(x => !char.IsLetter(x)))
+                if(!(((TextBox)row.FindControl("txtPrice1")).Text).Any(x => !char.IsLetter(x)) ||
+                    !(((TextBox)row.FindControl("txtPrice2")).Text).Any(x => !char.IsLetter(x)) ||
+                    !(((TextBox)row.FindControl("txtPrice3")).Text).Any(x => !char.IsLetter(x)))
                 {
                     master.ShowToastr(this, "Please enter a number", 
                         "Price for "+ ((Label)row.FindControl("lblDescription")).Text+" is blank or contains a letter", "error");
@@ -193,19 +195,6 @@ namespace Group8_AD_webapp
             }
 
         }
-
-        //protected void btnConfirmSearch_Click(object sender, EventArgs e)
-        //{
-        //    ClearTextBoxes(Page.Controls);
-        //    for (int i = 0; i < editedItems.Count; i++)
-        //    {
-        //        ItemVM tempitem = editedItems[i];
-        //        editedItems[i] = new ItemVM();
-        //        editedItems[i].ItemCode = tempitem.ItemCode;
-        //        editedItems[i].Desc = tempitem.Desc;
-        //    }
-        //    BindGrid();
-        //}
 
         protected void DoSearch()
         {

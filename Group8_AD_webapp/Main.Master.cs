@@ -9,6 +9,7 @@ using Group8_AD_webapp.Models;
 using System.Web.UI.HtmlControls;
 using Group8AD_WebAPI.BusinessLogic;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace Group8_AD_webapp
 {
@@ -196,7 +197,7 @@ namespace Group8_AD_webapp
 
         }
 
-        protected void btnOnNotif_Click(object sender, EventArgs e)
+        protected void BtnOnNotif_Click(object sender, EventArgs e)
         {
             var lbl = (LinkButton)sender;
             var item = (ListViewItem)lbl.NamingContainer;
@@ -217,12 +218,10 @@ namespace Group8_AD_webapp
 
         }
 
-        protected void btnMarkRead_Click(object sender, EventArgs e)
+        protected void BtnMarkRead_Click(object sender, EventArgs e)
         {
-
             NotificationBL.MarkAllAsRead(notifList);
             FillNotifications();
-            
         }
     }
 }

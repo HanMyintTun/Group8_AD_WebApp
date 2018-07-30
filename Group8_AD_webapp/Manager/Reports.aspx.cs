@@ -26,11 +26,11 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             master = (Main)this.Master;
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
-
                 datesList = new List<DateTime>();
                 monthsList = new List<DateTime>();
                 cbList = new List<ReportItemVM>();
@@ -76,14 +76,15 @@ namespace Group8_AD_webapp
             {
                 ddlSupplier1.Items.Add(new ListItem(s.SuppName, s.SuppCode));
                 ddlSupplier2.Items.Add(new ListItem(s.SuppName, s.SuppCode));
-
             }
 
             List<DepartmentVM> departments = DepartmentBL.GetAllDept();
             foreach (DepartmentVM d in departments)
             {
+                if(d.DeptName != "Store Department") { 
                 ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
                 ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+                }
             }
         }
 
@@ -141,40 +142,55 @@ namespace Group8_AD_webapp
                             else
                             {
                                 master.ShowToastr(this, "", "Month List is Empty!", "error");
+                                ClearChart();
                             }
                         }
                         else
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                lbl1 = (ddlDepartment1.SelectedItem.Text).Replace("Department", "");
-                                lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
-                                lbl0 = "Week Of";
-                                lbl3 = "Chargeback (SGD)";
-                                datesList = new List<DateTime>();
-                                datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, datesList, byMonth);
-                                FillDataList();
-                                lblReportTitle.Text = "Department Cost Report for Category:" + cat;
-                                lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Chargeback (SGD)";
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                                if (d2.CompareTo(d1) >= 0)
+                                {
+                                    lbl1 = (ddlDepartment1.SelectedItem.Text).Replace("Department", "");
+                                    lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
+                                    lbl0 = "Week Of";
+                                    lbl3 = "Chargeback (SGD)";
+                                    datesList = new List<DateTime>();
+                                    datesList.Add(d1);
+                                    datesList.Add(d2);
+                                    cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, datesList, byMonth);
+                                    FillDataList();
+                                    lblReportTitle.Text = "Department Cost Report for Category:" + cat;
+                                    lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
+                                    lblSubtitle2.Text = "Chargeback (SGD)";
+                                }
+                                else
+                                {
+                                    master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                                    ClearChart();
+                                }
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Dates cannot be Empty!", "error");
+                                ClearChart();
                             }
                         }
                     }
                     else
                     {
                         master.ShowToastr(this, "", "Please select 2 different departments!", "error");
+                        ClearChart();
                     }
 
                 }
                 else
                 {
                     master.ShowToastr(this, "", "Please select 2 departments!", "error");
+                    ClearChart();
                 }
             }
             else
@@ -202,28 +218,41 @@ namespace Group8_AD_webapp
                             else
                             {
                                 master.ShowToastr(this, "", "Month List is Empty!", "error");
+                                ClearChart();
                             }
                         }
                         else
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                lbl1 = ddlSupplier1.SelectedItem.Text;
-                                lbl2 = ddlSupplier2.SelectedItem.Text;
-                                lbl0 = "Week Of";
-                                lbl3 = "Amount Paid (SGD)";
-                                datesList = new List<DateTime>();
-                                datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, datesList, byMonth);
-                                FillDataList();
-                                lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
-                                lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Amount Paid (SGD)";
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                                if (d2.CompareTo(d1) >= 0)
+                                {
+                                    lbl1 = ddlSupplier1.SelectedItem.Text;
+                                    lbl2 = ddlSupplier2.SelectedItem.Text;
+                                    lbl0 = "Week Of";
+                                    lbl3 = "Amount Paid (SGD)";
+                                    datesList = new List<DateTime>();
+                                    datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                                    datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                                    cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, datesList, byMonth);
+                                    FillDataList();
+                                    lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
+                                    lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
+                                    lblSubtitle2.Text = "Amount Paid (SGD)";
+                                }
+                                else
+                                {
+                                    master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                                    ClearChart();
+                                }
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Dates cannot be Empty!", "error");
+                                ClearChart();
                             }
                         }
 
@@ -231,11 +260,13 @@ namespace Group8_AD_webapp
                     else
                     {
                         master.ShowToastr(this, "", "Please select 2 different suppliers!", "error");
+                        ClearChart();
                     }
                 }
                 else
                 {
                     master.ShowToastr(this, "", "Please select 2 suppliers!", "error");
+                    ClearChart();
                 }
             }
         }
@@ -329,6 +360,8 @@ namespace Group8_AD_webapp
             lbl2 = "";
             lstData.DataSource = cbList;
             lstData.DataBind();
+            lblSubtitle.Text = "";
+            lblSubtitle2.Text = "";
         }
 
         protected void OnChange(object sender, EventArgs e)
