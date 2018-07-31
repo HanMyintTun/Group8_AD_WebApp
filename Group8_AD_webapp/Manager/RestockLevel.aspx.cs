@@ -14,7 +14,7 @@ using Group8AD_WebAPI.BusinessLogic;
 namespace Group8_AD_webapp.Manager
 {
 
-    // Author: Han Myint Tun
+    // Author: Han Myint Tun , A0180555A
     // Co-Author: Toh Shu Hui Sandy, A0180548Y (Only the TrendChart Modal contents)
     // Version 1.0 Initial Release
     public partial class RestockLevel : System.Web.UI.Page
@@ -38,7 +38,7 @@ namespace Group8_AD_webapp.Manager
                 Main master = (Main)this.Master;
                 master.ActiveMenu("storerestock");
 
-                List<String> productList = ItemBL.GetCatList();
+                List<String> productList = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();
                 
@@ -61,7 +61,7 @@ namespace Group8_AD_webapp.Manager
         {
 
             // items = ItemBL.GetAllItems();
-            editedItems = ItemBL.GetAllItemsbyThreshold();
+            editedItems = Controllers.ItemCtrl.GetAllItemsbyThreshold();
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
@@ -78,7 +78,7 @@ namespace Group8_AD_webapp.Manager
             cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
-            grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
+            grdRestockItem.DataSource = Controllers.ItemCtrl.GetItems(cat, desc, thres);
             grdRestockItem.DataBind();
         }
 
@@ -207,7 +207,7 @@ namespace Group8_AD_webapp.Manager
 
             foreach (ItemVM item in editedItems)
             {
-                ItemVM i = ItemBL.GetItem(item.ItemCode);
+                ItemVM i = Controllers.ItemCtrl.GetItem(item.ItemCode);
                 i.ReorderLevel = item.NewReorderLvl;
                 i.ReorderQty = item.NewReorderQty;
                 updateitem.Add(i);

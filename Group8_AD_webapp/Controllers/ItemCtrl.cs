@@ -44,5 +44,15 @@ namespace Group8_AD_webapp.Controllers
         {
             return ItemBL.GetItem(itemCode);
         }
+
+        public static List<ItemVM> GetAllItemsbyThreshold()
+        {
+            return ItemBL.GetAllItemsbyThreshold();
+        }
+
+        public static List<ItemVM> GetItems(string cat, string desc, double threshold)
+        {
+            return ItemBL.GetItems(cat, desc, threshold);
+        }
     }
 }
