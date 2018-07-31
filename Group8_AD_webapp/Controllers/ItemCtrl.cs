@@ -39,5 +39,10 @@ namespace Group8_AD_webapp.Controllers
             ItemBL.UpdateItemLists(list);
             return true;        //  TO REPLACE
         }
+
+        public static ItemVM GetItem(string itemCode)
+        {
+            return ItemBL.GetItem(itemCode);
+        }
     }
 }
