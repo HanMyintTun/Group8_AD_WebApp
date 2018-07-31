@@ -9,6 +9,8 @@ using RestSharp;
 
 namespace Group8_AD_webapp
 { 
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class CatalogueDash : System.Web.UI.Page
     {
         static List<ItemVM> allItems = new List<ItemVM>();
@@ -171,18 +173,21 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, 1, "Bookmarked");
+            bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
+            Main master = (Main)this.Master;
 
-            if (success != null)
+            if (success)
             {
                 RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
                 PopulateSidePanel();
                 bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
                 BtnShowBmk_Click(btnShowBmk,EventArgs.Empty);
-
-                Main master = (Main)this.Master;
+                
                 master.ShowToastr(this, String.Format("{0} Added to Bookmarks",description), "Item Added Successfully", "success");
-
+            }
+            else
+            {
+                master.ShowToastr(this, String.Format("{0} Not Added to Bookmarks", description), "Something Went Wrong", "error");
             }
         }
 
@@ -199,9 +204,9 @@ namespace Group8_AD_webapp
             string description = lblDescription.Text;
 
             int empId = (int)Session["empId"];
-            RequestDetailVM success = Group8AD_WebAPI.BusinessLogic.RequestDetailBL.AddReqDet(empId, itemCode, reqQty, "Unsubmitted");
+            bool success = Controllers.RequestDetailCtrl.AddToCart(empId, itemCode, reqQty);
             Main master = (Main)this.Master;
-            if (success != null)
+            if (success)
             {
                 master.FillCart();
                 master.UpdateCartCount();

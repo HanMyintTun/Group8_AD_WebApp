@@ -10,6 +10,8 @@ using Group8_AD_webapp.Models;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class StoreDashboard : System.Web.UI.Page
     {
         static List<ItemVM> volumeList;
@@ -40,7 +42,7 @@ namespace Group8_AD_webapp
                     d2 = DateTime.Today;
                 }
 
-                volumeList = Controllers.TransactionCtrl.GetVolume(d,d2); //Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetVolume(d,d2); 
+                volumeList = Controllers.TransactionCtrl.GetVolume(d,d2); 
 
                 SortAndBindGrids();
                 lblDateRange.Text = "Date Range: "+d.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
@@ -50,7 +52,7 @@ namespace Group8_AD_webapp
 
         protected void PopulateCBChart()
         {
-            List<ReportItemVM> cbList = Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetCBMonthly(d, d2);
+            List<ReportItemVM> cbList = Controllers.ReportItemCtrl.GetCBMonthly(d, d2);
         }
 
         protected void txtMonthPick_TextChanged(object sender, EventArgs e)
@@ -87,7 +89,7 @@ namespace Group8_AD_webapp
         {
             var returnData = new List<string>();
 
-            List<ReportItemVM> cbList = Group8AD_WebAPI.BusinessLogic.ReportItemBL.GetCBMonthly(d, d2);
+            List<ReportItemVM> cbList = Controllers.ReportItemCtrl.GetCBMonthly(d, d2);
 
             var chartLabel = new StringBuilder();
             var chartData = new StringBuilder();

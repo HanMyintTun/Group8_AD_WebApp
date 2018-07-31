@@ -14,7 +14,8 @@ namespace Group8_AD_webapp.Controllers
 
         public static List<RequestDetailVM> GetReqDetList(int reqId)
         {
-            return RequestDetailBL.GetReqDetList(reqId);
+            List<RequestDetailVM> reqDetails = RequestDetailBL.GetReqDetList(reqId);
+            return BusinessLogic.AddItemDescToReqDet(reqDetails);
         }
 
         public static bool AddBookmark(int empId, string itemCode)

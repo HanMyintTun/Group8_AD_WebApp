@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class ProductVolume : System.Web.UI.Page
     {
         static List<ItemVM> staticpList;

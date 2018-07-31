@@ -10,6 +10,8 @@ using RestSharp;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class RequestHistory : System.Web.UI.Page
     {
         List<RequestVM> requests = new List<RequestVM>();

@@ -11,17 +11,9 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <div class="row">
-            <ol class="breadcrumb">
-                <li><a href="#">
-                    <em class="fa fa-home"></em>
-                </a></li>
-                <li class="active"></li>
-            </ol>
-        </div>
-        <!--/.row-->
-        <div class="row">
             <div class="col-lg-6">
-                <h3 class="page-header">Reports
+                <h3 class="page-header">
+                    <asp:Label ID="lblHeader" runat="server" Text="Label"></asp:Label>
                 <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="BtnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
                 <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="BtnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
@@ -55,8 +47,8 @@
                         <asp:GridView ID="lstData" CssClass="table" runat="server" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="Label" HeaderText="" SortExpression="Val1" ItemStyle-Width="150px" />
-                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val1")) %>'/></ItemTemplate></asp:TemplateField>
-                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val2")) %>'/></ItemTemplate></asp:TemplateField>
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# IsVolume ? Eval("Val1") : String.Format("{0:C}", (Double)Eval("Val1")) %>'/></ItemTemplate></asp:TemplateField>
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# IsVolume ? Eval("Val1") : String.Format("{0:C}", (Double)Eval("Val2")) %>'/></ItemTemplate></asp:TemplateField>
 
                         </Columns>
                         </asp:GridView>
