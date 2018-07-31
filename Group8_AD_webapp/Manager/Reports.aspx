@@ -2,13 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 
-    <script src="../js/chart.min.js"></script>
-    <script src="../js/chart-data.js"></script>
-<%--    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/easypiechart.js"></script>
-    <script src="../js/easypiechart-data.js"></script>
-    <script src="../js/bootstrap-datepicker.js"></script>
-    <script src="../js/custom.js"></script>--%>
     <link href="../css/manager-style.css" rel="stylesheet" />
     <link href="../css/monthpicker.css" rel="stylesheet" />
     <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
@@ -18,19 +11,11 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <div class="row">
-            <ol class="breadcrumb">
-                <li><a href="#">
-                    <em class="fa fa-home"></em>
-                </a></li>
-                <li class="active"></li>
-            </ol>
-        </div>
-        <!--/.row-->
-        <div class="row">
             <div class="col-lg-6">
-                <h3 class="page-header">Reports
-                <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="btnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
-                <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="btnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
+                <h3 class="page-header">
+                    <asp:Label ID="lblHeader" runat="server" Text="Label"></asp:Label>
+                <asp:LinkButton ID="btnBar" ClientIDMode="Static" Cssclass="listbutton active" runat="server" Text="" OnClick="BtnBar_Click"><i class="fa fa-bar-chart"></i></asp:LinkButton>
+                <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="BtnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
             <div class="col-lg-6">
                 <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" />
@@ -62,8 +47,8 @@
                         <asp:GridView ID="lstData" CssClass="table" runat="server" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="Label" HeaderText="" SortExpression="Val1" ItemStyle-Width="150px" />
-                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val1")) %>'/></ItemTemplate></asp:TemplateField>
-                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# String.Format("{0:C}", (Double)Eval("Val2")) %>'/></ItemTemplate></asp:TemplateField>
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# IsVolume ? Eval("Val1") : String.Format("{0:C}", (Double)Eval("Val1")) %>'/></ItemTemplate></asp:TemplateField>
+                            <asp:TemplateField><ItemTemplate><asp:Label runat="server" Text='<%# IsVolume ? Eval("Val1") : String.Format("{0:C}", (Double)Eval("Val2")) %>'/></ItemTemplate></asp:TemplateField>
 
                         </Columns>
                         </asp:GridView>
@@ -96,7 +81,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="OnChange">
+                                        <asp:DropDownList ID="ddlDepartment1" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                             <asp:ListItem Value="0">Select Department</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -110,7 +95,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="OnChange">
+                                        <asp:DropDownList ID="ddlDepartment2" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                             <asp:ListItem Value="0">Select Department</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -130,7 +115,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true"  OnSelectedIndexChanged="OnChange">
+                                        <asp:DropDownList ID="ddlSupplier1" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                             <asp:ListItem Value="0">Select Supplier</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -144,7 +129,7 @@
 
 
                                     <div class="col-md-12">
-                                        <asp:DropDownList ID="ddlSupplier2" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true"  OnSelectedIndexChanged="OnChange">
+                                        <asp:DropDownList ID="ddlSupplier2" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                             <asp:ListItem Value="0">Select Supplier</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
@@ -169,22 +154,10 @@
                                         </div>
 
                                         <div class="">
-                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" AppendDataBoundItems="true"  AutoPostBack="true" OnSelectedIndexChanged="OnChange">
+                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                 <asp:ListItem Value="All">All</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
-<%--                                         <div>
-                                            <div class="form-group form-inline mt-15" >
-                                                <asp:Label ID="lblOutputType" runat="server" Text="Output Type"></asp:Label>
-                                            </div>
-                                        </div>
-                                        <div style="padding-left: 18px;">
-
-                                            <asp:RadioButtonList ID="rdbChart" ClientIDMode="Static" runat="server" RepeatDirection="Horizontal">
-                                                <asp:ListItem Selected="True"> Bar</asp:ListItem>
-                                                <asp:ListItem> List</asp:ListItem>
-                                            </asp:RadioButtonList>
-                                        </div>--%>
                                     </div>
 
                                 </div>
@@ -210,11 +183,11 @@
                                         </div>
 
                                          <div class="input-group"><asp:hiddenfield id="IsMonth" Value="true" ClientIDMode="Static" runat="server"/>
-                                            <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" autocomplete="off" OnTextChanged="txtMonthPick_TextChanged" AutoPostBack="true" placeholder="Month-Year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <asp:TextBox ID="txtMonthPick" ClientIDMode="Static" autocomplete="off" OnTextChanged="TxtMonthPick_TextChanged" AutoPostBack="true" placeholder="Month-Year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                          </div>
                                         <div class="text-right mt-15">
-                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="btnClear_Click" runat="server" Text=" Clear List" /></div>
+                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="BtnClear_Click" runat="server" Text=" Clear List" /></div>
 
                                     </div>
                                     <div class="col-lg-6">
@@ -223,12 +196,12 @@
                                             <ContentTemplate>
                                             <div class="montharea">
                                                 <asp:ListView ID="lstMonths" runat="server"><ItemTemplate>
-                                                <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="btnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton> <br />
+                                                <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="BtnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton> <br />
                                                 </ItemTemplate></asp:ListView>
                                             </div></ContentTemplate></asp:UpdatePanel>
                                         <div  class="text-right">
                                         <div class="report-btn mt-15">
-                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="btnMonth_Click" runat="server" Text="Generate By Month" />
+                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
                                             </div> </div> 
                                     </div>
                             </div>
@@ -247,7 +220,7 @@
                                 </div>
                                 <div class="col-md-12 text-right">
                                           <div class="report-btn mt-15 text-right">
-                                            <asp:Button ID="btnRange" OnClick="btnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
+                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
                                         </div>
                                 </div>
                             </div></div>
@@ -255,151 +228,11 @@
                 </div></div>
 
         </div>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-        <script src="<%=ResolveClientUrl("~/js/monthpicker.js")%>"></script>
+
     </div>
-    <script>
-        $(document).ready(function () {
-    var dp1 = $('#<%=txtFromDate.ClientID%>');
-    dp1.datepicker({
-        changeMonth: true,
-        changeYear: true,
-        format: "dd/mm/yyyy",
-        language: "tr"
-    }).on('changeDate', function (ev) {
-        $(this).blur();
-        $(this).blur();
-        $(this).datepicker('hide');
-    });
-        });
-
-        $(document).ready(MonthPick);
-        function MonthPick() {
-            $('#txtMonthPick').MonthPicker({
-                Button: false, MonthFormat: 'MM yy',
-                OnAfterChooseMonth: function () { $("#txtMonthPick").trigger("change"); }
-            });
-        }
-
-$(document).ready(function () {
-    var dp1 = $('#<%=txtToDate.ClientID%>');
-    dp1.datepicker({
-        changeMonth: true,
-        changeYear: true,
-        format: "dd/mm/yyyy",
-        language: "tr"
-    }).on('changeDate', function (ev) {
-        $(this).blur();
-        $(this).blur();
-        $(this).datepicker('hide');
-        });
-
-    $('#ByDept').click(function () {
-        $('#IsDept').val("true");
-    });
-    $('#BySupp').click(function () {
-        $('#IsDept').val("false");
-    });
-
-     $('#ByMonth').click(function () {
-        $('#IsMonth').val("true");
-    });
-    $('#ByDate').click(function () {
-        $('#IsMonth').val("false");
-    });
-    
-
-        });
-
-        $(document).ready(drawChart);
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(drawChart);
-        $(document).ready(checkDept);
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(checkDept);
-
-        function checkDept() {
-            if ($('#IsDept').val() == "false") {
-                $('#BySupp').trigger("click");
-            }
-            if ($('#IsMonth').val() == "false") {
-                $('#ByDate').trigger("click");
-            }
-        }
-
-        function drawChart() {
-        var ctx = document.getElementById("myChart").getContext('2d');
-        $.ajax({
-            url: "Reports.aspx/getChartData",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                var chartLabel = eval(response.d[0]); //Labels
-                var chartData = eval(response.d[1]); //Data
-                var chartData2 = eval(response.d[2]); //Data
-                var label1 = response.d[3];
-                var label2 = response.d[4];
-                var label3 = response.d[5];
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabel, 
-                        datasets: [{
-                            label: label1,
-                            data: chartData,  
-                            backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                            borderColor: 'rgba(255, 165, 0, 1)', 
-                            borderWidth: 1
-                        },
-                        {
-                            label: label2,
-                            data: chartData2, 
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)', 
-                            borderWidth: 1
-                        }]
-                    },
-                    options:
-                        {
-                            maintainAspectRatio: false,
-                            scales:
-                                {
-                                    yAxes:
-                                        [{
-                                            ticks:
-                                                {
-                                                    beginAtZero: true,
-                                                    fontSize: 15
-                                                },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: label3,
-                                                fontStyle: 'bold',
-                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                                                fontSize: 18
-                                              }
-                                        }],
-                                    xAxes:
-                                        [{
-                                            ticks:
-                                                {
-                                                    fontSize: 14
-                                                },
-                                            scaleLabel: {
-                                                display: false,
-                                                labelString: 'Dates',
-                                                fontStyle: 'bold',
-                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                                                fontSize: 18
-                                              }
-                                        }]
-                                }
-                        }
-                })
-            }
-        })
-        }
-
-    </script>
-
+    </div>
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/monthpicker.js")%>"></script>
+        <script src="<%=ResolveClientUrl("~/js/report-script.js")%>"></script>
 </asp:Content>

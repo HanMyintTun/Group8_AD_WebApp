@@ -25,6 +25,7 @@ namespace Group8_AD_webapp
 
         }
 
+        // Checks for authentication
         protected void Redirect()
         {
             IIdentity id = User.Identity;
@@ -56,6 +57,7 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Redirects User to correct page based on role
         protected void GoToDash()
         {
             switch (Session["role"])
@@ -71,6 +73,7 @@ namespace Group8_AD_webapp
             }
         }
 
+        // Triggers upon login
         protected void Login1_LoggedIn(object sender, EventArgs e)
 
         {

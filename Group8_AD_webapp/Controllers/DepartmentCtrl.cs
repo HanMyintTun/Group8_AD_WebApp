@@ -15,6 +15,12 @@ namespace Group8_AD_webapp.Controllers
             return DepartmentBL.GetDept(empId);
         }
 
+        public static List<DepartmentVM> GetAllDept()
+        {
+                List<DepartmentVM> departments = DepartmentBL.GetAllDept();
+                return departments.Where(x => x.DeptName != "Store Department").ToList();
+        }
+
 
         public static bool RemoveDelegate(string deptCode)
         {
@@ -61,7 +67,7 @@ namespace Group8_AD_webapp.Controllers
             //}
         }
 
-        public static bool SetDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId, string access_token)
+        public static bool SetDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId)
         {
 
             return DepartmentBL.setDelegate(deptCode, fromDate, toDate, empId);

@@ -15,35 +15,56 @@ namespace Group8_AD_webapp
 
     public partial class Dashboard : System.Web.UI.Page
     {
-        int empId = 1;
-        string deptCode = "ENGL";
+
+        DepartmentVM dept = new DepartmentVM();
+        int empId;
+        static string deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Adds active class to menu Item (sidebar)
+            Main master = (Main)this.Master;
+            master.ActiveMenu("dhdash");
+
+            Service.UtilityService.CheckRoles("DeptHead");
+            empId = Convert.ToInt32(Session["empId"]);
+            dept = Controllers.DepartmentCtrl.GetDept(empId);
+            deptCode = dept.DeptCode;
+            if (empId == dept.DelegateApproverId)
+            {
+                btnRemoveDelegate.Disabled = true;
+                ddlDelegate.Enabled = false;
+                btnAddDelegate.Disabled = true;
+                txtFromDate.Enabled = false;
+                txtToDate.Enabled = false;
+                
+            }
 
 
+            
             var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
-            // monthslist.Sort
-            GetDeleRep();
+
             if (!IsPostBack)
             {
                 BindEmpDDL();
                 ddlMonth.DataSource = monthslist;
                 ddlMonth.DataBind();
+                GetDeleRep();
             }
 
         }
 
         protected void GetDeleRep()
         {
-            int dphId;
             int delId;
             int repId;
-            DepartmentVM dept = DepartmentBL.GetDept(empId);
+            // empId = (int)Session["empId"];
+            //DepartmentVM dept = DepartmentBL.GetDept(empId);
 
             if (dept.DelegateApproverId == null)
             {
                 txtCurDelegate.Text = "-";
+
 
             }
             else
@@ -53,17 +74,17 @@ namespace Group8_AD_webapp
                 txtCurDelegate.Text = empDel.EmpName;
                 lblCurrentDel.Text = txtCurDelegate.Text.ToString();
             }
-            dphId = Convert.ToInt32(dept.DeptHeadId);
+
             repId = Convert.ToInt32(dept.DeptRepId);
-            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(dphId);
             EmployeeVM empRep = Controllers.EmployeeCtrl.getEmployeebyId(repId);
             txtRep.Text = empRep.EmpName;
+
         }
 
 
         protected void BindEmpDDL()
         {
-            DepartmentVM dp = DepartmentBL.GetDept(empId);
+            DepartmentVM dp = Controllers.DepartmentCtrl.GetDept(empId);
             List<EmployeeVM> replist = Controllers.EmployeeCtrl.getEmployeeList().Where(x => x.DeptCode == deptCode && x.Role != "Department Head" && x.EmpId != dp.DelegateApproverId).ToList();
             List<EmployeeVM> delist = Controllers.EmployeeCtrl.getEmployeeList().Where(x => x.DeptCode == deptCode && x.Role != "Department Head" && x.EmpId != dp.DeptRepId).ToList();
             ddlRep.DataSource = replist;
@@ -88,31 +109,30 @@ namespace Group8_AD_webapp
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleRemove').modal();", true);//modal popup
             }
 
-
-
-
-            //ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "removewarning();", true);
-
         }
         protected void AddDelegate(object sender, EventArgs e)
         {
-            //if (!ddlDelegate.SelectedValue.Equals(0)||!ddlDelegate.SelectedValue.Equals("0") && !txtFromDate.Text.Equals(null)||!txtFromDate.Text.Equals("") && !txtToDate.Text.Equals(null)||!txtToDate.Text.Equals(""))
-            if(ddlDelegate.SelectedItem.Text != "Select Employee" && txtFromDate.Text != "" && txtToDate.Text!="")
+           
+            if (ddlDelegate.SelectedItem.Text != "Select Employee" && txtFromDate.Text != "" && txtToDate.Text != "")
             {
+                lblSelectedDel.Text = ddlDelegate.SelectedItem.Text.ToString();
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal();", true);//modal popup
             }
-           
+
 
 
         }
         protected void AddRep(object sender, EventArgs e)
         {
-            if (ddlDelegate.SelectedItem.Text != "Select Employee")
+
+            if (ddlRep.SelectedItem.Text != "Select Employee")
             {
+
+                lblSelectedRep.Text = ddlRep.SelectedItem.Text.ToString();
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRepSet').modal();", true);
             }
-           
+
         }
 
 
@@ -120,13 +140,14 @@ namespace Group8_AD_webapp
         {
 
 
-            bool success = DepartmentBL.removeDelegate(deptCode);
+            bool success = Controllers.DepartmentCtrl.RemoveDelegate(deptCode);
 
             if (success)
             {
+                Response.Redirect("Dashboard.aspx");
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Current delegate has been successfully removed!"), "Successfully Removed!", "success");
-                GetDeleRep();
+
             }
             else
             {
@@ -147,20 +168,23 @@ namespace Group8_AD_webapp
             int delId = Convert.ToInt32(ddlDelegate.SelectedValue);
             DateTime fromdate = DateTime.Parse(txtFromDate.Text);
             DateTime todate = DateTime.Parse(txtToDate.Text);
-           
-            bool success = DepartmentBL.setDelegate(deptCode, fromdate, todate, delId);
+
+            bool success = Controllers.DepartmentCtrl.SetDelegate(deptCode, fromdate, todate, delId);
 
             if (success)
             {
+                Response.Redirect("Dashboard.aspx");
+                ClearText();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Delegate has been successfully added!"), "Successfully Added!", "success");
-                GetDeleRep();
+
             }
             else
             {
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Current delegate changes not Submitted"), "Something Went Wrong!", "error");
             }
+
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRepSet').modal('toggle');", true);//modal popup
         }
         protected void btnSetDelNo_Click(object sender, EventArgs e)
@@ -171,19 +195,21 @@ namespace Group8_AD_webapp
         {
             int repId = Convert.ToInt32(ddlRep.SelectedValue);
 
-            bool success = DepartmentBL.setRep(deptCode, repId);
+            bool success = Controllers.DepartmentCtrl.SetRep(deptCode, repId);
 
             if (success)
             {
+                Response.Redirect("Dashboard.aspx");
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Representative has been successfully added!"), "Successfully added!", "success");
-                GetDeleRep();
+
             }
             else
             {
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Representative changes not Submitted"), "Something Went Wrong!", "error");
             }
+
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal('toggle');", true);//modal popup
         }
         protected void btnSetRepNo_Click(object sender, EventArgs e)
@@ -191,14 +217,22 @@ namespace Group8_AD_webapp
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal('toggle');", true);//modal popup
         }
 
+        protected void ClearText()
+        {
+            ddlDelegate.SelectedIndex = 0;
+            txtFromDate.Text = "";
+            txtToDate.Text = "";
+
+
+        }
         [WebMethod]
         public static string GetChart(DateTime month)
         {
-            string deptCode = "COMM";
+            //string deptCode = ;
             DateTime fromDate = month;
             DateTime toDate = fromDate.AddMonths(-2);
 
-            List<ReportItemVM> resultlists = ReportItemBL.GetCBByMth(deptCode, fromDate, toDate);
+            List<ReportItemVM> resultlists = Controllers.TransactionController.GetCBByMth(deptCode, fromDate, toDate);
             List<ReportItemVM> datatodisplay = new List<ReportItemVM>();
             foreach (ReportItemVM r in resultlists)
             {
@@ -218,5 +252,7 @@ namespace Group8_AD_webapp
 
             return jsondata;
         }
+
+
     }
 }

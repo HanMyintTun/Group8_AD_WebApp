@@ -13,6 +13,15 @@ namespace Group8_AD_webapp {
     public partial class Reports {
         
         /// <summary>
+        /// lblHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeader;
+        
+        /// <summary>
         /// btnBar control.
         /// </summary>
         /// <remarks>

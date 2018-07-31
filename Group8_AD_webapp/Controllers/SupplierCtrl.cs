@@ -11,7 +11,7 @@ namespace Group8_AD_webapp.Controllers
 {
     public class SupplierCtrl
     {
-        public static List<string> getSupplierCodes()
+        public static List<string> GetSupplierCodes()
         {
 
             List<SupplierVM> suppList =  SupplierBL.GetAllSupp();
@@ -21,6 +21,11 @@ namespace Group8_AD_webapp.Controllers
                 suppCodeList.Add(s.SuppCode);
             }
             return suppCodeList;
+        }
+
+        public static List<SupplierVM> GetAllSupp()
+        {
+            return SupplierBL.GetAllSupp();
         }
     }
 }

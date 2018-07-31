@@ -220,13 +220,13 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Button btnRemovDelYes;
         
         /// <summary>
-        /// Label1 control.
+        /// lblSelectedDel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblSelectedDel;
         
         /// <summary>
         /// Button2 control.
@@ -247,13 +247,13 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// Label3 control.
+        /// lblSelectedRep control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblSelectedRep;
         
         /// <summary>
         /// Button4 control.

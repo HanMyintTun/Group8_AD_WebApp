@@ -193,6 +193,51 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadRequest;
         
         /// <summary>
+        /// menuDeptHeadSubmitted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadSubmitted;
+        
+        /// <summary>
+        /// menuDeptHeadApproved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadApproved;
+        
+        /// <summary>
+        /// menuDeptHeadRejected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadRejected;
+        
+        /// <summary>
+        /// menuDeptHeadSubmitCancelled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadSubmitCancelled;
+        
+        /// <summary>
+        /// menuDeptHeadFulfilled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuDeptHeadFulfilled;
+        
+        /// <summary>
         /// menuCatalogueDash control.
         /// </summary>
         /// <remarks>
@@ -265,6 +310,15 @@ namespace Group8_AD_webapp {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuReports;
         
         /// <summary>
+        /// menuReports2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuReports2;
+        
+        /// <summary>
         /// ContentPlaceHolder1 control.
         /// </summary>
         /// <remarks>
@@ -272,5 +326,14 @@ namespace Group8_AD_webapp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        
+        /// <summary>
+        /// cphScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphScript;
     }
 }

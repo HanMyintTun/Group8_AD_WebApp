@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class ProductVolume : System.Web.UI.Page
     {
         static List<ItemVM> staticpList;
@@ -22,13 +20,19 @@ namespace Group8_AD_webapp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("productrank");
 
+                // Populates Search Bar
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
+                // Determines Sort Direction based on button clicked on dashboard
                 if (Request.QueryString["sort"] == "asc")
                 {
                     IsDesc.Value = "false";
@@ -39,6 +43,7 @@ namespace Group8_AD_webapp
                     ddlSortDirection.SelectedValue = "desc";
                 }
                 
+                // Determines dates based on dates from dashboard
                 if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
                 {
                     d1 = DateTime.Parse(Request.QueryString["d1"]);
@@ -49,18 +54,20 @@ namespace Group8_AD_webapp
                     d1 = DateTime.Today.AddYears(-1);
                     d2 = DateTime.Today;
                 }
+
+                // Populates DataTable Product List
                 staticpList = Controllers.TransactionCtrl.GetVolume(d1, d2);
                 foreach(ItemVM i in staticpList)
                 {
                     i.Price1 = Math.Round(i.Price1, 2);
                 }
-
                 productList = new List<ItemVM>(staticpList);
                 SortAndBindGrid();
             }
 
         }
 
+        // Populates DataTable Product List
         protected void SortAndBindGrid()
         {
             if (IsDesc.Value == "true")
@@ -81,36 +88,35 @@ namespace Group8_AD_webapp
                 max = productList.Count;
             }
             lblDateRange.Text = "Date Range: " + d1.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
-            //lblPageCount.Text = "Showing " + (min + 1) + " to " + max + " of " + productList.Count.ToString();
         }
 
-
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        // Does search in list
+        protected void DdlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSearch_Click(btnSearch, EventArgs.Empty);
+            BtnSearch_Click(btnSearch, EventArgs.Empty);
         }
 
+        // Does search in list
         protected List<ItemVM> DoSearch()
         {
             d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             d2 = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            return Controllers.TransactionCtrl.GetVolume(d1, d2);
+            if (d2.CompareTo(d1) >= 0 )
+            {
+                return Controllers.TransactionCtrl.GetVolume(d1, d2);
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                return new List<ItemVM>();
+            }
+
         }
 
-
-        protected void txtMonthPick_TextChanged(object sender, EventArgs e)
-        {
-            //string s = txtMonthPick.Text.ToString();
-            //DateTime d = DateTime.ParseExact(s, "MMMM yyyy", CultureInfo.InvariantCulture);
-            //int n = DateTime.DaysInMonth(d.Year, d.Month);
-            //DateTime d2 = d.AddDays(n - d.Day);
-            //volumeList = Controllers.TransactionCtrl.GetVolume(d, d2);
-            //SortAndBindGrids();
-            //lblDateRange.Text = "Date Range: " + d.ToString("dd-MMM-yyyy") + " to " + d2.ToString("dd-MMM-yyyy");
-        }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
+        // Does search in list
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
             string cat = ddlCategory.Text;
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
@@ -140,10 +146,10 @@ namespace Group8_AD_webapp
             }
         }
 
-        protected void ddlSortDirection_SelectedIndexChanged(object sender, EventArgs e)
+        // Changes sort direction
+        protected void DdlSortDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sort = ddlSortDirection.SelectedValue;
-            //lblPageCount.Text = sort;
             if (sort == "asc")
             {
                 IsDesc.Value = "false";
@@ -155,14 +161,9 @@ namespace Group8_AD_webapp
                 SortAndBindGrid();
             }
         }
-
-        //protected void lstProductVolume_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    lstProductVolume.PageIndex = e.NewPageIndex;
-        //    lstProductVolume.DataBind();
-        //}
-
-        protected void btnBack_Click(object sender, EventArgs e)
+        
+        // Back to Dashboard
+        protected void BtnBack_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["d1"] != null && Request.QueryString["d2"] != null)
             {

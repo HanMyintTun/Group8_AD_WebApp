@@ -21,9 +21,15 @@ namespace Group8_AD_webapp.Manager
         static double thres;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            Service.UtilityService.CheckRoles("Store");
+            int empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
+
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("storerestock");
+
                 List<String> productList = ItemBL.GetCatList();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();

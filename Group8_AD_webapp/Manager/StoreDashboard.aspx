@@ -8,13 +8,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id ="main">
-    <div id="centermain">
+    <div id="centermain2">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="txtMonthPick" />
             </Triggers>
             <ContentTemplate>
-                 <div class="form-group form-inline formstyle text-center">
+                 <div class="form-group form-inline formstyle2 text-center">
                      <div class="row">
                 <div class="col-md-2 text-left">
                     <span class="subtitletext">Dashboard</span>
@@ -87,94 +87,9 @@
          </ContentTemplate>
         </asp:UpdatePanel>
     </div></div>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
         <script src="<%=ResolveClientUrl("~/js/monthpicker.js")%>"></script>
-    <script>
-        function MonthPick(){
-            $('#txtMonthPick').MonthPicker({
-                Button: false, MonthFormat: 'MM yy',
-                OnAfterChooseMonth: function () { $("#txtMonthPick").trigger("change"); }
-            });
-        }
-
-        $(document).ready(drawChart);
-        $(document).ready(MonthPick);
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(drawChart);
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(MonthPick);
-
-        function drawChart() {
-        var ctx = document.getElementById("myChart").getContext('2d');
-        $.ajax({
-            url: "StoreDashboard.aspx/getChartData",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                var chartLabel = eval(response.d[0]); //Labels
-                var chartData = eval(response.d[1]); //Data
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: chartLabel, 
-                        datasets: [{
-                            label: 'ChargeBack (SGD)',
-                            data: chartData, 
-                            backgroundColor: [
-                                'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
-                                'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
-                                'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
-                                'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
-                                'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
-                                'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
-                                'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    responsive: true,
-                    options:
-                        {
-                            
-                            maintainAspectRatio: false,
-                            scales:
-                                {
-                                    yAxes:
-                                        [{
-                                            ticks:
-                                                {
-                                                    beginAtZero: true,
-                                                    fontSize: 15
-                                                },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: 'ChargeBack (SGD)',
-                                                fontStyle: 'bold',
-                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                                                fontSize: 18
-                                              }
-                                        }],
-                                    xAxes:
-                                        [{
-                                            ticks:
-                                                {
-                                                    fontSize: 14
-                                                },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: 'Department',
-                                                fontStyle: 'bold',
-                                                fontFamily: "'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                                                fontSize: 18
-                                              }
-                                        }]
-                                }
-                        }
-                })
-            }
-        })
-        }
-    </script>
+        <script src="<%=ResolveClientUrl("~/js/storedash-script.js")%>"></script>
 </asp:Content>

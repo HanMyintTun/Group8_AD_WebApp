@@ -153,6 +153,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                     DeptHeadId = d.DeptHeadId,
                     DeptRepId = d.DeptRepId,
                     DelegateApproverId = d.DelegateApproverId,
+                    DelegateFromDate = d.DelegateFromDate,
+                    DelegateToDate = d.DelegateToDate,
                     EmpId = empId
 
                 }).First<DepartmentVM>();

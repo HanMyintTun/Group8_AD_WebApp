@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Fulfilled-Requests.aspx.cs" Inherits="Group8_AD_webapp.Fulfilled_Requests" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -17,7 +18,7 @@
                 <h3 class="page-header">Fulfilled Requests</h3>
             </div>
             <div class="col-lg-12">
-               <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <div class="panel-body">
                             <asp:ListView runat="server" ID="lstCancel" OnItemCommand="lstOrder_ItemCommand">
@@ -26,7 +27,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th style="display:none;" scope="col">Request ID</th>
+                                                <th style="display: none;" scope="col">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
                                                 <th scope="col">Fulfilled Date</th>
@@ -40,7 +41,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td style="display:none;">
+                                        <td style="display: none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -57,8 +58,11 @@
                                     </tr>
 
                                 </ItemTemplate>
+                                <EmptyDataTemplate>
+                                    <span class="noresult">There is nothing in the list.</span>
+                                </EmptyDataTemplate>
                             </asp:ListView>
-                          
+
                         </div>
                         <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
                             PageSize="9" OnPreRender="DataPagerProducts_PreRender">
@@ -75,7 +79,7 @@
         </div>
     </div>
     <%-- modal content--%>
-   <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
@@ -112,7 +116,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr style="display:none;">
+                                                    <tr style="display: none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -154,7 +158,7 @@
                                                         <th scope="col" style="display: none">Item Code</th>
                                                         <th scope="col">Item Name</th>
                                                         <th scope="col">Quantity</th>
-                                                         <th scope="col">Fulfilled Quantity</th>
+                                                        <th scope="col">Fulfilled Quantity</th>
                                                         <th scope="col"></th>
 
                                                     </tr>
@@ -172,22 +176,24 @@
                                                     <asp:Label ID="lblDescription" runat="server" Text='<%#String.Format("{0:C}",Eval("Desc"))%>' /></td>
                                                 <td>
                                                     <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("ReqQty") %>' /></td>
-                                                 <td>
+                                                <td>
                                                     <asp:Label ID="lblFulfilled" runat="server" Text='<%# Eval("FulfilledQty") %>' /></td>
                                                 <td></td>
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your list.s
-                                               
+                                            <span class="noresult">Sorry! There are no items in your list.
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>
 
                                 </div>
-
                                 <div>
-                             
+                                    <div class="align-bottom-left">
+                                        <p>Comments</p>
+                                        <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" ReadOnly="true" class="txt-area" />
+                                    </div>
+                                </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 

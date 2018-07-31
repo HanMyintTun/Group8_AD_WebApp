@@ -12,6 +12,7 @@ namespace Group8_AD_webapp.Service
 {
     public class UtilityService
     {
+        // Checks for role and adds to Session variable
         public static bool Authenticate(int empId)
         {
             EmployeeVM emp = EmployeeBL.GetEmp(empId);
@@ -28,7 +29,15 @@ namespace Group8_AD_webapp.Service
                     DepartmentVM dep = DepartmentBL.GetDept(empId);
                     if (dep.DelegateApproverId == empId)
                     {
-                        HttpContext.Current.Session["role"] = "Delegate";
+                        if (DateTime.Now > dep.DelegateFromDate && DateTime.Now < dep.DelegateToDate)
+                        {
+                            HttpContext.Current.Session["role"] = "Delegate";
+                        }
+                        else
+                        {
+                            HttpContext.Current.Session["role"] = "Employee";
+                        }
+                       
                     }
                     else if (dep.DeptRepId == empId)
                     {
@@ -49,6 +58,7 @@ namespace Group8_AD_webapp.Service
             
         }
 
+        // Prevents access to pages based on role
         public static void CheckRoles(string role)
         {
             if(HttpContext.Current.Session["empId"] == null && HttpContext.Current.Session["role"] == null && HttpContext.Current.Session["empName"] == null)
@@ -81,7 +91,7 @@ namespace Group8_AD_webapp.Service
                         {
                             if (r != "Employee" && r != "Representative")
                             {
-                                HttpContext.Current.Response.Redirect("~/Login.aspx?"+r);
+                                HttpContext.Current.Response.Redirect("~/Login.aspx?error=noaccess");
                             }
                             break;
                         }

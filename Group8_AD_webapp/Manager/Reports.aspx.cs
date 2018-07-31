@@ -6,13 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Group8AD_WebAPI.BusinessLogic;
 using Newtonsoft.Json;
 using System.Text;
 using System.Globalization;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class Reports : System.Web.UI.Page
     {
         static List<DateTime> datesList;
@@ -22,14 +23,32 @@ namespace Group8_AD_webapp
         static string lbl1;
         static string lbl2;
         static string lbl3;
+        static public bool IsVolume;
         Main master;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("Store");
+
             master = (Main)this.Master;
             if (!IsPostBack)
             {
-                Service.UtilityService.CheckRoles("Store");
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+
+
+                if (Request.QueryString["type"] == "volume")
+                {
+                    IsVolume = true;
+                    lblHeader.Text = "Volume Reports";
+                    master.ActiveMenu("reports2");
+                }
+                else
+                {
+                    IsVolume = false;
+                    lblHeader.Text = "Cost Reports";
+                    master.ActiveMenu("reports");
+                }
 
                 datesList = new List<DateTime>();
                 monthsList = new List<DateTime>();
@@ -39,24 +58,56 @@ namespace Group8_AD_webapp
                 lblReportTitle.Text = "Welcome";
                 showlist.Visible = false;
             }
-
-
         }
 
-
+        // Populates chart upon first load
         protected void DemoChart()
         {
             List<DateTime> demoList = new List<DateTime>() { new DateTime(2018, 07, 01), new DateTime(2018, 06, 01), new DateTime(2018, 05, 01) };
             lbl1 = "Claims";
             lbl2 = "Commerce";
             lbl0 = "Month";
-            lbl3 = "Chargeback(SGD)";
-            cbList = ReportItemBL.ShowCostReport("CLAI", "COMM", null, null, "All", demoList, true);
-            lblSubtitle.Text = "Claims Department vs Commerce Department";
-            lblSubtitle2.Text = "Chargeback (SGD)";
+
+            if(IsVolume)
+            {
+                lbl3 = "Ordered Quantity";
+                cbList = Controllers.ReportItemCtrl.ShowVolumeReport("CLAI", "COMM", null, null, "All", demoList, true);
+                lblSubtitle.Text = "Claims Department vs Commerce Department";
+                lblSubtitle2.Text = "Ordered Quantity";
+            }
+            else
+            {
+                lbl3 = "Chargeback(SGD)";
+                cbList = Controllers.ReportItemCtrl.ShowCostReport("CLAI", "COMM", null, null, "All", demoList, true);
+                lblSubtitle.Text = "Claims Department vs Commerce Department";
+                lblSubtitle2.Text = "Chargeback (SGD)";
+            }
+
             FillDataList();
         }
 
+        // Popualates Dept/Supplier Dropdowns
+        protected void FillDropDowns()
+        {
+            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
+            ddlCategory.DataBind();
+
+            List<SupplierVM> suppliers = Controllers.SupplierCtrl.GetAllSupp();
+            foreach (SupplierVM s in suppliers)
+            {
+                ddlSupplier1.Items.Add(new ListItem(s.SuppName, s.SuppCode));
+                ddlSupplier2.Items.Add(new ListItem(s.SuppName, s.SuppCode));
+            }
+
+            List<DepartmentVM> departments = Controllers.DepartmentCtrl.GetAllDept();
+            foreach (DepartmentVM d in departments)
+            {
+                ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+                ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+            }
+        }
+
+        // Populates Data Listview
         protected void FillDataList()
         {
             lstData.DataSource = cbList;
@@ -66,30 +117,31 @@ namespace Group8_AD_webapp
             lstData.HeaderRow.Cells[2].Text = lbl2+ " Department";
         }
 
-        protected void FillDropDowns()
+        // Adds month to month list
+        protected void TxtMonthPick_TextChanged(object sender, EventArgs e)
         {
-            ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
-            ddlCategory.DataBind();
-
-            List<SupplierVM> suppliers = SupplierBL.GetAllSupp();
-            foreach (SupplierVM s in suppliers)
+            if (txtMonthPick.Text != "")
             {
-                ddlSupplier1.Items.Add(new ListItem(s.SuppName, s.SuppCode));
-                ddlSupplier2.Items.Add(new ListItem(s.SuppName, s.SuppCode));
-
+                string d = txtMonthPick.Text;
+                DateTime tempDate = DateTime.ParseExact(txtMonthPick.Text, "MMMM yyyy", CultureInfo.InvariantCulture);
+                if (!monthsList.Contains(tempDate))
+                {
+                    monthsList.Add(tempDate);
+                    monthsList = monthsList.OrderBy(x => x.Date).ToList();
+                }
+                else
+                {
+                    master.ShowToastr(this, "", "Month already added", "error");
+                }
+                txtMonthPick.Text = "";
+                lstMonths.DataSource = monthsList;
+                lstMonths.DataBind();
             }
-
-            List<DepartmentVM> departments = DepartmentBL.GetAllDept();
-            foreach (DepartmentVM d in departments)
-            {
-                ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
-                ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
-            }
+            ClearChart();
         }
 
-
-
-        protected void btnRemove_Click(object sender, EventArgs e)
+        // Removes month from month List
+        protected void BtnRemove_Click(object sender, EventArgs e)
         {
             var btn = (LinkButton)sender;
             var item = (ListViewItem)btn.NamingContainer;
@@ -100,16 +152,30 @@ namespace Group8_AD_webapp
             lstMonths.DataBind();
         }
 
-        protected void btnMonth_Click(object sender, EventArgs e)
+        // Clears Month List
+        protected void BtnClear_Click(object sender, EventArgs e)
+        {
+            monthsList = new List<DateTime>();
+            lstMonths.DataSource = monthsList;
+            lstMonths.DataBind();
+            ClearChart();
+        }
+
+        // Generates chart by Months
+        protected void BtnMonth_Click(object sender, EventArgs e)
         {
             GenerateGraph(true);
         }
 
-        protected void btnRange_Click(object sender, EventArgs e)
+        // Generates chart by Date Range
+        protected void BtnRange_Click(object sender, EventArgs e)
         {
             GenerateGraph(false);
         }
 
+
+
+        // Gets data for chart
         protected void GenerateGraph(bool byMonth)
         {
             string cat = ddlCategory.Text;
@@ -127,54 +193,54 @@ namespace Group8_AD_webapp
                         {
                             if (monthsList.Count != 0)
                             {
-                                lbl1 = (ddlDepartment1.SelectedItem.Text).Replace("Department", "");
-                                lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
-                                lbl0 = "Month";
-                                lbl3 = "Chargeback (SGD)";
-                                cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, monthsList, byMonth);
+                                GetDeptReport(dept1, dept2, cat, monthsList, byMonth);
                                 FillDataList();
-                                lblReportTitle.Text = "Department Cost Report for Category:" + cat;
-
-                                lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Chargeback (SGD)";
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Month List is Empty!", "error");
+                                ClearChart();
                             }
                         }
                         else
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                lbl1 = (ddlDepartment1.SelectedItem.Text).Replace("Department", "");
-                                lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
-                                lbl0 = "Week Of";
-                                lbl3 = "Chargeback (SGD)";
-                                datesList = new List<DateTime>();
-                                datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, datesList, byMonth);
-                                FillDataList();
-                                lblReportTitle.Text = "Department Cost Report for Category:" + cat;
-                                lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Chargeback (SGD)";
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                                if (d2.CompareTo(d1) >= 0)
+                                {
+                                    datesList = new List<DateTime>();
+                                    datesList.Add(d1);
+                                    datesList.Add(d2);
+                                    GetDeptReport(dept1, dept2, cat, datesList, byMonth);
+                                    FillDataList();
+                                }
+                                else
+                                {
+                                    master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                                    ClearChart();
+                                }
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Dates cannot be Empty!", "error");
+                                ClearChart();
                             }
                         }
                     }
                     else
                     {
                         master.ShowToastr(this, "", "Please select 2 different departments!", "error");
+                        ClearChart();
                     }
 
                 }
                 else
                 {
                     master.ShowToastr(this, "", "Please select 2 departments!", "error");
+                    ClearChart();
                 }
             }
             else
@@ -189,41 +255,41 @@ namespace Group8_AD_webapp
                         {
                             if (monthsList.Count != 0)
                             {
-                                lbl1 = ddlSupplier1.SelectedItem.Text;
-                                lbl2 = ddlSupplier2.SelectedItem.Text;
-                                lbl0 = "Month";
-                                lbl3 = "Amount Paid (SGD)";
-                                cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, monthsList, byMonth);
+                                GetSupplierReport(supp1, supp2, cat, monthsList, byMonth);
                                 FillDataList();
-                                lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
-                                lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Amount Paid (SGD)";
+
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Month List is Empty!", "error");
+                                ClearChart();
                             }
                         }
                         else
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                lbl1 = ddlSupplier1.SelectedItem.Text;
-                                lbl2 = ddlSupplier2.SelectedItem.Text;
-                                lbl0 = "Week Of";
-                                lbl3 = "Amount Paid (SGD)";
-                                datesList = new List<DateTime>();
-                                datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, datesList, byMonth);
-                                FillDataList();
-                                lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
-                                lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
-                                lblSubtitle2.Text = "Amount Paid (SGD)";
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                                if (d2.CompareTo(d1) >= 0)
+                                {
+                                    datesList = new List<DateTime>();
+                                    datesList.Add(d1);
+                                    datesList.Add(d2);
+                                    GetSupplierReport(supp1, supp2, cat, datesList, byMonth);
+                                    FillDataList();
+                                }
+                                else
+                                {
+                                    master.ShowToastr(this, "", "End Date must be after Start Date", "error");
+                                    ClearChart();
+                                }
                             }
                             else
                             {
                                 master.ShowToastr(this, "", "Dates cannot be Empty!", "error");
+                                ClearChart();
                             }
                         }
 
@@ -231,15 +297,69 @@ namespace Group8_AD_webapp
                     else
                     {
                         master.ShowToastr(this, "", "Please select 2 different suppliers!", "error");
+                        ClearChart();
                     }
                 }
                 else
                 {
                     master.ShowToastr(this, "", "Please select 2 suppliers!", "error");
+                    ClearChart();
                 }
             }
         }
 
+        // gets Department vs Department Report
+        protected void GetDeptReport(string dept1, string dept2, string cat, List<DateTime> timeframe, bool byMonth)
+        {
+            lbl1 = (ddlDepartment1.SelectedItem.Text).Replace("Department", "");
+            lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
+            if (byMonth) lbl0 = "Month";
+            else lbl0 = "Week Of";
+
+            if (IsVolume)
+            {
+                cbList = Controllers.ReportItemCtrl.ShowVolumeReport(dept1, dept2, null, null, cat, timeframe, byMonth);
+                lblReportTitle.Text = "Department Volume Report for Category:" + cat;
+                lbl3 = "Ordered Quantity";
+            }
+            else
+            {
+                cbList = Controllers.ReportItemCtrl.ShowCostReport(dept1, dept2, null, null, cat, timeframe, byMonth);
+                lblReportTitle.Text = "Department Cost Report for Category:" + cat;
+                lbl3 = "Chargeback (SGD)";
+            }
+
+            lblSubtitle2.Text = lbl3;
+
+            lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
+        }
+
+        // gets Supplier vs Supplier Report
+        protected void GetSupplierReport(string supp1, string supp2, string cat, List<DateTime> timeframe, bool byMonth)
+        {
+            lbl1 = ddlSupplier1.SelectedItem.Text;
+            lbl2 = ddlSupplier2.SelectedItem.Text;
+            if (byMonth) lbl0 = "Month";
+            else lbl0 = "Week Of";
+
+            if (IsVolume)
+            {
+                cbList = Controllers.ReportItemCtrl.ShowVolumeReport(null, null, supp1, supp2, cat, timeframe, byMonth);
+                lblReportTitle.Text = "Supplier Volume Report for Category:" + cat;
+                lbl3 = "Ordered Quantity";
+            }
+            else
+            {
+                cbList = Controllers.ReportItemCtrl.ShowCostReport(null, null, supp1, supp2, cat, timeframe, byMonth);
+                lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
+                lblSubtitle2.Text = "Amount Paid (SGD)";
+            }
+
+            lblSubtitle2.Text = lbl3;
+            lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
+        }
+
+        // Populates data to send to Chart.js
         [System.Web.Services.WebMethod]
         public static List<string> getChartData()
         {
@@ -298,30 +418,8 @@ namespace Group8_AD_webapp
             returnData.Add(lbl3);
             return returnData;
         }
-
-        protected void txtMonthPick_TextChanged(object sender, EventArgs e)
-        {
-            if (txtMonthPick.Text != "")
-            {
-                string d = txtMonthPick.Text;
-                DateTime tempDate = DateTime.ParseExact(txtMonthPick.Text, "MMMM yyyy", CultureInfo.InvariantCulture);
-                if (!monthsList.Contains(tempDate))
-                {
-                    monthsList.Add(tempDate);
-                    monthsList = monthsList.OrderBy(x => x.Date).ToList();
-                }
-                else
-                {
-                    master.ShowToastr(this, "", "Month already added", "error");
-                }
-                txtMonthPick.Text = "";
-                lstMonths.DataSource = monthsList;
-                lstMonths.DataBind();
-
-            }
-            ClearChart();
-        }
-
+        
+        // Clears Chart upon invalid selection
         protected void ClearChart()
         {
             cbList = new List<ReportItemVM>();
@@ -329,30 +427,27 @@ namespace Group8_AD_webapp
             lbl2 = "";
             lstData.DataSource = cbList;
             lstData.DataBind();
+            lblSubtitle.Text = "";
+            lblSubtitle2.Text = "";
         }
 
+        // Clears Chart
         protected void OnChange(object sender, EventArgs e)
         {
             ClearChart();
         }
 
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            monthsList = new List<DateTime>();
-            lstMonths.DataSource = monthsList;
-            lstMonths.DataBind();
-            ClearChart();
-        }
-
-        protected void btnBar_Click(object sender, EventArgs e)
+        // Changes from List to Bar Chart
+        protected void BtnBar_Click(object sender, EventArgs e)
         {
             showchart.Visible = true;
             showlist.Visible = false;
             btnList.CssClass = "listbutton";
             btnBar.CssClass = "listbutton active";
-
         }
-        protected void btnList_Click(object sender, EventArgs e)
+
+        // Changes from Bar chart to List
+        protected void BtnList_Click(object sender, EventArgs e)
         {
             showchart.Visible = false;
             showlist.Visible = true;

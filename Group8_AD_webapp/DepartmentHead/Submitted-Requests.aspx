@@ -57,12 +57,12 @@
 
                                 </ItemTemplate>
                                 <EmptyDataTemplate>
-                                    There is nothing in the list 
+                                    <span class="noresult">There is nothing in the list.</span>
                                 </EmptyDataTemplate>
                             </asp:ListView>
 
                         </div>
-                           <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstOrder"
+                        <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstOrder"
                             PageSize="9" OnPreRender="DataPagerProducts_PreRender">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowLastPageButton="false" ShowNextPageButton="false" PreviousPageText="Prev" ButtonCssClass="pagingbutton" />
@@ -230,13 +230,14 @@
                         <h3 class="detail-subtitle">Request Approval!</h3>
                     </div>
                     <div class="panel-body">
-                       
-                       <asp:UpdatePanel runat="server">
-                           <ContentTemplate>
-                               You are about to approve the request for <span style="font-weight: bold;"><asp:Label runat="server" ID="lblReqEmployeename"></asp:Label></span>. Are you sure?
 
-                           </ContentTemplate>
-                       </asp:UpdatePanel>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                You are about to approve the request for <span style="font-weight: bold;">
+                                    <asp:Label runat="server" ID="lblReqEmployeename"></asp:Label></span>. Are you sure?
+
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         <div class="action-btn" style="text-align: center; float: none;">
                             <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnAcceptNo_Click" runat="server" Text="No" />
                             <asp:Button ID="Button1" class="btn btn-success btn-msize" OnClick="btnAcceptYes_Click" runat="server" Text="Yes" />
@@ -292,7 +293,7 @@
 
     </script>
 
-  <%--  <script>$(document).ready(function () {
+    <%--  <script>$(document).ready(function () {
             $('#s-table').DataTable();
         });
     </script>--%>

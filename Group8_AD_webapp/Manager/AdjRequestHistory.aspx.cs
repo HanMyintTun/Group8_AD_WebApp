@@ -10,43 +10,32 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
-        static string access_token;
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
-        int empid = 104;
+        static int empid;
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Service.UtilityService.CheckRoles("Manager");
+            empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("storeadjustment");
+
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
-
-                access_token = Session["Token"].ToString();
-
-
-
-                if (Session["Message"] != null)
-                {
-                    lblMessage.Text = Session["Message"].ToString();
-                    Session["Message"] = null;
-                }
-                else
-                {
-                    divAlert.Visible = false;
-                }
-
-                BindGrid();
-
+            
             }
         }
 
         protected void BindGrid()
         {
-            adj = AdjustmentBL.GetAdjList(status);
+            status = ddlStatus.SelectedItem.Text;
+            adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -63,8 +52,8 @@ namespace Group8_AD_webapp.Manager
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            status = ddlStatus.Text;
             BindGrid();
+
         }
 
         //detail buttom action 
@@ -77,7 +66,7 @@ namespace Group8_AD_webapp.Manager
                 {
                     voucherno = e.CommandArgument.ToString();
 
-                    PopulateDetailList(voucherno);
+                    PopulateDetailList(voucherno, empid);
                 }
 
             }
@@ -95,9 +84,10 @@ namespace Group8_AD_webapp.Manager
             bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
             if (success)
             {
+                BindGrid();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Request has been accepted!"), "Successfully approved!", "success");
-                BindGrid();
+               
             }
             else
             {
@@ -125,9 +115,10 @@ namespace Group8_AD_webapp.Manager
             bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
             if (success)
             {
+                BindGrid();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Request has been rejected!"), "Successfully rejected!", "success");
-                BindGrid();
+                
             }
             else
             {
@@ -141,10 +132,10 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal('toggle');", true);//modal popup
         }
 
-        protected void PopulateDetailList(string voucherno)
+        protected void PopulateDetailList(string voucherno, int empid)
         {
             // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
-            List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno);
+            List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno, empid);
             foreach (AdjustmentVM aj in showList)
             {
                 cmt = txtComments.Text.ToString();

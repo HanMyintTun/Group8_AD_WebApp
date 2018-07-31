@@ -41,6 +41,10 @@ h3 {
     padding-bottom: 20px;
 }
 
+.tinylogo {
+    top: 15%;
+    position: absolute;
+}
 .btn-danger {
     background-color: var(--color-btn-danger) !important;
 }
@@ -1084,14 +1088,14 @@ a.label:hover, a.label:focus {
 
 .sidebar ul.nav ul.children {
     width: auto;
-    padding: 0;
+    padding-right: 0;
     margin: 0;
-    background: #f9f9f9;
+    /*background: #f9f9f9;*/
 }
 
     .sidebar ul.nav ul.children li a {
         height: 40px;
-        background: #f1f4f7;
+        /*background: #f1f4f7;*/
         color: #444444;
     }
 
@@ -1554,6 +1558,7 @@ p.back-link {
 }
 .fix-modal{
     width: 900px !important;
+    
 }
 
 .table-stock tr:hover {
@@ -1564,7 +1569,7 @@ p.back-link {
 }
 .lightbox-scroll {
     overflow-y: scroll;
-    height: 800px;
+    max-height: 800px;
 }
 .pagination li {
     padding:0px !important;
@@ -1575,6 +1580,13 @@ input[type="radio"] {
 .confirm-modal {
     width: 500px;
     top: 180px;
+}
+.update-area {
+    margin-right: 17px !important;
+    padding-right: 0px !important;
+}
+.updatebtn {
+    width : 170px;
 }
 #toast-container > .toast-success {
     background-color: var(--color-text) !important;
