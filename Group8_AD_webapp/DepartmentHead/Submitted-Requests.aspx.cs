@@ -41,8 +41,8 @@ namespace Group8_AD_webapp
         //populate req detail in modal
         protected void PopulateDetailList(int rid)
         {
-            RequestVM req = RequestBL.GetReq(rid);
-            EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
+            RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
             lblEmpName.Text = emp.EmpName.ToString();
@@ -62,9 +62,9 @@ namespace Group8_AD_webapp
         //Accept
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            RequestVM req = RequestBL.GetReq(rid);
-            EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
-            lblReqEmployeename.Text = emp.EmpName.ToString();
+            //RequestVM req = RequestBL.GetReq(rid);
+            //EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
+            //lblReqEmployeename.Text = emp.EmpName.ToString();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlaccept", "$('#mdlaccept').modal();", true);
 
         }
@@ -73,7 +73,7 @@ namespace Group8_AD_webapp
 
             string cmt = txtComments.Text.ToString();
             
-            bool success = RequestBL.AcceptRequest(rid, empId, cmt);
+            bool success = Controllers.RequestCtrl.AcceptRequest(rid, empId, cmt);
 
             if (success)
             {
@@ -99,9 +99,9 @@ namespace Group8_AD_webapp
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            RequestVM req = RequestBL.GetReq(rid);
-            EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
-            lblEmployeename.Text = emp.EmpName.ToString();
+            //RequestVM req = RequestBL.GetReq(rid);
+            //EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
+            //lblEmployeename.Text = emp.EmpName.ToString();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlreject", "$('#mdlreject').modal();", true);
            
         }
@@ -109,7 +109,7 @@ namespace Group8_AD_webapp
         {
             string cmt = txtComments.Text.ToString();
             
-            bool success = RequestBL.RejectRequest(rid, empId, cmt);
+            bool success = Controllers.RequestCtrl.RejectRequest(rid, empId, cmt);
 
             if (success)
             {

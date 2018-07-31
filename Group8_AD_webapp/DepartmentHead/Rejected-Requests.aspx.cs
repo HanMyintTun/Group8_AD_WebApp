@@ -36,8 +36,8 @@ namespace Group8_AD_webapp
         // populate cancel detail in modal
         protected void PopulateDetailList(int rid)
         {
-            RequestVM req = RequestBL.GetReq(rid);
-            EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
+            RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
 
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();

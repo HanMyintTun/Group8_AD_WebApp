@@ -35,7 +35,7 @@ namespace Group8_AD_webapp.Manager
         protected void BindGrid()
         {
             status = ddlStatus.SelectedItem.Text;
-            adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
+            adj = Controllers.AdjustmentCtrl.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -44,8 +44,6 @@ namespace Group8_AD_webapp.Manager
                 AdjustmentVM adjj = adj.Where(a => a.VoucherNo.Equals(vnum)).FirstOrDefault();
                 adj2.Add(adjj);
             }
-            // adj = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
-
             lstRequests.DataSource = adj2.OrderByDescending(x => x.DateTimeIssued).ToList();
             lstRequests.DataBind();
         }
@@ -56,7 +54,7 @@ namespace Group8_AD_webapp.Manager
 
         }
 
-        //detail buttom action 
+        //detail button action 
         protected void lstRequests_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
 
@@ -73,6 +71,7 @@ namespace Group8_AD_webapp.Manager
 
 
         }
+
         //accept
         protected void btnAccept_Click(object sender, EventArgs e)
         {
@@ -81,7 +80,7 @@ namespace Group8_AD_webapp.Manager
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
+            bool success = Controllers.AdjustmentCtrl.AcceptRequest(voucherno, empid, cmt);
             if (success)
             {
                 BindGrid();
@@ -112,7 +111,7 @@ namespace Group8_AD_webapp.Manager
         {
 
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
+            bool success = Controllers.AdjustmentCtrl.RejectRequest(voucherno, empid, cmt);
             if (success)
             {
                 BindGrid();
@@ -164,7 +163,7 @@ namespace Group8_AD_webapp.Manager
 
                     btnAccept.Visible = false;
                     btnReject.Visible = false;
-                    //txtComments.Visible = false;
+                    
                 }
                 else if (aj.Status == "Approved")
                 {
@@ -181,7 +180,7 @@ namespace Group8_AD_webapp.Manager
 
                     btnAccept.Visible = false;
                     btnReject.Visible = false;
-                    //txtComments.Visible = false;
+                    
                 }
                 else
                 {

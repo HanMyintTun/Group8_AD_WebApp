@@ -58,13 +58,10 @@ namespace Group8_AD_webapp
         {
             int delId;
             int repId;
-            // empId = (int)Session["empId"];
-            //DepartmentVM dept = DepartmentBL.GetDept(empId);
 
             if (dept.DelegateApproverId == null)
             {
                 txtCurDelegate.Text = "-";
-
 
             }
             else
