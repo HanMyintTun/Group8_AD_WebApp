@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Approved-Requests.aspx.cs" Inherits="Group8_AD_webapp.Approved_Requests" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,7 +27,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Request ID</th>
+                                                <th scope="col" style="display: none;">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
                                                 <th scope="col">Approved Date</th>
@@ -40,7 +41,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td>
+                                        <td style="display: none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -57,8 +58,12 @@
                                     </tr>
 
                                 </ItemTemplate>
+                                <EmptyDataTemplate>
+                                    <span class="noresult">Sorry! There is nothing in your list.
+                                    </span>
+                                </EmptyDataTemplate>
                             </asp:ListView>
-                          
+
                         </div>
                         <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="lstCancel"
                             PageSize="9" OnPreRender="DataPagerProducts_PreRender">
@@ -75,7 +80,7 @@
         </div>
     </div>
     <%-- modal content--%>
-<div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel panel-default">
@@ -112,7 +117,7 @@
                                         <div>
                                             <table class="detail-info-col">
                                                 <tbody>
-                                                    <tr style="display:none;">
+                                                    <tr style="display: none;">
                                                         <td>
                                                             <asp:Label ID="label2" runat="server" Text="Request ID : "></asp:Label></td>
                                                         <td>
@@ -174,9 +179,12 @@
                                     </asp:ListView>
 
                                 </div>
-
                                 <div>
-                             
+                                    <div class="align-bottom-left">
+                                        <p>Comments</p>
+                                        <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" ReadOnly="true" class="txt-area" />
+                                    </div>
+                                </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 

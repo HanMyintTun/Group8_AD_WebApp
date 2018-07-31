@@ -222,6 +222,7 @@
     <Content Include="img\employee\23.png" />
     <Content Include="img\employee\6.png" />
     <Content Include="img\employee\profile_default.png" />
+    <Content Include="img\leaf.png" />
     <Content Include="img\stationery\C001.jpg" />
     <Content Include="img\stationery\C002.jpg" />
     <Content Include="img\stationery\C003.jpg" />
@@ -313,6 +314,7 @@
     <Content Include="img\stationery\T100.jpg" />
     <Content Include="js\catalogue-script.js" />
     <Content Include="js\datatables.min.js" />
+    <Content Include="js\depthead-script.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\monthpicker.js" />

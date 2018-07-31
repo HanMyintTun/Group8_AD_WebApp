@@ -140,7 +140,7 @@ namespace Group8_AD_webapp
         {
 
 
-            bool success = DepartmentBL.removeDelegate(deptCode);
+            bool success = Controllers.DepartmentCtrl.RemoveDelegate(deptCode);
 
             if (success)
             {
@@ -169,7 +169,7 @@ namespace Group8_AD_webapp
             DateTime fromdate = DateTime.Parse(txtFromDate.Text);
             DateTime todate = DateTime.Parse(txtToDate.Text);
 
-            bool success = DepartmentBL.setDelegate(deptCode, fromdate, todate, delId);
+            bool success = Controllers.DepartmentCtrl.SetDelegate(deptCode, fromdate, todate, delId);
 
             if (success)
             {

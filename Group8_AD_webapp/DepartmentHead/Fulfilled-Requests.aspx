@@ -182,15 +182,18 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your list.s
-                                               
+                                            <span class="noresult">Sorry! There are no items in your list.
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>
 
                                 </div>
-
                                 <div>
+                                    <div class="align-bottom-left">
+                                        <p>Comments</p>
+                                        <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" ReadOnly="true" class="txt-area" />
+                                    </div>
+                                </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 
