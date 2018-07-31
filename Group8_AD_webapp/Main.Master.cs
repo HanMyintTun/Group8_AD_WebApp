@@ -59,8 +59,8 @@ namespace Group8_AD_webapp
         {
             List<HtmlGenericControl> deptHeadList = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest };
             List<HtmlGenericControl> employeeList = new List<HtmlGenericControl>() { menuCatalogueDash, menuEmployeeRequest};
-            List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers,menuReports };
-            List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment, menuReports };
+            List<HtmlGenericControl> storeList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers,menuReports, menuReports2 };
+            List<HtmlGenericControl> managerList = new List<HtmlGenericControl>() { menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuAdjustment, menuReports, menuReports2 };
             List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>();
             allMenu.AddRange(deptHeadList);
             allMenu.AddRange(employeeList);
@@ -224,7 +224,7 @@ namespace Group8_AD_webapp
         public void ActiveMenu(string page)
         {
             List<HtmlGenericControl> allMenu = new List<HtmlGenericControl>() { menuDeptHeadDash, menuDeptHeadRequest, menuDeptHeadSubmitted, menuDeptHeadApproved, menuDeptHeadRejected,
-                menuDeptHeadSubmitCancelled, menuDeptHeadFulfilled, menuCatalogueDash, menuEmployeeRequest, menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuReports, menuAdjustment };
+                menuDeptHeadSubmitCancelled, menuDeptHeadFulfilled, menuCatalogueDash, menuEmployeeRequest, menuManagerDash, menuProductVol, menuRestock, menuSuppliers, menuReports, menuReports2, menuAdjustment };
             foreach(HtmlGenericControl menu in allMenu)
             { 
                 menu.Attributes.Remove("class");
