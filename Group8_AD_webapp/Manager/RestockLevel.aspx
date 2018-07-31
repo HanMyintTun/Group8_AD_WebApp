@@ -53,7 +53,7 @@
                                     <tr>
                                         <td style="text-align: left; padding: 0px;">
                                             <asp:Label CssClass="item-info" ID="lblItemCode" runat="server" Text='<%# Bind("ItemCode") %>' Visible="True" />
-                                            <span class="product-stock" style="float: right">
+                                            <span class="product-stock" style="float: right; display:none;">
                                                 <asp:Label ID="lblBalance" runat="server" Text='<%# Eval("Location") %>' /></span>
                                             <br />
                                             <span class="product-stock">

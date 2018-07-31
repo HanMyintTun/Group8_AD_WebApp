@@ -29,7 +29,7 @@
 
                                         <thead>
                                             <tr id="Tr1" runat="server">
-                                                <th scope="col">Request ID</th>
+                                                <th scope="col" style="display: none;">Request ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col" class="desktop">Submitted Date</th>
                                                 <th scope="col">Rejected Date</th>
@@ -43,7 +43,7 @@
                                 </LayoutTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td>
+                                        <td style="display: none;">
                                             <asp:Label runat="server" ID="lblReqId" Text='<%# Eval("ReqId") %>' /></td>
                                         <td>
                                             <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EmpName") %>' /></td>
@@ -61,7 +61,7 @@
 
                                 </ItemTemplate>
                                 <EmptyDataTemplate>
-                                   <span class="noresult">There is nothing in the list.</span>
+                                    <span class="noresult">There is nothing in the list.</span>
                                 </EmptyDataTemplate>
                             </asp:ListView>
 
@@ -175,9 +175,11 @@
                                             </tr>
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
-                                            <span class="noresult">Sorry! There are no items in your cart!.<br />
-                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
+                                            <br />
+                                            <span class="noresult">There are no items in the list.<br />
+
                                             </span>
+                                            <br />
                                         </EmptyDataTemplate>
                                     </asp:ListView>
 
@@ -188,6 +190,7 @@
                                         <p>Comments</p>
                                         <asp:TextBox ID="txtComments" TextMode="multiline" Columns="50" Rows="5" runat="server" ReadOnly="true" class="txt-area" />
                                     </div>
+                                </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 

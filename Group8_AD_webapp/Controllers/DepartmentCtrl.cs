@@ -67,7 +67,7 @@ namespace Group8_AD_webapp.Controllers
             //}
         }
 
-        public static bool SetDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId, string access_token)
+        public static bool SetDelegate(string deptCode, DateTime fromDate, DateTime toDate, int empId)
         {
 
             return DepartmentBL.setDelegate(deptCode, fromDate, toDate, empId);

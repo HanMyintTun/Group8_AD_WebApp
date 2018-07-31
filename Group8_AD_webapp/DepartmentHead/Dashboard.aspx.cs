@@ -18,7 +18,6 @@ namespace Group8_AD_webapp
 
         DepartmentVM dept = new DepartmentVM();
         int empId;
-
         string deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,19 +27,20 @@ namespace Group8_AD_webapp
 
             Service.UtilityService.CheckRoles("DeptHead");
             empId = Convert.ToInt32(Session["empId"]);
-
+            dept = DepartmentBL.GetDept(empId);
+            deptCode = dept.DeptCode;
             if (empId == dept.DelegateApproverId)
             {
                 btnRemoveDelegate.Disabled = true;
                 ddlDelegate.Enabled = false;
-                btnAddDelegate.Visible = false;
+                btnAddDelegate.Disabled = true;
                 txtFromDate.Enabled = false;
                 txtToDate.Enabled = false;
+                
             }
 
 
-            dept = DepartmentBL.GetDept(empId);
-            deptCode = dept.DeptCode;
+            
             var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
 
@@ -140,7 +140,7 @@ namespace Group8_AD_webapp
         {
 
 
-            bool success = DepartmentBL.removeDelegate(deptCode);
+            bool success = Controllers.DepartmentCtrl.RemoveDelegate(deptCode);
 
             if (success)
             {
@@ -169,7 +169,7 @@ namespace Group8_AD_webapp
             DateTime fromdate = DateTime.Parse(txtFromDate.Text);
             DateTime todate = DateTime.Parse(txtToDate.Text);
 
-            bool success = DepartmentBL.setDelegate(deptCode, fromdate, todate, delId);
+            bool success = Controllers.DepartmentCtrl.SetDelegate(deptCode, fromdate, todate, delId);
 
             if (success)
             {

@@ -47,6 +47,14 @@ namespace Group8_AD_webapp
             lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
             lblApprove.Text = req.ApprovedDateTime.ToString("dd'/'MM'/'yyyy");
             lblFulfill.Text = req.FulfilledDateTime.ToString("dd'/'MM'/'yyyy");
+            if (req.ApproverComment == null)
+            {
+                txtComments.Text = "";
+            }
+            else
+            {
+                txtComments.Text = req.ApproverComment.ToString();
+            }
             lstShow.DataSource = showList;
             lstShow.DataBind();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup
