@@ -12,15 +12,20 @@ namespace Group8_AD_webapp
     public partial class Approved_Requests : System.Web.UI.Page
     {
         static int rid;
-       
-        int empId = 1;
+
+        int empId;
         string status = "Approved";
         EmployeeVM emp = new EmployeeVM();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Service.UtilityService.CheckRoles("DeptHead");
+            empId = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
-                
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("dhapprove");
+
                 BindGrid();
 
 

@@ -21,7 +21,10 @@ namespace Group8_AD_webapp.Manager
             empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
-                
+                // Adds active class to menu Item (sidebar)
+                Main master = (Main)this.Master;
+                master.ActiveMenu("storeadjustment");
+
                 List<string> statuses = new List<string> { "Submitted", "Approved", "Rejected" };
                 ddlStatus.DataSource = statuses;
                 ddlStatus.DataBind();
@@ -31,6 +34,7 @@ namespace Group8_AD_webapp.Manager
 
         protected void BindGrid()
         {
+            status = ddlStatus.SelectedItem.Text;
             adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
@@ -48,8 +52,8 @@ namespace Group8_AD_webapp.Manager
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             BindGrid();
+
         }
 
         //detail buttom action 
@@ -62,7 +66,7 @@ namespace Group8_AD_webapp.Manager
                 {
                     voucherno = e.CommandArgument.ToString();
 
-                    PopulateDetailList(voucherno);
+                    PopulateDetailList(voucherno, empid);
                 }
 
             }
@@ -128,7 +132,7 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal('toggle');", true);//modal popup
         }
 
-        protected void PopulateDetailList(string voucherno)
+        protected void PopulateDetailList(string voucherno, int empid)
         {
             // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
             List<AdjustmentVM> showList = BusinessLogic.GetItemAdjustList(voucherno, empid);

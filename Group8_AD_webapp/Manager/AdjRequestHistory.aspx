@@ -206,10 +206,10 @@
                     <div class="panel-heading">
                         <button type="button" id="btncClose" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
-                        <h3 class="detail-subtitle">Change Restock Level & Quantity</h3>
+                        <h3 class="detail-subtitle">Stock Adjustment Approval</h3>
                     </div>
                     <div class="panel-body">
-                        You are about to change the restock levels and restock quantities.<br />
+                        You are about to approve adjustment request.<br />
                         Are you sure?
             
                 
@@ -231,10 +231,10 @@
                     <div class="panel-heading">
                         <button type="button" id="btnClose" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" style="font-size: 3.2rem"><strong>&times;</strong></span></button>
-                        <h3 class="detail-subtitle">Change Restock Level & Quantity</h3>
+                        <h3 class="detail-subtitle">Stock Adjustment Rejection</h3>
                     </div>
                     <div class="panel-body">
-                        You are about to change the restock levels and restock quantities.<br />
+                       You are about to reject adjustment request.<br />
                         Are you sure?
             
                 

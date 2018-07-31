@@ -33,7 +33,7 @@
                                 <asp:ListItem Text="All" Value="All" />
                             </asp:DropDownList>
                             <div style="display: inline-block;">
-                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server"></asp:TextBox>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>
@@ -45,7 +45,7 @@
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
                 <asp:Label ID="lblPageCount" runat="server" Text="Label"></asp:Label>
-                <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="10" CssClass="table table-bordered" AutoGenerateColumns="False" OnRowCommand="grdRestockItem_RowCommand">
+                <asp:GridView ID="grdRestockItem" PagerStyle-CssClass="pager" AllowPaging="True" runat="server" OnPageIndexChanging="grdRestockItem_PageIndexChanging" PageSize="8" CssClass="table table-bordered" AutoGenerateColumns="False" OnRowCommand="grdRestockItem_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
@@ -112,9 +112,9 @@
 
                 <div class="row">
 
-                    <div class="buttonarea">
+                    <div class="buttonarea update-area">
 
-                        <asp:Button ID="btnUpdate" CssClass="btn btn-success" runat="server" Text="Update" OnClick="btnUpdate_Click" />
+                        <asp:Button ID="btnUpdate" CssClass="btn btn-success updatebtn" runat="server" Text="Update" OnClick="btnUpdate_Click" />
                     </div>
                 </div>
             </ContentTemplate>
