@@ -123,31 +123,41 @@
     </div>
 
      <%-- modal content--%>
-    <asp:UpdatePanel runat="server"><ContentTemplate>
-            <div id="mdlTrend" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+            <div id="mdlTrend" class="mdlTrend modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog fix-modal modal-lg">
+                        <asp:UpdatePanel ID="udpTrend" runat="server"><ContentTemplate>
                     <div class="modal-content">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
                                 </button>
-                                <h3 class="detail-subtitle">Trend Analysis</h3>
+                                <h3 class="detail-subtitle">
+                                    <asp:Label ID="lblTrendTitle" class="detail-subtitle" style="font-size: 2rem;" runat="server" Text=""></asp:Label></h3>
                             </div>
 
                             <div class="panel-body lightbox-scroll">
 
                                 <div class="detail-info">
-
-                                    <div class="detail-info-left">
+                                         <div class="canvas-wrapper" style="height: 500px; width:100%;">
+                                                        <canvas id="myChart"> </canvas></div>
+                                                     <div class="text-center">
+                                                    <asp:Label ID="lblSubtitle" style="font-size:1.8rem;" runat="server" Text=""></asp:Label></div>
                                         <table class="detail-info-col">
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="label1" runat="server" Text="Item Desc : "></asp:Label>
-                                                        <asp:Label ID="lblDesc" runat="server"></asp:Label></td>
+                                                        Date Range: <asp:Label ID="lblTrendSubtitle" runat="server" style="font-weight:700;"></asp:Label></td>
                                                 </tr>
-                                               
+                                                <tr><td></td></tr>
+                                               <tr>
+                                                   <td style="text-align:left;">Recommended Reorder Level: <asp:Label ID="lblTrendReccRL" runat="server" style="font-weight:700;" Text="Label"></asp:Label></td>
+                                                   <td style="text-align:left;">Recommended Reorder Quantity: <asp:Label ID="lblTrendReccRQ" runat="server" style="font-weight:700;" Text="Label"></asp:Label></td>
+                                                   <td>
+                                                       <asp:Label ID="lblTrendiCode" runat="server" Visible="false"></asp:Label>
+                                                       <asp:Button ID="btnUseTrend" runat="server" CssClass="btn btn-primary" OnClick="BtnUseTrend_Click" style="margin-left:50px;" Text="Apply" /></td>
+                                               </tr>
                                             </tbody>
 
                                         </table>
@@ -156,25 +166,17 @@
                                     </div>
 
                                 </div>
-                                <div class="detail-item">
-                                    <div style="min-height:500px">
-
-
-                                    </div>
-                                   
-
-                                </div>
 
                                
                             </div>
 
                         </div>
-                    </div>
+                    </div>        </ContentTemplate>
+    </asp:UpdatePanel>
                 </div>
             </div>
 
-        </ContentTemplate>
-    </asp:UpdatePanel>
+
 
     <div id="mdlConfirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -201,4 +203,7 @@
         </div>
     </div>
 
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/restocktrend-script.js")%>"></script>
 </asp:Content>

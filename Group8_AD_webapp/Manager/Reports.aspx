@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" style="margin-top:40px;">
         <div class="row">
             <div class="col-lg-6">
                 <h3 class="page-header">
@@ -18,7 +18,7 @@
                 <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="BtnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
             <div class="col-lg-6">
-                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" />
+                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" OnClick="btnExport_Click" />
 
             </div>
         </div>
