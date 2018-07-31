@@ -238,6 +238,7 @@ namespace Group8_AD_webapp
                 case "productrank": menuProductVol.Attributes.Add("class", "menuactive"); break;
                 case "updatesupp": menuSuppliers.Attributes.Add("class", "menuactive"); break;
                 case "reports": menuReports.Attributes.Add("class", "menuactive"); break;
+                case "reports2": menuReports2.Attributes.Add("class", "menuactive"); break;
 
                 case "dhdash": menuDeptHeadDash.Attributes.Add("class", "menuactive"); break;
                 case "dhrequest": menuDeptHeadRequest.Attributes.Add("class", "menuactive"); break;

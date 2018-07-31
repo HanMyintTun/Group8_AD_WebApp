@@ -28,6 +28,11 @@ namespace Group8_AD_webapp.Controllers
             return ItemBL.GetFrequentList(empId);
         }
 
+        public static bool UpdateSuppliers(List<ItemVM> list)
+        {
+            return ItemBL.UpdateSuppliers(list);
+        }
+
         // Update When BUsiness Logic Changes
         public static bool UpdateItems(List<ItemVM> list)
         {

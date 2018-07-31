@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class RequestList : System.Web.UI.Page
     {
         List<RequestVM> requests = new List<RequestVM>();
@@ -159,7 +161,7 @@ namespace Group8_AD_webapp
         protected void PopulateList(int reqid)
         {
             List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid);
-            reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
+            
             showList = reqDetails;
         }
 
@@ -167,7 +169,6 @@ namespace Group8_AD_webapp
         protected void PopulateBookmarks(int reqid)
         {
             List<RequestDetailVM> reqDetails = Controllers.RequestDetailCtrl.GetReqDetList(reqid);
-            reqDetails = BusinessLogic.AddItemDescToReqDet(reqDetails);
             bookmarkList = reqDetails;
             bookmarkList = bookmarkList.OrderByDescending(x => x.ReqLineNo).ToList();
         }

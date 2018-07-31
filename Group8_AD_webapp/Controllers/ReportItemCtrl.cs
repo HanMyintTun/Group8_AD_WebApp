@@ -17,5 +17,16 @@ namespace Group8_AD_webapp.Controllers
         {
             return ReportItemBL.ShowCostReport(dept1, dept2, supp1, supp2, cat, dates, byMonth);
         }
+
+        public static List<ReportItemVM> ShowVolumeReport(string dept1, string dept2, string supp1, string supp2,
+            string cat, List<DateTime> dates, bool byMonth)
+        {
+            return ReportItemBL.ShowVolumeReport(dept1, dept2, supp1, supp2, cat, dates, byMonth);
+        }
+
+        public static List<ReportItemVM> GetCBMonthly(DateTime fromDate, DateTime toDate)
+        {
+            return ReportItemBL.GetCBMonthly(fromDate, toDate);
+        }
     }
 }

@@ -9,10 +9,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group8_AD_webapp.Models;
 using Newtonsoft.Json;
-using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp
 {
+    // Author: Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class EditSupplierPrice : System.Web.UI.Page
     {
         static List<ItemVM> items = new List<ItemVM>();
@@ -268,7 +269,7 @@ namespace Group8_AD_webapp
         // Confirms and saves submission of edited Supplier/Price list
         protected void BtnConfirm_Click(object sender, EventArgs e)
         {
-            bool success = ItemBL.UpdateSuppliers(submitItems);
+            bool success = Controllers.ItemCtrl.UpdateSuppliers(submitItems);
             if (success)
             {
                 Session["Message"] = "Items Updated Successfully";
