@@ -18,7 +18,7 @@ namespace Group8_AD_webapp
 
         DepartmentVM dept = new DepartmentVM();
         int empId;
-        string deptCode;
+        static string deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
             // Adds active class to menu Item (sidebar)
@@ -27,7 +27,7 @@ namespace Group8_AD_webapp
 
             Service.UtilityService.CheckRoles("DeptHead");
             empId = Convert.ToInt32(Session["empId"]);
-            dept = DepartmentBL.GetDept(empId);
+            dept = Controllers.DepartmentCtrl.GetDept(empId);
             deptCode = dept.DeptCode;
             if (empId == dept.DelegateApproverId)
             {
@@ -84,7 +84,7 @@ namespace Group8_AD_webapp
 
         protected void BindEmpDDL()
         {
-            DepartmentVM dp = DepartmentBL.GetDept(empId);
+            DepartmentVM dp = Controllers.DepartmentCtrl.GetDept(empId);
             List<EmployeeVM> replist = Controllers.EmployeeCtrl.getEmployeeList().Where(x => x.DeptCode == deptCode && x.Role != "Department Head" && x.EmpId != dp.DelegateApproverId).ToList();
             List<EmployeeVM> delist = Controllers.EmployeeCtrl.getEmployeeList().Where(x => x.DeptCode == deptCode && x.Role != "Department Head" && x.EmpId != dp.DeptRepId).ToList();
             ddlRep.DataSource = replist;
@@ -195,7 +195,7 @@ namespace Group8_AD_webapp
         {
             int repId = Convert.ToInt32(ddlRep.SelectedValue);
 
-            bool success = DepartmentBL.setRep(deptCode, repId);
+            bool success = Controllers.DepartmentCtrl.SetRep(deptCode, repId);
 
             if (success)
             {
@@ -228,11 +228,11 @@ namespace Group8_AD_webapp
         [WebMethod]
         public static string GetChart(DateTime month)
         {
-            string deptCode = "COMM";
+            //string deptCode = ;
             DateTime fromDate = month;
             DateTime toDate = fromDate.AddMonths(-2);
 
-            List<ReportItemVM> resultlists = ReportItemBL.GetCBByMth(deptCode, fromDate, toDate);
+            List<ReportItemVM> resultlists = Controllers.TransactionController.GetCBByMth(deptCode, fromDate, toDate);
             List<ReportItemVM> datatodisplay = new List<ReportItemVM>();
             foreach (ReportItemVM r in resultlists)
             {
