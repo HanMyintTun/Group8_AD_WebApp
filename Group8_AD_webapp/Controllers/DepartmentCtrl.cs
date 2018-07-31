@@ -15,6 +15,12 @@ namespace Group8_AD_webapp.Controllers
             return DepartmentBL.GetDept(empId);
         }
 
+        public static List<DepartmentVM> GetAllDept()
+        {
+                List<DepartmentVM> departments = DepartmentBL.GetAllDept();
+                return departments.Where(x => x.DeptName != "Store Department").ToList();
+        }
+
 
         public static bool RemoveDelegate(string deptCode)
         {

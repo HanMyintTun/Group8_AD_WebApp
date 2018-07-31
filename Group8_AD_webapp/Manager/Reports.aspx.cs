@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Group8AD_WebAPI.BusinessLogic;
 using Newtonsoft.Json;
 using System.Text;
 using System.Globalization;
@@ -53,7 +52,7 @@ namespace Group8_AD_webapp
             lbl2 = "Commerce";
             lbl0 = "Month";
             lbl3 = "Chargeback(SGD)";
-            cbList = ReportItemBL.ShowCostReport("CLAI", "COMM", null, null, "All", demoList, true);
+            cbList = Controllers.ReportItemCtrl.ShowCostReport("CLAI", "COMM", null, null, "All", demoList, true);
             lblSubtitle.Text = "Claims Department vs Commerce Department";
             lblSubtitle2.Text = "Chargeback (SGD)";
             FillDataList();
@@ -65,21 +64,18 @@ namespace Group8_AD_webapp
             ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
             ddlCategory.DataBind();
 
-            List<SupplierVM> suppliers = SupplierBL.GetAllSupp();
+            List<SupplierVM> suppliers = Controllers.SupplierCtrl.GetAllSupp();
             foreach (SupplierVM s in suppliers)
             {
                 ddlSupplier1.Items.Add(new ListItem(s.SuppName, s.SuppCode));
                 ddlSupplier2.Items.Add(new ListItem(s.SuppName, s.SuppCode));
             }
 
-            List<DepartmentVM> departments = DepartmentBL.GetAllDept();
+            List<DepartmentVM> departments = Controllers.DepartmentCtrl.GetAllDept();
             foreach (DepartmentVM d in departments)
             {
-                if (d.DeptName != "Store Department")
-                {
-                    ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
-                    ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
-                }
+                ddlDepartment1.Items.Add(new ListItem(d.DeptName, d.DeptCode));
+                ddlDepartment2.Items.Add(new ListItem(d.DeptName, d.DeptCode));
             }
         }
 
@@ -171,7 +167,7 @@ namespace Group8_AD_webapp
                                 lbl2 = (ddlDepartment2.SelectedItem.Text).Replace("Department", "");
                                 lbl0 = "Month";
                                 lbl3 = "Chargeback (SGD)";
-                                cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, monthsList, byMonth);
+                                cbList = Controllers.ReportItemCtrl.ShowCostReport(dept1, dept2, null, null, cat, monthsList, byMonth);
                                 FillDataList();
                                 lblReportTitle.Text = "Department Cost Report for Category:" + cat;
 
@@ -200,7 +196,7 @@ namespace Group8_AD_webapp
                                     datesList = new List<DateTime>();
                                     datesList.Add(d1);
                                     datesList.Add(d2);
-                                    cbList = ReportItemBL.ShowCostReport(dept1, dept2, null, null, cat, datesList, byMonth);
+                                    cbList = Controllers.ReportItemCtrl.ShowCostReport(dept1, dept2, null, null, cat, datesList, byMonth);
                                     FillDataList();
                                     lblReportTitle.Text = "Department Cost Report for Category:" + cat;
                                     lblSubtitle.Text = ddlDepartment1.SelectedItem.Text + " vs " + ddlDepartment2.SelectedItem.Text;
@@ -248,7 +244,7 @@ namespace Group8_AD_webapp
                                 lbl2 = ddlSupplier2.SelectedItem.Text;
                                 lbl0 = "Month";
                                 lbl3 = "Amount Paid (SGD)";
-                                cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, monthsList, byMonth);
+                                cbList = Controllers.ReportItemCtrl.ShowCostReport(null, null, supp1, supp2, cat, monthsList, byMonth);
                                 FillDataList();
                                 lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
                                 lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;
@@ -276,7 +272,7 @@ namespace Group8_AD_webapp
                                     datesList = new List<DateTime>();
                                     datesList.Add(DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
                                     datesList.Add(DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture));
-                                    cbList = ReportItemBL.ShowCostReport(null, null, supp1, supp2, cat, datesList, byMonth);
+                                    cbList = Controllers.ReportItemCtrl.ShowCostReport(null, null, supp1, supp2, cat, datesList, byMonth);
                                     FillDataList();
                                     lblReportTitle.Text = "Supplier Cost Report for Category:" + cat;
                                     lblSubtitle.Text = ddlSupplier1.SelectedItem.Text + " vs " + ddlSupplier2.SelectedItem.Text;

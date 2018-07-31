@@ -32,7 +32,7 @@ namespace Group8_AD_webapp
                 master.ActiveMenu("updatesupp");
 
                 // Populates Search Bar
-                suppliers = Controllers.SupplierCtrl.getSupplierCodes();
+                suppliers = Controllers.SupplierCtrl.GetSupplierCodes();
                 ddlCategory.DataSource = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataBind();
 
