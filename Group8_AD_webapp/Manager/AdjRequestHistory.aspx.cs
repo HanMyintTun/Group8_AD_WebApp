@@ -17,7 +17,7 @@ namespace Group8_AD_webapp.Manager
         static string cmt;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Service.UtilityService.CheckRoles("Store");
+            Service.UtilityService.CheckRoles("Manager");
             empid = Convert.ToInt32(Session["empId"]);
             if (!IsPostBack)
             {
