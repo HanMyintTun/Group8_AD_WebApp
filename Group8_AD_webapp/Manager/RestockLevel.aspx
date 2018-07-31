@@ -53,8 +53,9 @@
                                     <tr>
                                         <td style="text-align: left; padding: 0px;">
                                             <asp:Label CssClass="item-info" ID="lblItemCode" runat="server" Text='<%# Bind("ItemCode") %>' Visible="True" />
-                                            <span class="product-stock" style="float: right; display:none;">
-                                                <asp:Label ID="lblBalance" runat="server" Text='<%# Eval("Location") %>' /></span>
+                                            <span class="product-stock" style="float: right";>  
+                                            <asp:LinkButton ID="btnViewTrend" CommandName="Trend" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'  runat="server">View Trend</asp:LinkButton>
+                                            </span>
                                             <br />
                                             <span class="product-stock">
                                                 <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Desc")%>' /></span><br />
@@ -120,6 +121,60 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
+
+     <%-- modal content--%>
+    <asp:UpdatePanel runat="server"><ContentTemplate>
+            <div id="mdlTrend" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog fix-modal modal-lg">
+                    <div class="modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
+                                </button>
+                                <h3 class="detail-subtitle">Trend Analysis</h3>
+                            </div>
+
+                            <div class="panel-body lightbox-scroll">
+
+                                <div class="detail-info">
+
+                                    <div class="detail-info-left">
+                                        <table class="detail-info-col">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="label1" runat="server" Text="Item Desc : "></asp:Label>
+                                                        <asp:Label ID="lblDesc" runat="server"></asp:Label></td>
+                                                </tr>
+                                               
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="detail-item">
+                                    <div style="min-height:500px">
+
+
+                                    </div>
+                                   
+
+                                </div>
+
+                               
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
     <div id="mdlConfirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -153,6 +153,21 @@ namespace Group8_AD_webapp.Manager
 
             }
 
+            if (e.CommandName == "Trend")
+            {
+
+                if (e.CommandArgument.ToString() != "")
+                {
+                    Label icode = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblItemCode");
+                    string itmcode = icode.Text;
+                    ItemVM itm = new ItemVM();
+                    itm =  Controllers.ItemCtrl.GetItem(itmcode);
+                    lblDesc.Text = itm.Desc.ToString();
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlTrend').modal();", true);//modal popup
+                }
+
+            }
+
 
         }
 
@@ -197,7 +212,6 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
 
-        
     }
 }
 
