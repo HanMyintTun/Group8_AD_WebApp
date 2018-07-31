@@ -998,7 +998,7 @@ namespace Group8AD_WebAPI.BusinessLogic
 
         // show volume report by item
         // done
-        public static List<ReportItemVM> ShowVolumeReport(string iCode)
+        public static List<ReportItemVM> ShowVolumeReport(string iCode, double maxQty)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
@@ -1031,7 +1031,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     ReportItemVM ri = new ReportItemVM();
                     ri.Period = startDate.AddDays(i * 7);
                     ri.Label = $"{ri.Period:yyyy MMM dd}";
-                    ri.Val1 = rnd.Next(0, 200);
+                    ri.Val1 = rnd.NextDouble() * ((maxQty*1.2) - (maxQty*0.6)) + (maxQty * 0.6);
                     riList.Add(ri);
                 }
 
