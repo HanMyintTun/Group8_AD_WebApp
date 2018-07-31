@@ -8,7 +8,7 @@ namespace Group8_AD_webapp
 {
     public static class BusinessLogic
     {
-
+        // Adds Item Description and Units to ItemVM
         public static List<RequestDetailVM> AddItemDescToReqDet(List<RequestDetailVM> list)
         {
             List<ItemVM> items = ItemBL.GetAllItems();
@@ -19,7 +19,7 @@ namespace Group8_AD_webapp
             }
             return list;
         }
-       
+
         //request list for departmenthead 
         public static List<EmpReqVM> GetEmpReqList(int empId, string status)
         {

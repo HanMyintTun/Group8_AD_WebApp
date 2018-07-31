@@ -1031,7 +1031,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     ReportItemVM ri = new ReportItemVM();
                     ri.Period = startDate.AddDays(i * 7);
                     ri.Label = $"{ri.Period:yyyy MMM dd}";
-                    ri.Val1 = rnd.NextDouble() * ((maxQty*1.2) - (maxQty*0.6)) + (maxQty * 0.6);
+                    ri.Val1 = rnd.NextDouble() * ((maxQty*1.2) - (maxQty*0.3)) + (maxQty * 0.3);
                     riList.Add(ri);
                 }
 
