@@ -18,7 +18,7 @@
                 <asp:LinkButton ID="btnList" ClientIDMode="Static" Cssclass="listbutton " runat="server" Text="" OnClick="BtnList_Click"><i class="fa fa-list"></i></asp:LinkButton></h3>
             </div>
             <div class="col-lg-6">
-                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" />
+                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" OnClick="btnExport_Click" />
 
             </div>
         </div>
