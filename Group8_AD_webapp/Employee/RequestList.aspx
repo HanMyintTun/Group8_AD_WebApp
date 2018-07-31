@@ -64,6 +64,9 @@
             </span>
         </EmptyDataTemplate>
         </asp:ListView>
+           <div id="commentarea" runat="server" style="width: 100%" class="commentarea">
+           <asp:Label ID="lblComment" runat="server" Text="COMMENTS:"></asp:Label><br />
+           <asp:TextBox enabled="false"  TextMode="MultiLine" CssClass="textcomment" ID="lblCommentContent" runat="server" Rows="5"></asp:TextBox></div>
            </div>
 
             <div class="row">
@@ -74,7 +77,6 @@
         <div class="col-xs-9  buttonarea">
             <asp:Button ID="btnCancel" Cssclass="btn btn-cancel" OnClick="BtnCancel_Click" runat="server" Text="Cancel" />
             <asp:Button ID="btnSubmit" Cssclass="btn btn-success" OnClick="BtnSubmit_Click" runat="server" Text="Submit" />
-            <!-- <asp:Button ID="btnUpdate" Cssclass="btn btn-success" runat="server" Text="Update" /> -->
         </div></div>
         </div>
         </ContentTemplate>
@@ -118,7 +120,7 @@
         <EmptyDataTemplate>
             <span class="noresult">Your Bookmarks List is empty.<a href ="CatalogueDash.aspx">Add some bookmarks!</a></span>
         </EmptyDataTemplate>
-        </asp:ListView><asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+        </asp:ListView>
          </ContentTemplate>
         </asp:UpdatePanel>
             

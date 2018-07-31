@@ -46,6 +46,10 @@ namespace Group8_AD_webapp
                     {
                         reqid = request.ReqId;
                         status = request.Status;
+                        if (request.ApproverComment != null)
+                        {
+                            lblCommentContent.Text = request.ApproverComment;
+                        }
                         PopulateList(reqid);
                         BindGrids();
                     }
@@ -88,6 +92,8 @@ namespace Group8_AD_webapp
                 // Sets visible columns/buttons based on Status
                 if (status == "Unsubmitted")
                 {
+                    IsApproved = false;
+                    commentarea.Visible = false;
                     UnsubSettings();
                 }
 
@@ -100,6 +106,7 @@ namespace Group8_AD_webapp
                     btnSubmit.Visible = true;
                     btnCancel.Visible = true;
                     btnCatalogue.Visible = false;
+                    commentarea.Visible = false;
                     lstShow.FindControl("thdBookmark").Visible = false;
                 }
 
@@ -112,8 +119,13 @@ namespace Group8_AD_webapp
                     btnSubmit.Visible = false;
                     btnCancel.Visible = false;
                     btnCatalogue.Visible = false;
-                    //btnUpdate.Visible = false;
                     lstShow.FindControl("thdRemove").Visible = false;
+                    commentarea.Visible = true;
+                }
+
+                if (status == "Cancelled" || status == "Rejected")
+                {
+                    IsApproved = false;
                 }
 
                 if (!IsApproved)
@@ -131,7 +143,6 @@ namespace Group8_AD_webapp
             IsNotSubmitted = true;
             btnCancel.Visible = true;
             btnSubmit.Visible = true;
-            //btnUpdate.Visible = false;
             btnCatalogue.Visible = true;
             btnReqList.Visible = false;
         }
