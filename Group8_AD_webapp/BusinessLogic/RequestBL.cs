@@ -454,7 +454,12 @@ namespace Group8AD_WebAPI.BusinessLogic
                     Department dept = entities.Departments.Where(x => x.DeptCode == deptCode).FirstOrDefault();
 
                     int fromEmpId = req.EmpId;
-                    int toEmpId = (int)dept.DeptHeadId;
+                    int toEmpId;
+                    if (dept.DelegateApproverId != null && DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateFromDate) >= 0 &&
+                        DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateToDate) >= 0)
+                        toEmpId = (int)dept.DelegateApproverId;
+                    else
+                        toEmpId = (int)dept.DeptHeadId;
                     string type = "Stationery Request";
                     string content = "A new stationery request has been submitted";
                     NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
