@@ -17,7 +17,6 @@ namespace Group8_AD_webapp
 
     public partial class Dashboard : System.Web.UI.Page
     {
-
         DepartmentVM dept = new DepartmentVM();
         int empId;
         static string deptCode;
