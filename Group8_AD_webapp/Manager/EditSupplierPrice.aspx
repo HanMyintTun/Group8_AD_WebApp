@@ -10,11 +10,11 @@
         <div class="row">
         <div class="col-md-3"><span class="subtitletext">Update Suppliers </span></div>
         <div class="col-md-8">
-        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlCategory_SelectedIndexChanged" AutoPostBack="True">
+        <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2 bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
-        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server" AutoPostBack ="True"></asp:TextBox>
-        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="BtnSearch_Click" />
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight bb" runat="server" AutoPostBack ="True"></asp:TextBox>
+        <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-primary button" Text="Search" OnClick="BtnSearch_Click" />
      </div></div></div>
 
         <div id="centermain">
