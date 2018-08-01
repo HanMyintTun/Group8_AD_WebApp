@@ -118,7 +118,7 @@
 
                     <div class="buttonarea update-area">
 
-                        <asp:Button ID="btnUpdate" CssClass="btn btn-primary updatebtn" runat="server" Text="Update" OnClick="btnUpdate_Click" />
+                        <asp:Button ID="btnUpdate" CssClass="btn btn-success updatebtn" runat="server" Text="Update" OnClick="btnUpdate_Click" />
                     </div>
                 </div>
             </ContentTemplate>
