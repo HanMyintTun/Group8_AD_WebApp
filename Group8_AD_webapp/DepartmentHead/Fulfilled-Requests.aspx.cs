@@ -11,8 +11,9 @@ namespace Group8_AD_webapp
 {
     public partial class Fulfilled_Requests : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static int rid;
-
         int empId;
         string status = "Fulfilled";
         EmployeeVM emp = new EmployeeVM();
@@ -28,6 +29,8 @@ namespace Group8_AD_webapp
 
             }
         }
+
+        //bind fullfilled list
         protected void BindGrid()
         {
             List<EmpReqVM> requestlists = BusinessLogic.GetEmpReqList(empId, status);
@@ -35,7 +38,7 @@ namespace Group8_AD_webapp
             lstCancel.DataBind();
         }
 
-        // populate cancel detail in modal
+        // populate fullfilled detail in modal
         protected void PopulateDetailList(int rid)
         {
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid);

@@ -29,13 +29,15 @@ namespace Group8_AD_webapp.Service
                     DepartmentVM dep = DepartmentBL.GetDept(empId);
                     if (dep.DelegateApproverId == empId)
                     {
-                        if (DateTime.Now > dep.DelegateFromDate && DateTime.Now < dep.DelegateToDate)
+                        if (DateTime.Now >= dep.DelegateFromDate && DateTime.Now <= dep.DelegateToDate)
                         {
                             HttpContext.Current.Session["role"] = "Delegate";
+                           
                         }
                         else
                         {
                             HttpContext.Current.Session["role"] = "Employee";
+                            Controllers.DepartmentCtrl.RemoveDelegate(dep.DeptCode);
                         }
                        
                     }

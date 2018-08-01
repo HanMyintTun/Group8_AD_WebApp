@@ -11,8 +11,9 @@ namespace Group8_AD_webapp
 {
     public partial class Approved_Requests : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static int rid;
-
         int empId;
         string status = "Approved";
         EmployeeVM emp = new EmployeeVM();
@@ -33,6 +34,7 @@ namespace Group8_AD_webapp
 
         }
 
+        //bind request lists
         protected void BindGrid()
         {
             List<EmpReqVM> requestlists = BusinessLogic.GetEmpReqList(empId, status);
@@ -41,7 +43,7 @@ namespace Group8_AD_webapp
         }
 
 
-        // populate cancel detail in modal
+        // populate approved detail in modal
         protected void PopulateDetailList(int rid)
         {
             RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid);

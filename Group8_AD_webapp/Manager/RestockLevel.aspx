@@ -14,17 +14,17 @@
 
 
                         <div style="display: inline-block;">
-                            <div style="display: inline-block;">
+                            <div style="display: inline-block; display:none;">
                                 <span class="lbl-inherit" style="vertical-align: text-bottom">Threshold :</span>
                                 <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server" AutoPostBack="false" OnSelectedIndexChanged="ddlThreshold_SelectedIndexChanged">
-                                    <asp:ListItem Text="0%" Value="0" />
+                                    <%--<asp:ListItem Text="0%" Value="0" />
                                     <asp:ListItem Text="5%" Value="0.05" />
                                     <asp:ListItem Text="10%" Value="0.1" />
-                                    <asp:ListItem Text="15%" Value="0.15" />
-                                    <asp:ListItem Text="30%" Value="0.3" />
-                                    <asp:ListItem Text="50%" Value="0.5" />
+                                    <asp:ListItem Text="15%" Value="0.15" />--%>
+                                    <asp:ListItem Text="0%" Value="0.0" />
+                                   <%-- <asp:ListItem Text="50%" Value="0.5" />
                                     <asp:ListItem Text="75%" Value="0.75" />
-                                    <asp:ListItem Text="100%" Value="1" />
+                                    <asp:ListItem Text="100%" Value="1" />--%>
 
                                 </asp:DropDownList>
                             </div>
@@ -33,8 +33,11 @@
                                 <asp:ListItem Text="All" Value="All" />
                             </asp:DropDownList>
                             <div style="display: inline-block;">
-                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server"></asp:TextBox>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+                                <asp:TextBox ID="txtSearch" CssClass="form-control controlheight bb" runat="server"></asp:TextBox>
+                               
+                            </div>
+                            <div style="display: inline-block; vertical-align:top;">
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-primary button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>
                     </div>
@@ -115,7 +118,7 @@
 
                     <div class="buttonarea update-area">
 
-                        <asp:Button ID="btnUpdate" CssClass="btn btn-success updatebtn" runat="server" Text="Update" OnClick="btnUpdate_Click" />
+                        <asp:Button ID="btnUpdate" CssClass="btn btn-primary updatebtn" runat="server" Text="Update" OnClick="btnUpdate_Click" />
                     </div>
                 </div>
             </ContentTemplate>
