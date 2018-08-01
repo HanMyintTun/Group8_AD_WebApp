@@ -187,7 +187,7 @@
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                          </div>
                                         <div class="text-right mt-15">
-                                        <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="BtnClear_Click" runat="server" Text=" Clear List" /></div>
+                                        <asp:Button ID="btnClearList" CssClass="btn btn-warning blacktext" OnClick="BtnClear_Click" runat="server" Text=" Clear List" /></div>
 
                                     </div>
                                     <div class="col-lg-6">
@@ -201,7 +201,7 @@
                                             </div></ContentTemplate></asp:UpdatePanel>
                                         <div  class="text-right">
                                         <div class="report-btn mt-15">
-                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
+                                                <asp:Button ID="btnMonth" CssClass="btn btn-success" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
                                             </div> </div> 
                                     </div>
                             </div>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="col-md-12 text-right">
                                           <div class="report-btn mt-15 text-right">
-                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
+                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-success" runat="server" Text="Generate By Range" />
                                         </div>
                                 </div>
                             </div></div>
