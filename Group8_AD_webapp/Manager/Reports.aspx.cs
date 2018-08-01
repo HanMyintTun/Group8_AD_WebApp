@@ -68,7 +68,11 @@ namespace Group8_AD_webapp
         // Populates chart upon first load
         protected void DemoChart()
         {
-            List<DateTime> demoList = new List<DateTime>() { new DateTime(2018, 07, 01), new DateTime(2018, 06, 01), new DateTime(2018, 05, 01) };
+            List<DateTime> demoList = new List<DateTime>();
+            demoList.Add(DateTime.Today.AddMonths(-1));
+            demoList.Add(DateTime.Today.AddMonths(-2));
+            demoList.Add(DateTime.Today.AddMonths(-3));
+            
             lbl1 = "Claims";
             lbl2 = "Commerce";
             lbl0 = "Month";
