@@ -1592,9 +1592,12 @@ input[type="radio"] {
     background-color: var(--color-text) !important;
     border-radius: 30px !important;
 }
-    @media (max-width: 768px) {
-
-        .desktop {
+.sub-li {
+    position: relative;
+    display: block;
+}
+@media (max-width: 768px) {
+    .desktop {
             display: none;
         }
 
