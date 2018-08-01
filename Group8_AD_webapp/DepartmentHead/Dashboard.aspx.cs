@@ -12,6 +12,8 @@ using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp
 {
+    // Author: Han Myint Tun , A0180555A
+    // Version 1.0 Initial Release
 
     public partial class Dashboard : System.Web.UI.Page
     {
@@ -29,6 +31,8 @@ namespace Group8_AD_webapp
             empId = Convert.ToInt32(Session["empId"]);
             dept = Controllers.DepartmentCtrl.GetDept(empId);
             deptCode = dept.DeptCode;
+
+            //hide for delegate 
             if (empId == dept.DelegateApproverId)
             {
                 btnRemoveDelegate.Disabled = true;
@@ -40,7 +44,7 @@ namespace Group8_AD_webapp
             }
 
 
-            
+            //get past 6 months
             var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
 
@@ -54,6 +58,7 @@ namespace Group8_AD_webapp
 
         }
 
+        //get current delegate and rep 
         protected void GetDeleRep()
         {
             int delId;
@@ -78,7 +83,7 @@ namespace Group8_AD_webapp
 
         }
 
-
+        //bind dropdown employee dropdown list
         protected void BindEmpDDL()
         {
             DepartmentVM dp = Controllers.DepartmentCtrl.GetDept(empId);
@@ -93,6 +98,8 @@ namespace Group8_AD_webapp
             ddlDelegate.DataValueField = "empId";
             ddlDelegate.DataBind();
         }
+
+        //remove delegate
         protected void RemoveDelegate(object sender, EventArgs e)
         {
             GetDeleRep();
@@ -107,6 +114,8 @@ namespace Group8_AD_webapp
             }
 
         }
+
+        //add delegate
         protected void AddDelegate(object sender, EventArgs e)
         {
            
@@ -118,46 +127,6 @@ namespace Group8_AD_webapp
 
 
 
-        }
-        protected void AddRep(object sender, EventArgs e)
-        {
-
-            if (ddlRep.SelectedItem.Text != "Select Employee")
-            {
-
-                lblSelectedRep.Text = ddlRep.SelectedItem.Text.ToString();
-
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRepSet').modal();", true);
-            }
-
-        }
-
-
-        protected void btnRemovDelYes_Click(object sender, EventArgs e)
-        {
-
-
-            bool success = Controllers.DepartmentCtrl.RemoveDelegate(deptCode);
-
-            if (success)
-            {
-                Response.Redirect("Dashboard.aspx");
-                Main master = (Main)this.Master;
-                master.ShowToastr(this, String.Format("Current delegate has been successfully removed!"), "Successfully Removed!", "success");
-
-            }
-            else
-            {
-                Main master = (Main)this.Master;
-                master.ShowToastr(this, String.Format("Current delegate changes not Submitted"), "Something Went Wrong!", "error");
-            }
-
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleRemove').modal('toggle');", true);//modal popup
-        }
-
-        protected void btnRemovDelNo_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
 
         protected void btnSetDelYes_Click(object sender, EventArgs e)
@@ -188,6 +157,21 @@ namespace Group8_AD_webapp
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRepSet').modal('toggle');", true);//modal popup
         }
+
+        //add rep
+        protected void AddRep(object sender, EventArgs e)
+        {
+
+            if (ddlRep.SelectedItem.Text != "Select Employee")
+            {
+
+                lblSelectedRep.Text = ddlRep.SelectedItem.Text.ToString();
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRepSet').modal();", true);
+            }
+
+        }
+
         protected void btnSetRepYes_Click(object sender, EventArgs e)
         {
             int repId = Convert.ToInt32(ddlRep.SelectedValue);
@@ -214,6 +198,39 @@ namespace Group8_AD_webapp
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal('toggle');", true);//modal popup
         }
 
+
+        // remove delegate 
+        protected void btnRemovDelYes_Click(object sender, EventArgs e)
+        {
+
+
+            bool success = Controllers.DepartmentCtrl.RemoveDelegate(deptCode);
+
+            if (success)
+            {
+                Response.Redirect("Dashboard.aspx");
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Current delegate has been successfully removed!"), "Successfully Removed!", "success");
+
+            }
+            else
+            {
+                Main master = (Main)this.Master;
+                master.ShowToastr(this, String.Format("Current delegate changes not Submitted"), "Something Went Wrong!", "error");
+            }
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleRemove').modal('toggle');", true);//modal popup
+        }
+
+        protected void btnRemovDelNo_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
+        }
+
+        
+      
+        
+        //clear text box and dropdown list
         protected void ClearText()
         {
             ddlDelegate.SelectedIndex = 0;
@@ -222,10 +239,12 @@ namespace Group8_AD_webapp
 
 
         }
+
+
+        // Dynamic Chart
         [WebMethod]
         public static string GetChart(DateTime month)
         {
-            //string deptCode = ;
             DateTime fromDate = month;
             DateTime toDate = fromDate.AddMonths(-2);
 

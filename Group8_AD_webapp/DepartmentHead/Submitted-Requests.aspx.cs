@@ -11,6 +11,8 @@ namespace Group8_AD_webapp
 {
     public partial class Submitted_Requests : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static int rid;
         int empId;
         string status = "Submitted";
@@ -62,11 +64,7 @@ namespace Group8_AD_webapp
         //Accept
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            //RequestVM req = RequestBL.GetReq(rid);
-            //EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
-            //lblReqEmployeename.Text = emp.EmpName.ToString();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlaccept", "$('#mdlaccept').modal();", true);
-
         }
         protected void btnAcceptYes_Click(object sender, EventArgs e)
         {
@@ -96,12 +94,8 @@ namespace Group8_AD_webapp
         }
 
         //Reject
-
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            //RequestVM req = RequestBL.GetReq(rid);
-            //EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
-            //lblEmployeename.Text = emp.EmpName.ToString();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "mdlreject", "$('#mdlreject').modal();", true);
            
         }
@@ -125,12 +119,10 @@ namespace Group8_AD_webapp
 
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal('toggle');", true);//modal popup
         }
-
         protected void btnRejectNo_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
-       
 
         //detail buttom action 
         protected void lstOrder_ItemCommand(object sender, ListViewCommandEventArgs e)

@@ -10,6 +10,8 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
@@ -32,6 +34,7 @@ namespace Group8_AD_webapp.Manager
             }
         }
 
+        //bind request lists 
         protected void BindGrid()
         {
             status = ddlStatus.SelectedItem.Text;
@@ -48,13 +51,14 @@ namespace Group8_AD_webapp.Manager
             lstRequests.DataBind();
         }
 
+        //dropdown selected changed
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindGrid();
 
         }
 
-        //detail button action 
+        //detail button action in grid view 
         protected void lstRequests_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
 
@@ -131,6 +135,7 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal('toggle');", true);//modal popup
         }
 
+        //populate request details list 
         protected void PopulateDetailList(string voucherno, int empid)
         {
             // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);

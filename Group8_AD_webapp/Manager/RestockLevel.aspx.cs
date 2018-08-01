@@ -24,7 +24,7 @@ namespace Group8_AD_webapp.Manager
         static string cat;
         static string desc;
         static double thres;
-        static List<ReportItemVM> trendList;
+        static List<ReportItemVM> trendList = new List<ReportItemVM>();
         static string lblTrend;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -41,26 +41,13 @@ namespace Group8_AD_webapp.Manager
                 List<String> productList = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();
+               // ddlThreshold.SelectedIndex = 4;
                 
                 BindGrid();
             }
         }
-
-        //public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
-        //{
-        //    items = ItemBL.GetAllItemsbyThreshold();
-        //    foreach (ItemVM item in list)
-        //    {
-        //        item.NewReorderLvl = item.ReorderLevel;
-        //        item.NewReorderQty = item.ReorderQty;
-        //    }
-        //    return list;
-
-        //}
         protected void BindGrid()
         {
-
-            // items = ItemBL.GetAllItems();
             editedItems = Controllers.ItemCtrl.GetAllItemsbyThreshold();
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
@@ -104,7 +91,6 @@ namespace Group8_AD_webapp.Manager
         {
             saveList();
             grdRestockItem.PageIndex = e.NewPageIndex;
-
         }
 
         protected void saveList()
@@ -121,9 +107,6 @@ namespace Group8_AD_webapp.Manager
                 }
                 grdRestockItem.DataSource = editedItems;
                 grdRestockItem.DataBind();
-
-
-
             }
         }
 
