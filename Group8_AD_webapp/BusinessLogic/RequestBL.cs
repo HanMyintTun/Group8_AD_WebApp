@@ -523,11 +523,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                             reqVM.EmpId = req.EmpId;
                             reqVM.ApproverId = (int)req.ApproverId;
                             reqVM.ApproverComment = req.ApproverComment;
-                            reqVM.ReqDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.ReqDateTime = (DateTime)req.ReqDateTime;
                             reqVM.ApprovedDateTime = (DateTime)req.ApprovedDateTime;
-                            reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
+                            //reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
                             reqVM.Status = req.Status;
-                            reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
+                            //reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
                         }
                     }
                 }
@@ -576,11 +576,11 @@ namespace Group8AD_WebAPI.BusinessLogic
                             reqVM.EmpId = req.EmpId;
                             reqVM.ApproverId = (int)req.ApproverId;
                             reqVM.ApproverComment = req.ApproverComment;
-                            reqVM.ReqDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.ReqDateTime = (DateTime)req.ReqDateTime;
                             reqVM.ApprovedDateTime = (DateTime)req.ApprovedDateTime;
-                            reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
+                            //reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
                             reqVM.Status = req.Status;
-                            reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
+                            //reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
                         }
                     }
                 }
