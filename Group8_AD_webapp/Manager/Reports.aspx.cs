@@ -62,6 +62,7 @@ namespace Group8_AD_webapp
                 DemoChart();
                 lblReportTitle.Text = "Welcome";
                 showlist.Visible = false;
+                btnExport.Visible = false;
             }
         }
 
@@ -453,6 +454,8 @@ namespace Group8_AD_webapp
             showlist.Visible = false;
             btnList.CssClass = "listbutton";
             btnBar.CssClass = "listbutton active";
+            btnExport_Chart.Visible = true;
+            btnExport.Visible = false;
         }
 
         // Changes from Bar chart to List
@@ -462,6 +465,8 @@ namespace Group8_AD_webapp
             showlist.Visible = true;
             btnBar.CssClass = "listbutton";
             btnList.CssClass = "listbutton active";
+            btnExport_Chart.Visible = false;
+            btnExport.Visible = true;
         }
 
         protected void btnExport_Click(object sender, EventArgs e)

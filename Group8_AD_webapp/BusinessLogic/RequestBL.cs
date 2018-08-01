@@ -455,8 +455,10 @@ namespace Group8AD_WebAPI.BusinessLogic
 
                     int fromEmpId = req.EmpId;
                     int toEmpId;
-                    if (dept.DelegateApproverId != null && DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateFromDate) >= 0 &&
-                        DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateToDate) >= 0)
+                    //if (dept.DelegateApproverId != null && DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateFromDate) >= 0 &&
+                    //    DateTime.Compare(DateTime.Now, (DateTime)dept.DelegateToDate) >= 0)
+                    if (dept.DelegateApproverId != null && DateTime.Now >= dept.DelegateFromDate &&
+                        DateTime.Now <= dept.DelegateToDate)
                         toEmpId = (int)dept.DelegateApproverId;
                     else
                         toEmpId = (int)dept.DeptHeadId;
@@ -465,7 +467,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
                     // for email
-                    EmailBL.SendNewReqEmail(empId, req);
+                    EmailBL.SendNewReqEmail(empId, toEmpId);
 
                     return req;
                 }

@@ -19,7 +19,7 @@
             </div>
             <div class="col-lg-6">
                 <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-primary btn-export" OnClick="btnExport_Click" />
-                <asp:Button ID="Button1" runat="server" Text="Export" CssClass="btn btn-primary btn-export" OnClientClick="SaveReport()" OnClick="ExportToPDF" />
+                <asp:Button ID="btnExport_Chart" runat="server" Text="Export" CssClass="btn btn-primary btn-export" OnClientClick="SaveReport()" OnClick="ExportToPDF" />
             </div>
         </div>
         <!--/.row-->

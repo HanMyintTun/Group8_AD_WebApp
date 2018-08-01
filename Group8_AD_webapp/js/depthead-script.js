@@ -161,8 +161,8 @@ function LoadChart() {
         startDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd-mm-yyyy",
-        language: "tr"
+        format: "dd/MM/yyyy"
+        //language: "tr"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).blur();
@@ -175,8 +175,8 @@ function LoadChart() {
         startDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd-mm-yyyy",
-        language: "tr"
+        format: "dd/MM/yyyy"
+        //language: "tr"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).datepicker('hide');

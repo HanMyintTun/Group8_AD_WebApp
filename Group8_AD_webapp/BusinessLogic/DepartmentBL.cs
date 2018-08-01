@@ -50,6 +50,9 @@ namespace Group8AD_WebAPI.BusinessLogic
                 int rowinserted = entities.SaveChanges();
                 if (rowinserted > 0)
                 {
+                    string startDate = (department.DelegateFromDate ?? default(DateTime)).ToString("dd MMMM yyyy");
+                    string endDate = (department.DelegateToDate ?? default(DateTime)).ToString("dd MMMM yyyy");
+                    EmailBL.AddNewEmailToEmp(empId, "Assign Delegate", "You have been assigned as delegate from " + startDate + " to " + endDate);
                     return true;
                 }
                 else
@@ -69,6 +72,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     int rowinserted = entities.SaveChanges();
                     if (rowinserted > 0)
                     {
+                        EmailBL.AddNewEmailToEmp(empId, "Assign Reprsentative", "You have been assigned as reprsentative for your department.");
                         return true;
                     }
                     else
