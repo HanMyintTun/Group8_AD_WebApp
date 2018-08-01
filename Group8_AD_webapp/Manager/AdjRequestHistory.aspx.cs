@@ -10,6 +10,8 @@ namespace Group8_AD_webapp.Manager
 {
     public partial class AdjRequestHistory : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static List<AdjustmentVM> adj = new List<AdjustmentVM>();
         string status = "All";
         static string voucherno;
@@ -32,10 +34,11 @@ namespace Group8_AD_webapp.Manager
             }
         }
 
+        //bind request lists 
         protected void BindGrid()
         {
             status = ddlStatus.SelectedItem.Text;
-            adj = AdjustmentBL.GetAdjListByStatusApproverId(status, empid);
+            adj = Controllers.AdjustmentCtrl.GetAdjListByStatusApproverId(status, empid);
             List<AdjustmentVM> adj2 = new List<AdjustmentVM>();
             List<string> voucherno = adj.Select(a => a.VoucherNo).Distinct().ToList();
 
@@ -44,19 +47,18 @@ namespace Group8_AD_webapp.Manager
                 AdjustmentVM adjj = adj.Where(a => a.VoucherNo.Equals(vnum)).FirstOrDefault();
                 adj2.Add(adjj);
             }
-            // adj = adj.OrderByDescending(x => x.DateTimeIssued).ToList();
-
             lstRequests.DataSource = adj2.OrderByDescending(x => x.DateTimeIssued).ToList();
             lstRequests.DataBind();
         }
 
+        //dropdown selected changed
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindGrid();
 
         }
 
-        //detail buttom action 
+        //detail button action in grid view 
         protected void lstRequests_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
 
@@ -73,6 +75,7 @@ namespace Group8_AD_webapp.Manager
 
 
         }
+
         //accept
         protected void btnAccept_Click(object sender, EventArgs e)
         {
@@ -81,7 +84,7 @@ namespace Group8_AD_webapp.Manager
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.AcceptRequest(voucherno, empid, cmt);
+            bool success = Controllers.AdjustmentCtrl.AcceptRequest(voucherno, empid, cmt);
             if (success)
             {
                 BindGrid();
@@ -112,7 +115,7 @@ namespace Group8_AD_webapp.Manager
         {
 
             cmt = txtComments.Text.ToString();
-            bool success = AdjustmentBL.RejectRequest(voucherno, empid, cmt);
+            bool success = Controllers.AdjustmentCtrl.RejectRequest(voucherno, empid, cmt);
             if (success)
             {
                 BindGrid();
@@ -132,6 +135,7 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlRejConfirm').modal('toggle');", true);//modal popup
         }
 
+        //populate request details list 
         protected void PopulateDetailList(string voucherno, int empid)
         {
             // List<AdjustmentVM> adj = AdjustmentBL.GetAdj(voucherno);
@@ -164,7 +168,7 @@ namespace Group8_AD_webapp.Manager
 
                     btnAccept.Visible = false;
                     btnReject.Visible = false;
-                    //txtComments.Visible = false;
+                    
                 }
                 else if (aj.Status == "Approved")
                 {
@@ -181,7 +185,7 @@ namespace Group8_AD_webapp.Manager
 
                     btnAccept.Visible = false;
                     btnReject.Visible = false;
-                    //txtComments.Visible = false;
+                    
                 }
                 else
                 {

@@ -43,6 +43,15 @@ namespace Group8_AD_webapp.Controllers
         {
             return RequestBL.RemoveReq(reqId);
         }
+        public static bool AcceptRequest(int reqId, int empId, string cmt)
+        {
+            return RequestBL.AcceptRequest(reqId, empId, cmt);
+        }
+        public static bool RejectRequest(int reqId, int empId, string cmt)
+        {
+            return RequestBL.RejectRequest(reqId, empId, cmt);
+        }
+
 
     }
 }

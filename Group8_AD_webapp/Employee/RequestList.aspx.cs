@@ -42,8 +42,18 @@ namespace Group8_AD_webapp
                 // If a request ID is present
                 if (Request.QueryString["reqid"] != null)
                 {
-                    reqid = Convert.ToInt32(Request.QueryString["reqid"]);
-                    RequestVM request = Controllers.RequestCtrl.GetRequestByReqId(reqid);
+                    RequestVM request = new RequestVM();
+                    bool success = Int32.TryParse(Request.QueryString["reqid"], out reqid);
+                    if (success)
+                    {
+                        request = Controllers.RequestCtrl.GetRequestByReqId(reqid);
+                    }
+                    else
+                    {
+                        Session["Message"] = "That is not a valid Request ID";
+                        Response.Redirect("~/Employee/RequestHistory.aspx");
+                    }
+
                     if (request != null)
                     {
                         reqid = request.ReqId;
@@ -57,7 +67,8 @@ namespace Group8_AD_webapp
                     }
                     else
                     {
-                        BindGrids();
+                        Session["Message"] = "That is not a valid Request ID";
+                        Response.Redirect("~/Employee/RequestHistory.aspx");
                     }
                 }
 
@@ -195,16 +206,19 @@ namespace Group8_AD_webapp
 
             int empId = (int)Session["empId"];
             bool success = Controllers.RequestDetailCtrl.AddBookmark(empId, itemCode);
-
+            Main master = (Main)this.Master;
             if (success)
             {
                 RequestVM bookmarks = Controllers.RequestCtrl.GetReq(empId, "Bookmarked").FirstOrDefault();
                 PopulateBookmarks(bookmarks.ReqId);
                 lstBookmark.DataSource = bookmarkList;
                 lstBookmark.DataBind();
-
-                Main master = (Main)this.Master;
+                
                 master.ShowToastr(this, String.Format("{0} Added to Bookmarks", description), "Item Added Successfully", "success");
+            }
+            else
+            {
+                master.ShowToastr(this, String.Format("{0} Not Added to Bookmarks", description), "Something Went Wrong!", "error");
             }
         }
 
@@ -222,16 +236,23 @@ namespace Group8_AD_webapp
             string itemCode = lblItemCode.Text;
             int reqId = Convert.ToInt32(lblReqId.Text);
 
-            bool success = Controllers.RequestDetailCtrl.RemoveReqDet(reqId, itemCode);
-            if (list == "Cart") { PopulateList(reqId); }
-            else if (list == "Bookmark") { PopulateBookmarks(reqId); }
-            BindGrids();
-
             Main master = (Main)this.Master;
-            master.FillCart();
-            master.UpdateCartCount();
-            
-            master.ShowToastr(this, String.Format("{0}", description), "Item Removed", "success");
+            bool success = Controllers.RequestDetailCtrl.RemoveReqDet(reqId, itemCode);
+            if (success)
+            {
+                if (list == "Cart") { PopulateList(reqId); }
+                else if (list == "Bookmark") { PopulateBookmarks(reqId); }
+                BindGrids();
+                
+                master.FillCart();
+                master.UpdateCartCount();
+
+                master.ShowToastr(this, String.Format("{0}", description), "Item Removed", "success");
+            }
+            else
+            {
+                master.ShowToastr(this, String.Format("{0} Not Removed", description), "Something Went Wrong!", "error");
+            }
         }
 
         // Back to catalogue button

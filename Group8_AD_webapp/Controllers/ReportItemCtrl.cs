@@ -24,6 +24,11 @@ namespace Group8_AD_webapp.Controllers
             return ReportItemBL.ShowVolumeReport(dept1, dept2, supp1, supp2, cat, dates, byMonth);
         }
 
+        public static List<ReportItemVM> ShowVolumeReport(string iCode, int maxQty)
+        {
+            return ReportItemBL.ShowVolumeReport(iCode, maxQty);
+        }
+
         public static List<ReportItemVM> GetCBMonthly(DateTime fromDate, DateTime toDate)
         {
             return ReportItemBL.GetCBMonthly(fromDate, toDate);

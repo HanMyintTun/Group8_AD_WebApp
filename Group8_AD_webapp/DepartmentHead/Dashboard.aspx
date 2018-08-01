@@ -185,12 +185,15 @@
                             </div>
                             <div class="col-lg-6">
 
-
-                                <div class="form-group" style="display: inline">
-                                    <div style="display: inline-block">
-                                        <asp:TextBox CssClass="form-control" ID="txtRep" runat="server" Text="" ReadOnly="true"></asp:TextBox>
-                                    </div>
-                                </div>
+                                <asp:UpdatePanel ID="updatepanel4" runat="server">
+                                    <ContentTemplate>
+                                        <div class="form-group" style="display: inline">
+                                            <div style="display: inline-block">
+                                                <asp:TextBox CssClass="form-control" ID="txtRep" runat="server" Text="" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
 
 
                             </div>
@@ -219,6 +222,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -292,10 +296,10 @@
     </div>
 
     <!-- /.row -->
-  
+
 
 </asp:Content>
 
 <asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
-        <script src="<%=ResolveClientUrl("~/js/depthead-script.js")%>"></script>
+    <script src="<%=ResolveClientUrl("~/js/depthead-script.js")%>"></script>
 </asp:Content>

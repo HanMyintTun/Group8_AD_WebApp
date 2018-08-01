@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,10 @@ using Group8AD_WebAPI.BusinessLogic;
 
 namespace Group8_AD_webapp.Manager
 {
+
+    // Author: Han Myint Tun , A0180555A
+    // Co-Author: Toh Shu Hui Sandy, A0180548Y (Only the TrendChart Modal contents)
+    // Version 1.0 Initial Release
     public partial class RestockLevel : System.Web.UI.Page
     {
         static List<ItemVM> items = new List<ItemVM>();
@@ -19,6 +24,9 @@ namespace Group8_AD_webapp.Manager
         static string cat;
         static string desc;
         static double thres;
+        static List<ReportItemVM> trendList = new List<ReportItemVM>();
+        static string lblTrend;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Service.UtilityService.CheckRoles("Store");
@@ -30,31 +38,17 @@ namespace Group8_AD_webapp.Manager
                 Main master = (Main)this.Master;
                 master.ActiveMenu("storerestock");
 
-                List<String> productList = ItemBL.GetCatList();
+                List<String> productList = Controllers.ItemCtrl.GetCategory();
                 ddlCategory.DataSource = productList;
                 ddlCategory.DataBind();
+               // ddlThreshold.SelectedIndex = 4;
                 
                 BindGrid();
-
             }
         }
-
-        //public List<ItemVM> GetAllIteminfo(List<ItemVM> list)
-        //{
-        //    items = ItemBL.GetAllItemsbyThreshold();
-        //    foreach (ItemVM item in list)
-        //    {
-        //        item.NewReorderLvl = item.ReorderLevel;
-        //        item.NewReorderQty = item.ReorderQty;
-        //    }
-        //    return list;
-
-        //}
         protected void BindGrid()
         {
-
-            // items = ItemBL.GetAllItems();
-            editedItems = ItemBL.GetAllItemsbyThreshold();
+            editedItems = Controllers.ItemCtrl.GetAllItemsbyThreshold();
             grdRestockItem.DataSource = editedItems;
             grdRestockItem.DataBind();
             int min = (grdRestockItem.PageIndex) * grdRestockItem.PageSize;
@@ -71,7 +65,7 @@ namespace Group8_AD_webapp.Manager
             cat = ddlCategory.SelectedValue;
             desc = txtSearch.Text;
             thres = Convert.ToDouble(ddlThreshold.SelectedValue);
-            grdRestockItem.DataSource = ItemBL.GetItems(cat, desc, thres);
+            grdRestockItem.DataSource = Controllers.ItemCtrl.GetItems(cat, desc, thres);
             grdRestockItem.DataBind();
         }
 
@@ -97,7 +91,6 @@ namespace Group8_AD_webapp.Manager
         {
             saveList();
             grdRestockItem.PageIndex = e.NewPageIndex;
-
         }
 
         protected void saveList()
@@ -114,9 +107,6 @@ namespace Group8_AD_webapp.Manager
                 }
                 grdRestockItem.DataSource = editedItems;
                 grdRestockItem.DataBind();
-
-
-
             }
         }
 
@@ -153,6 +143,37 @@ namespace Group8_AD_webapp.Manager
 
             }
 
+            if (e.CommandName == "Trend")
+            {
+
+                if (e.CommandArgument.ToString() != "")
+                {
+                    Label icode = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblItemCode");
+                    Label lblRecomLvl = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRecomLevel");
+                    Label lblRecomQty = (Label)grdRestockItem.Rows[RowIndex].FindControl("lblRecomQty");
+                    string itmcode = icode.Text;
+                    ItemVM itm = new ItemVM();
+                    itm =  Controllers.ItemCtrl.GetItem(itmcode);
+
+                    trendList = Controllers.ReportItemCtrl.ShowVolumeReport(itmcode, itm.ReorderLevel);
+                    foreach(ReportItemVM r in trendList)
+                    {
+                        r.Val2 = itm.ReorderLevel;
+                        r.Val3 = itm.ReorderQty;
+                    }
+
+
+                    lblTrendTitle.Text = "Trend Analysis for " + itm.ItemCode + " : " + itm.Desc;
+                    lblTrendiCode.Text = itmcode;
+                    lblTrend = itmcode + ": " + itm.Desc;
+                    lblTrendSubtitle.Text = " "+trendList[0].Label+" to "+trendList[trendList.Count - 1].Label;
+                    lblTrendReccRL.Text = lblRecomLvl.Text;
+                    lblTrendReccRQ.Text = lblRecomQty.Text;
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlTrend').modal();", true);//modal popup
+                }
+
+            }
+
 
         }
 
@@ -169,7 +190,7 @@ namespace Group8_AD_webapp.Manager
 
             foreach (ItemVM item in editedItems)
             {
-                ItemVM i = ItemBL.GetItem(item.ItemCode);
+                ItemVM i = Controllers.ItemCtrl.GetItem(item.ItemCode);
                 i.ReorderLevel = item.NewReorderLvl;
                 i.ReorderQty = item.NewReorderQty;
                 updateitem.Add(i);
@@ -197,7 +218,91 @@ namespace Group8_AD_webapp.Manager
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlConfirm').modal('toggle');", true);//modal popup
         }
 
-        
+        protected void BtnUseTrend_Click(object sender, EventArgs e)
+        {
+            ItemVM trendItem = editedItems.Where(x => x.ItemCode == lblTrendiCode.Text).FirstOrDefault();
+            trendItem.NewReorderLvl = Convert.ToInt32(lblTrendReccRL.Text);
+            trendItem.NewReorderQty = Convert.ToInt32(lblTrendReccRQ.Text);
+            grdRestockItem.DataSource = editedItems;
+            grdRestockItem.DataBind();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlTrend').modal('toggle');", true);
+        }
+
+        // Populates data to send to Chart.js
+        [System.Web.Services.WebMethod]
+        public static List<string> getChartData()
+        {
+            var returnData = new List<string>();
+
+            var chartLabel = new StringBuilder();
+            var chartData = new StringBuilder();
+            var chartData2 = new StringBuilder();
+            var chartData3 = new StringBuilder();
+            chartLabel.Append("[");
+            chartData.Append("[");
+            chartData2.Append("[");
+            chartData3.Append("[");
+            for (int i = 0; i < trendList.Count; i++)
+            {
+                if (i < trendList.Count - 1)
+                {
+                    string s = (trendList[i].Label);
+                    chartLabel.Append("'" + s + "', ");
+                }
+                else
+                {
+                    string s = (trendList[i].Label);
+                    chartLabel.Append("'" + s + "'");
+                }
+            }
+            for (int i = 0; i < trendList.Count; i++)
+            {
+                if (i < trendList.Count - 1)
+                {
+                    chartData.Append(trendList[i].Val1 + ", ");
+                }
+                else
+                {
+                    chartData.Append(trendList[i].Val1);
+                }
+            }
+            for (int i = 0; i < trendList.Count; i++)
+            {
+                if (i < trendList.Count - 1)
+                {
+                    chartData2.Append(trendList[i].Val2 + ", ");
+                }
+                else
+                {
+                    chartData2.Append(trendList[i].Val2);
+                }
+            }
+            for (int i = 0; i < trendList.Count; i++)
+            {
+                if (i < trendList.Count - 1)
+                {
+                    chartData3.Append(trendList[i].Val3 + ", ");
+                }
+                else
+                {
+                    chartData3.Append(trendList[i].Val3);
+                }
+            }
+            chartData.Append("]");
+            chartData2.Append("]");
+            chartData3.Append("]");
+            chartLabel.Append("]");
+
+            returnData.Add(chartLabel.ToString());
+            returnData.Add(chartData.ToString());
+            returnData.Add(chartData2.ToString());
+            returnData.Add(chartData3.ToString());
+            returnData.Add(lblTrend); 
+            returnData.Add("Current Reorder Level"); 
+            returnData.Add("Current Reorder Quantity"); 
+            return returnData;
+        }
+
     }
 }
 

@@ -157,7 +157,6 @@
     <Content Include="css\toastr.min.css" />
     <Content Include="DepartmentHead\Approved-Requests.aspx" />
     <Content Include="DepartmentHead\Cancelled-Requests.aspx" />
-    <Content Include="Collection-Point.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -324,6 +323,7 @@
     <Content Include="js\productvolume-script.js" />
     <Content Include="js\report-script.js" />
     <Content Include="js\requestlist-script.js" />
+    <Content Include="js\restocktrend-script.js" />
     <Content Include="js\storedash-script.js" />
     <Content Include="js\toastr.min.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
@@ -359,7 +359,11 @@
     <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
     </Content>
+
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+
+    <Content Include="App_Data\aspnetdb.bak" />
+
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -415,8 +419,6 @@
     </Content>
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
-    <Content Include="tables\data1.json" />
-    <Content Include="tables\data2.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\EmailBL.cs" />
@@ -455,13 +457,6 @@
     </Compile>
     <Compile Include="DepartmentHead\Cancelled-Requests.aspx.designer.cs">
       <DependentUpon>Cancelled-Requests.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Collection-Point.aspx.cs">
-      <DependentUpon>Collection-Point.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Collection-Point.aspx.designer.cs">
-      <DependentUpon>Collection-Point.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -695,7 +690,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+
     <Folder Include="App_Data\" />
+
+    <Folder Include="PDF\" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

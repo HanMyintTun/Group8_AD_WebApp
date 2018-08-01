@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" style="margin-top:40px;">
         <div class="row">
             <div class="col-lg-6">
                 <h3 class="page-header">
@@ -207,47 +207,45 @@
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                         <div class="text-right mt-15">
-                                            <asp:Button ID="btnClearList" CssClass="btn btn-success" OnClick="BtnClear_Click" runat="server" Text=" Clear List" />
-                                        </div>
+
+
+                                        <asp:Button ID="btnClearList" CssClass="btn btn-warning blacktext" OnClick="BtnClear_Click" runat="server" Text=" Clear List" /></div>
+
 
                                     </div>
                                     <div class="col-lg-6">
                                         <asp:UpdatePanel ID="udpMonths" runat="server">
 
                                             <ContentTemplate>
-                                                <div class="montharea">
-                                                    <asp:ListView ID="lstMonths" runat="server">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="BtnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton>
-                                                            <br />
-                                                        </ItemTemplate>
-                                                    </asp:ListView>
-                                                </div>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                        <div class="text-right">
-                                            <div class="report-btn mt-15">
-                                                <asp:Button ID="btnMonth" CssClass="btn btn-primary" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
-                                            </div>
+
+                                            <div class="montharea">
+                                                <asp:ListView ID="lstMonths" runat="server"><ItemTemplate>
+                                                <asp:Label runat="server" ID="lblMonths" CssClass="monthareali" Text='<%# ((DateTime)Container.DataItem).ToString("MMM-yyyy") %>'></asp:Label><asp:LinkButton ID="btnRemove" OnClick="BtnRemove_Click" runat="server"><span style="color:var(--color-btn-danger); margin-left:10px;"><i class="fa fa-times-circle"></i></span></asp:LinkButton> <br />
+                                                </ItemTemplate></asp:ListView>
+                                            </div></ContentTemplate></asp:UpdatePanel>
+                                        <div  class="text-right">
+                                        <div class="report-btn mt-15">
+                                                <asp:Button ID="btnMonth" CssClass="btn btn-success" OnClick="BtnMonth_Click" runat="server" Text="Generate By Month" />
+                                            </div> </div> 
+                                    </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabDate">
+                                <div class="col-md-6">
+                                         <div class="input-group">
+                                            <asp:TextBox ID="txtFromDate" ClientIDMode="Static" autocomplete="off" placeholder="from: dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
+                                 <div class="col-md-6">
+                                         <div class="input-group">
+                                            <asp:TextBox ID="txtToDate" ClientIDMode="Static" autocomplete="off" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        </div>
                                 </div>
-                                <div class="tab-pane fade" id="tabDate">
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <asp:TextBox ID="txtFromDate" ClientIDMode="Static" autocomplete="off" placeholder="dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
-                                            <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <asp:TextBox ID="txtToDate" ClientIDMode="Static" autocomplete="off" placeholder="dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
-                                            <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-right">
-                                        <div class="report-btn mt-15 text-right">
-                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-primary" runat="server" Text="Generate By Range" />
+                                <div class="col-md-12 text-right">
+                                          <div class="report-btn mt-15 text-right">
+                                            <asp:Button ID="btnRange" OnClick="BtnRange_Click" CssClass="btn btn-success" runat="server" Text="Generate By Range" />
+
                                         </div>
                                     </div>
                                 </div>

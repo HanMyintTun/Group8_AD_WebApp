@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 
 namespace Group8_AD_webapp
 {
+    // Author: Han Myint Tun , A0180555A and Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class Login : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -29,8 +31,6 @@ namespace Group8_AD_webapp
         protected void Redirect()
         {
             IIdentity id = User.Identity;
-            //Label1.Text = String.Format("IsAuthenticated:{0},Name:{1},Type:{2}",
-            //                            id.IsAuthenticated, id.Name, id.AuthenticationType);
 
             if (id.IsAuthenticated == true)
             {

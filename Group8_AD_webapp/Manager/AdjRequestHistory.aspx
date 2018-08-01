@@ -169,7 +169,6 @@
                                         </ItemTemplate>
                                         <EmptyDataTemplate>
                                             <span class="noresult">Sorry! There are no items to show.<br />
-                                                Go back to <a href="CatalogueDash.aspx">Catalogue</a>.
                                             </span>
                                         </EmptyDataTemplate>
                                     </asp:ListView>

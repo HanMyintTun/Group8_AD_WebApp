@@ -33,11 +33,25 @@ namespace Group8_AD_webapp.Controllers
             return ItemBL.UpdateSuppliers(list);
         }
 
-        // Update When BUsiness Logic Changes
         public static bool UpdateItems(List<ItemVM> list)
         {
             ItemBL.UpdateItemLists(list);
-            return true;        //  TO REPLACE
+            return true;    
+        }
+
+        public static ItemVM GetItem(string itemCode)
+        {
+            return ItemBL.GetItem(itemCode);
+        }
+
+        public static List<ItemVM> GetAllItemsbyThreshold()
+        {
+            return ItemBL.GetAllItemsbyThreshold();
+        }
+
+        public static List<ItemVM> GetItems(string cat, string desc, double threshold)
+        {
+            return ItemBL.GetItems(cat, desc, threshold);
         }
     }
 }

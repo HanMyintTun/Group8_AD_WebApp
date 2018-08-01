@@ -14,17 +14,17 @@
 
 
                         <div style="display: inline-block;">
-                            <div style="display: inline-block;">
+                            <div style="display: inline-block; display:none;">
                                 <span class="lbl-inherit" style="vertical-align: text-bottom">Threshold :</span>
                                 <asp:DropDownList ID="ddlThreshold" CssClass="form-control mx-2" runat="server" AutoPostBack="false" OnSelectedIndexChanged="ddlThreshold_SelectedIndexChanged">
-                                    <asp:ListItem Text="0%" Value="0" />
+                                    <%--<asp:ListItem Text="0%" Value="0" />
                                     <asp:ListItem Text="5%" Value="0.05" />
                                     <asp:ListItem Text="10%" Value="0.1" />
-                                    <asp:ListItem Text="15%" Value="0.15" />
-                                    <asp:ListItem Text="30%" Value="0.3" />
-                                    <asp:ListItem Text="50%" Value="0.5" />
+                                    <asp:ListItem Text="15%" Value="0.15" />--%>
+                                    <asp:ListItem Text="0%" Value="0.0" />
+                                   <%-- <asp:ListItem Text="50%" Value="0.5" />
                                     <asp:ListItem Text="75%" Value="0.75" />
-                                    <asp:ListItem Text="100%" Value="1" />
+                                    <asp:ListItem Text="100%" Value="1" />--%>
 
                                 </asp:DropDownList>
                             </div>
@@ -33,8 +33,11 @@
                                 <asp:ListItem Text="All" Value="All" />
                             </asp:DropDownList>
                             <div style="display: inline-block;">
-                                <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight" runat="server"></asp:TextBox>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-success button" Text="Search" OnClick="btnSearch_Click" />
+                                <asp:TextBox ID="txtSearch" CssClass="form-control controlheight bb" runat="server"></asp:TextBox>
+                               
+                            </div>
+                            <div style="display: inline-block; vertical-align:top;">
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-primary button" Text="Search" OnClick="btnSearch_Click" />
                             </div>
                         </div>
                     </div>
@@ -53,8 +56,9 @@
                                     <tr>
                                         <td style="text-align: left; padding: 0px;">
                                             <asp:Label CssClass="item-info" ID="lblItemCode" runat="server" Text='<%# Bind("ItemCode") %>' Visible="True" />
-                                            <span class="product-stock" style="float: right; display:none;">
-                                                <asp:Label ID="lblBalance" runat="server" Text='<%# Eval("Location") %>' /></span>
+                                            <span class="product-stock" style="float: right";>  
+                                            <asp:LinkButton ID="btnViewTrend" CommandName="Trend" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'  runat="server">View Trend</asp:LinkButton>
+                                            </span>
                                             <br />
                                             <span class="product-stock">
                                                 <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Desc")%>' /></span><br />
@@ -121,6 +125,62 @@
         </asp:UpdatePanel>
     </div>
 
+     <%-- modal content--%>
+
+            <div id="mdlTrend" class="mdlTrend modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog fix-modal modal-lg">
+                        <asp:UpdatePanel ID="udpTrend" runat="server"><ContentTemplate>
+                    <div class="modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="font-size: 32px;"><strong>&times;</strong></span>
+                                </button>
+                                <h3 class="detail-subtitle">
+                                    <asp:Label ID="lblTrendTitle" class="detail-subtitle" style="font-size: 2rem;" runat="server" Text=""></asp:Label></h3>
+                            </div>
+
+                            <div class="panel-body lightbox-scroll">
+
+                                <div class="detail-info">
+                                         <div class="canvas-wrapper" style="height: 500px; width:100%;">
+                                                        <canvas id="myChart"> </canvas></div>
+                                                     <div class="text-center">
+                                                    <asp:Label ID="lblSubtitle" style="font-size:1.8rem;" runat="server" Text=""></asp:Label></div>
+                                        <table class="detail-info-col">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Date Range: <asp:Label ID="lblTrendSubtitle" runat="server" style="font-weight:700;"></asp:Label></td>
+                                                </tr>
+                                                <tr><td></td></tr>
+                                               <tr>
+                                                   <td style="text-align:left;">Recommended Reorder Level: <asp:Label ID="lblTrendReccRL" runat="server" style="font-weight:700;" Text="Label"></asp:Label></td>
+                                                   <td style="text-align:left;">Recommended Reorder Quantity: <asp:Label ID="lblTrendReccRQ" runat="server" style="font-weight:700;" Text="Label"></asp:Label></td>
+                                                   <td>
+                                                       <asp:Label ID="lblTrendiCode" runat="server" Visible="false"></asp:Label>
+                                                       <asp:Button ID="btnUseTrend" runat="server" CssClass="btn btn-primary" OnClick="BtnUseTrend_Click" style="margin-left:50px;" Text="Apply" /></td>
+                                               </tr>
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
+                               
+                            </div>
+
+                        </div>
+                    </div>        </ContentTemplate>
+    </asp:UpdatePanel>
+                </div>
+            </div>
+
+
+
     <div id="mdlConfirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -146,4 +206,7 @@
         </div>
     </div>
 
+</asp:Content>
+<asp:Content ID="cphPageScript" ContentPlaceHolderID="cphScript" runat="server">
+        <script src="<%=ResolveClientUrl("~/js/restocktrend-script.js")%>"></script>
 </asp:Content>

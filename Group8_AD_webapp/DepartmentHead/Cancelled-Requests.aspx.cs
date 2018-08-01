@@ -11,8 +11,9 @@ namespace Group8_AD_webapp
 {
     public partial class Cancelled_Requests : System.Web.UI.Page
     {
+        // Author: Han Myint Tun , A0180555A
+        // Version 1.0 Initial Release
         static int rid;
-
         int empId;
         string status = "Cancelled";
         EmployeeVM emp = new EmployeeVM();
@@ -28,6 +29,7 @@ namespace Group8_AD_webapp
             }
         }
 
+        // bind cancelled request lists
         protected void BindGrid()
         {
             List<EmpReqVM> requestlists = BusinessLogic.GetEmpReqList(empId, status);
@@ -38,8 +40,8 @@ namespace Group8_AD_webapp
         // populate cancel detail in modal
         protected void PopulateDetailList(int rid)
         {
-            RequestVM req = RequestBL.GetReq(rid);
-            EmployeeVM emp = EmployeeBL.GetEmp(req.EmpId);
+            RequestVM req = Controllers.RequestCtrl.GetRequestByReqId(rid);
+            EmployeeVM emp = Controllers.EmployeeCtrl.getEmployeebyId(req.EmpId);
 
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
