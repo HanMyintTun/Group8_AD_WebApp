@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 
 namespace Group8_AD_webapp
 {
+    // Authors: Han Myint Tun , A0180555A and Toh Shu Hui Sandy, A0180548Y
+    // Version 1.0 Initial Release
     public partial class Main : System.Web.UI.MasterPage
     {
         public static List<RequestDetailVM> cartDetailList = new List<RequestDetailVM>();
@@ -192,18 +194,6 @@ namespace Group8_AD_webapp
             int id = Convert.ToInt32(((Label)item.FindControl("lblID")).Text);
             NotificationBL.ToggleReadNotification(id);
             FillNotifications();
-            //switch (Session["role"])
-            //{
-            //    case "Department Head": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
-            //    case "Delegate": Response.Redirect("~/DepartmentHead/Submitted-Requests.aspx"); break;
-            //    case "Representative": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
-            //    case "Employee": Response.Redirect("~/Employee/RequestHistory.aspx"); break;
-            //    case "Store Manager": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
-            //    case "Store Supervisor": Response.Redirect("~/Manager/AdjRequestHistory.aspx"); break;
-            //    case "Store Clerk": break;
-            //    default: break;
-            //}
-
         }
 
         // Marksall visible notifications as read

@@ -54,6 +54,9 @@
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -148,7 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="App_Data\aspnetdb.mdf" />
+    <Content Include="App_Data\aspnetdb_log.ldf">
+      <DependentUpon>aspnetdb.mdf</DependentUpon>
+    </Content>
     <Content Include="css\datatables.min.css" />
+    <Content Include="css\error.css" />
     <Content Include="css\jquery.dataTables.min.css" />
     <Content Include="css\login-style.css" />
     <Content Include="css\toastr.min.css" />
@@ -213,7 +221,6 @@
     <Content Include="images\background4.jpg" />
     <Content Include="images\background5.jpg" />
     <Content Include="images\background6.jpg" />
-    <Content Include="images\pencils.png" />
     <Content Include="img\employee\15.png" />
     <Content Include="img\employee\101.png" />
     <Content Include="img\employee\104.png" />
@@ -315,17 +322,18 @@
     <Content Include="js\catalogue-script.js" />
     <Content Include="js\datatables.min.js" />
     <Content Include="js\depthead-script.js" />
+    <Content Include="js\error.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\monthpicker.js" />
     <Content Include="js\productvolume-script.js" />
     <Content Include="js\report-script.js" />
     <Content Include="js\requestlist-script.js" />
+    <Content Include="js\restocktrend-script.js" />
     <Content Include="js\storedash-script.js" />
     <Content Include="js\toastr.min.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
-    <Content Include="Notifications.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
     <Content Include="Manager\RestockLevel.aspx" />
@@ -355,6 +363,9 @@
     <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
     </Content>
+    <Content Include="PDF\DisbursementListByDepartment_20180727182326.pdf" />
+    <Content Include="App_Data\SA46Team08ADProjectExtended.bak" />
+    <Content Include="App_Data\aspnetdb.bak" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -414,7 +425,9 @@
     <Content Include="tables\data2.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\EmailBL.cs" />
     <Compile Include="BusinessLogic\PdfBL.cs" />
+    <Compile Include="Controllers\ReportItemCtrl.cs" />
     <Compile Include="DepartmentHead\Approved-Requests.aspx.cs">
       <DependentUpon>Approved-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -554,13 +567,6 @@
     </Compile>
     <Compile Include="Models\DisbursementDetailVM.cs" />
     <Compile Include="Models\PdfVM.cs" />
-    <Compile Include="Notifications.aspx.cs">
-      <DependentUpon>Notifications.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Notifications.aspx.designer.cs">
-      <DependentUpon>Notifications.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Manager\ProductVolume.aspx.cs">
       <DependentUpon>ProductVolume.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -687,10 +693,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="PDF\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
