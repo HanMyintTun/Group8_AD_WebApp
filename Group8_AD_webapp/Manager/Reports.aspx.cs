@@ -13,6 +13,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using System.Web.Services;
 
 namespace Group8_AD_webapp
 {
@@ -72,7 +73,7 @@ namespace Group8_AD_webapp
             lbl2 = "Commerce";
             lbl0 = "Month";
 
-            if(IsVolume)
+            if (IsVolume)
             {
                 lbl3 = "Ordered Quantity";
                 cbList = Controllers.ReportItemCtrl.ShowVolumeReport("CLAI", "COMM", null, null, "All", demoList, true);
@@ -117,8 +118,8 @@ namespace Group8_AD_webapp
             lstData.DataSource = cbList;
             lstData.DataBind();
             lstData.HeaderRow.Cells[0].Text = lbl0;
-            lstData.HeaderRow.Cells[1].Text = lbl1+ " Department";
-            lstData.HeaderRow.Cells[2].Text = lbl2+ " Department";
+            lstData.HeaderRow.Cells[1].Text = lbl1 + " Department";
+            lstData.HeaderRow.Cells[2].Text = lbl2 + " Department";
         }
 
         // Adds month to month list
@@ -422,7 +423,7 @@ namespace Group8_AD_webapp
             returnData.Add(lbl3);
             return returnData;
         }
-        
+
         // Clears Chart upon invalid selection
         protected void ClearChart()
         {
@@ -472,7 +473,7 @@ namespace Group8_AD_webapp
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc,Response.OutputStream);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
 
             htmlparser.Parse(sr);
@@ -480,6 +481,49 @@ namespace Group8_AD_webapp
 
             Response.Write(pdfDoc);
             Response.End();
+        }
+
+        [WebMethod]
+        public static void SaveReport(string imageData)
+        {
+            //Server.MapPath
+            string path = HttpContext.Current.Server.MapPath("~/PDF/") + "\\Report.png";
+
+            FileStream fs = new FileStream(path, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            byte[] data = Convert.FromBase64String(imageData);
+
+            bw.Write(data);
+            bw.Close();
+           
+        }
+
+
+
+        public void ExportToPDF(object sender, EventArgs e)
+        {
+            string path = HttpContext.Current.Server.MapPath("~/PDF/") + "\\Report.png";
+            byte[] imagebytes = File.ReadAllBytes(path);
+            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imagebytes);
+            using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+            {
+                Document document = new Document(PageSize.A4.Rotate(), 10f, 10f, 10f, 10f);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
+                document.Add(image);
+                document.Close();
+                byte[] bytes = memoryStream.ToArray();
+                memoryStream.Close();
+
+                Response.Clear();
+                Response.AddHeader("Content-Disposition", "attachment; filename=Chart_Report.pdf");
+                Response.ContentType = "application/pdf";
+                Response.Buffer = true;
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.BinaryWrite(bytes);
+                Response.End();
+            }
         }
         public override void VerifyRenderingInServerForm(Control control)
         {
