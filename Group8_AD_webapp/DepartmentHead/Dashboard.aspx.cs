@@ -118,15 +118,11 @@ namespace Group8_AD_webapp
         //add delegate
         protected void AddDelegate(object sender, EventArgs e)
         {
-           
             if (ddlDelegate.SelectedItem.Text != "Select Employee" && txtFromDate.Text != "" && txtToDate.Text != "")
             {
                 lblSelectedDel.Text = ddlDelegate.SelectedItem.Text.ToString();
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal();", true);//modal popup
             }
-
-
-
         }
 
         protected void btnSetDelYes_Click(object sender, EventArgs e)
@@ -139,11 +135,12 @@ namespace Group8_AD_webapp
 
             if (success)
             {
-                Response.Redirect("Dashboard.aspx");
+                
                 ClearText();
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Delegate has been successfully added!"), "Successfully Added!", "success");
-
+                EmployeeVM empRep = Controllers.EmployeeCtrl.getEmployeebyId(delId);
+                txtCurDelegate.Text = empRep.EmpName;
             }
             else
             {
@@ -180,17 +177,17 @@ namespace Group8_AD_webapp
 
             if (success)
             {
-                Response.Redirect("Dashboard.aspx");
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Representative has been successfully added!"), "Successfully added!", "success");
-
+                EmployeeVM empRep = Controllers.EmployeeCtrl.getEmployeebyId(repId);
+                txtRep.Text = empRep.EmpName;
             }
             else
             {
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Representative changes not Submitted"), "Something Went Wrong!", "error");
             }
-
+            
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal('toggle');", true);//modal popup
         }
         protected void btnSetRepNo_Click(object sender, EventArgs e)
@@ -208,10 +205,9 @@ namespace Group8_AD_webapp
 
             if (success)
             {
-                Response.Redirect("Dashboard.aspx");
                 Main master = (Main)this.Master;
                 master.ShowToastr(this, String.Format("Current delegate has been successfully removed!"), "Successfully Removed!", "success");
-
+              
             }
             else
             {
@@ -228,19 +224,14 @@ namespace Group8_AD_webapp
         }
 
         
-      
-        
         //clear text box and dropdown list
         protected void ClearText()
         {
             ddlDelegate.SelectedIndex = 0;
             txtFromDate.Text = "";
             txtToDate.Text = "";
-
-
         }
-
-
+        
         // Dynamic Chart
         [WebMethod]
         public static string GetChart(DateTime month)
