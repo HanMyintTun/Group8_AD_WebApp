@@ -328,7 +328,6 @@
     <Content Include="js\toastr.min.js" />
     <Content Include="Manager\AdjRequestHistory.aspx" />
     <Content Include="Manager\EditSupplierPrice.aspx" />
-    <Content Include="Notifications.aspx" />
     <Content Include="Manager\ProductVolume.aspx" />
     <Content Include="Manager\Reports.aspx" />
     <Content Include="Manager\RestockLevel.aspx" />
@@ -359,11 +358,8 @@
     <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
     </Content>
-
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-
     <Content Include="App_Data\aspnetdb.bak" />
-
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -556,13 +552,6 @@
     </Compile>
     <Compile Include="Models\DisbursementDetailVM.cs" />
     <Compile Include="Models\PdfVM.cs" />
-    <Compile Include="Notifications.aspx.cs">
-      <DependentUpon>Notifications.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Notifications.aspx.designer.cs">
-      <DependentUpon>Notifications.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Manager\ProductVolume.aspx.cs">
       <DependentUpon>ProductVolume.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -689,13 +678,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-
-    <Folder Include="App_Data\" />
-
-    <Folder Include="PDF\" />
-
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
