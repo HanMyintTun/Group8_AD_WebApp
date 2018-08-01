@@ -9,6 +9,7 @@ namespace Group8AD_WebAPI.BusinessLogic
     public static class NotificationBL
     {
         // add new notification
+        // Author: Tang Shenqi: A0114523U
         public static bool AddNewNotification(int fromEmpId, int toEmpId, string type, string content)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
