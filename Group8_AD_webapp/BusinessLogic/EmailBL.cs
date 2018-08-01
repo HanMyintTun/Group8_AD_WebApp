@@ -50,18 +50,18 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         //SendNewReqEmail
-        public static bool SendNewReqEmail(int empId, RequestVM currReq)
+        public static bool SendNewReqEmail(int fromempId, int toempId)
         {
             using (SA46Team08ADProjectContext entities = new SA46Team08ADProjectContext())
             {
                 try
                 {
-                    int fromEmpid = empId;
-                    int toEmpid = (int)currReq.ApproverId;
-
-                    var from_email = entities.Employees.Where(e => e.EmpId == fromEmpid).Select(e => e.EmpEmail).First();
-                    var to_email = entities.Employees.Where(e => e.EmpId == toEmpid).Select(e => e.EmpEmail).First();
-                    var _to = entities.Employees.Where(e => e.EmpId == toEmpid).Select(e => e.EmpName).First();
+                   // int fromEmpid = fromempId;
+                    // int toEmpid = (int)currReq.ApproverId;
+                   // int toEmpid = fromempId;
+                    var from_email = entities.Employees.Where(e => e.EmpId == fromempId).Select(e => e.EmpEmail).First();
+                    var to_email = entities.Employees.Where(e => e.EmpId == toempId).Select(e => e.EmpEmail).First();
+                    var _to = entities.Employees.Where(e => e.EmpId == toempId).Select(e => e.EmpName).First();
 
                     string type = "Stationery Request";
                     string content = "A new stationery request has been submitted";

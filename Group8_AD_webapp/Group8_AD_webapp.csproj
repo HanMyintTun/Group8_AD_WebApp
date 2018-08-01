@@ -223,6 +223,7 @@
     <Content Include="img\employee\23.png" />
     <Content Include="img\employee\6.png" />
     <Content Include="img\employee\profile_default.png" />
+    <Content Include="img\favicon.png" />
     <Content Include="img\leaf.png" />
     <Content Include="img\stationery\C001.jpg" />
     <Content Include="img\stationery\C002.jpg" />
@@ -290,6 +291,7 @@
     <Content Include="img\stationery\P044.jpg" />
     <Content Include="img\stationery\P045.jpg" />
     <Content Include="img\stationery\P046.jpg" />
+    <Content Include="img\stationery\P047.jpg" />
     <Content Include="img\stationery\R001.jpg" />
     <Content Include="img\stationery\R002.jpg" />
     <Content Include="img\stationery\S010.jpg" />
