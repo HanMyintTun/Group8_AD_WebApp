@@ -6,6 +6,12 @@ using Group8_AD_webapp.Models;
 
 namespace Group8AD_WebAPI.BusinessLogic
 {
+    /* 
+    * Class Name       :       NotificationBL
+    * Created by       :       Noel Noel Han
+    * Created date     :       19/Jul/2018
+    * Student No.      :       A0180529B
+    */
     public static class NotificationBL
     {
         // add new notification
