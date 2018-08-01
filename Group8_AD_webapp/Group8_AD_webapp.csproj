@@ -16,7 +16,7 @@
     <RootNamespace>Group8_AD_webapp</RootNamespace>
     <AssemblyName>Group8_AD_webapp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -341,6 +344,7 @@
       <LastGenOutput>SA46Team08ADProjectContext.cs</LastGenOutput>
     </Content>
     <Content Include="DepartmentHead\Rejected-Requests.aspx" />
+    <Content Include="PDF\Report.png" />
     <Content Include="Report_Templates\DisbursementListByDept_Body.txt" />
     <Content Include="Report_Templates\DisbursementListByDept_Footer.txt" />
     <Content Include="Report_Templates\DisbursementListByDept_Header.txt" />
@@ -355,6 +359,7 @@
     <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -414,7 +419,9 @@
     <Content Include="tables\data2.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\EmailBL.cs" />
     <Compile Include="BusinessLogic\PdfBL.cs" />
+    <Compile Include="Controllers\ReportItemCtrl.cs" />
     <Compile Include="DepartmentHead\Approved-Requests.aspx.cs">
       <DependentUpon>Approved-Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -689,7 +696,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="PDF\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -720,7 +726,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56756</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Group8_AD_webapp</IISUrl>
+          <IISUrl>http://localhost:56756/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
