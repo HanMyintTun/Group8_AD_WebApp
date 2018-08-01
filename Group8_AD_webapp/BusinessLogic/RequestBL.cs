@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+// Author: Tang Shenqi: A0114523U
+
 namespace Group8AD_WebAPI.BusinessLogic
 {
     public class RequestBL
@@ -416,7 +418,7 @@ namespace Group8AD_WebAPI.BusinessLogic
         }
 
         // submit request
-        // done, except email
+        // done
         public static RequestVM SubmitReq(int reqId, List<RequestDetailVM> reqDetList)
         {
             // make requestId in reqDetList is the same as reqId
@@ -457,8 +459,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                     string content = "A new stationery request has been submitted";
                     NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
 
-                    //// will call when method is completed
-                    // EmailBL.SendNewReqEmail(empId, req);
+                    // for email
+                    EmailBL.SendNewReqEmail(empId, req);
 
                     return req;
                 }
@@ -499,6 +501,9 @@ namespace Group8AD_WebAPI.BusinessLogic
             try
             {
                 List<RequestVM> reqlist = GetReq(empId, "Submitted");
+                // for email
+                RequestVM reqVM = new RequestVM();
+
                 int toId = 0;
                 for (int i = 0; i < reqlist.Count; i++)
                 {
@@ -513,6 +518,16 @@ namespace Group8AD_WebAPI.BusinessLogic
                             req.ApprovedDateTime = DateTime.Now;
                             req.Status = "Approved";
                             entities.SaveChanges();
+                            // for email
+                            reqVM.ReqId = req.ReqId;
+                            reqVM.EmpId = req.EmpId;
+                            reqVM.ApproverId = (int)req.ApproverId;
+                            reqVM.ApproverComment = req.ApproverComment;
+                            reqVM.ReqDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.ApprovedDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
+                            reqVM.Status = req.Status;
+                            reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
                         }
                     }
                 }
@@ -521,6 +536,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                 string type = "Stationery Request";
                 string content = "Your stationery request has been approved : No comment";
                 NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+                // for email
+                EmailBL.SendReqApprEmail(toId, reqVM);
 
                 return true;
             }
@@ -537,6 +554,9 @@ namespace Group8AD_WebAPI.BusinessLogic
             try
             {
                 List<RequestVM> reqlist = GetReq(empId, "Submitted");
+                // for email
+                RequestVM reqVM = new RequestVM();
+
                 int toId = 0;
                 for (int i = 0; i < reqlist.Count; i++)
                 {
@@ -551,6 +571,16 @@ namespace Group8AD_WebAPI.BusinessLogic
                             req.ApprovedDateTime = DateTime.Now;
                             req.Status = "Rejected";
                             entities.SaveChanges();
+                            // for email
+                            reqVM.ReqId = req.ReqId;
+                            reqVM.EmpId = req.EmpId;
+                            reqVM.ApproverId = (int)req.ApproverId;
+                            reqVM.ApproverComment = req.ApproverComment;
+                            reqVM.ReqDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.ApprovedDateTime = (DateTime)req.ApprovedDateTime;
+                            reqVM.CancelledDateTime = (DateTime)req.CancelledDateTime;
+                            reqVM.Status = req.Status;
+                            reqVM.FulfilledDateTime = (DateTime)req.FulfilledDateTime;
                         }
                     }
                 }
@@ -559,6 +589,8 @@ namespace Group8AD_WebAPI.BusinessLogic
                 string type = "Stationery Request";
                 string content = "Your stationery request has been rejected : Please review quantities";
                 NotificationBL.AddNewNotification(fromEmpId, toEmpId, type, content);
+                // for email
+                EmailBL.SendReqApprEmail(toId, reqVM);
 
                 return true;
             }
