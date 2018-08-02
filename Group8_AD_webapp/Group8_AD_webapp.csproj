@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Content\logo.png" />
     <Content Include="css\datatables.min.css" />
     <Content Include="css\jquery.dataTables.min.css" />
     <Content Include="css\login-style.css" />
@@ -359,6 +360,7 @@
     <Content Include="Models\SA46Team08ADProjectContext.edmx.diagram">
       <DependentUpon>SA46Team08ADProjectContext.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\SA46Team08ADProjectExtended.bak" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="App_Data\aspnetdb.bak" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
