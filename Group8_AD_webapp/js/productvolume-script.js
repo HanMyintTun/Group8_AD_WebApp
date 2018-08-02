@@ -8,7 +8,8 @@ var todayDate = new Date().getDate();
 function start() {
     var dp1 = $('#txtEndDate');
     dp1.datepicker({
-        maxDate: new Date(new Date().setDate(todayDate)),
+        startDate: '-1y',
+        endDate: '0',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy"
@@ -19,6 +20,8 @@ function start() {
     var dp = $('#txtStartDate');
 
     dp.datepicker({
+        startDate: '-1y',
+        endDate: '0',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy"

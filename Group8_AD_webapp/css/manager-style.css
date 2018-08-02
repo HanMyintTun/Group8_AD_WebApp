@@ -225,6 +225,11 @@
             color: #000 !important;
         }
 
+.ui-button-disabled {
+    color: #ddd !important;
+    pointer-events: none !important;
+}
+
 @media only screen and (max-width : 768px) {
     .formstyle, .formstyle2 {
         padding-left: 20px;

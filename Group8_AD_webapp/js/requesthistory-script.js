@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     var dp1 = $('#txtEndDate');
     dp1.datepicker({
+        endDate: '0',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy"
@@ -11,6 +12,7 @@
     var dp = $('#txtStartDate');
 
     dp.datepicker({
+        endDate: '0',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy"

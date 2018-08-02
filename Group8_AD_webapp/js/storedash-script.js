@@ -1,5 +1,7 @@
 ﻿function MonthPick() {
     $('#txtMonthPick').MonthPicker({
+        MinMonth: '-1y',
+        MaxMonth: '0',
         Button: false, MonthFormat: 'MM yy',
         OnAfterChooseMonth: function () { $("#txtMonthPick").trigger("change"); }
     });

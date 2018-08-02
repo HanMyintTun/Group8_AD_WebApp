@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     var dp1 = $('#txtFromDate');
     dp1.datepicker({
+        startDate: '-1y',
+        endDate: '-1',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy",
@@ -15,6 +17,8 @@
 $(document).ready(MonthPick);
 function MonthPick() {
     $('#txtMonthPick').MonthPicker({
+        MinMonth: '-1y',
+        MaxMonth: '0',
         Button: false, MonthFormat: 'MM yy',
         OnAfterChooseMonth: function () { $("#txtMonthPick").trigger("change"); }
     });
@@ -23,6 +27,8 @@ function MonthPick() {
 $(document).ready(function () {
     var dp1 = $('#txtToDate');
     dp1.datepicker({
+        startDate: '-1y',
+        endDate: '0',
         changeMonth: true,
         changeYear: true,
         format: "dd/mm/yyyy",
