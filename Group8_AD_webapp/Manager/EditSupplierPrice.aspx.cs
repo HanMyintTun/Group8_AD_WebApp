@@ -165,12 +165,12 @@ namespace Group8_AD_webapp
             if (querycat == "All")
             {
                 editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
-                editedItems = editedItems.Where(x => x.Desc.ToLower().Contains(searchquery)).ToList();
+                editedItems = editedItems.Where(x => x.Desc.ToLower().Contains(searchquery) || x.ItemCode.ToLower().Contains(searchquery)).ToList();
             }
             else
             {
                 editedItems = JsonConvert.DeserializeObject<List<ItemVM>>(JsonConvert.SerializeObject(items));
-                editedItems = editedItems.Where(x => x.Cat == querycat && x.Desc.ToLower().Contains(searchquery)).ToList();
+                editedItems = editedItems.Where(x => x.Cat == querycat && (x.Desc.ToLower().Contains(searchquery) || x.ItemCode.ToLower().Contains(searchquery))).ToList();
             }
             BindGrid();
         }

@@ -80,11 +80,16 @@ namespace Group8_AD_webapp
             grdCatalogue.DataBind();
 
             int max = dpgGrdCatalogue.StartRowIndex + dpgGrdCatalogue.MaximumRows;
+            int min = (dpgGrdCatalogue.StartRowIndex + 1);
             if (items.Count < max)
             {
                 max = items.Count;
+            } 
+            if(items.Count == 0)
+            {
+                min = 0;
             }
-            lblPageCount.Text = "Showing " + (dpgGrdCatalogue.StartRowIndex + 1) + " to " + max + " of " + items.Count();
+            lblPageCount.Text = "Showing " + min  + " to " + max + " of " + items.Count();
         }
 
         // Populates Bookmark/Recommendation panel

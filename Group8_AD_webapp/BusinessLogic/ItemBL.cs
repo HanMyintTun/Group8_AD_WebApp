@@ -1618,7 +1618,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 }
                 else if (desc != null && cat.Equals("All") && threshold > 0 && threshold !=0) //2
                 {
-                    List<Item> iList = entities.Items.Where(i => i.Desc.Contains(desc)).ToList();
+                    List<Item> iList = entities.Items.Where(i => i.Desc.Contains(desc) || i.ItemCode.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
                     foreach (ItemVM item in itemlist)
                     {
@@ -1652,7 +1652,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 }
                 else if (desc != null && cat != null && cat != "All" && threshold > 0 && threshold != 0) //3
                 {
-                    List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc)).ToList();
+                    List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc) || i.ItemCode.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
                     foreach (ItemVM item in itemlist)
                     {
@@ -1670,7 +1670,7 @@ namespace Group8AD_WebAPI.BusinessLogic
 
                 else if (cat != null && cat != "All" && desc != null && threshold == 0) //4
                 {
-                    List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc)).ToList();
+                    List<Item> iList = entities.Items.Where(i => i.Cat.Contains(cat) && i.Desc.Contains(desc) || i.ItemCode.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
                     foreach (ItemVM item in itemlist)
                     {
@@ -1721,7 +1721,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                 }
                 else if (cat.Equals("All") && desc != null && threshold == 0) //7
                 {
-                    List<Item> iList = entities.Items.Where(i => i.Desc.Contains(desc)).ToList();
+                    List<Item> iList = entities.Items.Where(i => i.Desc.Contains(desc) || i.ItemCode.Contains(desc)).ToList();
                     itemlist.AddRange(Utility.ItemUtility.Convert_Item_To_ItemVM(iList));
                     foreach (ItemVM item in itemlist)
                     {

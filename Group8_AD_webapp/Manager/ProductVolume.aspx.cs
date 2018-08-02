@@ -99,8 +99,8 @@ namespace Group8_AD_webapp
         // Does search in list
         protected List<ItemVM> DoSearch()
         {
-            d1 = DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            d2 = DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            d1 = DateTime.ParseExact(txtStartDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
+            d2 = DateTime.ParseExact(txtEndDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
             if (d2.CompareTo(d1) >= 0 )
             {
