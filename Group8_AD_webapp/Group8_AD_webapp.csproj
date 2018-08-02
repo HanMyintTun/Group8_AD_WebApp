@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Content\logo.png" />
     <Content Include="css\datatables.min.css" />
     <Content Include="css\jquery.dataTables.min.css" />
     <Content Include="css\login-style.css" />
