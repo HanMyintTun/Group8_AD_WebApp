@@ -5,10 +5,8 @@
         endDate: '-1',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy",
-        language: "tr"
+        format: "dd/mm/yyyy"
     }).on('changeDate', function (ev) {
-        $(this).blur();
         $(this).blur();
         $(this).datepicker('hide');
     });
@@ -31,10 +29,8 @@ $(document).ready(function () {
         endDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy",
-        language: "tr"
+        format: "dd/mm/yyyy"
     }).on('changeDate', function (ev) {
-        $(this).blur();
         $(this).blur();
         $(this).datepicker('hide');
     });
