@@ -480,16 +480,24 @@ namespace Group8_AD_webapp
             lstData.RenderControl(hw);
 
             StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 50f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            //PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
+
+            //using header class started
+            writer.PageEvent = new Header();
+            Paragraph welcomeParagraph = new Paragraph();
+            pdfDoc.Add(welcomeParagraph);
+            //using header class ended
 
             htmlparser.Parse(sr);
             pdfDoc.Close();
 
             Response.Write(pdfDoc);
             Response.End();
+                       
         }
 
         [WebMethod]
@@ -515,12 +523,37 @@ namespace Group8_AD_webapp
             string path = HttpContext.Current.Server.MapPath("~/PDF/") + "\\Report.png";
             byte[] imagebytes = File.ReadAllBytes(path);
             iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imagebytes);
+            
+            image.ScaleAbsolute(600f, 300f);        
+                        
             using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
             {
-                Document document = new Document(PageSize.A4.Rotate(), 10f, 10f, 10f, 10f);
+                Document document = new Document(PageSize.A4.Rotate(), 10f, 10f, 10f, 0f);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
-                document.Add(image);
+                //document.Add(image);
+
+                //pdf and image size customize by Noel Noel Han
+                PdfPTable headerTbl = new PdfPTable(1);
+                headerTbl.TotalWidth = 300;
+                headerTbl.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell cell = new PdfPCell(image);
+                cell.Border = 0;
+                cell.PaddingLeft = 10;
+
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+
+                headerTbl.AddCell(cell);
+                headerTbl.WriteSelectedRows(0, -1, 80, 500, writer.DirectContent);
+                //pdf and image size customize
+
+                //using header class started by Neol Noel Han
+                writer.PageEvent = new Header_Landscape_A4();
+                Paragraph welcomeParagraph = new Paragraph();
+                document.Add(welcomeParagraph);
+                //using header class ended
+
                 document.Close();
                 byte[] bytes = memoryStream.ToArray();
                 memoryStream.Close();
@@ -537,6 +570,62 @@ namespace Group8_AD_webapp
         public override void VerifyRenderingInServerForm(Control control)
         {
 
+        }
+
+        //Header all pages(Portrait)
+	//By Noel Noel Han
+        public partial class Header : PdfPageEventHelper
+        {
+            public override void OnEndPage(PdfWriter writer, Document doc)
+            {
+                string imageurl = HttpContext.Current.Server.MapPath("~/Content/logo.png");
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imageurl);
+                logo.ScaleAbsolute(140, 15);
+
+                //Paragraph header = new Paragraph("LOGIC UNIVERSITY", FontFactory.GetFont(FontFactory.TIMES, 25, iTextSharp.text.Font.NORMAL));
+                //header.Alignment = Element.ALIGN_LEFT;
+                logo.Alignment = Element.ALIGN_CENTER;
+                PdfPTable headerTbl = new PdfPTable(1);
+                headerTbl.TotalWidth = 300;
+                headerTbl.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell cell = new PdfPCell(logo);
+                cell.Border = 0;
+                cell.PaddingLeft = 10;
+
+                headerTbl.AddCell(cell);
+                headerTbl.WriteSelectedRows(0, -1, 230, 820, writer.DirectContent);
+            }
+        }
+
+        //Header all pages(LandscapeA4)
+	//By Noel Noel Han
+        public partial class Header_Landscape_A4 : PdfPageEventHelper
+        {
+            public override void OnEndPage(PdfWriter writer, Document doc)
+            {
+                string imageurl = HttpContext.Current.Server.MapPath("~/Content/logo.png");
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imageurl);
+                logo.ScaleAbsolute(140, 15);
+
+                //Paragraph header = new Paragraph("LOGIC UNIVERSITY", FontFactory.GetFont(FontFactory.TIMES, 25, iTextSharp.text.Font.NORMAL));
+                //header.Alignment = Element.ALIGN_LEFT;
+                //logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                logo.Alignment = Element.ALIGN_CENTER;
+                PdfPTable headerTbl = new PdfPTable(1);
+                headerTbl.TotalWidth = 300;
+                headerTbl.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell cell = new PdfPCell(logo);
+                cell.Border = 0;
+                cell.PaddingLeft = 10;
+
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+
+                headerTbl.AddCell(cell);
+                headerTbl.WriteSelectedRows(0, -1, 270, 550, writer.DirectContent);
+            }
         }
     }
 }
