@@ -43,7 +43,7 @@ namespace Group8_AD_webapp
             }
             
             //get past 6 months
-            var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
+            var lastSixMonths = Enumerable.Range(0, 7).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
 
             if (!IsPostBack)

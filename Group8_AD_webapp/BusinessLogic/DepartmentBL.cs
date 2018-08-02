@@ -72,7 +72,7 @@ namespace Group8AD_WebAPI.BusinessLogic
                     int rowinserted = entities.SaveChanges();
                     if (rowinserted > 0)
                     {
-                        EmailBL.AddNewEmailToEmp(empId, "Assign Reprsentative", "You have been assigned as reprsentative for your department.");
+                        EmailBL.AddNewEmailToEmp(empId, "Assign Representative", "You have been assigned as representative for your department.");
                         return true;
                     }
                     else
