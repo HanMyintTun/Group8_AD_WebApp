@@ -13,7 +13,7 @@
         <asp:DropDownList ID="ddlCategory" CssClass="ddlsearch form-control mx-2 bb" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="DdlCategory_SelectedIndexChanged" AutoPostBack="True">
             <asp:listitem text="All" value="All" />
         </asp:DropDownList>
-        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight bb" runat="server" AutoPostBack ="True"></asp:TextBox>
+        <asp:TextBox ID="txtSearch" CssClass="txtSearch form-control mx-2 controlheight bb" runat="server"></asp:TextBox>
         <asp:Button ID="btnSearch" runat="server" CssClass="btnSearch btn btn-primary button" Text="Search" OnClick="BtnSearch_Click" />
      </div></div></div>
 
@@ -66,6 +66,9 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+        <EmptyDataTemplate>
+            Sorry! There are no results that match your search criteria.
+        </EmptyDataTemplate>
     </asp:GridView>
 
      <div class="row">

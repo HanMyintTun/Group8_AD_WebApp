@@ -57,7 +57,7 @@
                         <fieldset>
                             <div class="form-group">
                                                         <asp:TextBox ID="UserName"  runat="server" ClientIDMode="Static"  placeholder="Employee Number" CssClass="form-control" ToolTip="Employee ID should be a number"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvUsername" ClientIDMode="Static" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="Employee ID is required." ValidationGroup="Login1" ForeColor="Red" Font-Bold="True"></asp:RequiredFieldValidator>
+                                                        <asp:RequiredFieldValidator ID="rfvUsername" ClientIDMode="Static" runat="server" ControlToValidate="UserName" ErrorMessage="Employee Number is required." ToolTip="Employee ID is required." ValidationGroup="Login1" ForeColor="Red" Font-Bold="True"></asp:RequiredFieldValidator>
                             
                             </div>
                             <div class="form-group">

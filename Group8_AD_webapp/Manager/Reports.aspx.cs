@@ -216,8 +216,8 @@ namespace Group8_AD_webapp
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
                                 if (d2.CompareTo(d1) >= 0)
                                 {
@@ -279,8 +279,8 @@ namespace Group8_AD_webapp
                         {
                             if (txtFromDate.Text != "" && txtToDate.Text != "")
                             {
-                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                DateTime d1 = DateTime.ParseExact(txtFromDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
+                                DateTime d2 = DateTime.ParseExact(txtToDate.Text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
                                 if (d2.CompareTo(d1) >= 0)
                                 {

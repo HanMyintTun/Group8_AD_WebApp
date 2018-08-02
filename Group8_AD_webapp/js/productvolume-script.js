@@ -12,7 +12,7 @@ function start() {
         endDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy"
+        format: "dd-M-yyyy"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).datepicker('hide');
@@ -24,7 +24,7 @@ function start() {
         endDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy"
+        format: "dd-M-yyyy"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).datepicker('hide');

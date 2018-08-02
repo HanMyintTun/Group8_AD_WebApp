@@ -232,13 +232,13 @@
                             <div class="tab-pane fade" id="tabDate">
                                 <div class="col-md-6">
                                          <div class="input-group">
-                                            <asp:TextBox ID="txtFromDate" ClientIDMode="Static" autocomplete="off" placeholder="from: dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <asp:TextBox ID="txtFromDate" ClientIDMode="Static" autocomplete="off" placeholder="from: day-month-year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                  <div class="col-md-6">
                                          <div class="input-group">
-                                            <asp:TextBox ID="txtToDate" ClientIDMode="Static" autocomplete="off" placeholder="to: dd/mm/yyyy" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
+                                            <asp:TextBox ID="txtToDate" ClientIDMode="Static" autocomplete="off" placeholder="to: day-month-year" runat="server" CssClass="form-control calendar-db"></asp:TextBox>
                                             <span class="input-group-addon calendar-db"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                 </div>
