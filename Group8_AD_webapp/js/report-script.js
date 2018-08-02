@@ -5,7 +5,7 @@
         endDate: '-1',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy"
+        format: "dd-M-yyyy"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).datepicker('hide');
@@ -29,7 +29,7 @@ $(document).ready(function () {
         endDate: '0',
         changeMonth: true,
         changeYear: true,
-        format: "dd/mm/yyyy"
+        format: "dd-M-yyyy"
     }).on('changeDate', function (ev) {
         $(this).blur();
         $(this).datepicker('hide');
