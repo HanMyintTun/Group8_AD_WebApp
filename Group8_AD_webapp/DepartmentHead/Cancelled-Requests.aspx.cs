@@ -46,8 +46,8 @@ namespace Group8_AD_webapp
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
             lblEmpName.Text = emp.EmpName.ToString();
-            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
-            lblCancel.Text = req.CancelledDateTime.ToString("dd'/'MM'/'yyyy");
+            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'-'MMM'-'yyyy");
+            lblCancel.Text = req.CancelledDateTime.ToString("dd'-'MMM'-'yyyy");
             lstShow.DataSource = showList;
             lstShow.DataBind();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);//modal popup

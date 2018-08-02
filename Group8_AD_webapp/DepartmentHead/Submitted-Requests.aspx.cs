@@ -48,7 +48,7 @@ namespace Group8_AD_webapp
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
             lblEmpName.Text = emp.EmpName.ToString();
-            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
+            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'-'MMM'-'yyyy");
             lblEmployeename.Text = emp.EmpName.ToString();
             lblReqEmployeename.Text = emp.EmpName.ToString();
             lstShow.DataSource = showList;

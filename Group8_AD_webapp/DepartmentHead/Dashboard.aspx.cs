@@ -41,8 +41,7 @@ namespace Group8_AD_webapp
                 txtToDate.Enabled = false;
                 
             }
-
-
+            
             //get past 6 months
             var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("MMMM" + " yyyy", CultureInfo.InvariantCulture)).Reverse();
             List<string> monthslist = lastSixMonths.ToList();
@@ -53,6 +52,7 @@ namespace Group8_AD_webapp
                 ddlMonth.DataSource = monthslist;
                 ddlMonth.DataBind();
                 GetDeleRep();
+                
             }
 
         }
@@ -117,10 +117,25 @@ namespace Group8_AD_webapp
         //add delegate
         protected void AddDelegate(object sender, EventArgs e)
         {
+           
+
             if (ddlDelegate.SelectedItem.Text != "Select Employee" && txtFromDate.Text != "" && txtToDate.Text != "")
             {
-                lblSelectedDel.Text = ddlDelegate.SelectedItem.Text.ToString();
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal();", true);//modal popup
+
+                DateTime startDate = DateTime.Parse(txtFromDate.Text.ToString());
+                DateTime endDate = DateTime.Parse(txtToDate.Text.ToString());
+
+                if ( startDate > endDate)
+                {
+                    lblDateCompare.Text = "Start date must be earlier than end date";
+                }
+                else
+                {
+                    lblDateCompare.Visible = false;
+                    lblSelectedDel.Text = ddlDelegate.SelectedItem.Text.ToString();
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#mdlDeleSet').modal();", true);//modal popup
+                }
+
             }
         }
 

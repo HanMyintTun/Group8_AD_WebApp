@@ -157,7 +157,7 @@
                                                     <tr id="grdHeader" runat="server">
                                                         <th scope="col" style="display: none">Item Code</th>
                                                         <th scope="col">Item Name</th>
-                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Requested Quantity</th>
                                                         <th scope="col">Fulfilled Quantity</th>
                                                         <th scope="col"></th>
 

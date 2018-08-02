@@ -137,6 +137,11 @@
                                     </div>
                                 </div>
                                 <asp:RequiredFieldValidator ControlToValidate="txtFromDate" Display="Dynamic" ID="rftxtFromDate" runat="server" ForeColor="red" ValidationGroup="addDel" ErrorMessage="Please Select Date"></asp:RequiredFieldValidator>
+                                <asp:UpdatePanel ID="updatepanel5" runat="server">
+                                    <ContentTemplate>
+                                        <asp:Label ID="lblDateCompare" runat="server" ForeColor="red" Text=""></asp:Label>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
@@ -149,23 +154,26 @@
                                     </div>
                                 </div>
                                 <asp:RequiredFieldValidator ControlToValidate="txtToDate" Display="Dynamic" ID="rftxtToDate" runat="server" ForeColor="red" ValidationGroup="addDel" ErrorMessage="Please Select Date"></asp:RequiredFieldValidator>
+
                             </div>
 
                             <div class="col-lg-3">
-                                <div class="form-group">
+                                <asp:UpdatePanel ID="updatepanel2" runat="server">
+                                    <ContentTemplate>
+                                        <div class="form-group">
 
-                                    <div class="input-group">
-                                        <asp:UpdatePanel ID="updatepanel2" runat="server">
-                                            <ContentTemplate>
+                                            <div class="input-group">
+
 
                                                 <button runat="server" id="btnAddDelegate" causesvalidation="true" class="btn btn-success btn-remove" validationgroup="addDel" onserverclick="AddDelegate">
                                                     <i class="fa fa-check" aria-hidden="true"></i>
                                                 </button>
 
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                    </div>
-                                </div>
+
+                                            </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
@@ -260,8 +268,13 @@
                         <h3 class="detail-subtitle">Delegate Addition!</h3>
                     </div>
                     <div class="panel-body">
-                        You are about to add <span style="font-weight: bold;">
-                            <asp:Label runat="server" ID="lblSelectedDel"></asp:Label></span> to your delegate. Are you sure?<br />
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                You are about to add <span style="font-weight: bold;">
+                                    <asp:Label runat="server" ID="lblSelectedDel"></asp:Label></span> to your delegate. Are you sure?
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
                         <div class="action-btn" style="text-align: center; float: none;">
 
                             <asp:Button ID="Button2" class="btn btn-danger btn-msize" OnClick="btnSetDelNo_Click" runat="server" Text="No" />
@@ -282,8 +295,13 @@
                         <h3 class="detail-subtitle">Representative Addition!</h3>
                     </div>
                     <div class="panel-body">
-                        You are about to add <span style="font-weight: bold;">
-                            <asp:Label runat="server" ID="lblSelectedRep"></asp:Label></span> to your representative. Are you sure?<br />
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                You are about to add <span style="font-weight: bold;">
+                                    <asp:Label runat="server" ID="lblSelectedRep"></asp:Label></span> to your representative. Are you sure?
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
                         <div class="action-btn" style="text-align: center; float: none;">
 
                             <asp:Button ID="Button4" class="btn btn-danger btn-msize" OnClick="btnSetRepNo_Click" runat="server" Text="No" />

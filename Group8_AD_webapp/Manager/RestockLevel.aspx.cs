@@ -91,6 +91,8 @@ namespace Group8_AD_webapp.Manager
         {
             saveList();
             grdRestockItem.PageIndex = e.NewPageIndex;
+            grdRestockItem.DataSource = editedItems;
+            grdRestockItem.DataBind();
         }
 
         protected void saveList()
@@ -105,8 +107,7 @@ namespace Group8_AD_webapp.Manager
                     editedItems[i].NewReorderLvl = Convert.ToInt32(((TextBox)row.FindControl("txtChangeReLevel")).Text);
                     editedItems[i].NewReorderQty = Convert.ToInt32(((TextBox)row.FindControl("txtChangeRestockQty")).Text);
                 }
-                grdRestockItem.DataSource = editedItems;
-                grdRestockItem.DataBind();
+               
             }
         }
 

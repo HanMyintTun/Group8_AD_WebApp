@@ -47,9 +47,9 @@ namespace Group8_AD_webapp
             List<RequestDetailVM> showList = BusinessLogic.GetItemDetailList(rid);
             lblReqid.Text = req.ReqId.ToString();
             lblEmpName.Text = emp.EmpName.ToString();
-            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'/'MM'/'yyyy");
-            lblApprove.Text = req.ApprovedDateTime.ToString("dd'/'MM'/'yyyy");
-            lblFulfill.Text = req.FulfilledDateTime.ToString("dd'/'MM'/'yyyy");
+            lblSubmitteddate.Text = req.ReqDateTime.ToString("dd'-'MMM'-'yyyy");
+            lblApprove.Text = req.ApprovedDateTime.ToString("dd'-'MMM'-'yyyy");
+            lblFulfill.Text = req.FulfilledDateTime.ToString("dd'-'MMM'-'yyyy");
             if (req.ApproverComment == null)
             {
                 txtComments.Text = "";
